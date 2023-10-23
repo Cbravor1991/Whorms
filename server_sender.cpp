@@ -22,23 +22,17 @@ void ServerLanzador::run()
     }
 }
 
-void ServerLanzador::enviar_mensaje()
+void ServerLanzador::enviar_viga(bool tipo, int x, int y)
 {
-    Mensaje mensaje;
-    if (mensajes.try_pop(mensaje))
-    {
-        if (mensaje.tipo_mensaje)
-        {
-            protocolo->enviar_mensaje(mensaje.cadena);
-        }else{
-            int cantidad = std::stoi(mensaje.cadena);
-            protocolo->enviar_cantidad_jugadores(cantidad);
-        }
-    }
+    protocolo->enviar_viga(tipo, x, y);
 }
 
-void ServerLanzador::recibir_mensaje(Mensaje mensaje)
+void ServerLanzador::enviar_cantidad_jugadores(int cantidad)
 {
-    mensajes.push(mensaje);
-    enviar_mensaje();
+    protocolo->enviar_cantidad_jugadores(cantidad);
+}
+
+void ServerLanzador::enviar_jugador(int id, int x, int y)
+{
+    protocolo->enviar_jugador(id, x, y);
 }

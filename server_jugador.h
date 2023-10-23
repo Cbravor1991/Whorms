@@ -19,10 +19,13 @@ private:
     ServerRecibidor *recibidor;
 
 public:
-    
     Jugador(ProtocoloServer *socket, ServerLanzador *lanzador, ServerRecibidor *recibidor);
 
-    void recibir_mensaje(Mensaje mensaje);
+    void enviar_viga(bool tipo, int x, int y);
+
+    void enviar_cantidad_jugadores(int cantidad);
+
+    void enviar_jugador(int id, int x, int y);
 
     bool sigo_conectado();
 

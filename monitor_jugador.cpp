@@ -1,42 +1,35 @@
 #include "monitor_jugador.h"
 
-void MonitorJugadores::agregar_mensaje(const std::string &mensaje)
-{
-    Mensaje ultimo_mensaje;
-    ultimo_mensaje.cadena = mensaje;
-    ultimo_mensaje.tipo_mensaje = true;
-    actualizar_colas(ultimo_mensaje);
-}
-
-void MonitorJugadores::actualizar_colas(const Mensaje &mensaje)
-{
-    print_mensaje(mensaje);
-    actualizar_jugadores(mensaje);
-}
-
-void MonitorJugadores::print_mensaje(Mensaje mensaje)
+void MonitorJugadores::actualizar_jugadores_viga(bool tipo, int x, int y)
 {
     std::unique_lock<std::mutex> lck(mutex_);
-    if (mensaje.tipo_mensaje)
-    {
-        std::cout << mensaje.cadena << std::endl;
-    }
-    else if (mensaje.cadena != "")
-    {
-        std::cout << "Jugadores " << mensaje.cadena
-                  << ", esperando al resto de tus amigos";
-        std::cout << "."
-                  << "."
-                  << "." << std::endl;
-    }
-}
-
-void MonitorJugadores::actualizar_jugadores(Mensaje mensaje)
-{
-    std::unique_lock<std::mutex> lck(mutex_);
+    std::cout << "Viga " << tipo << " en coordenadas"
+              << " X: " << x << " Y: " << y << std::endl;
     for (auto &jugador : jugadores)
     {
-        jugador->recibir_mensaje(mensaje);
+        jugador->enviar_viga(tipo, x, y);
+    }
+}
+
+void MonitorJugadores::actualizar_jugadores_cantidad(int cantidad)
+{
+    std::unique_lock<std::mutex> lck(mutex_);
+    std::cout << "Jugadores " << cantidad
+              << ", esperando al resto de tus amigos…" << std::endl;
+    for (auto &jugador : jugadores)
+    {
+        jugador->enviar_cantidad_jugadores(cantidad);
+    }
+}
+
+void MonitorJugadores::actualizar_jugadores_jugador(int id, int x, int y)
+{
+    std::unique_lock<std::mutex> lck(mutex_);
+    std::cout << "Jugador " << id << " en coordenadas"
+              << " X: " << x << " Y: " << y << std::endl;
+    for (auto &jugador : jugadores)
+    {
+        jugador->enviar_jugador(id, x, y);
     }
 }
 
@@ -46,6 +39,7 @@ void MonitorJugadores::agregar_jugador(Jugador *jugador)
     jugadores.push_back(jugador);
     lck.unlock();
     actualizar_cantidad_jugadores(1);
+    cargar_mapa(jugador);
 }
 
 void MonitorJugadores::avisar_desconexion()
@@ -89,10 +83,25 @@ void MonitorJugadores::eliminar_jugadores_desconectados()
 void MonitorJugadores::actualizar_cantidad_jugadores(int cantidad)
 {
     cantidad_jugadores += cantidad;
-    Mensaje ultimo_mensaje;
-    ultimo_mensaje.cadena = std::to_string(cantidad_jugadores);
-    ultimo_mensaje.tipo_mensaje = false;
-    actualizar_colas(ultimo_mensaje);
+    actualizar_jugadores_cantidad(cantidad_jugadores);
+}
+
+void MonitorJugadores::agregar_viga(bool tipo, int x, int y)
+{
+    Viga nueva_viga;
+    nueva_viga.tipo = tipo;
+    nueva_viga.x = x;
+    nueva_viga.y = y;
+
+    vigas.push_back(nueva_viga);
+}
+
+void MonitorJugadores::cargar_mapa(Jugador *jugador)
+{
+    for (auto &viga : vigas)
+    {
+        jugador->enviar_viga(viga.tipo, viga.x, viga.y);
+    }
 }
 
 MonitorJugadores::~MonitorJugadores()

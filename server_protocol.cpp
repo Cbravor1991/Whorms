@@ -2,6 +2,8 @@
 #include <vector>
 #include <algorithm>
 #include "server_protocol.h"
+#include <ostream>
+#include <iostream>
 
 ProtocoloServer::ProtocoloServer(
     Socket socket) : socket(std::move(socket))
@@ -20,30 +22,21 @@ int ProtocoloServer::leer_movimiento()
     return static_cast<int>(buffer[0] & 0xFF);
 }
 
-int ProtocoloServer::leer_longitud()
+void ProtocoloServer::enviar_jugador(int id, int x, int y)
 {
-    std::vector<std::int8_t> buffer(BYTES_LONGITUD);
+    std::vector<int8_t> buffer = traducir_jugador_a_enviar(id, x, y);
     bool was_closed = false;
-    try
+    int tamanio = sizeof(int8_t) * buffer.size();
+    socket.sendall(buffer.data(), tamanio, &was_closed);
+    if (was_closed)
     {
-
-        socket.recvall(buffer.data(), BYTES_LONGITUD, &was_closed);
-        if (was_closed)
-        {
-            en_conexion = false;
-        }
-        int longitud = traducir_tamanio_mensaje(buffer);
-        return longitud;
-    }
-    catch (const std::exception &err)
-    {
-        return 1;
+        en_conexion = false;
     }
 }
 
-void ProtocoloServer::enviar_mensaje(const std::string &chat)
+void ProtocoloServer::enviar_viga(bool tipo, int x, int y)
 {
-    std::vector<int8_t> buffer = traducir_mensaje_a_enviar(chat);
+    std::vector<int8_t> buffer = traducir_viga_a_enviar(tipo, x, y);
     bool was_closed = false;
     int tamanio = sizeof(int8_t) * buffer.size();
     socket.sendall(buffer.data(), tamanio, &was_closed);
@@ -88,35 +81,43 @@ std::vector<int8_t> ProtocoloServer::traducir_cantidad_jugadores_a_enviar(int ca
     return mensaje_cantidad;
 }
 
-std::vector<int8_t> ProtocoloServer::traducir_mensaje_a_enviar(const std::string &chat)
+std::vector<int8_t> ProtocoloServer::traducir_viga_a_enviar(bool tipo, int x, int y)
 {
-    std::vector<int8_t> mensaje_serializado;
 
-    uint16_t chat_msg_length = htons(static_cast<uint16_t>(chat.size()));
+    std::vector<int8_t> mensaje_serializado(6);
 
-    mensaje_serializado.push_back(CHAT);
+    mensaje_serializado[0] = 0x09;
 
-    // Agrega la longitud del mensaje en big-endian
-    uint8_t *length_ptr = reinterpret_cast<uint8_t *>(&chat_msg_length);
-    mensaje_serializado.push_back(length_ptr[0]);
-    mensaje_serializado.push_back(length_ptr[1]);
+    mensaje_serializado[1] = tipo ? 0x01 : 0x00;
 
-    // Agrega el mensaje de chat
-    std::copy(chat.begin(), chat.end(), std::back_inserter(mensaje_serializado));
+    // Serializar el valor de x (16 bits)
+    mensaje_serializado[2] = static_cast<int8_t>((x >> 8) & 0xFF);
+    mensaje_serializado[3] = static_cast<int8_t>(x & 0xFF);
+
+    // Serializar el valor de y (16 bits)
+    mensaje_serializado[4] = static_cast<int8_t>((y >> 8) & 0xFF);
+    mensaje_serializado[5] = static_cast<int8_t>(y & 0xFF);
+
+      return mensaje_serializado;
+}
+
+std::vector<int8_t> ProtocoloServer::traducir_jugador_a_enviar(int id, int x, int y)
+{
+    std::vector<int8_t> mensaje_serializado(7);
+
+    mensaje_serializado[0] = 0x01; // Código inicial
+
+    // Serializar el valor de id (16 bits)
+    mensaje_serializado[1] = static_cast<int8_t>((id >> 8) & 0xFF);
+    mensaje_serializado[2] = static_cast<int8_t>(id & 0xFF);
+
+    // Serializar el valor de x (16 bits)
+    mensaje_serializado[3] = static_cast<int8_t>((x >> 8) & 0xFF);
+    mensaje_serializado[4] = static_cast<int8_t>(x & 0xFF);
+
+    // Serializar el valor de y (16 bits)
+    mensaje_serializado[5] = static_cast<int8_t>((y >> 8) & 0xFF);
+    mensaje_serializado[6] = static_cast<int8_t>(y & 0xFF);
+
     return mensaje_serializado;
-}
-
-int ProtocoloServer::traducir_tamanio_mensaje(const std::vector<std::int8_t> &buffer)
-{
-    uint16_t longitud;
-    std::memcpy(&longitud, &buffer[1], sizeof(uint16_t));
-    longitud = ntohs(longitud);
-    return longitud;
-}
-
-std::string ProtocoloServer::traducir_mensaje_recibido(
-    const std::vector<std::int8_t> &buffer, int longitud)
-{
-    std::string tipo(buffer.begin(), buffer.begin() + longitud);
-    return tipo;
 }

@@ -20,8 +20,6 @@ void ProtocoloCliente::enviar_mensaje(const std::string &mensaje)
     // Convierte la cadena a un número entero
     int numero = std::stoi(mensaje);
 
-    std::cout << numero << std::endl;
-
     int8_t byte = static_cast<int8_t>(numero);
 
     // Envía el byte
@@ -33,35 +31,99 @@ void ProtocoloCliente::enviar_mensaje(const std::string &mensaje)
     }
 }
 
-bool ProtocoloCliente::recibir_mensaje()
+int ProtocoloCliente::recibir_mensaje()
 {
     bool was_closed = false;
     uint8_t buffer;
-    socket.recvall(&buffer, RECIBO_BYTE, &was_closed);
-    if (was_closed)
+    try
     {
-        en_conexion = false;
+
+        socket.recvall(&buffer, RECIBO_BYTE, &was_closed);
+        if (was_closed)
+        {
+            en_conexion = false;
+        }
+        return traducir_tipo_mensaje(buffer);
     }
-    return traducir_tipo_mensaje(buffer);
+    catch (const std::exception &err)
+    {
+        return 1;
+    }
 }
 
-std::string ProtocoloCliente::recibir_chat()
+Jugador ProtocoloCliente::recibir_jugador()
 {
     bool was_closed = false;
-    uint16_t buffer;
-    socket.recvall(&buffer, BYTES_LONGITUD, &was_closed);
+    Jugador jugador;
+
+    // Recibir el ID del jugador
+    socket.recvall(&(jugador.id), BYTES_ID, &was_closed);
+    jugador.id = ntohs(jugador.id);
+
     if (was_closed)
     {
         en_conexion = false;
+        return jugador; // Devuelve el objeto jugador con ID vacío
     }
-    int tamanio = traducir_tamanio_mensaje(buffer);
-    std::vector<std::int8_t> buffer_chat(tamanio);
-    socket.recvall(buffer_chat.data(), tamanio, &was_closed);
+
+    // Recibir la coordenada X
+    socket.recvall(&(jugador.x), BYTES_X, &was_closed);
+    jugador.x = ntohs(jugador.x);
+
     if (was_closed)
     {
         en_conexion = false;
+        return jugador; // Devuelve el objeto jugador con X vacío
     }
-    return traducir_mensaje_chat(buffer_chat, tamanio);
+
+    // Recibir la coordenada Y
+    socket.recvall(&(jugador.y), BYTES_Y, &was_closed);
+    jugador.y = ntohs(jugador.y);
+
+    if (was_closed)
+    {
+        en_conexion = false;
+        return jugador; // Devuelve el objeto jugador con Y vacío
+    }
+
+    return jugador; // Devuelve el objeto jugador con ID, X e Y
+}
+
+Viga ProtocoloCliente::recibir_viga()
+{
+    bool was_closed = false;
+    Viga viga;
+
+    // Recibir el tipo de viga
+    socket.recvall(&(viga.tipo), BYTES_TIPO, &was_closed);
+
+    if (was_closed)
+    {
+        en_conexion = false;
+        return viga;
+    }
+
+    // Recibir la coordenada X
+    socket.recvall(&(viga.x), BYTES_X, &was_closed);
+    viga.x = ntohs(viga.x);
+
+    if (was_closed)
+    {
+        en_conexion = false;
+        return viga;
+    }
+
+    // Recibir la coordenada Y
+    socket.recvall(&(viga.y), BYTES_Y, &was_closed);
+    viga.y = ntohs(viga.y);
+
+    if (was_closed)
+    {
+        en_conexion = false;
+        return viga;
+    }
+
+    return viga;
 }
 
 int ProtocoloCliente::recibir_cantidad_jugadores()
@@ -77,23 +139,22 @@ int ProtocoloCliente::recibir_cantidad_jugadores()
     return cantidad;
 }
 
-bool ProtocoloCliente::traducir_tipo_mensaje(const uint8_t &buffer)
+int ProtocoloCliente::traducir_tipo_mensaje(const uint8_t &buffer)
 {
-    bool tipo = true;
+    int tipo;
     if (buffer == CANT_JUGADORES)
     {
-        tipo = true;
+        tipo = 0;
     }
-    else if (buffer == RECIBIR_CHAT)
+    else if (buffer == RECIBIR_JUGADOR)
     {
-        tipo = false;
+        tipo = 1;
+    }
+    else if (buffer == RECIBIR_VIGA)
+    {
+        tipo = 2;
     }
     return tipo;
-}
-
-std::vector<int8_t> ProtocoloCliente::traducir_mensaje_a_enviar(const std::string &linea)
-{
-    return serializar_acciones(linea);
 }
 
 int ProtocoloCliente::traducir_mensaje_cantidad(const uint8_t &buffer)
@@ -101,49 +162,14 @@ int ProtocoloCliente::traducir_mensaje_cantidad(const uint8_t &buffer)
     return static_cast<int>(static_cast<unsigned char>(buffer));
 }
 
-std::string ProtocoloCliente::traducir_mensaje_chat(const std::vector<std::int8_t> &buffer,
-                                                    int longitud)
+void ProtocoloCliente::desconectar()
 {
-    std::string chat;
-
-    if (!buffer.empty())
-    {
-        chat.assign(buffer.begin(), buffer.begin() + longitud);
-    }
-
-    return chat;
+    en_conexion = false;
+    socket.shutdown(2);
+    socket.close();
 }
 
-int ProtocoloCliente::traducir_tamanio_mensaje(const uint16_t &buffer)
-{
-    uint16_t longitud;
-    std::memcpy(&longitud, &buffer, sizeof(uint16_t));
-
-    longitud = ntohs(longitud);
-    return longitud;
-}
-
-std::vector<int8_t> ProtocoloCliente::serializar_acciones(
-    const std::string &chat)
-{
-    std::vector<int8_t> mensaje_serializado;
-    uint16_t chat_longitud = htons(static_cast<uint16_t>(chat.size()));
-
-    // Agrega el código de acción (0x05)
-    mensaje_serializado.push_back(ENVIAR_CHAT);
-
-    // Agrega la longitud del mensaje en big-endian
-    uint8_t *length_ptr = reinterpret_cast<uint8_t *>(&chat_longitud);
-    mensaje_serializado.push_back(length_ptr[0]);
-    mensaje_serializado.push_back(length_ptr[1]);
-
-    // Agrega el mensaje de chat
-    std::copy(chat.begin(), chat.end(), std::back_inserter(mensaje_serializado));
-
-    return mensaje_serializado;
-}
-
-bool ProtocoloCliente::sigue_conectado()
+bool ProtocoloCliente::check_en_conexion()
 {
     return en_conexion;
 }

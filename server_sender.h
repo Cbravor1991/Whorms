@@ -13,17 +13,17 @@ class ServerLanzador : public Thread
 {
 private:
     ProtocoloServer *protocolo;
-    Queue<Mensaje> mensajes;
-
-    void
-    enviar_mensaje();
 
 public:
     explicit ServerLanzador(ProtocoloServer *protocolo);
 
     void run() override;
 
-    void recibir_mensaje(Mensaje mensaje);
+    void enviar_viga(bool tipo, int x, int y);
+
+    void enviar_cantidad_jugadores(int cantidad);
+
+    void enviar_jugador(int id, int x, int y);
 };
 
 #endif

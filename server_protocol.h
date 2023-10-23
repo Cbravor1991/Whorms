@@ -33,9 +33,9 @@ private:
 
     std::vector<int8_t> traducir_cantidad_jugadores_a_enviar(int cantidad);
 
-    std::vector<int8_t> traducir_mensaje_a_enviar(const std::string &chat);
+    std::vector<int8_t> traducir_viga_a_enviar(bool tipo, int x, int y);
 
-    int traducir_tamanio_mensaje(const std::vector<std::int8_t> &buffer);
+    std::vector<int8_t> traducir_jugador_a_enviar(int id, int x, int y);
 
     std::string traducir_mensaje_recibido(
         const std::vector<std::int8_t> &buffer, int longitud);
@@ -45,7 +45,9 @@ public:
 
     int leer_movimiento();
 
-    void enviar_mensaje(const std::string &chat);
+    void enviar_jugador(int id, int x, int y);
+
+    void enviar_viga(bool tipo, int x, int y);
 
     void enviar_cantidad_jugadores(int cantidad);
 
