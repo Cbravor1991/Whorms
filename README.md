@@ -1,5 +1,3 @@
-# Threads
-
-![Alt text](image-1.png)
-
 # Whorms
+
+![Alt text](image.png)
