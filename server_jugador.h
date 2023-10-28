@@ -17,15 +17,14 @@ private:
     ProtocoloServer *socket;
     ServerLanzador *lanzador;
     ServerRecibidor *recibidor;
+    Queue<std::string> *cola;
 
 public:
-    Jugador(ProtocoloServer *socket, ServerLanzador *lanzador, ServerRecibidor *recibidor);
+    Jugador(ProtocoloServer *socket);
 
-    void enviar_viga(bool tipo, int x, int y);
+    void jugar(Queue<std::string> *cola, int jugador_id);
 
-    void enviar_cantidad_jugadores(int cantidad);
-
-    void enviar_jugador(int id, int x, int y);
+    void recibir_comando(std::string comando);
 
     bool sigo_conectado();
 

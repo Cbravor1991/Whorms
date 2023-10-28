@@ -4,9 +4,11 @@
 #include <mutex>
 #include <string>
 #include <vector>
+#include <map>
 #include <condition_variable>
 #include "server_jugador.h"
 #include "server_protocol.h"
+#include "turno.h"
 
 struct Viga
 {
@@ -22,13 +24,17 @@ class MonitorJugadores
 public:
     MonitorJugadores() {}
 
+    int cambiar_turno();
+
+    void cargar_mapa(Jugador *jugador);
+
+    void notificar_segundos(int segundos);
+
     void actualizar_jugadores_cantidad(int cantidad);
 
     void actualizar_jugadores_jugador(int id, int x, int y);
 
-    void actualizar_jugadores_viga(bool tipo, int x, int y);
-
-    void agregar_jugador(Jugador *jugador);
+    int agregar_jugador(Jugador *jugador);
 
     void limpiar_desconectados();
 
@@ -41,11 +47,13 @@ public:
 private:
     std::mutex mutex_;
     std::atomic<int> cantidad_jugadores = 0;
-    std::vector<Jugador *> jugadores;
+    std::map<int, Jugador *> jugadores;
     std::vector<Jugador *> jugadores_desconectados;
     std::vector<Viga> vigas;
+    Turno turno;
+    int id;
 
-    void cargar_mapa(Jugador *jugador);
+    int encontrar_siguiente_id_disponible() const;
 
     void actualizar_cantidad_jugadores(int cantidad);
 

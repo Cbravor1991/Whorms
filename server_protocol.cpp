@@ -10,16 +10,53 @@ ProtocoloServer::ProtocoloServer(
 {
 }
 
-int ProtocoloServer::leer_movimiento()
+void ProtocoloServer::enviar_id(int jugador_id)
 {
-    std::vector<std::int8_t> buffer(1);
+    // Preparar el byte a enviar
     bool was_closed = false;
-    socket.recvall(buffer.data(), 1, &was_closed);
+    uint8_t byte_a_enviar = static_cast<uint8_t>(jugador_id);
+
+    // Enviar el byte a través del socket
+    socket.sendall(&byte_a_enviar, 1, &was_closed);
     if (was_closed)
     {
         en_conexion = false;
     }
-    return static_cast<int>(buffer[0] & 0xFF);
+}
+
+void ProtocoloServer::enviar_turno(int jugador_id)
+{
+    // Preparar los bytes a enviar
+    bool was_closed = false;
+    uint8_t bytes_a_enviar[2];
+    bytes_a_enviar[0] = 0x00;
+    bytes_a_enviar[1] = static_cast<uint8_t>(jugador_id);
+
+    // Enviar los bytes a través del socket
+    socket.sendall(bytes_a_enviar, 2, &was_closed);
+    if (was_closed)
+    {
+        en_conexion = false;
+    }
+}
+
+int ProtocoloServer::leer_movimiento()
+{
+    std::vector<std::int8_t> buffer(1);
+    bool was_closed = false;
+    try
+    {
+        socket.recvall(buffer.data(), 1, &was_closed);
+        if (was_closed)
+        {
+            en_conexion = false;
+        }
+        return static_cast<int>(buffer[0] & 0xFF);
+    }
+    catch (const std::exception &err)
+    {
+        return -1;
+    }
 }
 
 void ProtocoloServer::enviar_jugador(int id, int x, int y)
@@ -98,7 +135,7 @@ std::vector<int8_t> ProtocoloServer::traducir_viga_a_enviar(bool tipo, int x, in
     mensaje_serializado[4] = static_cast<int8_t>((y >> 8) & 0xFF);
     mensaje_serializado[5] = static_cast<int8_t>(y & 0xFF);
 
-      return mensaje_serializado;
+    return mensaje_serializado;
 }
 
 std::vector<int8_t> ProtocoloServer::traducir_jugador_a_enviar(int id, int x, int y)

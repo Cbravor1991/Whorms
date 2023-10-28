@@ -9,6 +9,7 @@
 #include <vector>
 #include <condition_variable>
 #include "common_socket.h"
+#include "queue.h"
 #include <atomic>
 
 struct Mensaje
@@ -44,6 +45,10 @@ public:
     explicit ProtocoloServer(Socket socket);
 
     int leer_movimiento();
+
+    void enviar_turno(int jugador_id);
+
+    void enviar_id(int jugador_id);
 
     void enviar_jugador(int id, int x, int y);
 

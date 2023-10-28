@@ -13,6 +13,20 @@ ProtocoloCliente::ProtocoloCliente(const std::string &hostname,
 {
 }
 
+int ProtocoloCliente::recibir_id()
+{
+    bool was_closed = false;
+    uint8_t buffer;
+    socket.recvall(&buffer, RECIBO_BYTE, &was_closed);
+    if (was_closed)
+    {
+        en_conexion = false;
+    }
+    int valor_entero = static_cast<int>(buffer);
+
+    return valor_entero;
+}
+
 void ProtocoloCliente::enviar_mensaje(const std::string &mensaje)
 {
     bool was_closed = false;
@@ -153,6 +167,10 @@ int ProtocoloCliente::traducir_tipo_mensaje(const uint8_t &buffer)
     else if (buffer == RECIBIR_VIGA)
     {
         tipo = 2;
+    }
+    else if (buffer == RECIBIR_TURNO)
+    {
+        tipo = 3;
     }
     return tipo;
 }

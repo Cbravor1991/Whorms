@@ -7,20 +7,21 @@
 #include "queue.h"
 #include "thread.h"
 #include "common_socket.h"
-#include "escenario.h"
+#include "lobby.h"
+#include "server_lobby.h"
 
 class ServerAceptador : public Thread
 {
 private:
     Socket socket;
-    MonitorJugadores *monitor;
     bool ejecutando = true;
-    Escenario *escenario;
+    Lobby *lobby;
+    bool primer_jugador = true;
 
     void lanzar_hilo_manejador(Socket skt_cliente);
 
 public:
-    ServerAceptador(const std::string &servname, MonitorJugadores *monitor);
+    ServerAceptador(const std::string &servname);
 
     void run() override;
 

@@ -13,17 +13,14 @@ class ServerLanzador : public Thread
 {
 private:
     ProtocoloServer *protocolo;
+    Queue<std::string> *cola;
+
+    void procesar_comando(const std::string &comando);
 
 public:
-    explicit ServerLanzador(ProtocoloServer *protocolo);
+    ServerLanzador(ProtocoloServer *protocolo, Queue<std::string> *cola);
 
     void run() override;
-
-    void enviar_viga(bool tipo, int x, int y);
-
-    void enviar_cantidad_jugadores(int cantidad);
-
-    void enviar_jugador(int id, int x, int y);
 };
 
 #endif

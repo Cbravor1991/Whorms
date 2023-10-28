@@ -6,6 +6,50 @@ Escenario::Escenario(std::uint16_t x_size, std::uint16_t y_size, MonitorJugadore
 {
 }
 
+void Escenario::procesar(const std::string &comando)
+{
+    std::istringstream stream(comando);
+    std::string accion;
+    stream >> accion;
+
+    if (accion == "DERECHA")
+    {
+        // Procesar el comando de movimiento hacia la derecha
+        int id;
+        stream >> id;
+        mover_gusano_derecha(1, id);
+        // Realizar la lógica correspondiente con el ID
+    }
+    else if (accion == "IZQUIERDA")
+    {
+        // Procesar el comando de movimiento hacia la izquierda
+        int id;
+        stream >> id;
+        mover_gusano_izquierda(1, id);
+        // Realizar la lógica correspondiente con el ID
+    }
+    else if (accion == "ARRIBA_ADELANTE")
+    {
+        // Procesar el comando de movimiento arriba-adelante
+        int id;
+        stream >> id;
+        mover_gusano_arriba_adelante(1, id);
+        // Realizar la lógica correspondiente con el ID
+    }
+    else if (accion == "ARRIBA_ATRAS")
+    {
+        // Procesar el comando de movimiento arriba-atrás
+        int id;
+        stream >> id;
+        mover_gusano_arriba_atras(1, id);
+        // Realizar la lógica correspondiente con el ID
+    }
+    else
+    {
+        // Manejar comandos desconocidos o inválidos, si es necesario
+    }
+}
+
 void Escenario::avisar_desconexion(int jugador)
 {
     monitor->avisar_desconexion();
@@ -18,24 +62,20 @@ void Escenario::avisar_desconexion(int jugador)
     // Borrar el mapa de gusanos del jugador
     gusanos.erase(jugador);
     // actualizar_jugadores()
-    cantidad_jugadores--;
 }
 
-int Escenario::agregar_gusano()
+void Escenario::agregar_gusano(int jugador_id)
 {
-    int jugador = cantidad_jugadores;
     // Crear un nuevo gusano
     Gusano *nuevoGusano = new Gusano();
     std::map<int, Gusano *> nuevoGusanos;
     nuevoGusanos[1] = nuevoGusano;
-    gusanos[jugador] = nuevoGusanos;
-    cantidad_jugadores++;
+    gusanos[jugador_id] = nuevoGusanos;
     std::pair<int, int> spawn = spawns.front();
     spawns.erase(spawns.begin());
     // Asignar las coordenadas del gusano
     nuevoGusano->setCoordenadas(spawn.first, spawn.second);
     map[spawn.second][spawn.first] = nuevoGusano;
-    return jugador;
 }
 
 void Escenario::colocar_viga(int x, int y, bool tipo, int inclinacion)
@@ -247,14 +287,6 @@ void Escenario::gravedad(Objeto *objeto)
 
 Escenario::~Escenario()
 {
-    // Liberar la memoria de los gusanos
-    for (auto &jugadorGusanos : gusanos)
-    {
-        for (auto &gusanoPair : jugadorGusanos.second)
-        {
-            delete gusanoPair.second;
-        }
-    }
 
     // Limpiar el vector de spawns
     spawns.clear();

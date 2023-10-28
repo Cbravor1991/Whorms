@@ -13,15 +13,9 @@ class Escenario
 public:
     Escenario(std::uint16_t x_size, std::uint16_t y_size, MonitorJugadores *monitor);
 
-    int agregar_gusano();
+    void procesar(const std::string &comando);
 
-    void mover_gusano_derecha(int gusano, int jugador);
-
-    void mover_gusano_izquierda(int gusano, int jugador);
-
-    void mover_gusano_arriba_adelante(int gusano, int jugador);
-
-    void mover_gusano_arriba_atras(int gusano, int jugador);
+    void agregar_gusano(int jugador_id);
 
     void colocar_viga(int x, int y, bool tipo, int inclinacion);
 
@@ -37,6 +31,14 @@ private:
     std::map<int, std::map<int, Gusano *>> gusanos;
     std::vector<std::pair<int, int>> spawns;
     int cantidad_jugadores = 0;
+
+    void mover_gusano_derecha(int gusano, int jugador);
+
+    void mover_gusano_izquierda(int gusano, int jugador);
+
+    void mover_gusano_arriba_adelante(int gusano, int jugador);
+
+    void mover_gusano_arriba_atras(int gusano, int jugador);
 
     void mover(int x, int y, int nuevo_x, int nuevo_y);
 

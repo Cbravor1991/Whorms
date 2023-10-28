@@ -11,17 +11,15 @@
 Server::Server(
     const std::string &servname) : servname(servname)
 {
-    monitor = new MonitorJugadores;
 }
 
 void Server::run()
 {
-    ServerAceptador server_aceptador(servname, monitor);
+    ServerAceptador server_aceptador(servname);
     server_aceptador.start();
     while (std::cin.get() != SALIR)
     {
     }
     server_aceptador.terminar();
     server_aceptador.join();
-    delete monitor;
 }

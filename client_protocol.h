@@ -25,6 +25,7 @@ struct Viga
 };
 
 const std::int8_t CANT_JUGADORES = 0x06;
+const std::int8_t RECIBIR_TURNO = 0x00;
 const std::int8_t RECIBIR_JUGADOR = 0x01;
 const std::int8_t RECIBIR_VIGA = 0x09;
 const std::int8_t ENVIAR_CHAT = 0x05;
@@ -47,6 +48,8 @@ private:
 public:
     ProtocoloCliente(const std::string &hostname,
                      const std::string &servname);
+
+    int recibir_id();
 
     void enviar_mensaje(const std::string &mensaje);
 

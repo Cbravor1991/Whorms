@@ -11,15 +11,12 @@
 #include <thread>
 
 ServerRecibidor::ServerRecibidor(
-    Escenario *escenario,
-    ProtocoloServer *protocolo) : escenario(escenario),
-                                  protocolo(protocolo)
+    ProtocoloServer *protocolo, Queue<std::string> *cola, int jugador) : protocolo(protocolo), cola(cola), jugador(jugador)
 {
 }
 
 void ServerRecibidor::run()
 {
-    jugador = escenario->agregar_gusano();
     bool en_conexion = true;
     while (en_conexion && (!server_cerrado))
     {
@@ -28,32 +25,39 @@ void ServerRecibidor::run()
     }
     if (!server_cerrado)
     {
-        escenario->avisar_desconexion(jugador);
+        cola->push("DESCONEXION " + std::to_string(jugador));
     }
 }
 
 void ServerRecibidor::recibir_movimiento()
 {
     int movimiento = protocolo->leer_movimiento();
-    // Utiliza un switch para determinar el movimiento a realizar
+    std::string movimiento_str;
+    // Convierte el valor del movimiento a una representación de texto
     switch (movimiento)
     {
-    case MOVIMIENTO_DERECHA:
-        escenario->mover_gusano_derecha(1, jugador);
-        break;
     case MOVIMIENTO_IZQUIERDA:
-        escenario->mover_gusano_izquierda(1, jugador);
+        movimiento_str = "IZQUIERDA";
+        break;
+    case MOVIMIENTO_DERECHA:
+        movimiento_str = "DERECHA";
         break;
     case MOVIMIENTO_ARRIBA_ADELANTE:
-        escenario->mover_gusano_arriba_adelante(1, jugador);
+        movimiento_str = "ARRIBA_ADELANTE";
         break;
     case MOVIMIENTO_ARRIBA_ATRAS:
-        escenario->mover_gusano_arriba_atras(1, jugador);
+        movimiento_str = "ARRIBA_ATRAS";
         break;
     default:
         // Manejo de un movimiento no válido, si es necesario
-        break;
+        return;
     }
+
+    // Concatenar el ID del jugador a la cadena del movimiento
+    movimiento_str += " " + std::to_string(jugador);
+
+    // Agrega el movimiento como una cadena a la cola
+    cola->push(movimiento_str);
 }
 
 void ServerRecibidor::cerrar()

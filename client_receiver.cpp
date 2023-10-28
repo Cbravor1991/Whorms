@@ -17,6 +17,8 @@ ClienteRecibidor::ClienteRecibidor(
 void ClienteRecibidor::run()
 {
     bool en_conexion = true;
+    int id = protocolo->recibir_id();
+    std::cout << "soy " << id << std::endl;
     while (en_conexion && (!cliente_cerrado))
     {
         recibir_mensaje();
@@ -62,6 +64,15 @@ void ClienteRecibidor::recibir_mensaje()
             conectado = protocolo->check_en_conexion();
             std::cout << "Viga " << viga.tipo << " en coordenadas"
                       << " X: " << viga.x << " Y: " << viga.y << std::endl;
+        }
+        break;
+
+    case TIPO_TURNO:
+        if (conectado)
+        {
+            int id = protocolo->recibir_id();
+            conectado = protocolo->check_en_conexion();
+            std::cout << "Turno jugador: " << id << std::endl;
         }
         break;
     }

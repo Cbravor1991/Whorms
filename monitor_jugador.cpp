@@ -1,14 +1,24 @@
 #include "monitor_jugador.h"
+#include "turno.cpp"
 
-void MonitorJugadores::actualizar_jugadores_viga(bool tipo, int x, int y)
+int MonitorJugadores::cambiar_turno()
 {
-    std::unique_lock<std::mutex> lck(mutex_);
-    std::cout << "Viga " << tipo << " en coordenadas"
-              << " X: " << x << " Y: " << y << std::endl;
-    for (auto &jugador : jugadores)
+    int id_turno = turno.cambiar_turno();
+    std::string comando = "turno " + std::to_string(id_turno);
+    for (const auto &entry : jugadores)
     {
-        jugador->enviar_viga(tipo, x, y);
+        Jugador *jugador = entry.second;
+        jugador->recibir_comando(comando);
     }
+    return id_turno;
+}
+void MonitorJugadores::notificar_segundos(int segundos)
+{
+    std::cout << "Segundo: " << segundos << std::endl;
+    // for (const auto &par : jugadores)
+    //{Jugador *jugador = par.second;
+    //  jugador->notificar_segundos(segundos);
+    // }
 }
 
 void MonitorJugadores::actualizar_jugadores_cantidad(int cantidad)
@@ -16,30 +26,39 @@ void MonitorJugadores::actualizar_jugadores_cantidad(int cantidad)
     std::unique_lock<std::mutex> lck(mutex_);
     std::cout << "Jugadores " << cantidad
               << ", esperando al resto de tus amigos…" << std::endl;
-    for (auto &jugador : jugadores)
+    std::string comando = "cantidad " + std::to_string(cantidad);
+    for (const auto &entry : jugadores)
     {
-        jugador->enviar_cantidad_jugadores(cantidad);
+        Jugador *jugador = entry.second;
+        jugador->recibir_comando(comando);
     }
 }
 
 void MonitorJugadores::actualizar_jugadores_jugador(int id, int x, int y)
 {
-    std::unique_lock<std::mutex> lck(mutex_);
     std::cout << "Jugador " << id << " en coordenadas"
               << " X: " << x << " Y: " << y << std::endl;
-    for (auto &jugador : jugadores)
+    std::string comando = "jugador " + std::to_string(id) + " " + std::to_string(x) + " " + std::to_string(y);
+    for (const auto &entry : jugadores)
     {
-        jugador->enviar_jugador(id, x, y);
+        Jugador *jugador = entry.second;
+        jugador->recibir_comando(comando);
     }
 }
 
-void MonitorJugadores::agregar_jugador(Jugador *jugador)
+int MonitorJugadores::agregar_jugador(Jugador *jugador)
 {
     std::unique_lock<std::mutex> lck(mutex_);
-    jugadores.push_back(jugador);
+    id++;
+    jugadores[id] = jugador;
+    turno.agregar_id(id);
+
     lck.unlock();
+
     actualizar_cantidad_jugadores(1);
-    cargar_mapa(jugador);
+    // cargar_mapa(jugador);
+
+    return id;
 }
 
 void MonitorJugadores::avisar_desconexion()
@@ -63,15 +82,19 @@ void MonitorJugadores::limpiar_desconectados()
 void MonitorJugadores::eliminar_jugadores_desconectados()
 {
     std::unique_lock<std::mutex> lck(mutex_);
-    // Utiliza un iterador para recorrer la lista de jugadores
+
+    // Utiliza un iterador para recorrer el mapa de jugadores
     auto it = jugadores.begin();
     while (it != jugadores.end())
     {
-        Jugador *jugador = *it;
+        int id = it->first;
+        Jugador *jugador = it->second;
+
         if (!jugador->sigo_conectado())
         {
             jugadores_desconectados.push_back(jugador);
             it = jugadores.erase(it);
+            turno.eliminar_id(id); // Elimina el ID del jugador de la clase Turno
         }
         else
         {
@@ -100,7 +123,8 @@ void MonitorJugadores::cargar_mapa(Jugador *jugador)
 {
     for (auto &viga : vigas)
     {
-        jugador->enviar_viga(viga.tipo, viga.x, viga.y);
+        std::string comando = "viga " + std::to_string(viga.tipo) + " " + std::to_string(viga.x) + " " + std::to_string(viga.y);
+        jugador->recibir_comando(comando);
     }
 }
 
@@ -108,8 +132,9 @@ MonitorJugadores::~MonitorJugadores()
 {
     limpiar_desconectados();
     // Liberar la memoria de todos los jugadores en el vector
-    for (auto jugador : jugadores)
+    for (const auto &entry : jugadores)
     {
+        Jugador *jugador = entry.second;
         delete jugador;
     }
 

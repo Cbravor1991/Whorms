@@ -8,27 +8,22 @@
 #include "server_jugador.h"
 #include "server_receiver.h"
 
-Jugador::Jugador(ProtocoloServer *socket, ServerLanzador *lanzador, ServerRecibidor *recibidor) : socket(socket),
-                                                                                                  lanzador(lanzador),
-                                                                                                  recibidor(recibidor)
+Jugador::Jugador(ProtocoloServer *socket) : socket(socket), lanzador(nullptr), recibidor(nullptr), cola(new Queue<std::string>())
 {
-    lanzador->start();
+}
+
+void Jugador::jugar(Queue<std::string> *cola, int jugador_id)
+{
+    socket->enviar_id(jugador_id);
+    recibidor = new ServerRecibidor(socket, cola, jugador_id);
     recibidor->start();
+    lanzador = new ServerLanzador(socket, this->cola);
+    lanzador->start();
 }
 
-void Jugador::enviar_viga(bool tipo, int x, int y)
+void Jugador::recibir_comando(std::string comando)
 {
-    lanzador->enviar_viga(tipo, x, y);
-}
-
-void Jugador::enviar_cantidad_jugadores(int cantidad)
-{
-    lanzador->enviar_cantidad_jugadores(cantidad);
-}
-
-void Jugador::enviar_jugador(int id, int x, int y)
-{
-    lanzador->enviar_jugador(id, x, y);
+    cola->push(comando);
 }
 
 bool Jugador::sigo_conectado()
@@ -44,6 +39,7 @@ Jugador::~Jugador()
     {
         socket->desconectar();
     }
+    recibir_comando("-");
     lanzador->join();
     delete lanzador;
     lanzador = nullptr;

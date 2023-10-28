@@ -11,6 +11,7 @@
 const int TIPO_CANTIDAD_JUGADORES = 0;
 const int TIPO_JUGADOR = 1;
 const int TIPO_VIGA = 2;
+const int TIPO_TURNO = 3;
 
 class ClienteRecibidor : public Thread
 {
