@@ -1,4 +1,5 @@
 #include "escenario.h"
+#include <sstream>
 
 Escenario::Escenario(std::uint16_t x_size, std::uint16_t y_size, MonitorJugadores *monitor) : x_size(x_size),
                                                                                               y_size(y_size), monitor(monitor),

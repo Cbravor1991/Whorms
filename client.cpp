@@ -24,3 +24,10 @@ void Cliente::run()
     cliente_lanzador.join();
     delete protocolo;
 }
+
+    void Cliente::cargar_id_jugador( uint8_t id){
+        id = id;
+    }
+    uint8_t Cliente::obtener_id_jugador(){
+        return id;
+    };
