@@ -10,70 +10,25 @@
 #include <thread>
 
 ClienteRecibidor::ClienteRecibidor(
-    ProtocoloCliente *protocolo) : protocolo(protocolo)
+    ProtocoloCliente& protocolo, Queue<StateGame>& queue_receiver) : protocolo(protocolo), queue_receiver(queue_receiver) 
 {
 }
 
 void ClienteRecibidor::run()
 {
     bool en_conexion = true;
-    int id = protocolo->recibir_id();
+    int id = protocolo.recibir_id();
     std::cout << "soy " << id << std::endl;
     while (en_conexion && (!cliente_cerrado))
     {
-        recibir_mensaje();
-        en_conexion = protocolo->check_en_conexion();
+        StateGame estado_juego;
+        estado_juego = protocolo.procesar_mensaje();
+        queue_receiver.push(estado_juego);
+        en_conexion = protocolo.check_en_conexion();
     }
 }
 
 void ClienteRecibidor::terminar()
 {
     cliente_cerrado = true;
-}
-
-void ClienteRecibidor::recibir_mensaje()
-{
-    int tipo_mensaje = protocolo->recibir_mensaje();
-    bool conectado = protocolo->check_en_conexion();
-
-    switch (tipo_mensaje)
-    {
-    case TIPO_CANTIDAD_JUGADORES:
-        if (conectado)
-        {
-            int cantidad_jugadores = protocolo->recibir_cantidad_jugadores();
-            conectado = protocolo->check_en_conexion();
-            std::cout << "Jugadores " << cantidad_jugadores
-                      << ", esperando al resto de tus amigos…" << std::endl;
-        }
-        break;
-
-    case TIPO_JUGADOR:
-        if (conectado)
-        {
-            Jugador jugador = protocolo->recibir_jugador();
-            conectado = protocolo->check_en_conexion();
-            std::cout << "Jugador " << jugador.id << " en coordenadas"
-                      << " X: " << jugador.x << " Y: " << jugador.y << std::endl;
-        }
-        break;
-    case TIPO_VIGA:
-        if (conectado)
-        {
-            Viga viga = protocolo->recibir_viga();
-            conectado = protocolo->check_en_conexion();
-            std::cout << "Viga " << viga.tipo << " en coordenadas"
-                      << " X: " << viga.x << " Y: " << viga.y << std::endl;
-        }
-        break;
-
-    case TIPO_TURNO:
-        if (conectado)
-        {
-            int id = protocolo->recibir_id();
-            conectado = protocolo->check_en_conexion();
-            std::cout << "Turno jugador: " << id << std::endl;
-        }
-        break;
-    }
 }

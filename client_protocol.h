@@ -8,14 +8,14 @@
 #include <vector>
 #include <tuple>
 #include "common_socket.h"
+#include "common_state_game.h"
 #include <cstring>
 
-struct Jugador
-{
-    int id;
-    int x;
-    int y;
-};
+
+const int TIPO_CANTIDAD_JUGADORES = 0;
+const int TIPO_JUGADOR = 1;
+const int TIPO_VIGA = 2;
+const int TIPO_TURNO = 3;
 
 struct Viga
 {
@@ -57,9 +57,11 @@ public:
 
     int recibir_cantidad_jugadores();
 
-    Jugador recibir_jugador();
+    JugadorDTO recibir_jugador();
 
     Viga recibir_viga();
+
+    StateGame procesar_mensaje();
 
     bool check_en_conexion();
 

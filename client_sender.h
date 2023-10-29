@@ -9,6 +9,7 @@
 #include "client_receiver.h"
 #include "queue.h"
 #include "thread.h"
+#include "common_state_game.h"
 
 static const char MOVE[] = "move";
 static const char SALIR[] = "exit";
@@ -16,14 +17,16 @@ static const char SALIR[] = "exit";
 class ClienteLanzador : public Thread
 {
 private:
-    ProtocoloCliente *protocolo;
-    ClienteRecibidor cliente_recibidor;
+    ProtocoloCliente& protocolo;
     bool en_conexion = true;
 
     void ejecutar_accion(const std::string &linea);
+    Queue<uint8_t>& queue_sender;
+    Queue<StateGame>& queue_receiver;
+    ClienteRecibidor cliente_recibidor;
 
 public:
-    explicit ClienteLanzador(ProtocoloCliente *protocolo);
+    ClienteLanzador(ProtocoloCliente& protocolo, Queue<uint8_t>& queue_sender, Queue<StateGame>& queue_receiver);
 
     void run() override;
 

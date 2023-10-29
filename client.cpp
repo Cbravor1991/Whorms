@@ -11,18 +11,18 @@
 
 Cliente::Cliente(const std::string &hostname,
                  const std::string &servname) : hostname(hostname),
-                                                servname(servname)
+                                                servname(servname),
+                                                protocolo(ProtocoloCliente(hostname, servname))
 
 {
-    protocolo = new ProtocoloCliente(hostname, servname);
 }
 
 void Cliente::run()
 {
-    ClienteLanzador cliente_lanzador(protocolo);
+    ClienteLanzador cliente_lanzador(protocolo, queue_sender, queue_receiver);
     cliente_lanzador.start();
     cliente_lanzador.join();
-    delete protocolo;
+    protocolo.desconectar();
 }
 
     void Cliente::cargar_id_jugador( uint8_t id){

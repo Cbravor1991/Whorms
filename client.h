@@ -16,13 +16,12 @@ class Cliente
 private:
     const std::string hostname;
     const std::string servname;
-    ProtocoloCliente *protocolo;
+    ProtocoloCliente protocolo;
     bool conectado = true;
     uint8_t id;
     Queue<uint8_t> queue_sender;
-
     Queue<StateGame> queue_receiver;
-
+    std::atomic<bool> turno_activo{false};
 
 public:
     Cliente(const std::string &hostname, const std::string &servname);

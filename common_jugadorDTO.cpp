@@ -39,3 +39,11 @@ int JugadorDTO::obtener_posicion_id(){
     return id; 
 }
 
+void JugadorDTO::cargar_turno(bool turno) {
+  turno_activo = turno;
+}
+
+bool JugadorDTO::obtener_turno() {
+  return turno_activo;
+}
+

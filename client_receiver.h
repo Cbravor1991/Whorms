@@ -5,25 +5,21 @@
 #include <string>
 #include <fstream>
 #include "common_socket.h"
-#include "client_protocol.h"
 #include "thread.h"
-
-const int TIPO_CANTIDAD_JUGADORES = 0;
-const int TIPO_JUGADOR = 1;
-const int TIPO_VIGA = 2;
-const int TIPO_TURNO = 3;
+#include "queue.h"
+#include "common_state_game.h"
+#include "client_protocol.h"
 
 class ClienteRecibidor : public Thread
 {
 private:
-    ProtocoloCliente *protocolo;
+    ProtocoloCliente& protocolo;
     bool cliente_cerrado = false;
     int jugador;
-
-    void recibir_mensaje();
+    Queue<StateGame>& queue_receiver;
 
 public:
-    explicit ClienteRecibidor(ProtocoloCliente *protocolo);
+    ClienteRecibidor(ProtocoloCliente& protocolo, Queue<StateGame>& queue_receiver);
 
     void run() override;
 

@@ -16,15 +16,17 @@
 class EscenarioDTO
 {
 private:
-std::vector<VigasDTO> vigas ;
+std::vector<VigasDTO> vigas;
+int cantidad_jugadores;
 
 
 public:
     EscenarioDTO();
 
     void cargar_viga(VigasDTO viga);
+    void cargar_cant_jugadores(int cantidad_jugadores);
 
-   
+    int obtener_cantidad_jugadores();
 };
 
 #endif 

@@ -25,7 +25,7 @@ void StateGame::obtener_escenario(EscenarioDTO& escenario){
     escenario = escenario;
 }
 void StateGame::obtener_jugador(JugadorDTO& jugador){
-        jugador = jugador;
+    jugador = jugador;
 }
     
 

@@ -9,7 +9,7 @@
 #include "common_liberror.h"
 
 ClienteLanzador::ClienteLanzador(
-    ProtocoloCliente *protocolo) : protocolo(protocolo), cliente_recibidor(protocolo)
+    ProtocoloCliente& protocolo, Queue<uint8_t>& queue_sender, Queue<StateGame>& queue_receiver) : protocolo(protocolo), queue_sender(queue_sender), queue_receiver(queue_receiver), cliente_recibidor(protocolo, queue_receiver)
 {
     cliente_recibidor.start();
 }
@@ -42,13 +42,13 @@ void ClienteLanzador::ejecutar_accion(const std::string &linea)
         // El cliente envía un mensaje de chat
         std::string chat_message;
         std::getline(iss >> std::ws, chat_message);
-        protocolo->enviar_mensaje(chat_message);
-        en_conexion = protocolo->check_en_conexion();
+        protocolo.enviar_mensaje(chat_message);
+        en_conexion = protocolo.check_en_conexion();
     }
     else if (action == SALIR)
     {
         cliente_recibidor.terminar();
-        protocolo->desconectar();
+        protocolo.desconectar();
         cliente_recibidor.join();
         en_conexion = false;
     }

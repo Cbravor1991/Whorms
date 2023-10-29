@@ -11,18 +11,20 @@ private:
 int x;
 int y;
 int id;
+bool turno_activo;
 
 public:
 JugadorDTO();
 void cargar_posicion_x(const int& posicion_x);
 void cargar_posicion_y(const int& posicion_y);
 void cargar_id(const int& id_jugador);
+void cargar_turno(bool turno);
 
 
 int obtener_posicion_x();
 int obtener_posicion_y();
 int obtener_posicion_id();
-  
+bool obtener_turno();
 
    
 };
