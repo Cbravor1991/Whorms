@@ -13,12 +13,13 @@ Partida::Partida() : en_ejecucion(false), monitor_jugadores(new MonitorJugadores
 void Partida::agregar_jugador(Jugador *jugador)
 {
     int jugador_id = monitor_jugadores->agregar_jugador(jugador);
-    escenario.agregar_gusano(jugador_id);
     jugador->jugar(cola, jugador_id);
     monitor_jugadores->cargar_mapa(jugador);
+    escenario.agregar_gusano(jugador_id);
     if (!en_ejecucion)
     {
         en_ejecucion = true;
+        monitor_jugadores->cambiar_turno();
         start();
     }
 }

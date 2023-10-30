@@ -15,13 +15,16 @@ class StateGame
 private:
     EscenarioDTO escenario;
     JugadorDTO jugador;
+    bool turno;
     int tipo_mensaje;
 
 public:
     StateGame();
     void cargar_escenario(EscenarioDTO escenario);
     void cargar_tipo_mensaje(int tipo_mensaje);
-    int obtener_tipo_menseje();
+    void cargar_turno(bool turno);
+    int obtener_turno();
+    int obtener_tipo_mensaje();
     void cargar_jugador(JugadorDTO jugador);
     EscenarioDTO obtener_escenario();
     JugadorDTO obtener_jugador();

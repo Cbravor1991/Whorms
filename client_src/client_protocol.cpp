@@ -88,7 +88,7 @@ void ProtocoloCliente::recibir_jugador(JugadorDTO &jugador)
 
     // Recibir el ID del jugador
     socket.recvall(&(id), BYTES_ID, &was_closed);
-    jugador.cargar_id_turno_jugador(ntohs(id));
+    jugador.cargar_id(ntohs(id));
 
     if (was_closed)
     {
@@ -170,7 +170,7 @@ int ProtocoloCliente::recibir_cantidad_jugadores()
 
 int ProtocoloCliente::traducir_tipo_mensaje(const uint8_t &buffer)
 {
-    int tipo;
+    int tipo = -1;
     if (buffer == CANT_JUGADORES)
     {
         tipo = 0;
@@ -256,10 +256,12 @@ StateGame ProtocoloCliente::procesar_mensaje(const int &id_jugador)
         {
             int id = recibir_id_turno_actual();
             conectado = check_en_conexion();
-            std::cout << "Turno jugador: " << id << std::endl;
+            bool turno = (id == id_jugador);
+            estado_juego.cargar_turno(turno);
         }
         break;
     }
+
     estado_juego.cargar_jugador(jugador_dto);
     estado_juego.cargar_escenario(escenario_dto);
 

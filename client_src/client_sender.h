@@ -19,6 +19,7 @@ class ClienteLanzador : public Thread
 private:
     ProtocoloCliente &protocolo;
     bool en_conexion = true;
+    bool turno = false;
 
     void ejecutar_accion(const std::string &linea);
     Queue<uint8_t> &queue_sender;
@@ -31,6 +32,8 @@ public:
     void run() override;
 
     void terminar();
+
+    void autorizar_turno(bool turno);
 };
 
 #endif

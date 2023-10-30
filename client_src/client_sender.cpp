@@ -14,6 +14,11 @@ ClienteLanzador::ClienteLanzador(
     cliente_recibidor.start();
 }
 
+void ClienteLanzador::autorizar_turno(bool turno)
+{
+    this->turno = turno;
+}
+
 void ClienteLanzador::run()
 {
     std::string linea;
@@ -37,7 +42,7 @@ void ClienteLanzador::ejecutar_accion(const std::string &linea)
     std::istringstream iss(linea);
     std::string action;
     iss >> action;
-    if (action == MOVE)
+    if (action == MOVE and turno)
     {
         // El cliente envía un mensaje de chat
         std::string chat_message;
@@ -52,7 +57,7 @@ void ClienteLanzador::ejecutar_accion(const std::string &linea)
         cliente_recibidor.join();
         en_conexion = false;
     }
-    else
+    else if (turno)
     {
         std::cout << "Acción desconocida: " << action << std::endl;
     }

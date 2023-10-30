@@ -34,6 +34,7 @@ void Escenario::agregar_gusano(int jugador_id)
     // Asignar las coordenadas del gusano
     nuevoGusano->setCoordenadas(spawn.first, spawn.second);
     map[spawn.second][spawn.first] = nuevoGusano;
+    monitor->actualizar_jugadores_jugador(jugador_id, spawn.first, spawn.second);
 }
 
 void Escenario::colocar_viga(int x, int y, bool tipo, int inclinacion)

@@ -22,9 +22,6 @@ void ClienteRecibidor::run()
     {
         StateGame estado_juego;
         estado_juego = protocolo.procesar_mensaje(id_jugador);
-
-        EscenarioDTO escenario_dto = estado_juego.obtener_escenario();
-
         queue_receiver.push(estado_juego);
         en_conexion = protocolo.check_en_conexion();
     }

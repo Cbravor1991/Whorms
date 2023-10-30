@@ -19,7 +19,6 @@ void ServerLanzador::run()
     {
         Data *comando = cola->pop();
         comando->enviar_data(protocolo);
-        delete comando;
         en_conexion = protocolo->check_en_conexion();
     }
 }
