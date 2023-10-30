@@ -24,10 +24,25 @@ void Cliente::run()
     while (protocolo.check_en_conexion())
     {
         StateGame estado = queue_receiver.pop();
-        if (TIPO_TURNO == estado.obtener_tipo_mensaje())
-        {
-            cliente_lanzador.autorizar_turno(estado.obtener_turno());
+        int tipo_mensaje = estado.obtener_tipo_mensaje();
+        
+        if(tipo_mensaje == TIPO_TURNO ) {
+            
+            if(estado.obtener_turno() ){
+                 std::cout << "ES TU TURNO" << '\n';
+
+            }
+            else{
+                std::cout << "NO ES TU TURNO " << std::endl;
+            } 
+            
+                   cliente_lanzador.autorizar_turno(estado.obtener_turno());
         }
+        
+
+            
+         
+        
     }
     // std::this_thread::sleep_for(std::chrono::seconds(5));
     cliente_lanzador.join();
@@ -41,3 +56,6 @@ uint8_t Cliente::obtener_id_jugador()
 {
     return id;
 };
+
+
+

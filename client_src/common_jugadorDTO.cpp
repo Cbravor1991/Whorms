@@ -7,7 +7,7 @@
 #include "common_jugadorDTO.h"
 #include <tuple>
 
-JugadorDTO::JugadorDTO()
+JugadorDTO::JugadorDTO(): x(0), y(0), id(0), id_jugador_turno_actual(0), turno_activo(false)
 {
 }
 
@@ -57,6 +57,6 @@ void JugadorDTO::cargar_turno(bool turno)
 }
 
 bool JugadorDTO::obtener_turno()
-{
+{  
     return turno_activo;
 }

@@ -14,6 +14,7 @@ StateGame::StateGame()
 void StateGame::cargar_turno(bool turno)
 {
     this->turno = turno;
+   
 }
 
 void StateGame::cargar_escenario(EscenarioDTO escenario)
@@ -26,7 +27,7 @@ void StateGame::cargar_jugador(JugadorDTO jugador)
 }
 
 int StateGame::obtener_turno()
-{
+{   
     return turno;
 }
 

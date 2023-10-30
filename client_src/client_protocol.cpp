@@ -216,48 +216,59 @@ StateGame ProtocoloCliente::procesar_mensaje(const int &id_jugador)
     int tipo_mensaje = recibir_mensaje();
     bool conectado = check_en_conexion();
     estado_juego.cargar_tipo_mensaje(tipo_mensaje);
+    
+
     switch (tipo_mensaje)
     {
     case TIPO_CANTIDAD_JUGADORES:
         if (conectado)
         {
+    
             int cantidad_jugadores = recibir_cantidad_jugadores();
             conectado = check_en_conexion();
-            std::cout << "Jugadores " << cantidad_jugadores
-                      << ", esperando al resto de tus amigos…" << std::endl;
+          
+            escenario_dto.cargar_cant_jugadores(cantidad_jugadores);
+            std::cout << escenario_dto.obtener_cantidad_jugadores()<<'\n';
+
         }
-        // escenario_dto.cargar_cant_jugadores(recibir_cantidad_jugadores());
+     
 
         break;
 
     case TIPO_JUGADOR:
         if (conectado)
         {
-
+        
             recibir_jugador(jugador_dto);
             conectado = check_en_conexion();
             std::cout << "Jugador " << jugador_dto.obtener_id() << " en coordenadas"
                       << " X: " << jugador_dto.obtener_posicion_x() << " Y: " << jugador_dto.obtener_posicion_y() << std::endl;
+          
         }
         break;
     case TIPO_VIGA:
         if (conectado)
         {
-
+       
             VigasDTO viga = recibir_viga();
             conectado = check_en_conexion();
-            std::cout << "Viga " << viga.obtener_tipo() << " en coordenadas"
-                      << " X: " << viga.obtener_posicion_x() << " Y: " << viga.obtener_posicion_y() << std::endl;
+             std::cout << "Viga " << viga.obtener_tipo() << " en coordenadas"
+                       << " X: " << viga.obtener_posicion_x() << " Y: " << viga.obtener_posicion_y() << std::endl;
         }
         break;
 
     case TIPO_TURNO:
         if (conectado)
-        {
+        {   
             int id = recibir_id_turno_actual();
             conectado = check_en_conexion();
-            bool turno = (id == id_jugador);
-            estado_juego.cargar_turno(turno);
+            if(id == id_jugador){
+     
+               estado_juego.cargar_turno(true);
+
+            }
+          
+          
         }
         break;
     }

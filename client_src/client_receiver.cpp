@@ -22,7 +22,7 @@ void ClienteRecibidor::run()
     {
         StateGame estado_juego;
         estado_juego = protocolo.procesar_mensaje(id_jugador);
-        queue_receiver.push(estado_juego);
+        queue_receiver.try_push(estado_juego);
         en_conexion = protocolo.check_en_conexion();
     }
 }

@@ -4,7 +4,7 @@
 #include "common_escenarioDTO.h"
 #include <iostream>
 
-EscenarioDTO::EscenarioDTO()
+EscenarioDTO::EscenarioDTO(): cantidad_jugadores(0)
 {
 }
 

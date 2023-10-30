@@ -15,7 +15,7 @@ class StateGame
 private:
     EscenarioDTO escenario;
     JugadorDTO jugador;
-    bool turno;
+    bool turno = false;
     int tipo_mensaje;
 
 public:

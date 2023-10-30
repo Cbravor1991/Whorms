@@ -7,7 +7,7 @@
 #include "common_vigasDTO.h"
 #include <tuple>
 
-VigasDTO::VigasDTO()
+VigasDTO::VigasDTO(): x(0), y(0), id(0), tipo(false)
 {
 }
 

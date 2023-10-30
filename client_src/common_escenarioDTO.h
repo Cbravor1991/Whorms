@@ -12,7 +12,7 @@ class EscenarioDTO
 {
 private:
     std::vector<VigasDTO> vigas;
-    int cantidad_jugadores = 0;
+    int cantidad_jugadores;
 
 public:
     EscenarioDTO();
