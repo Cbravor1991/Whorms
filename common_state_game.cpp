@@ -4,7 +4,6 @@
 #include <netinet/in.h>
 #include <sstream>
 #include <algorithm>
-#include "client_protocol.h"
 #include "common_state_game.h"
 #include "common_liberror.h"
 #include <tuple>
@@ -21,11 +20,18 @@ void StateGame::cargar_jugador(JugadorDTO jugador){
     jugador = jugador;
 
 }
-void StateGame::obtener_escenario(EscenarioDTO& escenario){
-    escenario = escenario;
+EscenarioDTO StateGame::obtener_escenario(){
+    return escenario;
 }
-void StateGame::obtener_jugador(JugadorDTO& jugador){
-    jugador = jugador;
+JugadorDTO  StateGame::obtener_jugador(){
+    return jugador;
 }
     
 
+void StateGame::cargar_tipo_mensaje(int tipo_mensaje){
+    tipo_mensaje= tipo_mensaje;
+}
+
+int StateGame::obtener_tipo_menseje(){
+    return tipo_mensaje;
+}

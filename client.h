@@ -30,6 +30,7 @@ public:
 
     void cargar_id_jugador(const uint8_t id);
     uint8_t obtener_id_jugador();
+    void procesar_mensaje();
 
 
 

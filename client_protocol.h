@@ -49,7 +49,9 @@ public:
     ProtocoloCliente(const std::string &hostname,
                      const std::string &servname);
 
-    int recibir_id();
+    int recibir_id_turno_actual();
+
+      int recibir_id_jugador();
 
     void enviar_mensaje(const std::string &mensaje);
 
@@ -57,11 +59,11 @@ public:
 
     int recibir_cantidad_jugadores();
 
-    JugadorDTO recibir_jugador();
+    void recibir_jugador(JugadorDTO & jugador);
 
-    Viga recibir_viga();
+    VigasDTO recibir_viga();
 
-    StateGame procesar_mensaje();
+    StateGame procesar_mensaje(const int & id_jugador);
 
     bool check_en_conexion();
 

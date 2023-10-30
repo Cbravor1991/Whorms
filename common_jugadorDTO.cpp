@@ -27,6 +27,10 @@ void JugadorDTO::cargar_id(const int& id_jugador) {
   id= id_jugador;
 }
 
+void JugadorDTO::cargar_id_turno_jugador(const int& id_jugador) {
+  id_jugador_turno_actual = id_jugador;
+}
+
 int JugadorDTO::obtener_posicion_x(){
     return x;
 }
@@ -35,8 +39,12 @@ int JugadorDTO::obtener_posicion_y(){
     return y;
 }
 
-int JugadorDTO::obtener_posicion_id(){
+int JugadorDTO::obtener_id(){
     return id; 
+}
+
+int JugadorDTO::obtener_id_turno_jugador(){
+    return id_jugador_turno_actual; 
 }
 
 void JugadorDTO::cargar_turno(bool turno) {

@@ -12,7 +12,7 @@
 Cliente::Cliente(const std::string &hostname,
                  const std::string &servname) : hostname(hostname),
                                                 servname(servname),
-                                                protocolo(ProtocoloCliente(hostname, servname))
+                                                protocolo(hostname, servname)
 
 {
 }
@@ -31,3 +31,6 @@ void Cliente::run()
     uint8_t Cliente::obtener_id_jugador(){
         return id;
     };
+
+
+

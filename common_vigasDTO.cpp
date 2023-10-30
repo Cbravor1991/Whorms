@@ -15,6 +15,15 @@ VigasDTO::VigasDTO()
 
 
 
+
+ void VigasDTO:: cargar_tipo(bool & tipo_viga) {
+   tipo = tipo_viga;
+ }
+
+ bool VigasDTO::obtener_tipo(){
+    return tipo ;
+}
+
 void VigasDTO::cargar_posicion_x(const int& posicion_x) {
   x= posicion_x;
 }

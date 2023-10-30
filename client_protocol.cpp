@@ -13,7 +13,27 @@ ProtocoloCliente::ProtocoloCliente(const std::string &hostname,
 {
 }
 
-int ProtocoloCliente::recibir_id()
+
+
+int ProtocoloCliente::recibir_id_jugador()
+{
+    bool was_closed = false;
+    uint8_t buffer;
+    socket.recvall(&buffer, RECIBO_BYTE, &was_closed);
+    if (was_closed)
+    {
+        en_conexion = false;
+    }
+    int valor_entero = static_cast<int>(buffer);
+
+
+    return valor_entero;
+}
+
+
+
+
+int ProtocoloCliente::recibir_id_turno_actual()
 {
     bool was_closed = false;
     uint8_t buffer;
@@ -65,22 +85,21 @@ int ProtocoloCliente::recibir_mensaje()
     }
 }
 
-JugadorDTO ProtocoloCliente::recibir_jugador()
+void ProtocoloCliente::recibir_jugador(JugadorDTO & jugador)
 {
     bool was_closed = false;
-    JugadorDTO jugador;
     int id;
     int x;
     int y;
 
     // Recibir el ID del jugador
     socket.recvall(&(id), BYTES_ID, &was_closed);
-    jugador.cargar_id(ntohs(id));
+    jugador.cargar_id_turno_jugador(ntohs(id));
 
     if (was_closed)
     {
         en_conexion = false;
-        return jugador; // Devuelve el objeto jugador con ID vacío
+
     }
 
     // Recibir la coordenada X
@@ -90,7 +109,7 @@ JugadorDTO ProtocoloCliente::recibir_jugador()
     if (was_closed)
     {
         en_conexion = false;
-        return jugador; // Devuelve el objeto jugador con X vacío
+
     }
 
     // Recibir la coordenada Y
@@ -100,19 +119,24 @@ JugadorDTO ProtocoloCliente::recibir_jugador()
     if (was_closed)
     {
         en_conexion = false;
-        return jugador; // Devuelve el objeto jugador con Y vacío
+      
     }
 
-    return jugador; // Devuelve el objeto jugador con ID, X e Y
+  
 }
 
-Viga ProtocoloCliente::recibir_viga()
+VigasDTO ProtocoloCliente::recibir_viga()
 {
     bool was_closed = false;
-    Viga viga;
+    bool viga_tipo;
+    int x;
+    int y;
+    VigasDTO viga;
 
     // Recibir el tipo de viga
-    socket.recvall(&(viga.tipo), BYTES_TIPO, &was_closed);
+    socket.recvall(&(viga_tipo), BYTES_TIPO, &was_closed);
+    viga.cargar_tipo(viga_tipo);
+
 
     if (was_closed)
     {
@@ -121,8 +145,8 @@ Viga ProtocoloCliente::recibir_viga()
     }
 
     // Recibir la coordenada X
-    socket.recvall(&(viga.x), BYTES_X, &was_closed);
-    viga.x = ntohs(viga.x);
+    socket.recvall(&(x), BYTES_X, &was_closed);
+    viga.cargar_posicion_x(ntohs(x));
 
     if (was_closed)
     {
@@ -131,8 +155,8 @@ Viga ProtocoloCliente::recibir_viga()
     }
 
     // Recibir la coordenada Y
-    socket.recvall(&(viga.y), BYTES_Y, &was_closed);
-    viga.y = ntohs(viga.y);
+    socket.recvall(&(y), BYTES_Y, &was_closed);
+    viga.cargar_posicion_x(ntohs(y));
 
     if (was_closed)
     {
@@ -195,63 +219,70 @@ bool ProtocoloCliente::check_en_conexion()
     return en_conexion;
 }
 
-StateGame ProtocoloCliente::procesar_mensaje()
-{
-    StateGame estado_juego;
+StateGame ProtocoloCliente::procesar_mensaje(const int& id_jugador)
+{   StateGame estado_juego;
     JugadorDTO jugador_dto;
     EscenarioDTO escenario_dto;
+    jugador_dto.cargar_id(id_jugador);
 
     int tipo_mensaje = recibir_mensaje();
     bool conectado = check_en_conexion();
-
+    estado_juego.cargar_tipo_mensaje(tipo_mensaje);
     switch (tipo_mensaje)
     {
     case TIPO_CANTIDAD_JUGADORES:
         if (conectado)
-        {
+        {   
             int cantidad_jugadores = recibir_cantidad_jugadores();
             conectado = check_en_conexion();
             std::cout << "Jugadores " << cantidad_jugadores
                       << ", esperando al resto de tus amigos…" << std::endl;
-            escenario_dto.cargar_cant_jugadores(cantidad_jugadores);
         }
+           // escenario_dto.cargar_cant_jugadores(recibir_cantidad_jugadores());
+            
         break;
 
     case TIPO_JUGADOR:
         if (conectado)
-        {
-            jugador_dto = recibir_jugador();
+        {  
+
+            recibir_jugador(jugador_dto);    
             conectado = check_en_conexion();
-            std::cout << "Jugador " << jugador_dto.obtener_posicion_id() << " en coordenadas"
+            std::cout << "Jugador " << jugador_dto.obtener_id() << " en coordenadas"
                       << " X: " << jugador_dto.obtener_posicion_x() << " Y: " << jugador_dto.obtener_posicion_y() << std::endl;
+
+
+
         }
         break;
     case TIPO_VIGA:
         if (conectado)
-        {
-            Viga viga = recibir_viga();
+        {      
+                   
+           VigasDTO viga = recibir_viga();
             conectado = check_en_conexion();
-            std::cout << "Viga " << viga.tipo << " en coordenadas"
-                      << " X: " << viga.x << " Y: " << viga.y << std::endl;
+            std::cout << "Viga " << viga.obtener_tipo() << " en coordenadas"
+                      << " X: " << viga.obtener_posicion_x() << " Y: " << viga.obtener_posicion_y() << std::endl;
+          
         }
         break;
 
     case TIPO_TURNO:
         if (conectado)
-        {
-            int id = recibir_id();
+        {    int id =recibir_id_turno_actual();
             conectado = check_en_conexion();
             std::cout << "Turno jugador: " << id << std::endl;
-            if (id == jugador_dto.obtener_posicion_id()) {
-                jugador_dto.cargar_turno(true);
-            } else {
-                jugador_dto.cargar_turno(false);
-            }
+        
+          
         }
         break;
     }
     estado_juego.cargar_jugador(jugador_dto);
     estado_juego.cargar_escenario(escenario_dto);
+  
+
+
+ 
     return estado_juego;
 }
 
