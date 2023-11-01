@@ -9,7 +9,7 @@
 #include "client_receiver.h"
 #include "../common_src/queue.h"
 #include "../common_src/thread.h"
-#include "common_state_game.h"
+#include "DTO/common_state_game.h"
 
 static const char MOVE[] = "move";
 static const char SALIR[] = "exit";
@@ -23,11 +23,11 @@ private:
 
     void ejecutar_accion(const std::string &linea);
     Queue<uint8_t> &queue_sender;
-    Queue<StateGame> &queue_receiver;
+    Queue<StateGame *> &queue_receiver;
     ClienteRecibidor cliente_recibidor;
 
 public:
-    ClienteLanzador(ProtocoloCliente &protocolo, Queue<uint8_t> &queue_sender, Queue<StateGame> &queue_receiver);
+    ClienteLanzador(ProtocoloCliente &protocolo, Queue<uint8_t> &queue_sender, Queue<StateGame *> &queue_receiver);
 
     void run() override;
 

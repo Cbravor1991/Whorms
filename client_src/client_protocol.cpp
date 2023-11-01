@@ -5,7 +5,7 @@
 #include <sstream>
 #include <algorithm>
 #include "client_protocol.h"
-// #include "common_liberror.h"
+#include "DTO/common_state_game.h"
 #include <tuple>
 
 ProtocoloCliente::ProtocoloCliente(const std::string &hostname,
@@ -13,32 +13,45 @@ ProtocoloCliente::ProtocoloCliente(const std::string &hostname,
 {
 }
 
-int ProtocoloCliente::recibir_id_jugador()
+int ProtocoloCliente::recibir_byte()
 {
-    bool was_closed = false;
-    uint8_t buffer;
-    socket.recvall(&buffer, RECIBO_BYTE, &was_closed);
-    if (was_closed)
+    try
     {
-        en_conexion = false;
-    }
-    int valor_entero = static_cast<int>(buffer);
+        bool was_closed = false;
+        uint8_t buffer;
+        socket.recvall(&buffer, RECIBO_BYTE, &was_closed);
+        if (was_closed)
+        {
+            en_conexion = false;
+        }
+        int valor_entero = static_cast<int>(buffer);
 
-    return valor_entero;
+        return valor_entero;
+    }
+    catch (const std::exception &err)
+    {
+        return -1;
+    }
 }
 
-int ProtocoloCliente::recibir_id_turno_actual()
+int ProtocoloCliente::recibir_id_jugador()
 {
-    bool was_closed = false;
-    uint8_t buffer;
-    socket.recvall(&buffer, RECIBO_BYTE, &was_closed);
-    if (was_closed)
-    {
-        en_conexion = false;
-    }
-    int valor_entero = static_cast<int>(buffer);
+    return recibir_byte();
+}
 
-    return valor_entero;
+StateGame *ProtocoloCliente::recibir_turno(int jugador_id)
+{
+    int turno_id = recibir_byte();
+    bool permiso = (turno_id == jugador_id);
+    StateGame *estado_juego = new TurnoDTO(turno_id, permiso);
+    return estado_juego;
+}
+
+StateGame *ProtocoloCliente::recibir_segundo()
+{
+    int segundo = recibir_byte();
+    StateGame *estado_juego = new SegundosDTO(segundo);
+    return estado_juego;
 }
 
 void ProtocoloCliente::enviar_mensaje(const std::string &mensaje)
@@ -79,120 +92,83 @@ int ProtocoloCliente::recibir_mensaje()
     }
 }
 
-void ProtocoloCliente::recibir_jugador(JugadorDTO &jugador)
+StateGame *ProtocoloCliente::recibir_paquete()
 {
-    bool was_closed = false;
-    int id;
-    int x;
-    int y;
+    std::vector<JugadorDTO> jugadores;
+    int cantidad_jugadores = recibir_byte();
 
-    // Recibir el ID del jugador
-    socket.recvall(&(id), BYTES_ID, &was_closed);
-    jugador.cargar_id(ntohs(id));
-
-    if (was_closed)
+    for (int i = 0; i < cantidad_jugadores; i++)
     {
-        en_conexion = false;
+        JugadorDTO jugador = recibir_jugador();
+        jugadores.push_back(jugador);
     }
 
-    // Recibir la coordenada X
-    socket.recvall(&(x), BYTES_X, &was_closed);
-    jugador.cargar_posicion_x(ntohs(x));
-
-    if (was_closed)
-    {
-        en_conexion = false;
-    }
-
-    // Recibir la coordenada Y
-    socket.recvall(&(y), BYTES_Y, &was_closed);
-    jugador.cargar_posicion_y(ntohs(y));
-
-    if (was_closed)
-    {
-        en_conexion = false;
-    }
+    StateGame *estado_juego = new PaqueteDTO(jugadores);
+    return estado_juego;
 }
 
-VigasDTO ProtocoloCliente::recibir_viga()
+StateGame *ProtocoloCliente::recibir_escenario()
 {
-    bool was_closed = false;
-    bool viga_tipo;
-    int x;
-    int y;
-    VigasDTO viga;
+    std::vector<VigaDTO> vigas;
+    int x = recibir_byte();
 
-    // Recibir el tipo de viga
-    socket.recvall(&(viga_tipo), BYTES_TIPO, &was_closed);
-    viga.cargar_tipo(viga_tipo);
+    int y = recibir_byte();
 
-    if (was_closed)
+    int cantidad_vigas = recibir_byte();
+
+    for (int i = 0; i < cantidad_vigas; i++)
     {
-        en_conexion = false;
-        return viga;
+        VigaDTO viga = recibir_viga();
+        vigas.push_back(viga);
     }
 
-    // Recibir la coordenada X
-    socket.recvall(&(x), BYTES_X, &was_closed);
-    viga.cargar_posicion_x(ntohs(x));
+    StateGame *estado_juego = new EscenarioDTO(x, y, vigas);
+    return estado_juego;
+}
 
-    if (was_closed)
-    {
-        en_conexion = false;
-        return viga;
-    }
+JugadorDTO ProtocoloCliente::recibir_jugador()
+{
+    int id = recibir_byte();
 
-    // Recibir la coordenada Y
-    socket.recvall(&(y), BYTES_Y, &was_closed);
-    viga.cargar_posicion_y(ntohs(y));
+    int x = recibir_byte();
 
-    if (was_closed)
-    {
-        en_conexion = false;
-        return viga;
-    }
+    int y = recibir_byte();
+    JugadorDTO jugador(id, x, y);
+    return jugador;
+}
 
+VigaDTO ProtocoloCliente::recibir_viga()
+{
+    int tipo = recibir_byte();
+
+    int x = recibir_byte();
+
+    int y = recibir_byte();
+
+    VigaDTO viga(tipo, x, y);
     return viga;
-}
-
-int ProtocoloCliente::recibir_cantidad_jugadores()
-{
-    bool was_closed = false;
-    uint8_t buffer;
-    socket.recvall(&buffer, RECIBO_BYTE, &was_closed);
-    if (was_closed)
-    {
-        en_conexion = false;
-    }
-    int cantidad = traducir_mensaje_cantidad(buffer);
-    return cantidad;
 }
 
 int ProtocoloCliente::traducir_tipo_mensaje(const uint8_t &buffer)
 {
     int tipo = -1;
-    if (buffer == CANT_JUGADORES)
+    if (buffer == RECIBIR_TURNO)
     {
         tipo = 0;
     }
-    else if (buffer == RECIBIR_JUGADOR)
+    else if (buffer == RECIBIR_SEGUNDO)
     {
         tipo = 1;
     }
-    else if (buffer == RECIBIR_VIGA)
+    else if (buffer == RECIBIR_PAQUETE)
     {
         tipo = 2;
     }
-    else if (buffer == RECIBIR_TURNO)
+    else if (buffer == RECIBIR_ESCENARIO)
     {
         tipo = 3;
     }
     return tipo;
-}
-
-int ProtocoloCliente::traducir_mensaje_cantidad(const uint8_t &buffer)
-{
-    return static_cast<int>(static_cast<unsigned char>(buffer));
 }
 
 void ProtocoloCliente::desconectar()
@@ -207,70 +183,39 @@ bool ProtocoloCliente::check_en_conexion()
     return en_conexion;
 }
 
-void ProtocoloCliente::procesar_mensaje(const int &id_jugador, StateGame &estado_juego)
+StateGame *ProtocoloCliente::procesar_mensaje(const int &id_jugador)
 {
-    JugadorDTO jugador_dto;
-    EscenarioDTO escenario_dto;
-    jugador_dto.cargar_id(id_jugador);
+    StateGame *estado;
     int tipo_mensaje = recibir_mensaje();
     bool conectado = check_en_conexion();
-    estado_juego.cargar_tipo_mensaje(tipo_mensaje);
-    
-
     switch (tipo_mensaje)
     {
-    case TIPO_CANTIDAD_JUGADORES:
-        if (conectado)
-        {
-            int cantidad_jugadores = recibir_cantidad_jugadores();
-            conectado = check_en_conexion();
-            escenario_dto.cargar_cant_jugadores(cantidad_jugadores);
-            estado_juego.cargar_escenario(escenario_dto);
-            
-
-        }
-     
-
-        break;
-
-    case TIPO_JUGADOR:
-        if (conectado)
-        {
-        
-            recibir_jugador(jugador_dto);
-            conectado = check_en_conexion();
-         
-            estado_juego.cargar_jugador(jugador_dto);       
-          
-        }
-        break;
-    case TIPO_VIGA:
-        if (conectado)
-        {
-       
-            VigasDTO viga = recibir_viga();
-            conectado = check_en_conexion();
-            estado_juego.cargar_viga(viga);
-        }
-        break;
-
     case TIPO_TURNO:
         if (conectado)
-        {   
-            int id = recibir_id_turno_actual();
-            conectado = check_en_conexion();
-            if(id == id_jugador){
-     
-               estado_juego.cargar_turno(true);
+        {
+            estado = recibir_turno(id_jugador);
+        }
+        break;
 
-            }
-          
-          
+    case TIPO_SEGUNDO:
+        if (conectado)
+        {
+            estado = recibir_segundo();
+        }
+        break;
+    case TIPO_PAQUETE:
+        if (conectado)
+        {
+            estado = recibir_paquete();
+        }
+        break;
+
+    case TIPO_ESCENARIO:
+        if (conectado)
+        {
+            estado = recibir_escenario();
         }
         break;
     }
-
-   
-
-  
+    return estado;
 }

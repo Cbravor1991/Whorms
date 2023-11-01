@@ -11,7 +11,7 @@ std::map<int, Partida *> Lobby::obtener_partidas() const
     return partidas;
 }
 
-void Lobby::crear_partida(Jugador *jugador, int partida_id)
+void Lobby::crear_partida(Jugador *jugador)
 {
     Partida *partida = new Partida();
     partidas[partida_id] = partida;

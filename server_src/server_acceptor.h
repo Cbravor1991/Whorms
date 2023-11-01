@@ -15,12 +15,13 @@ private:
     Socket socket;
     bool ejecutando = true;
     Lobby *lobby;
-    bool primer_jugador = true;
+    std::vector<ServerLobby *> servidores_lobby;
 
     void lanzar_hilo_manejador(Socket skt_cliente);
 
 public:
     ServerAceptador(const std::string &servname);
+    ~ServerAceptador();
 
     void run() override;
 

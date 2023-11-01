@@ -12,6 +12,7 @@ public:
     int cambiar_turno();
     void eliminar_id(int id);
     void agregar_id(int id);
+    int recibir_turno();
 
 private:
     std::vector<int> jugadores;

@@ -14,7 +14,6 @@ void Partida::agregar_jugador(Jugador *jugador)
 {
     int jugador_id = monitor_jugadores->agregar_jugador(jugador);
     jugador->jugar(cola, jugador_id);
-    monitor_jugadores->cargar_mapa(jugador);
     escenario.agregar_gusano(jugador_id);
     if (!en_ejecucion)
     {
@@ -44,12 +43,12 @@ void Partida::run()
         Accion *accion;
         if (cola->try_pop(accion))
         {
-            accion->ejecutar_accion(escenario);
-            id_desconectado = accion->avisar_desconectado();
+            id_desconectado = accion->ejecutar_accion(escenario);
+            // id_desconectado = accion->avisar_desconectado();
             delete accion;
         }
 
-        if (segundos_transcurridos >= DURACION_TURNO or id_desconectado == id_turno)
+        if (segundos_transcurridos >= DURACION_TURNO or id_turno == id_desconectado)
         {
             // Realizar el cambio de turno
             id_turno = monitor_jugadores->cambiar_turno();
@@ -66,7 +65,7 @@ void Partida::run()
         // Verificar si es un nuevo número antes de notificar a los jugadores
         if (segundo_actual != ultimo_numero_notificado)
         {
-            monitor_jugadores->notificar_segundos(segundo_actual);
+            monitor_jugadores->mandar_segundos(segundo_actual);
             ultimo_numero_notificado = segundo_actual;
         }
 

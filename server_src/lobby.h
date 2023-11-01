@@ -19,11 +19,11 @@ public:
     void agregar_jugador(Jugador *jugador, int partida_id);
 
     // Crear una nueva partida con un escenario
-    void crear_partida(Jugador *jugador, int partida_id);
+    void crear_partida(Jugador *jugador);
 
 private:
     std::map<int, Partida *> partidas;
-    int partida_id;
+    int partida_id = 1;
 };
 
 #endif

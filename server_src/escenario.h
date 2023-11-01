@@ -6,7 +6,16 @@
 #include "objeto.h"
 #include "gusano.h"
 #include "bloque.h"
+#include "data/posicion_viga.h"
+#include "data/posicion_jugador.h"
 #include <map>
+
+struct Viga
+{
+    bool tipo;
+    int x;
+    int y;
+};
 
 class MonitorJugadores;
 
@@ -14,8 +23,6 @@ class Escenario
 {
 public:
     Escenario(std::uint16_t x_size, std::uint16_t y_size, MonitorJugadores *monitor);
-
-    void procesar(const std::string &comando);
 
     void agregar_gusano(int jugador_id);
 
@@ -37,10 +44,13 @@ private:
     std::uint16_t x_size;
     std::uint16_t y_size;
     MonitorJugadores *monitor;
-    std::vector<std::vector<Objeto *>> map; // objeto puede ser bloque, gusano, arma o botiquin
+    std::vector<std::vector<Objeto *>> map;
+    std::vector<Viga> vigas;
     std::map<int, std::map<int, Gusano *>> gusanos;
     std::vector<std::pair<int, int>> spawns;
     int cantidad_jugadores = 0;
+
+    std::vector<PosicionJugador> crear_paquete();
 
     void mover(int x, int y, int nuevo_x, int nuevo_y);
 

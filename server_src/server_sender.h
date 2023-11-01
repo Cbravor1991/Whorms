@@ -7,7 +7,7 @@
 #include "server_protocol.h"
 #include "../common_src/queue.h"
 #include "../common_src/thread.h"
-#include "data/data.h"
+#include "data/data_DTO.h"
 
 class ServerLanzador : public Thread
 {

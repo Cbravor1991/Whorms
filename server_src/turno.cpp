@@ -40,3 +40,8 @@ void Turno::agregar_id(int id)
 {
     jugadores.push_back(id);
 }
+
+int Turno::recibir_turno()
+{
+    return jugadores[turno_actual];
+}

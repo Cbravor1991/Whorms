@@ -8,13 +8,19 @@
 #include <vector>
 #include <tuple>
 #include "../common_src/common_socket.h"
-#include "common_state_game.h"
+#include "DTO/common_state_game.h"
+#include "DTO/common_vigaDTO.h"
+#include "DTO/common_jugadorDTO.h"
+#include "DTO/common_paqueteDTO.h"
+#include "DTO/common_escenarioDTO.h"
+#include "DTO/common_turnoDTO.h"
+#include "DTO/common_segundosDTO.h"
 #include <cstring>
 
-const int TIPO_CANTIDAD_JUGADORES = 0;
-const int TIPO_JUGADOR = 1;
-const int TIPO_VIGA = 2;
-const int TIPO_TURNO = 3;
+const int TIPO_TURNO = 0;
+const int TIPO_SEGUNDO = 1;
+const int TIPO_PAQUETE = 2;
+const int TIPO_ESCENARIO = 3;
 
 struct Viga
 {
@@ -23,11 +29,10 @@ struct Viga
     int y;
 };
 
-const std::int8_t CANT_JUGADORES = 0x06;
+const std::int8_t RECIBIR_SEGUNDO = 0x01;
 const std::int8_t RECIBIR_TURNO = 0x00;
-const std::int8_t RECIBIR_JUGADOR = 0x01;
-const std::int8_t RECIBIR_VIGA = 0x09;
-const std::int8_t ENVIAR_CHAT = 0x05;
+const std::int8_t RECIBIR_PAQUETE = 0x03;
+const std::int8_t RECIBIR_ESCENARIO = 0x04;
 const int RECIBO_BYTE = 1;
 const int BYTES_ID = 2;
 const int BYTES_X = 2;
@@ -40,7 +45,21 @@ private:
     Socket socket;
     bool en_conexion = true;
 
-    int traducir_mensaje_cantidad(const uint8_t &buffer);
+    int recibir_byte();
+
+    int recibir_mensaje();
+
+    StateGame *recibir_turno(int jugador_id);
+
+    StateGame *recibir_segundo();
+
+    StateGame *recibir_paquete();
+
+    StateGame *recibir_escenario();
+
+    JugadorDTO recibir_jugador();
+
+    VigaDTO recibir_viga();
 
     int traducir_tipo_mensaje(const uint8_t &buffer);
 
@@ -48,21 +67,11 @@ public:
     ProtocoloCliente(const std::string &hostname,
                      const std::string &servname);
 
-    int recibir_id_turno_actual();
-
     int recibir_id_jugador();
 
     void enviar_mensaje(const std::string &mensaje);
 
-    int recibir_mensaje();
-
-    int recibir_cantidad_jugadores();
-
-    void recibir_jugador(JugadorDTO &jugador);
-
-    VigasDTO recibir_viga();
-
-    void procesar_mensaje(const int &id_jugador, StateGame &estado_juego);
+    StateGame *procesar_mensaje(const int &id_jugador);
 
     bool check_en_conexion();
 

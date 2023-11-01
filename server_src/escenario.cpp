@@ -8,6 +8,22 @@ Escenario::Escenario(std::uint16_t x_size, std::uint16_t y_size, MonitorJugadore
 {
 }
 
+std::vector<PosicionJugador> Escenario::crear_paquete()
+{
+    std::vector<PosicionJugador> posicion_jugadores;
+    for (const auto &fila : gusanos)
+    {
+        for (const auto &par : fila.second)
+        {
+            Gusano *gusano = par.second;
+            // Supongamos que tienes un método en Gusano para obtener la posición
+            PosicionJugador jugador(fila.first, gusano->getX(), gusano->getY());
+            posicion_jugadores.push_back(jugador);
+        }
+    }
+    return posicion_jugadores;
+}
+
 void Escenario::avisar_desconexion(int jugador)
 {
     monitor->avisar_desconexion();
@@ -34,7 +50,14 @@ void Escenario::agregar_gusano(int jugador_id)
     // Asignar las coordenadas del gusano
     nuevoGusano->setCoordenadas(spawn.first, spawn.second);
     map[spawn.second][spawn.first] = nuevoGusano;
-    monitor->actualizar_jugadores_jugador(jugador_id, spawn.first, spawn.second);
+    std::vector<PosicionViga> posicion_vigas;
+    for (auto &viga : vigas)
+    {
+        PosicionViga posicion_viga(viga.tipo, viga.x, viga.y);
+        posicion_vigas.push_back(posicion_viga);
+    }
+    monitor->mandar_escenario(x_size, y_size, posicion_vigas, jugador_id);
+    monitor->mandar_paquete(crear_paquete());
 }
 
 void Escenario::colocar_viga(int x, int y, bool tipo, int inclinacion)
@@ -73,7 +96,11 @@ void Escenario::colocar_viga(int x, int y, bool tipo, int inclinacion)
             }
         }
     }
-    monitor->agregar_viga(tipo, x, y);
+    Viga nueva_viga;
+    nueva_viga.tipo = tipo;
+    nueva_viga.x = x;
+    nueva_viga.y = y;
+    vigas.push_back(nueva_viga);
 }
 
 void Escenario::mover_gusano_derecha(int gusano, int jugador)
@@ -82,9 +109,7 @@ void Escenario::mover_gusano_derecha(int gusano, int jugador)
     Gusano *gusanoAMover = gusanosDelJugador[gusano];
     mover_derecha(gusanoAMover, 2);
     gravedad(gusanoAMover);
-    int x = gusanoAMover->getX();
-    int y = gusanoAMover->getY();
-    monitor->actualizar_jugadores_jugador(jugador, x, y);
+    monitor->mandar_paquete(crear_paquete());
 }
 
 void Escenario::mover_gusano_izquierda(int gusano, int jugador)
@@ -93,9 +118,8 @@ void Escenario::mover_gusano_izquierda(int gusano, int jugador)
     Gusano *gusanoAMover = gusanosDelJugador[gusano];
     mover_izquierda(gusanoAMover, 2);
     gravedad(gusanoAMover);
-    int x = gusanoAMover->getX();
-    int y = gusanoAMover->getY();
-    monitor->actualizar_jugadores_jugador(jugador, x, y);
+    monitor->mandar_paquete(crear_paquete());
+    ;
 }
 
 void Escenario::mover_gusano_arriba_adelante(int gusano, int jugador)
@@ -115,9 +139,7 @@ void Escenario::mover_gusano_arriba_adelante(int gusano, int jugador)
         }
     }
     gravedad(gusanoAMover);
-    int x = gusanoAMover->getX();
-    int y = gusanoAMover->getY();
-    monitor->actualizar_jugadores_jugador(jugador, x, y);
+    monitor->mandar_paquete(crear_paquete());
 }
 
 void Escenario::mover_gusano_arriba_atras(int gusano, int jugador)
@@ -137,9 +159,7 @@ void Escenario::mover_gusano_arriba_atras(int gusano, int jugador)
         }
     }
     gravedad(gusanoAMover);
-    int x = gusanoAMover->getX();
-    int y = gusanoAMover->getY();
-    monitor->actualizar_jugadores_jugador(jugador, x, y);
+    monitor->mandar_paquete(crear_paquete());
 }
 
 void Escenario::mover(int x, int y, int nuevo_x, int nuevo_y)
@@ -249,6 +269,7 @@ Escenario::~Escenario()
 
     // Limpiar el vector de spawns
     spawns.clear();
+    gusanos.clear();
 
     // Liberar la memoria de los objetos en el mapa
     for (std::vector<Objeto *> &fila : map)

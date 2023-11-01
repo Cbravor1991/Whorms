@@ -3,21 +3,36 @@
 int MonitorJugadores::cambiar_turno()
 {
     int id_turno = turno.cambiar_turno();
-    Data *comando = new CambioTurno(id_turno);
     for (const auto &entry : jugadores)
     {
         Jugador *jugador = entry.second;
-        jugador->recibir_comando(comando);
+        jugador->recibir_comando(new CambioTurno(id_turno));
     }
     return id_turno;
 }
-void MonitorJugadores::notificar_segundos(int segundos)
+
+void MonitorJugadores::mandar_paquete(std::vector<PosicionJugador> jugadores)
 {
-    std::cout << "Segundo: " << segundos << std::endl;
-    // for (const auto &par : jugadores)
-    //{Jugador *jugador = par.second;
-    //  jugador->notificar_segundos(segundos);
-    // }
+    for (const auto &entry : this->jugadores)
+    {
+        Jugador *jugador = entry.second;
+        jugador->recibir_comando(new Paquete(jugadores));
+    }
+}
+
+void MonitorJugadores::mandar_segundos(int segundos)
+{
+    for (const auto &entry : jugadores)
+    {
+        Jugador *jugador = entry.second;
+        jugador->recibir_comando(new Segundo(segundos));
+    }
+}
+
+void MonitorJugadores::mandar_escenario(int x, int y, std::vector<PosicionViga> vigas, int id)
+{
+    Jugador *jugador = jugadores[id];
+    jugador->recibir_comando(new EscenarioInformacion(x, y, vigas));
 }
 
 void MonitorJugadores::actualizar_jugadores_cantidad(int cantidad)
@@ -25,18 +40,6 @@ void MonitorJugadores::actualizar_jugadores_cantidad(int cantidad)
     std::unique_lock<std::mutex> lck(mutex_);
     std::cout << "Jugadores " << cantidad
               << ", esperando al resto de tus amigos…" << std::endl;
-}
-
-void MonitorJugadores::actualizar_jugadores_jugador(int id, int x, int y)
-{
-    std::cout << "Jugador " << id << " en coordenadas"
-              << " X: " << x << " Y: " << y << std::endl;
-    Data *comando = new PosicionJugador(id, x, y);
-    for (const auto &entry : jugadores)
-    {
-        Jugador *jugador = entry.second;
-        jugador->recibir_comando(comando);
-    }
 }
 
 int MonitorJugadores::agregar_jugador(Jugador *jugador)
@@ -102,25 +105,6 @@ void MonitorJugadores::actualizar_cantidad_jugadores(int cantidad)
 {
     cantidad_jugadores += cantidad;
     actualizar_jugadores_cantidad(cantidad_jugadores);
-}
-
-void MonitorJugadores::agregar_viga(bool tipo, int x, int y)
-{
-    Viga nueva_viga;
-    nueva_viga.tipo = tipo;
-    nueva_viga.x = x;
-    nueva_viga.y = y;
-
-    vigas.push_back(nueva_viga);
-}
-
-void MonitorJugadores::cargar_mapa(Jugador *jugador)
-{
-    for (auto &viga : vigas)
-    {
-        Data *comando = new PosicionViga(viga.tipo, viga.x, viga.y);
-        jugador->recibir_comando(comando);
-    }
 }
 
 MonitorJugadores::~MonitorJugadores()

@@ -4,6 +4,7 @@
 #include <vector>
 #include <utility>
 #include <netinet/in.h>
+#include <thread>
 #include <fstream>
 #include "server_sender.h"
 
@@ -17,8 +18,9 @@ void ServerLanzador::run()
     bool en_conexion = true;
     while (en_conexion)
     {
-        Data *comando = cola->pop();
-        comando->enviar_data(protocolo);
+        Data *data = cola->pop();
+        data->enviar_data(protocolo);
+        delete data;
         en_conexion = protocolo->check_en_conexion();
     }
 }

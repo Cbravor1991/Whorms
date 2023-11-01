@@ -8,16 +8,10 @@
 #include <condition_variable>
 #include "server_jugador.h"
 #include "turno.h"
-#include "data/cambio_turno.h"
-#include "data/posicion_jugador.h"
-#include "data/posicion_viga.h"
-
-struct Viga
-{
-    bool tipo;
-    int x;
-    int y;
-};
+#include "data/cambio_turno_DTO.h"
+#include "data/paquete_DTO.h"
+#include "data/escenario_DTO.h"
+#include "data/segundo_DTO.h"
 
 class Jugador;
 
@@ -28,9 +22,11 @@ public:
 
     int cambiar_turno();
 
-    void cargar_mapa(Jugador *jugador);
+    void mandar_paquete(std::vector<PosicionJugador> jugadores);
 
-    void notificar_segundos(int segundos);
+    void mandar_escenario(int x, int y, std::vector<PosicionViga> vigas, int id);
+
+    void mandar_segundos(int segundos);
 
     void actualizar_jugadores_cantidad(int cantidad);
 
@@ -42,8 +38,6 @@ public:
 
     void avisar_desconexion();
 
-    void agregar_viga(bool tipo, int x, int y);
-
     ~MonitorJugadores();
 
 private:
@@ -51,7 +45,6 @@ private:
     std::atomic<int> cantidad_jugadores = 0;
     std::map<int, Jugador *> jugadores;
     std::vector<Jugador *> jugadores_desconectados;
-    std::vector<Viga> vigas;
     Turno turno;
 
     int encontrar_siguiente_id_disponible() const;

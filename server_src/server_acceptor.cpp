@@ -38,6 +38,8 @@ void ServerAceptador::lanzar_hilo_manejador(
     ServerLobby *server_lobby = new ServerLobby(protocolo, lobby);
 
     server_lobby->start();
+
+    servidores_lobby.push_back(server_lobby);
 }
 
 void ServerAceptador::terminar()
@@ -45,5 +47,16 @@ void ServerAceptador::terminar()
     socket.shutdown(2);
     socket.close();
     ejecutando = false;
+}
+
+ServerAceptador::~ServerAceptador()
+{
+
+    for (ServerLobby *servidor : servidores_lobby)
+    {
+        servidor->join();
+        delete servidor;
+    }
+
     delete lobby;
 }

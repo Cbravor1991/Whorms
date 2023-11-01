@@ -9,7 +9,7 @@
 #include "../common_src/common_socket.h"
 #include "client_protocol.h"
 #include "client_sender.h"
-#include "common_state_game.h"
+#include "DTO/common_state_game.h"
 
 class Cliente
 {
@@ -20,8 +20,7 @@ private:
     bool conectado = true;
     uint8_t id;
     Queue<uint8_t> queue_sender;
-    Queue<StateGame> queue_receiver;
-    std::atomic<bool> turno_activo{false};
+    Queue<StateGame *> queue_receiver;
 
 public:
     Cliente(const std::string &hostname, const std::string &servname);
