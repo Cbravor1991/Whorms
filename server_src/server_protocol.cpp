@@ -36,14 +36,12 @@ void ProtocoloServer::enviar_turno(int turno_id)
 {
     enviar_byte(CAMBIO_TURNO);
     enviar_int(turno_id);
-    std::cout << std::endl;
 }
 
 void ProtocoloServer::enviar_segundos(int segundos)
 {
     enviar_byte(SEGUNDOS);
     enviar_int(segundos);
-    std::cout << std::endl;
 }
 
 int ProtocoloServer::leer_movimiento()
