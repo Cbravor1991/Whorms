@@ -62,7 +62,7 @@ public:
 
     VigasDTO recibir_viga();
 
-    StateGame procesar_mensaje(const int &id_jugador);
+    void procesar_mensaje(const int &id_jugador, StateGame &estado_juego);
 
     bool check_en_conexion();
 

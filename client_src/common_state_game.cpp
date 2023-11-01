@@ -17,13 +17,26 @@ void StateGame::cargar_turno(bool turno)
    
 }
 
-void StateGame::cargar_escenario(EscenarioDTO escenario)
+
+void StateGame::cargar_viga(VigasDTO &viga)
 {
-    escenario = escenario;
+    this->vigas.push_back(viga);
 }
-void StateGame::cargar_jugador(JugadorDTO jugador)
+
+std::vector< VigasDTO> StateGame::obtener_viga()
 {
-    jugador = jugador;
+    return this->vigas;
+}
+
+
+
+void StateGame::cargar_escenario(EscenarioDTO &escenario)
+{
+    this->escenario = escenario;
+}
+void StateGame::cargar_jugador(JugadorDTO &jugador)
+{
+    this->jugador.push_back(jugador);
 }
 
 int StateGame::obtener_turno()
@@ -33,11 +46,11 @@ int StateGame::obtener_turno()
 
 EscenarioDTO StateGame::obtener_escenario()
 {
-    return escenario;
+    return this->escenario;
 }
-JugadorDTO StateGame::obtener_jugador()
+std::vector<JugadorDTO> StateGame::obtener_jugador()
 {
-    return jugador;
+    return this->jugador;
 }
 
 void StateGame::cargar_tipo_mensaje(int tipo_mensaje)

@@ -207,9 +207,8 @@ bool ProtocoloCliente::check_en_conexion()
     return en_conexion;
 }
 
-StateGame ProtocoloCliente::procesar_mensaje(const int &id_jugador)
+void ProtocoloCliente::procesar_mensaje(const int &id_jugador, StateGame &estado_juego)
 {
-    StateGame estado_juego;
     JugadorDTO jugador_dto;
     EscenarioDTO escenario_dto;
     jugador_dto.cargar_id(id_jugador);
@@ -223,12 +222,11 @@ StateGame ProtocoloCliente::procesar_mensaje(const int &id_jugador)
     case TIPO_CANTIDAD_JUGADORES:
         if (conectado)
         {
-    
             int cantidad_jugadores = recibir_cantidad_jugadores();
             conectado = check_en_conexion();
-          
             escenario_dto.cargar_cant_jugadores(cantidad_jugadores);
-            std::cout << escenario_dto.obtener_cantidad_jugadores()<<'\n';
+            estado_juego.cargar_escenario(escenario_dto);
+            
 
         }
      
@@ -241,8 +239,8 @@ StateGame ProtocoloCliente::procesar_mensaje(const int &id_jugador)
         
             recibir_jugador(jugador_dto);
             conectado = check_en_conexion();
-            std::cout << "Jugador " << jugador_dto.obtener_id() << " en coordenadas"
-                      << " X: " << jugador_dto.obtener_posicion_x() << " Y: " << jugador_dto.obtener_posicion_y() << std::endl;
+         
+            estado_juego.cargar_jugador(jugador_dto);       
           
         }
         break;
@@ -252,8 +250,7 @@ StateGame ProtocoloCliente::procesar_mensaje(const int &id_jugador)
        
             VigasDTO viga = recibir_viga();
             conectado = check_en_conexion();
-             std::cout << "Viga " << viga.obtener_tipo() << " en coordenadas"
-                       << " X: " << viga.obtener_posicion_x() << " Y: " << viga.obtener_posicion_y() << std::endl;
+            estado_juego.cargar_viga(viga);
         }
         break;
 
@@ -273,8 +270,7 @@ StateGame ProtocoloCliente::procesar_mensaje(const int &id_jugador)
         break;
     }
 
-    estado_juego.cargar_jugador(jugador_dto);
-    estado_juego.cargar_escenario(escenario_dto);
+   
 
-    return estado_juego;
+  
 }

@@ -38,6 +38,26 @@ void Cliente::run()
             
                    cliente_lanzador.autorizar_turno(estado.obtener_turno());
         }
+
+        if(tipo_mensaje== TIPO_JUGADOR){
+             std::vector<JugadorDTO> jugadores_dto = estado.obtener_jugador();
+
+               for ( JugadorDTO& jugador_dto : jugadores_dto) {
+         std::cout << "Jugador " << jugador_dto.obtener_id() << " en coordenadas"
+                      << " X: " << jugador_dto.obtener_posicion_x() << " Y: " << jugador_dto.obtener_posicion_y() << std::endl;
+    }
+            
+            
+        }
+
+        if(tipo_mensaje == TIPO_VIGA){
+            std::vector<VigasDTO> vigas = estado.obtener_viga();
+
+    for ( VigasDTO& viga : vigas) {
+        std::cout << "Viga " << viga.obtener_tipo() << " en coordenadas"
+                  << " X: " << viga.obtener_posicion_x() << " Y: " << viga.obtener_posicion_y() << std::endl;
+    }
+        }
         
 
             

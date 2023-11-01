@@ -21,7 +21,7 @@ void ClienteRecibidor::run()
     while (en_conexion && (!cliente_cerrado))
     {
         StateGame estado_juego;
-        estado_juego = protocolo.procesar_mensaje(id_jugador);
+        protocolo.procesar_mensaje(id_jugador,estado_juego);
         queue_receiver.try_push(estado_juego);
         en_conexion = protocolo.check_en_conexion();
     }
