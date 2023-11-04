@@ -13,7 +13,7 @@ add_definitions(-DDATA_PATH="${PROJECT_SOURCE_DIR}/data")
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror -pedantic -pedantic-errors -O0 -ggdb -DDEBUG -fno-inline -D _POSIX_C_SOURCE=200809L -pthread")
 
-add_subdirectory(${CMAKE_SOURCE_DIR}/lib/box2d-2.4.0 ${CMAKE_SOURCE_DIR}/build/lib/box2d-2.4.0)
+add_subdirectory(${CMAKE_SOURCE_DIR}/libs/box2d-2.4.0 ${CMAKE_SOURCE_DIR}/build/libs/box2d-2.4.0)
 
 	add_executable(server 
                 ./server_src/server.cpp
@@ -35,7 +35,7 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/lib/box2d-2.4.0 ${CMAKE_SOURCE_DIR}/build/l
                 ./common_src/common_socket.cpp 
     )
 
-    target_include_directories(server PUBLIC ${PROJECT_SOURCE_DIR}/lib/box2d)
+    target_include_directories(server PUBLIC ${PROJECT_SOURCE_DIR}/libs/box2d)
     target_link_libraries(server box2d)
 
 	set(SERVER_OUTPUT_DIR ${CMAKE_BINARY_DIR})
@@ -48,7 +48,7 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/lib/box2d-2.4.0 ${CMAKE_SOURCE_DIR}/build/l
     set(SDL2PP_WITH_IMAGE ON)
     set(SDL2PP_WITH_MIXER ON)
     set(SDL2PP_WITH_TTF ON)
-    add_subdirectory(${CMAKE_SOURCE_DIR}/lib/SDL2pp ${CMAKE_SOURCE_DIR}/build/lib/SDL2pp)
+    add_subdirectory(${CMAKE_SOURCE_DIR}/libs/SDL2pp ${CMAKE_SOURCE_DIR}/build/libs/SDL2pp)
     add_executable(client 
                 ./client_src/client_main.cpp 
                 ./client_src/client_protocol.cpp 
@@ -62,7 +62,7 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/lib/box2d-2.4.0 ${CMAKE_SOURCE_DIR}/build/l
                 ./common_src/common_resolvererror.cpp 
                 ./common_src/common_socket.cpp 
     )
-    target_include_directories(client PUBLIC ${PROJECT_SOURCE_DIR}/lib/SDL2pp)
+    target_include_directories(client PUBLIC ${PROJECT_SOURCE_DIR}/libs/SDL2pp)
     target_link_libraries(client SDL2pp)
 
 
