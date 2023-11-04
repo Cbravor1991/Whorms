@@ -69,7 +69,7 @@ public:
 
     int recibir_id_jugador();
 
-    void enviar_mensaje(const std::string &mensaje);
+    void enviar_mensaje(const uint8_t &byte);//const std::string &mensaje
 
     StateGame *procesar_mensaje(const int &id_jugador);
 

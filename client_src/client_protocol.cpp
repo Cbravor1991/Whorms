@@ -54,14 +54,14 @@ StateGame *ProtocoloCliente::recibir_segundo()
     return estado_juego;
 }
 
-void ProtocoloCliente::enviar_mensaje(const std::string &mensaje)
+void ProtocoloCliente::enviar_mensaje(const uint8_t &byte)//const std::string &mensaje
 {
     bool was_closed = false;
 
     // Convierte la cadena a un número entero
-    int numero = std::stoi(mensaje);
+    //int numero = std::stoi(mensaje);
 
-    int8_t byte = static_cast<int8_t>(numero);
+    //int8_t byte = static_cast<int8_t>(numero);
 
     // Envía el byte
     socket.sendall(&byte, 1, &was_closed);

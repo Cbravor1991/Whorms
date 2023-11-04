@@ -2,7 +2,8 @@
 #include <string>
 #include <iostream>
 #include <exception>
-#include "client.h"
+//#include "client.h"
+#include "game.h"
 
 int main(int argc, char *argv[])
 {
@@ -16,8 +17,10 @@ int main(int argc, char *argv[])
         const std::string hostname = std::string(argv[1]);
         const std::string servname = std::string(argv[2]);
 
-        Cliente cliente(hostname, servname);
-        cliente.run();
+        // Cliente cliente(hostname, servname);
+        // cliente.run();
+        Game juego(hostname, servname);
+        juego.run();
 
         return 0;
     }

@@ -4,6 +4,8 @@
 #include <map>
 #include <vector>
 #include "common_state_game.h"
+#include <ostream>
+#include <iostream>
 
 class TurnoDTO : public StateGame
 {

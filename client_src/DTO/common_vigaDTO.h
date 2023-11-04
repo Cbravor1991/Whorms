@@ -1,5 +1,7 @@
 #ifndef VIGADTO_H_
 #define VIGADTO_H_
+#include <ostream>
+#include <iostream>
 
 class VigaDTO
 {
