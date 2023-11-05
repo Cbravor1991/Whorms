@@ -63,18 +63,20 @@ int ProtocoloServer::leer_movimiento()
     }
 }
 
-void ProtocoloServer::enviar_jugador(int id, int x, int y)
+void ProtocoloServer::enviar_jugador(int id, int x, int y, int angulo)
 {
     enviar_int(id);
     enviar_int(x);
     enviar_int(y);
+    enviar_int(angulo);
 }
 
-void ProtocoloServer::enviar_viga(bool tipo, int x, int y)
+void ProtocoloServer::enviar_viga(bool tipo, int x, int y, int angulo)
 {
     enviar_int(static_cast<int>(tipo));
     enviar_int(x);
     enviar_int(y);
+    enviar_int(angulo);
 }
 
 void ProtocoloServer::enviar_informacion_escenario(int x, int y, int cantidad_vigas)

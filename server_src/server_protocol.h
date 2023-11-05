@@ -50,9 +50,9 @@ public:
 
     void enviar_segundos(int segundo);
 
-    void enviar_jugador(int id, int x, int y);
+    void enviar_jugador(int id, int x, int y, int angulo);
 
-    void enviar_viga(bool tipo, int x, int y);
+    void enviar_viga(bool tipo, int x, int y, int angulo);
 
     bool check_en_conexion();
 

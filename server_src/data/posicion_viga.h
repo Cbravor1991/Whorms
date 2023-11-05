@@ -9,13 +9,14 @@ private:
     bool tipo;
     int x;
     int y;
+    int angulo;
 
 public:
-    PosicionViga(bool tipo, int x, int y) : tipo(tipo), x(x), y(y) {}
+    PosicionViga(bool tipo, int x, int y, int angulo) : tipo(tipo), x(x), y(y), angulo(angulo) {}
 
     void enviar_data(ProtocoloServer *protocolo) const
     {
-        protocolo->enviar_viga(tipo, x, y);
+        protocolo->enviar_viga(tipo, x, y, angulo);
     }
 };
 

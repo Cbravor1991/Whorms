@@ -21,15 +21,16 @@ void ClienteLanzador::autorizar_turno(bool turno)
 
 void ClienteLanzador::run()
 {
-    while (en_conexion) {
+    while (en_conexion)
+    {
 
         uint8_t movimiento = queue_sender.pop();
-        if (this->turno) {
+        if (this->turno and en_conexion)
+        {
             protocolo.enviar_mensaje(movimiento);
         }
         en_conexion = protocolo.check_en_conexion();
     }
-    
 }
 
 void ClienteLanzador::terminar()
@@ -38,4 +39,5 @@ void ClienteLanzador::terminar()
     cliente_recibidor.terminar();
     protocolo.desconectar();
     cliente_recibidor.join();
+    queue_sender.push(0);
 }

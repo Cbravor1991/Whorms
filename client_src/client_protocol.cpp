@@ -123,11 +123,10 @@ StateGame *ProtocoloCliente::recibir_escenario()
 JugadorDTO ProtocoloCliente::recibir_jugador()
 {
     int id = recibir_byte();
-
     int x = recibir_byte();
-
     int y = recibir_byte();
-    JugadorDTO jugador(id, x, y);
+    int angulo = recibir_byte();
+    JugadorDTO jugador(id, x, y, angulo);
     return jugador;
 }
 
@@ -139,7 +138,8 @@ VigaDTO ProtocoloCliente::recibir_viga()
 
     int y = recibir_byte();
 
-    VigaDTO viga(tipo, x, y);
+    int angulo = recibir_byte();
+    VigaDTO viga(tipo, x, y, angulo);
     return viga;
 }
 

@@ -13,6 +13,7 @@ class StateGame
 public:
     StateGame() {}
     virtual void cambiar_render(bool &permiso) {}
+    virtual ~StateGame() {}
 };
 
 #endif
