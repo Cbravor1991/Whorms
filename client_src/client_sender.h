@@ -21,7 +21,6 @@ private:
     bool en_conexion = true;
     bool turno = false;
 
-    //void ejecutar_accion(const std::string &linea);
     Queue<uint8_t> &queue_sender;
     Queue<StateGame *> &queue_receiver;
     ClienteRecibidor cliente_recibidor;

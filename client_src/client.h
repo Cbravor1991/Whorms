@@ -27,7 +27,6 @@ private:
 public:
     Cliente(const std::string &hostname, const std::string &servname);
     ~Cliente();
-    //void run();
 
     void cargar_id_jugador(const uint8_t id);
     uint8_t obtener_id_jugador();
@@ -38,14 +37,8 @@ public:
     std::optional<StateGame*> obtener_estado();
     void autorizar_turno(bool permiso);
 
-    /*
-        Puedo hacer que sea uno solo
-    */
-    void mover_izquierda();
-    void mover_derecha();
-    void saltar_hacia_delante();
-    void saltar_hacia_atras();
-
+    void mover(uint8_t movimiento);
+    
     Cliente(const Cliente &) = delete;
     Cliente &operator=(const Cliente &) = delete;
 };

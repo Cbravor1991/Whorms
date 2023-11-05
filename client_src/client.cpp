@@ -9,14 +9,7 @@
 #include <tuple>
 #include <thread>
 
-const int MOVIMIENTO_IZQUIERDA = 1;
-const int MOVIMIENTO_DERECHA = 2;
-const int MOVIMIENTO_ARRIBA_ADELANTE = 3;
-const int MOVIMIENTO_ARRIBA_ATRAS = 4;
-
-//#include "graphics/renderer.h"
 #include <chrono>
-//#include <vector>
 #include <SDL2pp/SDL2pp.hh>
 
 using namespace SDL2pp;
@@ -58,24 +51,9 @@ void Cliente::autorizar_turno(bool permiso) {
     lanzador.autorizar_turno(permiso);
 }
 
-void Cliente::mover_izquierda() {
-    uint8_t mov = MOVIMIENTO_IZQUIERDA;
-    this->queue_sender.push(mov);
+void Cliente::mover(uint8_t movimiento) {
+    this->queue_sender.push(movimiento);
 }
-void Cliente::mover_derecha() {
-    uint8_t mov = MOVIMIENTO_DERECHA;
-    this->queue_sender.push(mov);
-}
-void Cliente::saltar_hacia_delante() {
-    uint8_t mov = MOVIMIENTO_ARRIBA_ADELANTE;
-    this->queue_sender.push(mov);
-}
-void Cliente::saltar_hacia_atras() {
-    uint8_t mov = MOVIMIENTO_ARRIBA_ATRAS;
-    this->queue_sender.push(mov);
-}
-
-
 
 
 Cliente::~Cliente() {

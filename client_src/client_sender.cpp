@@ -28,38 +28,9 @@ void ClienteLanzador::run()
             protocolo.enviar_mensaje(movimiento);
         }
         en_conexion = protocolo.check_en_conexion();
-        //popea de la q
-        //manda lo popeado al servidor(algunas acciones, solo las envia si es mi turno)
     }
     
 }
-
-// void ClienteLanzador::ejecutar_accion(const std::string &linea)
-// {
-//     // Tokeniza la línea para identificar la acción
-//     std::istringstream iss(linea);
-//     std::string action;
-//     iss >> action;
-//     if (action == MOVE and turno)
-//     {
-//         // El cliente envía un mensaje de chat
-//         std::string chat_message;
-//         std::getline(iss >> std::ws, chat_message);
-//         protocolo.enviar_mensaje(chat_message);
-//         en_conexion = protocolo.check_en_conexion();
-//     }
-//     else if (action == SALIR)
-//     {
-//         cliente_recibidor.terminar();
-//         protocolo.desconectar();
-//         cliente_recibidor.join();
-//         en_conexion = false;
-//     }
-//     else if (turno)
-//     {
-//         std::cout << "Acción desconocida: " << action << std::endl;
-//     }
-// }
 
 void ClienteLanzador::terminar()
 {
