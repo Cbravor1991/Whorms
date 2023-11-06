@@ -188,6 +188,7 @@ StateGame *ProtocoloCliente::procesar_mensaje(const int &id_jugador)
         if (conectado)
         {
             estado = recibir_turno(id_jugador);
+            estado->type = TIPO_TURNO;
         }
         break;
 
@@ -195,12 +196,14 @@ StateGame *ProtocoloCliente::procesar_mensaje(const int &id_jugador)
         if (conectado)
         {
             estado = recibir_segundo();
+            estado->type = TIPO_SEGUNDO;
         }
         break;
     case TIPO_PAQUETE:
         if (conectado)
         {
             estado = recibir_paquete();
+            estado->type = TIPO_PAQUETE;
         }
         break;
 
@@ -208,6 +211,7 @@ StateGame *ProtocoloCliente::procesar_mensaje(const int &id_jugador)
         if (conectado)
         {
             estado = recibir_escenario();
+            estado->type = TIPO_ESCENARIO;
         }
         break;
     }

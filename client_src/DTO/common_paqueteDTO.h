@@ -21,4 +21,8 @@ public:
             jugador.mostrar();
         }
     }
+    
+    std::vector<JugadorDTO> obtener_jugadores() {
+        return jugadores;
+    }
 };

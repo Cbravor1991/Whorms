@@ -19,3 +19,16 @@ void GameView::clear() {
 SDL2pp::Renderer& GameView::getRenderer() {
     return this->renderer;
 }
+
+void GameView::renderizar_texto(std::string texto, int pos_x, int pos_y) {
+
+    SDL2pp::Font font(DATA_PATH "/Vera.ttf", 12);
+
+    SDL2pp::Texture texto_sprite(
+            renderer,
+            font.RenderText_Blended(texto, SDL_Color{255, 255, 255, 255})
+        );
+
+	renderer.Copy(texto_sprite, SDL2pp::NullOpt, 
+                    SDL2pp::Rect(0, 0, texto_sprite.GetWidth(), texto_sprite.GetHeight()));
+}

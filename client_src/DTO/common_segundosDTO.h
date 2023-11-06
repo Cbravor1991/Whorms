@@ -21,4 +21,6 @@ public:
     {
         std::cout << "Segundo: " << segundos << std::endl;
     }
+
+    int obtenerTiempo() { return segundos; }
 };

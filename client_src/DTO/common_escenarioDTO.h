@@ -26,6 +26,10 @@ public:
             viga.mostrar();
         }
     }
+    
+    std::vector<VigaDTO> obtener_vigas() {
+        return vigas;
+    }
 };
 
 #endif

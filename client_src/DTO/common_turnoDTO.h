@@ -21,4 +21,12 @@ public:
         permiso = this->permiso;
         std::cout << "Cambio turno a: " << id << std::endl;
     }
+
+    int obtenerIdTurno() {
+        return id;
+    }
+
+    bool obtenerPermiso() {
+        return permiso;
+    }
 };

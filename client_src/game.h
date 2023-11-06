@@ -1,12 +1,20 @@
 #include <string>
 #include "client.h"
 #include "graphics/view.h"
+#include <vector>
+#include <map>
 
 class Game {
     private:
 
     Cliente cliente;
     GameView view;
+
+    std::vector<VigaDTO> vigas;
+    std::map<int, JugadorDTO> jugadores;
+    int tiempo_restante_turno = 30;
+    int turno = -1;//id del jugador con turno
+    bool permiso = false;
 
     public:
 
@@ -15,8 +23,16 @@ class Game {
 
     void run();
 
-    bool gameLoop(StateGame *estado, bool &permiso);
+    bool gameLoop(StateGame *estado, bool &nuevo_estado);
 
     bool manejarEventos();
+
+    void procesar_estado(StateGame* estado);
+
+    void cargar_escenario(EscenarioDTO* escenario);
+
+    void procesar_paquete(PaqueteDTO* paquete);
+
+    void renderizar();
 };
 
