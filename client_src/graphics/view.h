@@ -2,6 +2,7 @@
 #include <map>
 #include <string>
 #include <vector>
+#include "whorms.h"
 #include <SDL2pp/SDL2pp.hh>
 
 
@@ -13,6 +14,7 @@ class GameView {
         SDL2pp::Window window;
         SDL2pp::Renderer renderer;
         SDL2pp::SDLTTF ttf; //para render de letra
+
         
     public:
 
@@ -23,6 +25,8 @@ class GameView {
     SDL2pp::Renderer& getRenderer();
 
     void renderizar_texto(const std::string texto, int pos_x, int pos_y);
+
+    void renderizar_gusano(int pos_x, int pos_y);
 };
 
 

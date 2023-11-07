@@ -32,3 +32,13 @@ void GameView::renderizar_texto(std::string texto, int pos_x, int pos_y) {
 	renderer.Copy(texto_sprite, SDL2pp::NullOpt, 
                     SDL2pp::Rect(0, 0, texto_sprite.GetWidth(), texto_sprite.GetHeight()));
 }
+
+void GameView::renderizar_gusano(int pos_x, int pos_y){
+    Whorms whorm;
+   Texture sprite = whorm.loadSprite(renderer, DATA_PATH "/sprites/worm/walk/wwalk.png");
+    whorm.renderizar(renderer, sprite);
+
+
+}
+
+

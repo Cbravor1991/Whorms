@@ -171,6 +171,9 @@ void Game::renderizar() {
                         " Es mi turno: " + (permiso ? "true" : "false");
 
     view.renderizar_texto(time, 0, 0);
+    //view.renderizar_gusano(0,0);
+
+
 
 
     // for(VigaDTO viga : vigas) { //para mostrar las vigas
