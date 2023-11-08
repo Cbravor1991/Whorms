@@ -78,13 +78,15 @@ bool Game::manejarEventos()
             {
 
             case (SDLK_LEFT):
-            {
+            {   
+                 jugadores.at(1).direccion = false;
                 cliente.mover(MOVIMIENTO_IZQUIERDA);
                 break;
             }
 
             case (SDLK_RIGHT):
-            {
+            {  
+               jugadores.at(1).direccion = true;
                 cliente.mover(MOVIMIENTO_DERECHA);
                 break;
             }
@@ -148,9 +150,11 @@ void Game::procesar_paquete(PaqueteDTO* paquete) {
         if (jugadores.find(id) == jugadores.end()) {
             // not found --> lo guardo
             jugadores.emplace(std::make_pair(id, jugador));
+
         } else {
             //found --> lo actualizo o borro si se desconecto(no recibo esta info)
             jugadores.at(id).actualizar(jugador);
+
         }
     }     
 }
@@ -176,15 +180,18 @@ void Game::renderizar() {
 
 
 
-    // for(VigaDTO viga : vigas) { //para mostrar las vigas
-    //     //viga.mostrar();//renderizo la viga
-    // }
+    for(VigaDTO viga : vigas) { //para mostrar las vigas
+        view.renderizar_viga(viga);
+     }
 
     for (auto const& [id, jugador] : jugadores){//para mostrar los jugadores
-        jugador.mostrar();
+
+        view.renderizar_gusano(jugador);
     }
 
     view.mostrar();
 
 }
+
+
 

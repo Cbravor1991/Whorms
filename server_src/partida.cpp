@@ -5,7 +5,7 @@
 
 Partida::Partida() : en_ejecucion(false), monitor_jugadores(new MonitorJugadores()), cola(new Queue<Accion *>(100)), escenario(200, 200, monitor_jugadores)
 {
-    escenario.colocar_viga(50, 50, 0, 0);
+    escenario.colocar_viga(50, 70, 0, 0);
     escenario.colocar_viga(70, 100, 1, 0);
 }
 

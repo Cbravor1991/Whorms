@@ -4,6 +4,8 @@
 #include <vector>
 #include "whorms.h"
 #include <SDL2pp/SDL2pp.hh>
+#include "../DTO/common_jugadorDTO.h"
+#include "../DTO/common_vigaDTO.h"
 
 
 
@@ -25,8 +27,8 @@ class GameView {
     SDL2pp::Renderer& getRenderer();
 
     void renderizar_texto(const std::string texto, int pos_x, int pos_y);
-
-    void renderizar_gusano(int pos_x, int pos_y);
+    void renderizar_viga(VigaDTO viga); // 140 20 70 20
+    void renderizar_gusano(JugadorDTO jugador);
 };
 
 
