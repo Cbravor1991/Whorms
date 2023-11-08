@@ -31,14 +31,14 @@ public:
     void cargar_id_jugador(const uint8_t id);
     uint8_t obtener_id_jugador();
     void procesar_mensaje();
-    
+
     bool esta_conectado();
 
-    std::optional<StateGame*> obtener_estado();
+    std::optional<StateGame *> obtener_estado();
     void autorizar_turno(bool permiso);
 
     void mover(uint8_t movimiento);
-    
+
     Cliente(const Cliente &) = delete;
     Cliente &operator=(const Cliente &) = delete;
 };

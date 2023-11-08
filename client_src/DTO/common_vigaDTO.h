@@ -2,20 +2,22 @@
 #define VIGADTO_H_
 #include <ostream>
 #include <iostream>
+#include <SDL2pp/SDL2pp.hh>
 
 class VigaDTO
 {
-public:
+private:
     bool tipo; // true es la larga false corta de 30
     int x;
     int y;
     int angulo;
 
-    VigaDTO(bool tipo, int x, int y, int angulo) : tipo(tipo), x(x), y(y), angulo(angulo) {} // Declaración del constructor
+public:
+    VigaDTO(bool tipo, int x, int y, int angulo);
 
-    void mostrar() const { std::cout << "Viga tipo" << tipo << " en X: " << x << " Y: " << y << " Angulo:" << angulo << std::endl; }
+    void mostrar() const;
 
-    
+    void renderizar(SDL2pp::Renderer &renderer);
 };
 
 #endif // VIGADTO_H_

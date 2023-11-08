@@ -62,6 +62,12 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/libs/box2d-2.4.0 ${CMAKE_SOURCE_DIR}/build/
                 ./common_src/common_resolver.cpp 
                 ./common_src/common_resolvererror.cpp 
                 ./common_src/common_socket.cpp 
+                ./client_src/DTO/common_vigaDTO.cpp
+                ./client_src/DTO/common_jugadorDTO.cpp
+                ./client_src/DTO/common_escenarioDTO.cpp
+                ./client_src/DTO/common_paqueteDTO.cpp
+                ./client_src/DTO/common_turnoDTO.cpp
+                ./client_src/DTO/common_segundosDTO.cpp
     )
     target_include_directories(client PUBLIC ${PROJECT_SOURCE_DIR}/libs/SDL2pp)
     target_link_libraries(client SDL2pp)

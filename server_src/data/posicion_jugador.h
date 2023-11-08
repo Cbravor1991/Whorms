@@ -9,16 +9,17 @@ private:
     int id;
     int x;
     int y;
+    int direccion;
     int angulo;
 
 public:
-    PosicionJugador(int id, int x, int y, int angulo) : id(id), x(x), y(y), angulo(angulo) {}
+    PosicionJugador(int id, int x, int y, int direccion, int angulo) : id(id), x(x), y(y), direccion(direccion), angulo(angulo) {}
 
     int recibir_altura() { return y; }
 
     void enviar_data(ProtocoloServer *protocolo) const
     {
-        protocolo->enviar_jugador(id, x, y, angulo);
+        protocolo->enviar_jugador(id, x, y, direccion, angulo);
     }
 };
 

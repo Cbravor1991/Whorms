@@ -14,19 +14,11 @@ private:
     bool permiso;
 
 public:
-    TurnoDTO(int id, bool permiso) : id(id), permiso(permiso) {}
+    TurnoDTO(int id, bool permiso);
 
-    void cambiar_render(bool &permiso) override
-    {
-        permiso = this->permiso;
-        std::cout << "Cambio turno a: " << id << std::endl;
-    }
+    void cambiar_render(bool &permiso);
 
-    int obtenerIdTurno() {
-        return id;
-    }
+    int obtenerIdTurno();
 
-    bool obtenerPermiso() {
-        return permiso;
-    }
+    bool obtenerPermiso();
 };

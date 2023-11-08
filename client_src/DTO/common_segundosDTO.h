@@ -13,14 +13,8 @@ private:
     int segundos;
 
 public:
-    SegundosDTO(int segundos) : segundos(segundos)
-    {
-    }
+    SegundosDTO(int segundos);
+    void cambiar_render(bool &permiso);
 
-    void cambiar_render(bool &permiso) override
-    {
-        std::cout << "Segundo: " << segundos << std::endl;
-    }
-
-    int obtenerTiempo() { return segundos; }
+    int obtenerTiempo();
 };

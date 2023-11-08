@@ -3,7 +3,7 @@
 #include <string>
 #include <map>
 #include <vector>
-#include "common_vigaDTO.h"
+#include "common_jugadorDTO.h"
 #include "common_state_game.h"
 
 class PaqueteDTO : public StateGame
@@ -12,17 +12,9 @@ private:
     std::vector<JugadorDTO> jugadores;
 
 public:
-    PaqueteDTO(std::vector<JugadorDTO> jugadores) : jugadores(jugadores) {}
+    PaqueteDTO(std::vector<JugadorDTO> jugadores);
 
-    void cambiar_render(bool &permiso) override
-    {
-        for (const JugadorDTO &jugador : jugadores)
-        {
-            jugador.mostrar();
-        }
-    }
-    
-    std::vector<JugadorDTO> obtener_jugadores() {
-        return jugadores;
-    }
+    void cambiar_render(bool &permiso);
+
+    std::vector<JugadorDTO> obtener_jugadores();
 };

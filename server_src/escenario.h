@@ -52,6 +52,6 @@ private:
     std::vector<std::pair<int, int>> spawns;
     int cantidad_jugadores = 0;
 
-    std::vector<PosicionJugador> crear_paquete();
+    void mandar_paquete();
 };
 #endif

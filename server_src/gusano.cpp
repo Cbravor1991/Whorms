@@ -64,11 +64,16 @@ int Gusano::getDireccion() { return direccion; }
 
 PosicionJugador Gusano::GetPosicion(int id)
 {
+    int dire = direccion;
     b2Vec2 posicion = cuerpo->GetPosition();
     // std::cout << "X = " << posicion.x << ", Y = " << posicion.y << std::endl;
     int x = static_cast<int>(posicion.x);
     int y = static_cast<int>(posicion.y);
-    PosicionJugador posicion_jugador(id, x, y, angulo_viga);
+    if (dire == -1)
+    {
+        dire = 0;
+    }
+    PosicionJugador posicion_jugador(id, x, y, dire, angulo_viga);
     return posicion_jugador;
 }
 

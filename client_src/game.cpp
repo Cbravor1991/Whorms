@@ -49,14 +49,14 @@ void Game::run()
 }
 
 bool Game::gameLoop(StateGame *estado, bool &nuevo_estado)
-{   
+{
     view.clear();
-    //estado->cambiar_render(permiso); -->para debuggear si llega algo no definido en procesar
-    if(nuevo_estado) {
+    // estado->cambiar_render(permiso); -->para debuggear si llega algo no definido en procesar
+    if (nuevo_estado)
+    {
         this->procesar_estado(estado);
     }
 
-    
     this->renderizar();
     view.mostrar();
     return this->manejarEventos();
@@ -78,15 +78,13 @@ bool Game::manejarEventos()
             {
 
             case (SDLK_LEFT):
-            {   
-                 jugadores.at(1).direccion = false;
+            {
                 cliente.mover(MOVIMIENTO_IZQUIERDA);
                 break;
             }
 
             case (SDLK_RIGHT):
-            {  
-               jugadores.at(1).direccion = true;
+            {
                 cliente.mover(MOVIMIENTO_DERECHA);
                 break;
             }
@@ -115,83 +113,106 @@ bool Game::manejarEventos()
     return true;
 }
 
-void Game::procesar_estado(StateGame* estado) {
+void Game::procesar_estado(StateGame *estado)
+{
 
-    if(estado->type == TIPO_TURNO) {
-        TurnoDTO* turn = dynamic_cast<TurnoDTO*> (estado);
+    if (estado->type == TIPO_TURNO)
+    {
+        TurnoDTO *turn = dynamic_cast<TurnoDTO *>(estado);
         this->turno = turn->obtenerIdTurno();
         permiso = turn->obtenerPermiso();
         cliente.autorizar_turno(permiso);
-
-    }else if(estado->type == TIPO_SEGUNDO) {
-        SegundosDTO* segundos = dynamic_cast<SegundosDTO*> (estado);
+    }
+    else if (estado->type == TIPO_SEGUNDO)
+    {
+        SegundosDTO *segundos = dynamic_cast<SegundosDTO *>(estado);
         this->tiempo_restante_turno = segundos->obtenerTiempo();
-
-    } else if (estado->type == TIPO_PAQUETE) {
-        PaqueteDTO* paquete = dynamic_cast<PaqueteDTO*> (estado);
+    }
+    else if (estado->type == TIPO_PAQUETE)
+    {
+        PaqueteDTO *paquete = dynamic_cast<PaqueteDTO *>(estado);
         this->procesar_paquete(paquete);
-        
-    } else if(estado->type == TIPO_ESCENARIO) {
-        EscenarioDTO* escenario = dynamic_cast<EscenarioDTO*>(estado);
+    }
+    else if (estado->type == TIPO_ESCENARIO)
+    {
+        EscenarioDTO *escenario = dynamic_cast<EscenarioDTO *>(estado);
         this->cargar_escenario(escenario);
     }
 }
 
-
-void Game::procesar_paquete(PaqueteDTO* paquete) {
+void Game::procesar_paquete(PaqueteDTO *paquete)
+{
 
     std::vector<JugadorDTO> jugadores_paquete = paquete->obtener_jugadores();
-
-    for (auto & jugador_ : jugadores_paquete){
+    std::set<int> jugadores_en_paquete;
+    for (auto &jugador_ : jugadores_paquete)
+    {
 
         JugadorDTO jugador = jugador_;
 
         int id = jugador.obtenerId();
-        if (jugadores.find(id) == jugadores.end()) {
+        jugadores_en_paquete.insert(id);
+        if (jugadores.find(id) == jugadores.end())
+        {
             // not found --> lo guardo
             jugadores.emplace(std::make_pair(id, jugador));
-
-        } else {
-            //found --> lo actualizo o borro si se desconecto(no recibo esta info)
-            jugadores.at(id).actualizar(jugador);
-
         }
-    }     
+        else
+        {
+            // found --> lo actualizo o borro si se desconecto(no recibo esta info)
+            jugadores.at(id).actualizar(jugador);
+        }
+        if (id == turno)
+        {
+            jugadores.at(id).activa_animacion(true);
+        }
+        else
+        {
+            jugadores.at(id).activa_animacion(false);
+        }
+    }
+    for (auto it = jugadores.begin(); it != jugadores.end();)
+    {
+        if (jugadores_en_paquete.find(it->first) == jugadores_en_paquete.end())
+        {
+            it = jugadores.erase(it);
+        }
+        else
+        {
+            ++it;
+        }
+    }
 }
 
-void Game::cargar_escenario(EscenarioDTO* escenario) {
+void Game::cargar_escenario(EscenarioDTO *escenario)
+{
     std::vector<VigaDTO> vigas_escenario = escenario->obtener_vigas();
 
     for (VigaDTO viga : vigas_escenario)
-        {
-            vigas.push_back(viga);
-        }
-    
+    {
+        vigas.push_back(viga);
+    }
 }
 
-void Game::renderizar() {
+void Game::renderizar()
+{
 
-    std::string time = "Tiempo restante: " + std::to_string((tiempo_restante_turno)) + 
-                        " Es mi turno: " + (permiso ? "true" : "false");
+    std::string time = "Tiempo restante: " + std::to_string((tiempo_restante_turno)) +
+                       " Es mi turno: " + (permiso ? "true" : "false");
 
     view.renderizar_texto(time, 0, 0);
-    //view.renderizar_gusano(0,0);
+    // view.renderizar_gusano(0,0);
 
-
-
-
-    for(VigaDTO viga : vigas) { //para mostrar las vigas
+    for (VigaDTO viga : vigas)
+    { // para mostrar las vigas
         view.renderizar_viga(viga);
-     }
+    }
 
-    for (auto const& [id, jugador] : jugadores){//para mostrar los jugadores
+    for (auto const &[id, jugador] : jugadores)
+    { // para mostrar los jugadores
 
         view.renderizar_gusano(jugador);
     }
 
     view.mostrar();
-
 }
-
-
-

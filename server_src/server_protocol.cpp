@@ -63,11 +63,12 @@ int ProtocoloServer::leer_movimiento()
     }
 }
 
-void ProtocoloServer::enviar_jugador(int id, int x, int y, int angulo)
+void ProtocoloServer::enviar_jugador(int id, int x, int y, int direccion, int angulo)
 {
     enviar_int(id);
     enviar_int(x);
     enviar_int(y);
+    enviar_int(direccion);
     enviar_int(angulo);
 }
 

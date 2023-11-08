@@ -17,19 +17,10 @@ private:
     std::vector<VigaDTO> vigas;
 
 public:
-    EscenarioDTO(int x, int y, std::vector<VigaDTO> vigas) : x(x), y(y), vigas(vigas) {}
+    EscenarioDTO(int x, int y, std::vector<VigaDTO> vigas);
 
-    void cambiar_render(bool &permiso) override
-    {
-        for (const VigaDTO &viga : vigas)
-        {
-            viga.mostrar();
-        }
-    }
-    
-    std::vector<VigaDTO> obtener_vigas() {
-        return vigas;
-    }
+    std::vector<VigaDTO> obtener_vigas();
+
+    void cambiar_render(bool &permiso) override;
 };
-
 #endif

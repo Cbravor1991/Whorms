@@ -33,7 +33,7 @@ Escenario::Escenario(std::uint16_t x_size, std::uint16_t y_size, MonitorJugadore
     escenario->SetSubStepping(false);
 }
 
-std::vector<PosicionJugador> Escenario::crear_paquete()
+void Escenario::mandar_paquete()
 {
     int gusano_id_muerto = -1;
     std::vector<PosicionJugador> posicion_jugadores;
@@ -52,6 +52,7 @@ std::vector<PosicionJugador> Escenario::crear_paquete()
             posicion_jugadores.push_back(jugador);
         }
     }
+    monitor->mandar_paquete(posicion_jugadores);
     if (gusano_id_muerto != -1)
     {
         std::map<int, Gusano *> &gusanosJugador = gusanos[gusano_id_muerto];
@@ -63,7 +64,6 @@ std::vector<PosicionJugador> Escenario::crear_paquete()
         gusanos.erase(gusano_id_muerto);
         agregar_gusano(gusano_id_muerto);
     }
-    return posicion_jugadores;
 }
 
 void Escenario::avisar_desconexion(int jugador)
@@ -77,7 +77,7 @@ void Escenario::avisar_desconexion(int jugador)
     }
     // Borrar el mapa de gusanos del jugador
     gusanos.erase(jugador);
-    // actualizar_jugadores()
+    mandar_paquete();
 }
 
 void Escenario::agregar_gusano(int jugador_id)
@@ -113,12 +113,12 @@ void Escenario::agregar_gusano(int jugador_id)
     gusanos[jugador_id] = nuevoGusanos;
 
     monitor->mandar_escenario(x_size, y_size, vigas, jugador_id);
-    monitor->mandar_paquete(crear_paquete());
+    mandar_paquete();
     int movimiento = true;
     while (movimiento)
     {
         escenario->Step(FRAME_RATE, 6, 2);
-        monitor->mandar_paquete(crear_paquete());
+        mandar_paquete();
         movimiento = en_movimiento(escenario);
     }
 }
@@ -195,7 +195,7 @@ void Escenario::mover_gusano_derecha(int gusano, int jugador)
             gusano_a_mover->mover_derecha(contact);
             impulseAplicado = true; // Marca que el impulso se ha aplicado
         }
-        monitor->mandar_paquete(crear_paquete());
+        mandar_paquete();
     }
     gusano_a_mover->cambiar_angulo_viga(contact);
 }
@@ -219,7 +219,7 @@ void Escenario::mover_gusano_izquierda(int gusano, int jugador)
             gusano_a_mover->mover_izquierda(contact);
             impulseAplicado = true; // Marca que el impulso se ha aplicado
         }
-        monitor->mandar_paquete(crear_paquete());
+        mandar_paquete();
     }
     gusano_a_mover->cambiar_angulo_viga(contact);
 }
@@ -243,7 +243,7 @@ void Escenario::mover_gusano_arriba_adelante(int gusano, int jugador)
             gusano_a_mover->mover_arriba_adelante(contact);
             impulseAplicado = true; // Marca que el impulso se ha aplicado
         }
-        monitor->mandar_paquete(crear_paquete());
+        mandar_paquete();
     }
     gusano_a_mover->cambiar_angulo_viga(contact);
 }
@@ -267,7 +267,7 @@ void Escenario::mover_gusano_arriba_atras(int gusano, int jugador)
             gusano_a_mover->mover_arriba_atras(contact);
             impulseAplicado = true; // Marca que el impulso se ha aplicado
         }
-        monitor->mandar_paquete(crear_paquete());
+        mandar_paquete();
     }
     gusano_a_mover->cambiar_angulo_viga(contact);
 }

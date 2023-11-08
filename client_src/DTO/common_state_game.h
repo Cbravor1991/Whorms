@@ -12,7 +12,7 @@ class StateGame
 
 public:
     int type;
-    
+
     StateGame() {}
     virtual void cambiar_render(bool &permiso) {}
     virtual ~StateGame() {}

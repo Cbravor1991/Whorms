@@ -8,12 +8,11 @@ Partida::Partida() : en_ejecucion(false), monitor_jugadores(new MonitorJugadores
     escenario.colocar_viga(50, 70, 0, 0);
     escenario.colocar_viga(70, 100, 1, 0);
     escenario.colocar_viga(150, 80, 1, 0);
-    escenario.colocar_viga(80, 110, 0, 0);
+    escenario.colocar_viga(220, 110, 0, 0);
     escenario.colocar_viga(90, 140, 1, 0);
-    escenario.colocar_viga(100, 180, 0, 0);
+    escenario.colocar_viga(125, 170, 0, 0);
     escenario.colocar_viga(115, 200, 1, 0);
     escenario.colocar_viga(220, 195, 0, 0);
-   
 }
 
 void Partida::agregar_jugador(Jugador *jugador)
@@ -76,7 +75,7 @@ void Partida::run()
         }
 
         // Sleep de 3 milisegundos para evitar un busy wait
-        // std::this_thread::sleep_for(std::chrono::milliseconds(3));
+        std::this_thread::sleep_for(std::chrono::milliseconds(3));
     }
     delete monitor_jugadores;
     delete cola;
