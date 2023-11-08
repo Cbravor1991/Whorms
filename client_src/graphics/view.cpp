@@ -35,8 +35,10 @@ void GameView::renderizar_texto(std::string texto, int pos_x, int pos_y) {
 
 //con el for agarra el jugador y se lo manda a render y renderiza
 void GameView::renderizar_gusano(JugadorDTO  jugador){
-    Texture sprites(renderer, Surface(DATA_PATH "/sprites/worm/walk/wwalk.png")
-			.SetColorKey(true, 0));
+
+
+    
+    Texture sprites(renderer, Surface(DATA_PATH "/sprites/worm/walk/wwalk.png"));
 
     int pos_x =  jugador.x;
     int pos_y = jugador.y;
@@ -87,7 +89,7 @@ void GameView::renderizar_gusano(JugadorDTO  jugador){
          renderer.Copy(
 				sprites,
 				Rect(0, 0, 140, 20), // que parte del spike queres que te cargue
-				Rect(pos_x, 220 - pos_y, 140, 20), // la posicion en pantalla y el tamaño
+				Rect(pos_x + 20, 220 - pos_y, 60, 12), // la posicion en pantalla y el tamaño
 				0.0,              // don't rotate
 				NullOpt,          // rotation center - not needed
 				SDL_FLIP_HORIZONTAL // vertical flip
@@ -101,7 +103,7 @@ void GameView::renderizar_gusano(JugadorDTO  jugador){
        renderer.Copy(
 				sprites,
 				Rect(0, 0, 70, 20), // que parte del spike queres que te cargue
-				Rect(pos_x, 220 - pos_y, 70, 20), // la posicion en pantalla y el tamaño
+				Rect(pos_x+20, 220 - pos_y, 30, 12), // la posicion en pantalla y el tamaño
 				0.0,              // don't rotate
 				NullOpt,          // rotation center - not needed
 				SDL_FLIP_HORIZONTAL // vertical flip
