@@ -28,6 +28,7 @@ public:
     void renderizar_texto(const std::string texto, int pos_x, int pos_y);
     void renderizar_viga(VigaDTO viga); // 140 20 70 20
     void renderizar_gusano(JugadorDTO jugador);
+    void renderizar_fondo_pantalla();
 };
 
 #endif // VIEW_H

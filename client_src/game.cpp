@@ -199,7 +199,8 @@ void Game::renderizar()
 
     std::string time = "Tiempo restante: " + std::to_string((tiempo_restante_turno)) +
                        " Es mi turno: " + (permiso ? "true" : "false");
-
+    
+    view.renderizar_fondo_pantalla();
     view.renderizar_texto(time, 0, 0);
     // view.renderizar_gusano(0,0);
 
