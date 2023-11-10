@@ -18,6 +18,8 @@ private: // agregar mixer, ttf, etc
     SDL2pp::Renderer renderer;
     SDL2pp::SDLTTF ttf; // para render de letra
 
+    SDL2pp::Texture background;
+
 public:
     explicit GameView();
 

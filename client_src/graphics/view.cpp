@@ -3,9 +3,11 @@
 #include <iostream>
 GameView::GameView() : sdl(SDL_INIT_VIDEO), window("Worms", SDL_WINDOWPOS_UNDEFINED,
                                                    SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_RESIZABLE),
-                       renderer(window, -1, SDL_RENDERER_ACCELERATED)
+                       renderer(window, -1, SDL_RENDERER_ACCELERATED),
+                       background(renderer, DATA_PATH "/sprites/escenario.png")
 {
-    renderer.SetDrawColor(100, 149, 237, 0); // seteo el color de fondo
+    //renderer.SetDrawColor(100, 149, 237, 0); // seteo el color de fondo
+    
 }
 
 void GameView::mostrar()
@@ -26,10 +28,10 @@ SDL2pp::Renderer &GameView::getRenderer()
 void GameView::renderizar_fondo_pantalla(){
 
 
-	Texture sprite1(renderer, DATA_PATH "/sprites/escenario.png");
+	
   // Definir el rectángulo de destino para que coincida con las dimensiones de la pantalla
 
-  	renderer.Copy(sprite1, NullOpt, Rect(0, 0, window.GetWidth(), window.GetHeight()));
+  	renderer.Copy(background, NullOpt, Rect(0, 0, window.GetWidth(), window.GetHeight()));
 
 
 

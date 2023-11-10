@@ -2,7 +2,7 @@
 
 #include <SDL2pp/SDL2pp.hh>
 
-#define FRAME_RATE 30 // Aumentar si queres que no salgan muchos mensajes en la terminal
+#define FRAME_RATE 70 // Aumentar si queres que no salgan muchos mensajes en la terminal
                       // pero, la pantalla se va a renderizar más lento y hace mas lento
                       // el recibir cosas del servidor por lo que genera lag
                       // Valor original = 30
@@ -37,6 +37,7 @@ void Game::run()
 
         uint32_t frame_ticks = SDL_GetTicks();
         uint32_t tick_diff = frame_ticks - ticks;
+
         if (tick_diff <= FRAME_RATE)
         { //
             SDL_Delay(FRAME_RATE - tick_diff);
