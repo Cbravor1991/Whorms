@@ -18,6 +18,8 @@ private:
     int tiempo_restante_turno = 30;
     int turno = 1; // id del jugador con turno
     bool permiso = false;
+    int gusanoX;
+    int gusanoY;
 
 public:
     // reemplazar por socket cuando este lobby

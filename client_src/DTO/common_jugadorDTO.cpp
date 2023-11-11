@@ -61,3 +61,11 @@ void JugadorDTO::renderizar(SDL2pp::Renderer &renderer)
         );
     }
 }
+
+int JugadorDTO::posicion_x() {
+    return x;
+}
+
+int JugadorDTO::posicion_y() {
+    return y;
+}

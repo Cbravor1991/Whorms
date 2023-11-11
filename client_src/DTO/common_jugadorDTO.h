@@ -30,6 +30,10 @@ public:
     void actualizar(JugadorDTO jugador);
 
     void renderizar(SDL2pp::Renderer &renderer);
+
+    int posicion_x();
+
+    int posicion_y();
 };
 
 #endif

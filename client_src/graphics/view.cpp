@@ -33,13 +33,6 @@ void GameView::renderizar_fondo_pantalla(){
 
   	renderer.Copy(background, NullOpt, Rect(0, 0, window.GetWidth(), window.GetHeight()));
 
-
-
-
-
-
-
-
 }
 
 void GameView::renderizar_texto(std::string texto, int pos_x, int pos_y)
@@ -68,6 +61,27 @@ void GameView::renderizar_texto(std::string texto, int pos_x, int pos_y)
     renderer.Copy(texto_sprite, SDL2pp::NullOpt,
                   SDL2pp::Rect(adjustedPosX, adjustedPosY, textWidth, textHeight));
 
+}
+
+void GameView::centrarEnGusano(int x, int y)
+{
+    // // Calcula la posición centrada de la vista basada en la posición del gusano
+    // int viewX = x - window.GetWidth() / 2;
+    // int viewY = y - window.GetHeight() / 2;
+
+    // // Asegúrate de que la vista no se salga del escenario (ajustar según tus necesidades)
+    // if (viewX < 0) viewX = 0;
+    // if (viewY < 0) viewY = 0;
+    // // Puedes ajustar estos límites según las dimensiones de tu escenario
+
+    // // Mueve la ventana a la posición centrada
+    // window.SetPosition(viewX, viewY);
+    SDL2pp::Rect camera(0, 0, window.GetWidth(), window.GetHeight());
+    camera.x = x;
+    camera.y = 200-y;
+
+    // Luego, aplicas la cámara antes de renderizar
+    renderer.SetViewport(camera);
 }
 
 // con el for agarra el jugador y se lo manda a render y renderiza

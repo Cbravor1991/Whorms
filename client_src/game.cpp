@@ -152,6 +152,9 @@ void Game::procesar_paquete(PaqueteDTO *paquete)
 
         JugadorDTO jugador = jugador_;
 
+        gusanoX = jugador.posicion_x();
+        gusanoY = jugador.posicion_y();
+
         int id = jugador.obtenerId();
         jugadores_en_paquete.insert(id);
         if (jugadores.find(id) == jugadores.end())
@@ -198,6 +201,8 @@ void Game::cargar_escenario(EscenarioDTO *escenario)
 
 void Game::renderizar()
 {
+    // Centra la vista en la posición actual del gusano
+    view.centrarEnGusano(gusanoX, gusanoY);
 
     std::string time = "Tiempo restante: " + std::to_string((tiempo_restante_turno)) +
                        " Es mi turno: " + (permiso ? "true" : "false");
