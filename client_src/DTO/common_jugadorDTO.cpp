@@ -26,10 +26,10 @@ void JugadorDTO::actualizar(JugadorDTO jugador)
     this->is_running = jugador.is_running;
 }
 
-void JugadorDTO::renderizar(SDL2pp::Renderer &renderer)
+void JugadorDTO::renderizar(SDL2pp::Renderer &renderer, TextureManager& tex_manager)
 {
-
-    SDL2pp::Texture sprites(renderer, SDL2pp::Surface(DATA_PATH "/sprites/worm/walk/wwalk.png"));
+    std::string path = "/sprites/worm/walk/wwalk.png";
+    std::shared_ptr<SDL2pp::Texture> sprites = tex_manager.getTexture(path);
 
     int src_x = 0, src_y = 0; // by default, standing sprite
     if (is_running)
@@ -40,7 +40,7 @@ void JugadorDTO::renderizar(SDL2pp::Renderer &renderer)
     if (direccion)
     {
         renderer.Copy(
-            sprites,
+            *sprites,
             SDL2pp::Rect(src_x, src_y, 60, 60), // que parte del spike queres que te cargue
             SDL2pp::Rect(x, 200 - y, 50, 50),   // la posicion en pantalla y el tamaño
             0.0,                                // don't rotate
@@ -52,7 +52,7 @@ void JugadorDTO::renderizar(SDL2pp::Renderer &renderer)
     {
 
         renderer.Copy(
-            sprites,
+            *sprites,
             SDL2pp::Rect(src_x, src_y, 60, 60), // que parte del spike queres que te cargue
             SDL2pp::Rect(x, 200 - y, 50, 50),   // la posicion en pantalla y el tamaño
             0.0,                                // don't rotate

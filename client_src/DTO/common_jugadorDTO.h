@@ -7,6 +7,7 @@
 #include <ostream>
 #include <iostream>
 #include <SDL2pp/SDL2pp.hh>
+#include "../graphics/texture_manager.h"
 
 class JugadorDTO
 {
@@ -29,7 +30,7 @@ public:
 
     void actualizar(JugadorDTO jugador);
 
-    void renderizar(SDL2pp::Renderer &renderer);
+    void renderizar(SDL2pp::Renderer &renderer, TextureManager& tex_manager);
 
     int posicion_x();
 
