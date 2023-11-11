@@ -3,6 +3,7 @@
 #include <ostream>
 #include <iostream>
 #include <SDL2pp/SDL2pp.hh>
+#include "../graphics/texture_manager.h"
 
 class VigaDTO
 {
@@ -17,7 +18,7 @@ public:
 
     void mostrar() const;
 
-    void renderizar(SDL2pp::Renderer &renderer);
+    void renderizar(SDL2pp::Renderer &renderer, TextureManager& tex_manager);
 };
 
 #endif // VIGADTO_H_
