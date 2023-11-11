@@ -32,7 +32,7 @@ void Cliente::cargar_id_jugador(uint8_t id)
 uint8_t Cliente::obtener_id_jugador()
 {
     return id;
-};
+}
 
 bool Cliente::esta_conectado() {
     return conectado and protocolo.check_en_conexion();
