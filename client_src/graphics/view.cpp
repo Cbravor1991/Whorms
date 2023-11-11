@@ -5,11 +5,14 @@ GameView::GameView() : sdl(SDL_INIT_VIDEO | SDL_INIT_AUDIO), window("Worms", SDL
                                                    SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_RESIZABLE),
                        renderer(window, -1, SDL_RENDERER_ACCELERATED),
                        background(renderer, DATA_PATH "/sprites/escenario.png"),
-                       mixer(MIX_DEFAULT_FREQUENCY, 0x8010, 2, 4096)
+                       mixer(MIX_DEFAULT_FREQUENCY, 0x8010, 2, 4096),
+                       music(DATA_PATH "/sonidos/worms_music.mp3")
 {
     //renderer.SetDrawColor(100, 149, 237, 0); // seteo el color de fondo
-    // SDL2pp::Music musica_fondo("data/sonidos/worms_music.mp3");
+    // SDL2pp::Music musica_fondo(DATA_PATH "/sonidos/worms_music.mp3");
     // mixer.PlayMusic(musica_fondo, 3);
+    // mixer.SetMusicVolume(10);
+
 }
 
 void GameView::mostrar()
@@ -83,4 +86,9 @@ void GameView::renderizar_viga(VigaDTO viga)
 {
     viga.renderizar(renderer);
    
+}
+
+void GameView::reproducir_musica()
+{
+    mixer.PlayMusic(music, -1);
 }

@@ -18,6 +18,7 @@ void Game::run()
 {
 
     StateGame *estado;
+    view.reproducir_musica();
     while (cliente.esta_conectado())
     {
         bool nuevo_estado = false;
