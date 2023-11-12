@@ -29,10 +29,15 @@ void Gusano::mover_arriba_adelante(b2Contact *contact)
     float_t horizontalForce;
     float_t verticalForce;
     cambiar_angulo_viga(contact);
-    if (direccion * angulo_viga > 0)
+    if (angulo_viga > 0)
     {
-        horizontalForce = direccion * SALTO_ADELANTE_X * cos(angulo_viga);
-        verticalForce = (SALTO_ADELANTE_Y + cuerpo->GetMass()) * sin(angulo_viga);
+        horizontalForce = direccion * SALTO_ADELANTE_X * std::abs(cos(angulo_viga));
+        verticalForce = ((SALTO_ADELANTE_Y + cuerpo->GetMass() * 2) + (direccion)) * std::abs(sin(angulo_viga));
+    }
+    else if (angulo_viga < 0)
+    {
+        horizontalForce = direccion * SALTO_ADELANTE_X * std::abs(cos(angulo_viga));
+        verticalForce = ((SALTO_ADELANTE_Y + cuerpo->GetMass() * 2) - (direccion)) * std::abs(sin(angulo_viga));
     }
     else
     {
@@ -47,10 +52,15 @@ void Gusano::mover_arriba_atras(b2Contact *contact)
     float_t horizontalForce;
     float_t verticalForce;
     cambiar_angulo_viga(contact);
-    if (direccion * angulo_viga < 0)
+    if (angulo_viga > 0)
     {
-        horizontalForce = -1 * direccion * SALTO_ATRAS_X * cos(angulo_viga);
-        verticalForce = (SALTO_ATRAS_Y + cuerpo->GetMass()) * sin(angulo_viga);
+        horizontalForce = -1 * direccion * SALTO_ATRAS_X * std::abs(cos(angulo_viga));
+        verticalForce = ((SALTO_ATRAS_Y + cuerpo->GetMass() * 2) + (-direccion)) * std::abs(sin(angulo_viga));
+    }
+    else if (angulo_viga < 0)
+    {
+        horizontalForce = -1 * direccion * SALTO_ATRAS_X * std::abs(cos(angulo_viga));
+        verticalForce = ((SALTO_ATRAS_Y + cuerpo->GetMass() * 2) - (-direccion)) * std::abs(sin(angulo_viga));
     }
     else
     {

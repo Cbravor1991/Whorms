@@ -172,7 +172,7 @@ void Escenario::colocar_viga(int x, int y, bool tipo, int angulo_grados)
         puntoX += incrementoX;
         puntoY += incrementoY;
     }
-    PosicionViga posicion_viga(tipo, x, y, angulo_grados);
+    PosicionViga posicion_viga(tipo, x, y, angulo_grados + 45);
     vigas.push_back(posicion_viga);
 }
 

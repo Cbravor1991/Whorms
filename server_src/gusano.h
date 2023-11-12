@@ -15,7 +15,7 @@ class Gusano
 private:
     int direccion;
     b2Body *cuerpo;
-    int angulo_viga = 0;
+    float_t angulo_viga = 0;
 
 public:
     void cambiar_angulo_viga(b2Contact *contact);

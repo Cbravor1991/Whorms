@@ -5,14 +5,11 @@
 
 Partida::Partida() : en_ejecucion(false), monitor_jugadores(new MonitorJugadores()), cola(new Queue<Accion *>(100)), escenario(200, 200, monitor_jugadores)
 {
-    escenario.colocar_viga(50, 70, 0, 0);
+    escenario.colocar_viga(50, 70, 0, -40);
     escenario.colocar_viga(70, 100, 1, 0);
-    escenario.colocar_viga(150, 80, 1, 0);
+    escenario.colocar_viga(150, 80, 1, 40);
     escenario.colocar_viga(220, 110, 0, 0);
     escenario.colocar_viga(90, 140, 1, 0);
-    escenario.colocar_viga(125, 170, 0, 0);
-    escenario.colocar_viga(115, 200, 1, 0);
-    escenario.colocar_viga(220, 195, 0, 0);
 }
 
 void Partida::agregar_jugador(Jugador *jugador)
