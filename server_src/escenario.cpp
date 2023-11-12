@@ -121,6 +121,9 @@ void Escenario::agregar_gusano(int jugador_id)
         mandar_paquete();
         movimiento = en_movimiento(escenario);
     }
+    b2Contact *contact = escenario->GetContactList();
+    nuevo_gusano->cambiar_angulo_viga(contact);
+    mandar_paquete();
 }
 
 void Escenario::colocar_viga(int x, int y, bool tipo, int angulo_grados)
@@ -192,12 +195,13 @@ void Escenario::mover_gusano_derecha(int gusano, int jugador)
         escenario->Step(FRAME_RATE, 6, 2);
         if (!impulseAplicado)
         {
-            gusano_a_mover->mover_derecha(contact);
+            gusano_a_mover->mover_derecha();
             impulseAplicado = true; // Marca que el impulso se ha aplicado
         }
         mandar_paquete();
     }
     gusano_a_mover->cambiar_angulo_viga(contact);
+    mandar_paquete();
 }
 
 void Escenario::mover_gusano_izquierda(int gusano, int jugador)
@@ -216,12 +220,13 @@ void Escenario::mover_gusano_izquierda(int gusano, int jugador)
         escenario->Step(FRAME_RATE, 6, 2);
         if (!impulseAplicado)
         {
-            gusano_a_mover->mover_izquierda(contact);
+            gusano_a_mover->mover_izquierda();
             impulseAplicado = true; // Marca que el impulso se ha aplicado
         }
         mandar_paquete();
     }
     gusano_a_mover->cambiar_angulo_viga(contact);
+    mandar_paquete();
 }
 
 void Escenario::mover_gusano_arriba_adelante(int gusano, int jugador)
@@ -240,12 +245,13 @@ void Escenario::mover_gusano_arriba_adelante(int gusano, int jugador)
         escenario->Step(FRAME_RATE, 6, 2);
         if (!impulseAplicado)
         {
-            gusano_a_mover->mover_arriba_adelante(contact);
+            gusano_a_mover->mover_arriba_adelante();
             impulseAplicado = true; // Marca que el impulso se ha aplicado
         }
         mandar_paquete();
     }
     gusano_a_mover->cambiar_angulo_viga(contact);
+    mandar_paquete();
 }
 
 void Escenario::mover_gusano_arriba_atras(int gusano, int jugador)
@@ -264,12 +270,13 @@ void Escenario::mover_gusano_arriba_atras(int gusano, int jugador)
         escenario->Step(FRAME_RATE, 6, 2);
         if (!impulseAplicado)
         {
-            gusano_a_mover->mover_arriba_atras(contact);
+            gusano_a_mover->mover_arriba_atras();
             impulseAplicado = true; // Marca que el impulso se ha aplicado
         }
         mandar_paquete();
     }
     gusano_a_mover->cambiar_angulo_viga(contact);
+    mandar_paquete();
 }
 
 Escenario::~Escenario()

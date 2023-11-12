@@ -20,10 +20,10 @@ private:
 public:
     void cambiar_angulo_viga(b2Contact *contact);
     Gusano(b2Body *cuerpo);
-    void mover_derecha(b2Contact *contact);
-    void mover_izquierda(b2Contact *contact);
-    void mover_arriba_adelante(b2Contact *contact);
-    void mover_arriba_atras(b2Contact *contact);
+    void mover_derecha();
+    void mover_izquierda();
+    void mover_arriba_adelante();
+    void mover_arriba_atras();
     int getDireccion();
     PosicionJugador GetPosicion(int id);
     b2Body *getCuerpo();

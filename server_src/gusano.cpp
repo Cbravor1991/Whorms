@@ -6,29 +6,26 @@ Gusano::Gusano(b2Body *cuerpo)
     direccion = 1;
 }
 
-void Gusano::mover_derecha(b2Contact *contact)
+void Gusano::mover_derecha()
 {
-    cambiar_angulo_viga(contact);
     float_t horizontalForce = CAMINAR * cos(angulo_viga);
     float_t verticalForce = CAMINAR * sin(angulo_viga);
     cuerpo->ApplyLinearImpulse(b2Vec2(horizontalForce, verticalForce), cuerpo->GetWorldCenter(), true); // AVANZO 0,2
     direccion = 1;
 }
 
-void Gusano::mover_izquierda(b2Contact *contact)
+void Gusano::mover_izquierda()
 {
-    cambiar_angulo_viga(contact);
     float_t horizontalForce = (-1 * CAMINAR) * cos(angulo_viga);
     float_t verticalForce = (-1 * CAMINAR) * sin(angulo_viga);
     cuerpo->ApplyLinearImpulse(b2Vec2(horizontalForce, verticalForce), cuerpo->GetWorldCenter(), true); // AVANZO 0,2
     direccion = -1;
 }
 
-void Gusano::mover_arriba_adelante(b2Contact *contact)
+void Gusano::mover_arriba_adelante()
 {
     float_t horizontalForce;
     float_t verticalForce;
-    cambiar_angulo_viga(contact);
     if (angulo_viga > 0)
     {
         horizontalForce = direccion * SALTO_ADELANTE_X * std::abs(cos(angulo_viga));
@@ -47,11 +44,10 @@ void Gusano::mover_arriba_adelante(b2Contact *contact)
     cuerpo->ApplyLinearImpulse(b2Vec2(horizontalForce, verticalForce), cuerpo->GetWorldCenter(), true);
 }
 
-void Gusano::mover_arriba_atras(b2Contact *contact)
+void Gusano::mover_arriba_atras()
 {
     float_t horizontalForce;
     float_t verticalForce;
-    cambiar_angulo_viga(contact);
     if (angulo_viga > 0)
     {
         horizontalForce = -1 * direccion * SALTO_ATRAS_X * std::abs(cos(angulo_viga));
@@ -76,14 +72,15 @@ PosicionJugador Gusano::GetPosicion(int id)
 {
     int dire = direccion;
     b2Vec2 posicion = cuerpo->GetPosition();
-    // std::cout << "X = " << posicion.x << ", Y = " << posicion.y << std::endl;
+    int angulo = (angulo_viga * (180 / M_PI)) + 45;
+    // std::cout << "X = " << posicion.x << ", Y = " << posicion.y << " angulo: " << angulo << std::endl;
     int x = static_cast<int>(posicion.x);
     int y = static_cast<int>(posicion.y);
     if (dire == -1)
     {
         dire = 0;
     }
-    PosicionJugador posicion_jugador(id, x, y, dire, angulo_viga);
+    PosicionJugador posicion_jugador(id, x, y, dire, angulo);
     return posicion_jugador;
 }
 
