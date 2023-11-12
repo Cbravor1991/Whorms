@@ -140,7 +140,7 @@ VigaDTO ProtocoloCliente::recibir_viga()
     int y = recibir_byte();
 
     int angulo = recibir_byte();
-    VigaDTO viga(tipo, x, y, angulo);
+    VigaDTO viga(tipo, x, y, angulo - 45);//
     return viga;
 }
 
