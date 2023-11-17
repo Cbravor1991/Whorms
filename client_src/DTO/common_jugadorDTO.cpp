@@ -1,7 +1,17 @@
 #include "common_jugadorDTO.h"
 
+void JugadorDTO::cargar_armas() {
+    AtaqueAereo ataque_aereo;
+    armas.push_back(ataque_aereo);
+    // int id = 1;
+    // armas.emplace(std::make_pair(id, ataque_aereo));
+
+    std::cout << "arma:" << (armas.at(0).obtener_nombre()) << std::endl;
+}
+
 JugadorDTO::JugadorDTO(int id, int x, int y, bool direccion, int angulo) : id(id), x(x), y(y), direccion(direccion), angulo(angulo)
 {
+    cargar_armas();
 }
 
 void JugadorDTO::mostrar() const { std::cout << "Jugador id " << id << " en X: " << x << " Y: " << y << " Angulo:" << angulo << std::endl; }

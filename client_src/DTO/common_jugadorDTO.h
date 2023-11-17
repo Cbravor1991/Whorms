@@ -8,7 +8,11 @@
 #include <iostream>
 #include <SDL2pp/SDL2pp.hh>
 #include "../graphics/texture_manager.h"
+#include "../weapons/weapon.h"
+#include "../weapons/common_ataque_aereo.h"
 
+class AtaqueAereo;
+class Weapon;
 class JugadorDTO
 {
 private:
@@ -19,8 +23,11 @@ private:
     int angulo;
     bool is_running;   // whether the character is currently running
     int run_phase = 0; // run animation phase
+    std::vector<AtaqueAereo> armas;
 public:
     JugadorDTO(int id, int x, int y, bool direccion, int angulo);
+
+    void cargar_armas();
 
     void mostrar() const;
 

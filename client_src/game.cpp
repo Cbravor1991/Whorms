@@ -166,7 +166,7 @@ void Game::procesar_paquete(PaqueteDTO *paquete)
 
         gusanoX = jugador.posicion_x();
         gusanoY = jugador.posicion_y();
-
+ 
         int id = jugador.obtenerId();
         jugadores_en_paquete.insert(id);
         if (jugadores.find(id) == jugadores.end())
@@ -218,6 +218,7 @@ void Game::renderizar()
 
     std::string time = "Tiempo restante: " + std::to_string((tiempo_restante_turno)) +
                        " Es mi turno: " + (permiso ? "true" : "false");
+
     
     view.renderizar_fondo_pantalla();
     view.renderizar_texto(time, 0, 0);
