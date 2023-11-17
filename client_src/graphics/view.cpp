@@ -103,5 +103,5 @@ void GameView::renderizar_viga(VigaDTO viga)
 void GameView::reproducir_musica()
 {   
     std::shared_ptr<SDL2pp::Music> music = tex_manager.getMusic();
-    mixer.PlayMusic(*music, -1);
+    //mixer.PlayMusic(*music, -1);
 }

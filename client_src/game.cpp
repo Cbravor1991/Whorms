@@ -2,7 +2,7 @@
 
 #include <SDL2pp/SDL2pp.hh>
 
-#define FRAME_RATE 70 // Aumentar si queres que no salgan muchos mensajes en la terminal
+#define FRAME_RATE  4.0f / 70.0f // Aumentar si queres que no salgan muchos mensajes en la terminal
                       // pero, la pantalla se va a renderizar más lento y hace mas lento
                       // el recibir cosas del servidor por lo que genera lag
                       // Valor original = 30
