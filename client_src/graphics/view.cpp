@@ -79,12 +79,12 @@ void GameView::centrarEnGusano(int x, int y)
 
     // // Mueve la ventana a la posición centrada
     // window.SetPosition(viewX, viewY);
-    SDL2pp::Rect camera(0, 0, window.GetWidth(), window.GetHeight());
-    camera.x = x;
-    camera.y = 200-y;
+    //SDL2pp::Rect camera(0, 0, window.GetWidth(), window.GetHeight());
+    //camera.x = x;
+    //camera.y = 200-y;
 
     // Luego, aplicas la cámara antes de renderizar
-    renderer.SetViewport(camera);
+    //renderer.SetViewport(camera);
 }
 
 // con el for agarra el jugador y se lo manda a render y renderiza

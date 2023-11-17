@@ -110,6 +110,18 @@ bool Game::manejarEventos()
             }
             // } else if(event.type == SDL_KEYUP) {
             //     cliente.stop();//para de moverse(la animacion)
+        } 
+         else if (event.type == SDL_MOUSEBUTTONDOWN)
+        {
+            if (event.button.button == SDL_BUTTON_LEFT)
+            {
+                // Se ha hecho clic con el botón izquierdo del ratón
+                int mouseX = event.button.x;
+                int mouseY = event.button.y;
+
+                // Ahora puedes usar las variables mouseX y mouseY según tus necesidades
+                std::cout << "Clic en la posición X: " << mouseX << ", Y: " << mouseY << std::endl;
+            }
         }
     }
     return true;
