@@ -12,6 +12,7 @@
 #include "data/paquete_DTO.h"
 #include "data/escenario_DTO.h"
 #include "data/segundo_DTO.h"
+#include "data/arma_DTO.h"
 
 class Jugador;
 
@@ -27,6 +28,8 @@ public:
     void mandar_escenario(int x, int y, std::vector<PosicionViga> vigas, int id);
 
     void mandar_segundos(int segundos);
+
+    void mandar_arma(int jugador, int arma);
 
     void actualizar_jugadores_cantidad(int cantidad);
 

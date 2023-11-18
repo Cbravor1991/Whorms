@@ -40,6 +40,8 @@ public:
 
     void mover_gusano_arriba_atras(int gusano, int jugador);
 
+    void equipar_arma(int gusano, int jugador, int arma);
+
     ~Escenario();
 
 private:

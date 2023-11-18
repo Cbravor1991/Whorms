@@ -68,6 +68,7 @@ void Escenario::mandar_paquete()
 
 void Escenario::avisar_desconexion(int jugador)
 {
+
     monitor->avisar_desconexion();
     std::map<int, Gusano *> &gusanosJugador = gusanos[jugador];
     // Liberar la memoria de los gusanos del jugador
@@ -277,6 +278,11 @@ void Escenario::mover_gusano_arriba_atras(int gusano, int jugador)
     }
     gusano_a_mover->cambiar_angulo_viga(contact);
     mandar_paquete();
+}
+
+void Escenario::equipar_arma(int gusano, int jugador, int arma)
+{
+    monitor->mandar_arma(jugador, arma);
 }
 
 Escenario::~Escenario()

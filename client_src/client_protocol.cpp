@@ -54,16 +54,37 @@ StateGame *ProtocoloCliente::recibir_segundo()
     return estado_juego;
 }
 
-void ProtocoloCliente::enviar_mensaje(const uint8_t &byte)
+void ProtocoloCliente::enviar_movimiento(int tipo){
+  enviar_byte(ENVIAR_MOVIMIENTO);
+  enviar_int(tipo);
+}
+
+void ProtocoloCliente::enviar_arma(int tipo){
+  enviar_byte(ENVIAR_ARMA);
+  enviar_int(tipo);
+}
+
+void ProtocoloCliente::enviar_posicion(int x, int y){
+  enviar_byte(ENVIAR_TELEDIRIGIDO);
+  enviar_int(x);
+  enviar_int(y);
+}
+
+void ProtocoloCliente::enviar_byte(const uint8_t &dato)
 {
     bool was_closed = false;
-
-    socket.sendall(&byte, 1, &was_closed);
-
+    // Enviar el byte a través del socket
+    socket.sendall(&dato, 1, &was_closed);
     if (was_closed)
     {
         en_conexion = false;
     }
+}
+
+void ProtocoloCliente::enviar_int(int entero)
+{
+    uint8_t byte_a_enviar = static_cast<uint8_t>(entero);
+    enviar_byte(byte_a_enviar);
 }
 
 int ProtocoloCliente::recibir_mensaje()
@@ -131,6 +152,14 @@ JugadorDTO ProtocoloCliente::recibir_jugador()
     return jugador;
 }
 
+StateGame * ProtocoloCliente::recibir_arma()
+{
+    int id = recibir_byte();
+    int arma = recibir_byte();
+    StateGame* estado = new ArmaDTO(id, arma);
+    return estado;
+}
+
 VigaDTO ProtocoloCliente::recibir_viga()
 {
     int tipo = recibir_byte();
@@ -149,19 +178,23 @@ int ProtocoloCliente::traducir_tipo_mensaje(const uint8_t &buffer)
     int tipo = -1;
     if (buffer == RECIBIR_TURNO)
     {
-        tipo = 0;
+        tipo = TIPO_TURNO;
     }
     else if (buffer == RECIBIR_SEGUNDO)
     {
-        tipo = 1;
+        tipo = TIPO_SEGUNDO;
     }
     else if (buffer == RECIBIR_PAQUETE)
     {
-        tipo = 2;
+        tipo = TIPO_PAQUETE;
     }
     else if (buffer == RECIBIR_ESCENARIO)
     {
-        tipo = 3;
+        tipo = TIPO_ESCENARIO;
+    }
+    else if (buffer == RECIBIR_ARMA)
+    {
+        tipo = TIPO_ARMA;
     }
     return tipo;
 }
@@ -213,6 +246,13 @@ StateGame *ProtocoloCliente::procesar_mensaje(const int &id_jugador)
         {
             estado = recibir_escenario();
             estado->type = TIPO_ESCENARIO;
+        }
+        break;
+     case TIPO_ARMA:
+        if (conectado)
+        {
+            estado = recibir_arma();
+            estado->type = TIPO_ARMA;
         }
         break;
     }

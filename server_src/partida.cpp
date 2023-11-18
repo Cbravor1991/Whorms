@@ -46,7 +46,6 @@ void Partida::run()
         if (cola->try_pop(accion))
         {
             id_desconectado = accion->ejecutar_accion(escenario);
-            // id_desconectado = accion->avisar_desconectado();
             delete accion;
         }
 

@@ -17,7 +17,7 @@ using namespace SDL2pp;
 Cliente::Cliente(const std::string &hostname,
                  const std::string &servname) : hostname(hostname),
                                                 servname(servname),
-                                                protocolo(hostname, servname), queue_receiver(100),
+                                                protocolo(hostname, servname), queue_sender(100), queue_receiver(100),
                                                 lanzador(protocolo, queue_sender, queue_receiver)
 
 {
@@ -51,8 +51,8 @@ void Cliente::autorizar_turno(bool permiso) {
     lanzador.autorizar_turno(permiso);
 }
 
-void Cliente::mover(uint8_t movimiento) {
-    this->queue_sender.push(movimiento);
+void Cliente::mandar_accion(Action* action) {
+    this->queue_sender.push(action);
 }
 
 

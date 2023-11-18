@@ -20,6 +20,15 @@ void MonitorJugadores::mandar_paquete(std::vector<PosicionJugador> jugadores)
     }
 }
 
+void MonitorJugadores::mandar_arma(int jugador_id, int arma)
+{
+    for (const auto &entry : this->jugadores)
+    {
+        Jugador *jugador = entry.second;
+        jugador->recibir_comando(new Arma(jugador_id, arma));
+    }
+}
+
 void MonitorJugadores::mandar_segundos(int segundos)
 {
     for (const auto &entry : jugadores)

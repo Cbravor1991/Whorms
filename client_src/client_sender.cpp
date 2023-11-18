@@ -9,7 +9,7 @@
 // #include "common_liberror.h"
 
 ClienteLanzador::ClienteLanzador(
-    ProtocoloCliente &protocolo, Queue<uint8_t> &queue_sender, Queue<StateGame *> &queue_receiver) : protocolo(protocolo), queue_sender(queue_sender), queue_receiver(queue_receiver), cliente_recibidor(protocolo, queue_receiver)
+    ProtocoloCliente &protocolo, Queue<Action*> &queue_sender, Queue<StateGame *> &queue_receiver) : protocolo(protocolo), queue_sender(queue_sender), queue_receiver(queue_receiver), cliente_recibidor(protocolo, queue_receiver)
 {
     cliente_recibidor.start();
 }
@@ -24,10 +24,11 @@ void ClienteLanzador::run()
     while (en_conexion)
     {
 
-        uint8_t movimiento = queue_sender.pop();
+        Action* accion = queue_sender.pop();
         if (this->turno and en_conexion)
         {
-            protocolo.enviar_mensaje(movimiento);
+            accion->mandar_accion(protocolo);
+            delete accion;
         }
         en_conexion = protocolo.check_en_conexion();
     }

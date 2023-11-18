@@ -6,6 +6,7 @@
 #include <netinet/in.h>
 #include <fstream>
 #include "server_receiver.h"
+#include "accion/desconexion.h"
 
 ServerRecibidor::ServerRecibidor(
     ProtocoloServer *protocolo, Queue<Accion *> *cola, int jugador) : protocolo(protocolo), cola(cola), jugador(jugador)
@@ -29,28 +30,8 @@ void ServerRecibidor::run()
 
 void ServerRecibidor::recibir_movimiento()
 {
-    int movimiento = protocolo->leer_movimiento();
-    Accion *accion;
-    // Convierte el valor del movimiento a una representación de texto
-    switch (movimiento)
-    {
-    case MOVIMIENTO_IZQUIERDA:
-        accion = new MoverIzquierda(jugador);
-        break;
-    case MOVIMIENTO_DERECHA:
-        accion = new MoverDerecha(jugador);
-        break;
-    case MOVIMIENTO_ARRIBA_ADELANTE:
-        accion = new SaltarAdelante(jugador);
-        break;
-    case MOVIMIENTO_ARRIBA_ATRAS:
-        accion = new SaltarAtras(jugador);
-        break;
-    default:
-        // Manejo de un movimiento no válido, si es necesario
-        return;
-    }
-    // Agrega el movimiento como una cadena a la cola
+
+    Accion *accion = protocolo->leer_accion(jugador);
     cola->push(accion);
 }
 

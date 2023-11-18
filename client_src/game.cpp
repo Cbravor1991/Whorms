@@ -7,11 +7,6 @@
                       // el recibir cosas del servidor por lo que genera lag
                       // Valor original = 30
 
-const int MOVIMIENTO_IZQUIERDA = 1;
-const int MOVIMIENTO_DERECHA = 2;
-const int MOVIMIENTO_ARRIBA_ADELANTE = 3;
-const int MOVIMIENTO_ARRIBA_ATRAS = 4;
-
 Game::Game(const std::string &hostname, const std::string &servname) : cliente(hostname, servname) {}
 
 void Game::run()
@@ -66,7 +61,7 @@ bool Game::gameLoop(StateGame *estado, bool &nuevo_estado)
 
 bool Game::manejarEventos()
 {
-
+    Action* accion = nullptr;
     SDL_Event event;
     while (SDL_PollEvent(&event))
     {
@@ -78,27 +73,36 @@ bool Game::manejarEventos()
         {
             switch (event.key.keysym.sym)
             {
-
+            case (SDLK_r):
+            {
+                accion = new AtaqueAereo();
+                cliente.mandar_accion(accion);
+                break;
+            }
             case (SDLK_LEFT):
             {
-                cliente.mover(MOVIMIENTO_IZQUIERDA);
+                accion = new Left();
+                cliente.mandar_accion(accion);
                 break;
             }
 
             case (SDLK_RIGHT):
             {
-                cliente.mover(MOVIMIENTO_DERECHA);
+                accion = new Right();
+                cliente.mandar_accion(accion);
                 break;
             }
 
             case (SDLK_RETURN):
             { // Enter
-                cliente.mover(MOVIMIENTO_ARRIBA_ADELANTE);
+                accion = new JumpFoward();
+                cliente.mandar_accion(accion);
                 break;
             }
             case (SDLK_BACKSPACE):
             { // Retorno
-                cliente.mover(MOVIMIENTO_ARRIBA_ATRAS);
+                accion = new JumpBack();
+                cliente.mandar_accion(accion);
                 break;
             }
             default:
@@ -151,6 +155,10 @@ void Game::procesar_estado(StateGame *estado)
     {
         EscenarioDTO *escenario = dynamic_cast<EscenarioDTO *>(estado);
         this->cargar_escenario(escenario);
+    }
+    else if (estado->type == TIPO_ARMA) {
+      ArmaDTO *arma = dynamic_cast<ArmaDTO *>(estado);
+      arma->cargar(jugadores);
     }
 }
 

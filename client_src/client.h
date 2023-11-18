@@ -20,7 +20,7 @@ private:
     ProtocoloCliente protocolo;
     bool conectado = true;
     uint8_t id;
-    Queue<uint8_t> queue_sender;
+    Queue<Action*> queue_sender;
     Queue<StateGame *> queue_receiver;
     ClienteLanzador lanzador;
 
@@ -37,7 +37,7 @@ public:
     std::optional<StateGame *> obtener_estado();
     void autorizar_turno(bool permiso);
 
-    void mover(uint8_t movimiento);
+    void mandar_accion(Action* action);
 
     Cliente(const Cliente &) = delete;
     Cliente &operator=(const Cliente &) = delete;

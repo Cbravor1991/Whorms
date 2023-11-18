@@ -6,6 +6,11 @@
 #include <vector>
 #include <map>
 #include <set>
+#include "actions/right.h"
+#include "actions/left.h"
+#include "actions/jump_back.h"
+#include "actions/jump_foward.h"
+#include "actions/common_ataque_aereo.h"
 
 class Game
 {

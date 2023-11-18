@@ -103,4 +103,5 @@ void Gusano::cambiar_angulo_viga(b2Contact *contact)
     }
 }
 
+
 b2Body *Gusano::getCuerpo() { return cuerpo; }

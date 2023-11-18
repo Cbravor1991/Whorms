@@ -8,16 +8,6 @@
 #include "server_protocol.h"
 #include "../common_src/thread.h"
 #include "../common_src/queue.h"
-#include "accion/mover_izquierda.h"
-#include "accion/mover_derecha.h"
-#include "accion/saltar_adelante.h"
-#include "accion/saltar_atras.h"
-#include "accion/desconexion.h"
-
-const int MOVIMIENTO_IZQUIERDA = 1;
-const int MOVIMIENTO_DERECHA = 2;
-const int MOVIMIENTO_ARRIBA_ADELANTE = 3;
-const int MOVIMIENTO_ARRIBA_ATRAS = 4;
 
 class ServerRecibidor : public Thread
 {

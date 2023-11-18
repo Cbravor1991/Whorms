@@ -10,6 +10,8 @@
 #include "../common_src/queue.h"
 #include "../common_src/thread.h"
 #include "DTO/common_state_game.h"
+#include "actions/action.h"
+
 
 static const char MOVE[] = "move";
 static const char SALIR[] = "exit";
@@ -21,12 +23,12 @@ private:
     bool en_conexion = true;
     bool turno = false;
 
-    Queue<uint8_t> &queue_sender;
+    Queue<Action*> &queue_sender;
     Queue<StateGame *> &queue_receiver;
     ClienteRecibidor cliente_recibidor;
 
 public:
-    ClienteLanzador(ProtocoloCliente &protocolo, Queue<uint8_t> &queue_sender, Queue<StateGame *> &queue_receiver);
+    ClienteLanzador(ProtocoloCliente &protocolo, Queue<Action*> &queue_sender, Queue<StateGame *> &queue_receiver);
 
     void run() override;
 
