@@ -5,8 +5,6 @@
 
 class Weapon {
 
-private:
-    std::string nombre;
 
 public:
     virtual std::string obtener_nombre() = 0;
