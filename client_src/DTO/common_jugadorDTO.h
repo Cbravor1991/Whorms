@@ -6,6 +6,8 @@
 #include <vector>
 #include <ostream>
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
 #include <SDL2pp/SDL2pp.hh>
 #include "../graphics/texture_manager.h"
 //#include "../weapons/weapon.h"
@@ -24,6 +26,7 @@ private:
     int run_phase = 0; // run animation phase
     int arma;
     int vida;
+    SDL_Color color;
 
 public:
     JugadorDTO(int id, int x, int y, bool direccion, int angulo);
@@ -45,6 +48,8 @@ public:
     int posicion_y();
 
     int obtener_vida();
+
+    SDL_Color obtener_color();
 };
 
 #endif

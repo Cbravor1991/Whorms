@@ -7,6 +7,11 @@ void JugadorDTO::cargar_armas(int arma) {
 
 JugadorDTO::JugadorDTO(int id, int x, int y, bool direccion, int angulo) : id(id), x(x), y(y), direccion(direccion), angulo(angulo), vida(100)
 {
+    std::srand(static_cast<unsigned>(std::time(nullptr)));
+    color = {static_cast<uint8_t>(0 + rand() % (255 - 0 + 1)),
+            static_cast<uint8_t>(0 + rand() % (255 - 0 + 1)),
+            static_cast<uint8_t>(0 + rand() % (255 - 0 + 1)),
+            static_cast<uint8_t>(0 + rand() % (255 - 0 + 1))};
 }
 
 void JugadorDTO::mostrar() const { std::cout << "Jugador id " << id << " en X: " << x << " Y: " << y << " Angulo:" << angulo << std::endl; }
@@ -77,4 +82,8 @@ int JugadorDTO::posicion_y() {
 
 int JugadorDTO::obtener_vida() {
     return vida;
+}
+
+SDL_Color JugadorDTO::obtener_color() {
+    return color;
 }

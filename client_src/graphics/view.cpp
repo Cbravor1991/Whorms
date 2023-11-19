@@ -91,7 +91,7 @@ void GameView::renderizar_gusano(JugadorDTO jugador)
 {
     std::string vida_string = std::to_string(jugador.obtener_vida());
     std::string texto = "Vida:" + vida_string;
-    SDL_Color color = {0, 255, 0, 255};
+    SDL_Color color = jugador.obtener_color();
     renderizar_texto(texto, jugador.posicion_x(), 200-jugador.posicion_y(), color);
     jugador.renderizar(renderer, tex_manager);//paso renderer y text_manager
 }
