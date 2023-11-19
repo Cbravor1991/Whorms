@@ -38,11 +38,10 @@ void GameView::renderizar_fondo_pantalla(){
 
 }
 
-void GameView::renderizar_texto(std::string texto, int pos_x, int pos_y)
+void GameView::renderizar_texto(std::string texto, int pos_x, int pos_y, SDL_Color color)
 {
     SDL2pp::Font font(DATA_PATH "/Vera.ttf", 12);
 
-    SDL_Color color = {255, 255, 255, 255};
     SDL2pp::Texture texto_sprite(renderer, font.RenderText_Blended(texto, color));
 
     int textWidth = texto_sprite.GetWidth();
@@ -90,8 +89,11 @@ void GameView::centrarEnGusano(int x, int y)
 // con el for agarra el jugador y se lo manda a render y renderiza
 void GameView::renderizar_gusano(JugadorDTO jugador)
 {
+    std::string vida_string = std::to_string(jugador.obtener_vida());
+    std::string texto = "Vida:" + vida_string;
+    SDL_Color color = {0, 255, 0, 255};
+    renderizar_texto(texto, jugador.posicion_x(), 200-jugador.posicion_y(), color);
     jugador.renderizar(renderer, tex_manager);//paso renderer y text_manager
-  
 }
 
 void GameView::renderizar_viga(VigaDTO viga)

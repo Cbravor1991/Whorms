@@ -244,7 +244,8 @@ void Game::renderizar()
 
     
     view.renderizar_fondo_pantalla();
-    view.renderizar_texto(time, 0, 0);
+    SDL_Color color = {255, 255, 255, 255};
+    view.renderizar_texto(time, 0, 0, color);
     // view.renderizar_gusano(0,0);
 
     for (VigaDTO viga : vigas)

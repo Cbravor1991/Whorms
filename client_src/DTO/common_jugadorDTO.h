@@ -23,6 +23,7 @@ private:
     bool is_running;   // whether the character is currently running
     int run_phase = 0; // run animation phase
     int arma;
+    int vida;
 
 public:
     JugadorDTO(int id, int x, int y, bool direccion, int angulo);
@@ -42,6 +43,8 @@ public:
     int posicion_x();
 
     int posicion_y();
+
+    int obtener_vida();
 };
 
 #endif

@@ -5,7 +5,7 @@ void JugadorDTO::cargar_armas(int arma) {
      std::cout << "Soy jugador " << id << " con arma: " << arma << std::endl;
 }
 
-JugadorDTO::JugadorDTO(int id, int x, int y, bool direccion, int angulo) : id(id), x(x), y(y), direccion(direccion), angulo(angulo)
+JugadorDTO::JugadorDTO(int id, int x, int y, bool direccion, int angulo) : id(id), x(x), y(y), direccion(direccion), angulo(angulo), vida(100)
 {
 }
 
@@ -73,4 +73,8 @@ int JugadorDTO::posicion_x() {
 
 int JugadorDTO::posicion_y() {
     return y;
+}
+
+int JugadorDTO::obtener_vida() {
+    return vida;
 }
