@@ -10,7 +10,7 @@
 #include "actions/left.h"
 #include "actions/jump_back.h"
 #include "actions/jump_foward.h"
-#include "actions/common_ataque_aereo.h"
+
 
 class Game
 {
@@ -25,6 +25,10 @@ private:
     bool permiso = false;
     int gusanoX;
     int gusanoY;
+    //prueba de concepto
+    Weapon *armaRecibida =nullptr; 
+
+    bool probar_arma = false;
 
 public:
     // reemplazar por socket cuando este lobby

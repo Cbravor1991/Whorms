@@ -73,9 +73,16 @@ bool Game::manejarEventos()
         {
             switch (event.key.keysym.sym)
             {
-            case (SDLK_r):
+
+            case (SDLK_w): {
+		
+                    std::cout<< "PROBAR ARMA"<<'\n';
+                    probar_arma = true;
+                    break;
+                       }           
+			case (SDLK_r):
             {
-                accion = new AtaqueAereo();
+                accion = new AtaqueAereo(0,0);
                 cliente.mandar_accion(accion);
                 break;
             }
@@ -115,7 +122,7 @@ bool Game::manejarEventos()
             // } else if(event.type == SDL_KEYUP) {
             //     cliente.stop();//para de moverse(la animacion)
         } 
-         else if (event.type == SDL_MOUSEBUTTONDOWN)
+            else if (event.type == SDL_MOUSEBUTTONDOWN)
         {
             if (event.button.button == SDL_BUTTON_LEFT)
             {
@@ -127,6 +134,14 @@ bool Game::manejarEventos()
                 std::cout << "Clic en la posición X: " << mouseX << ", Y: " << mouseY << std::endl;
             }
         }
+
+         
+
+
+
+
+
+
     }
     return true;
 }
@@ -241,7 +256,28 @@ void Game::renderizar()
     { // para mostrar los jugadores
 
         view.renderizar_gusano(jugador);
+    }   		
+
+
+    if(probar_arma== true){
+        std::vector<int> miVector;
+    // Llenar el vector con valores desde 28 hasta 115
+    for (int i = 28; i <= 115; ++i) {
+        miVector.push_back(i);
     }
 
+    for (int i : miVector) {
+        armaRecibida = new AtaqueAereo(253, i);
+        view.renderizar_arma(armaRecibida);
+        SDL_Delay(100);
+         std::cout<<"ejecute todo"<<'\n';
+    }
+	
+      
+            probar_arma = false;
+      
+    }
+    
+  
     view.mostrar();
 }

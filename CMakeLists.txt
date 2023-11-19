@@ -71,6 +71,7 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/libs/box2d-2.4.0 ${CMAKE_SOURCE_DIR}/build/
                 ./client_src/DTO/common_turnoDTO.cpp
                 ./client_src/DTO/common_segundosDTO.cpp
                  ./client_src/DTO/common_armaDTO.cpp
+                 ./client_src/actions/common_ataque_aereo.cpp
     )
     target_include_directories(client PUBLIC ${PROJECT_SOURCE_DIR}/libs/SDL2pp)
     target_link_libraries(client SDL2pp)

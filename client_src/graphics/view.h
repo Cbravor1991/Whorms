@@ -12,7 +12,7 @@
 
 #include <SDL.h>
 #include <SDL_mixer.h>
-
+#include "../actions/common_ataque_aereo.h"
 #include <SDL2pp/SDL.hh>
 #include <SDL2pp/SDLMixer.hh>
 #include <SDL2pp/Mixer.hh>
@@ -28,6 +28,7 @@ private:
     SDL2pp::SDLTTF ttf; // para render de letra
     Mixer mixer;
 
+
     TextureManager tex_manager;
 
 public:
@@ -42,6 +43,9 @@ public:
     void renderizar_gusano(JugadorDTO jugador);
     void renderizar_fondo_pantalla();
     void reproducir_musica();
+    void renderizar_arma(Weapon* arma);
+
+
 };
 
 #endif // VIEW_H

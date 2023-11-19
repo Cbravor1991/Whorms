@@ -29,9 +29,9 @@ SDL2pp::Renderer &GameView::getRenderer()
 void GameView::renderizar_fondo_pantalla(){
 
 
-	std::shared_ptr<SDL2pp::Texture> background = tex_manager.getBackground();
+	//std::shared_ptr<SDL2pp::Texture> background = tex_manager.getBackground();
   // Definir el rectángulo de destino para que coincida con las dimensiones de la pantalla
-  	renderer.Copy(*background, NullOpt, Rect(0, 0, window.GetWidth(), window.GetHeight()));
+  	//renderer.Copy(*background, NullOpt, Rect(0, 0, window.GetWidth(), window.GetHeight()));
     
 
 
@@ -104,4 +104,11 @@ void GameView::reproducir_musica()
 {   
     std::shared_ptr<SDL2pp::Music> music = tex_manager.getMusic();
     //mixer.PlayMusic(*music, -1);
+}
+
+void GameView::renderizar_arma(Weapon *arma){
+
+    // Debo tener el arma el game
+    arma->render(renderer, tex_manager);
+
 }
