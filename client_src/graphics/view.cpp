@@ -108,9 +108,11 @@ void GameView::reproducir_musica()
     //mixer.PlayMusic(*music, -1);
 }
 
-void GameView::renderizar_arma(Weapon *arma){
+
+void GameView::renderizar_misil(ObjetoDTO objeto){
+
 
     // Debo tener el arma el game
-    arma->render(renderer, tex_manager);
+    objeto.renderizar(renderer, tex_manager);
 
 }

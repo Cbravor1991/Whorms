@@ -9,10 +9,10 @@
 #include "../DTO/common_jugadorDTO.h"
 #include "../DTO/common_vigaDTO.h"
 #include "texture_manager.h"
+#include "../DTO/common_objetoDTO.h"
 
 #include <SDL.h>
 #include <SDL_mixer.h>
-#include "../actions/common_ataque_aereo.h"
 #include <SDL2pp/SDL.hh>
 #include <SDL2pp/SDLMixer.hh>
 #include <SDL2pp/Mixer.hh>
@@ -43,7 +43,7 @@ public:
     void renderizar_gusano(JugadorDTO jugador);
     void renderizar_fondo_pantalla();
     void reproducir_musica();
-    void renderizar_arma(Weapon* arma);
+    void renderizar_misil(ObjetoDTO objeto);
 
 
 };

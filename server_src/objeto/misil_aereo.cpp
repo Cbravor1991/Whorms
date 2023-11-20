@@ -48,7 +48,7 @@ PosicionLanzable MisilAereo::conseguir_posicion()
     b2Vec2 posicion = body->GetPosition();
     int x = static_cast<int>(posicion.x);
     int y = static_cast<int>(posicion.y);
-    std::cout << "X = " << posicion.x << ", Y = " << posicion.y << std::endl;
+    std::cout << "X = " << posicion.x << ", Y misil = " << posicion.y << std::endl;
     if (y < 30)
     {
         is_dead = true;

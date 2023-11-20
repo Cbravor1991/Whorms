@@ -14,7 +14,7 @@ JugadorDTO::JugadorDTO(int id, int x, int y, bool direccion, int angulo) : id(id
             static_cast<uint8_t>(0 + rand() % (255 - 0 + 1))};
 }
 
-void JugadorDTO::mostrar() const { std::cout << "Jugador id " << id << " en X: " << x << " Y: " << y << " Angulo:" << angulo << std::endl; }
+void JugadorDTO::mostrar() const { std::cout << "Jugador id " << id << " en X: " << x << " Y: " << y << " Angulo:misil:" << angulo << std::endl; }
 
 int JugadorDTO::obtenerId() { return id; }
 

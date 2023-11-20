@@ -10,15 +10,16 @@
 #include "actions/left.h"
 #include "actions/jump_back.h"
 #include "actions/jump_foward.h"
-#include "actions/common_ataque_aereo.h"
+#include "actions/weapon.h"
 #include "actions/position.h"
+
 
 class Game
 {
 private:
     Cliente cliente;
     GameView view;
-
+    std::vector<ObjetoDTO> objetos;
     std::vector<VigaDTO> vigas;
     std::map<int, JugadorDTO> jugadores;
     int tiempo_restante_turno = 30;
@@ -26,6 +27,11 @@ private:
     bool permiso = false;
     int gusanoX;
     int gusanoY;
+    int armaX;
+    int armaY;
+    int tipo;
+
+    
     // prueba de concepto
     Weapon *armaRecibida = nullptr;
 
@@ -45,7 +51,11 @@ public:
 
     void cargar_escenario(EscenarioDTO *escenario);
 
+    void cargar_arma (PaqueteDTO *paquete);
+
     void procesar_paquete(PaqueteDTO *paquete);
+
+    void renderizar_misiles ();
 
     void renderizar();
 };

@@ -153,6 +153,7 @@ StateGame *ProtocoloCliente::recibir_escenario()
 
 ObjetoDTO ProtocoloCliente::recibir_objeto()
 {
+
     int tipo = recibir_byte();
     int x = recibir_byte();
     int y = recibir_byte();
@@ -165,6 +166,7 @@ ObjetoDTO ProtocoloCliente::recibir_objeto()
 
 JugadorDTO ProtocoloCliente::recibir_jugador()
 {
+    
     int id = recibir_byte();
     int x = recibir_byte();
     int y = recibir_byte();

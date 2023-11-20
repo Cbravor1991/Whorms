@@ -1,7 +1,6 @@
 #include "game.h"
 
 #include <SDL2pp/SDL2pp.hh>
-#include "actions/common_ataque_aereo.cpp"
 
 #define FRAME_RATE 4.0f / 70.0f // Aumentar si queres que no salgan muchos mensajes en la terminal
                                 // pero, la pantalla se va a renderizar más lento y hace mas lento
@@ -57,6 +56,11 @@ bool Game::gameLoop(StateGame *estado, bool &nuevo_estado)
 
     this->renderizar();
     view.mostrar();
+
+
+
+
+ 
     return this->manejarEventos();
 }
 
@@ -75,16 +79,16 @@ bool Game::manejarEventos()
             switch (event.key.keysym.sym)
             {
 
-            case (SDLK_w):
-            {
-
-                std::cout << "PROBAR ARMA" << '\n';
-                probar_arma = true;
-                break;
-            }
             case (SDLK_r):
             {
-                accion = new AtaqueAereo();
+                
+                tipo++;
+
+                if (tipo>2){
+                    tipo = 0;
+                }
+
+                accion = new Weapon(tipo);
                 cliente.mandar_accion(accion);
                 break;
             }
@@ -171,6 +175,10 @@ void Game::procesar_estado(StateGame *estado)
     {
         ArmaDTO *arma = dynamic_cast<ArmaDTO *>(estado);
         arma->cargar(jugadores);
+      
+          
+        
+
     }
 }
 
@@ -219,6 +227,49 @@ void Game::procesar_paquete(PaqueteDTO *paquete)
             ++it;
         }
     }
+
+   std::vector<ObjetoDTO> objetos_paquete = paquete->obtener_objetos();
+
+   int tamaño_paquete = static_cast<int>(objetos_paquete.size());
+   int cantidad_misiles = static_cast<int>(objetos.size());
+
+    //std::set<int> jugadores_en_paquete;
+
+    if(objetos.size()> objetos_paquete.size()){
+        int misiles_destruidos = objetos.size()-objetos_paquete.size();
+
+        objetos.erase(objetos.begin(), objetos.begin() + misiles_destruidos);
+
+
+    }
+
+    if (tamaño_paquete>0){
+      
+           for (int i = 0; i < tamaño_paquete; ++i) {
+    std::cout << "estoy creando" << '\n';
+
+    if (i >= cantidad_misiles) {
+        std::cout << "estoy creando" << '\n';
+        // No se encontró el índice en "objetos" --> lo guardo
+        objetos.push_back(objetos_paquete.at(i));
+    } else {
+        // Verificar que objetos.at(i) esté dentro del rango válido
+        if (i < cantidad_misiles) {
+            objetos.at(i).actualizar(objetos_paquete.at(i));
+        } else {
+            // Manejar el caso donde i es mayor que el tamaño de "objetos"
+            // Esto podría ser un error o requerir alguna lógica adicional según tus necesidades
+            std::cerr << "Error: Índice fuera de rango en 'objetos'." << std::endl;
+        }
+    }
+}
+
+       
+    }
+
+
+       
+
 }
 
 void Game::cargar_escenario(EscenarioDTO *escenario)
@@ -229,6 +280,13 @@ void Game::cargar_escenario(EscenarioDTO *escenario)
     {
         vigas.push_back(viga);
     }
+}
+
+void Game:: cargar_arma (PaqueteDTO *paquete){
+
+    std::cout<<"entra aca"<<'\n';
+   
+
 }
 
 void Game::renderizar()
@@ -255,25 +313,18 @@ void Game::renderizar()
         view.renderizar_gusano(jugador);
     }
 
-    if (probar_arma == true)
-    {
-        std::vector<int> miVector;
-        // Llenar el vector con valores desde 28 hasta 115
-        for (int i = 28; i <= 115; ++i)
-        {
-            miVector.push_back(i);
-        }
-
-        for (int i : miVector)
-        {
-            armaRecibida = new AtaqueAereo();
-            view.renderizar_arma(armaRecibida);
-            SDL_Delay(100 * i);
-            std::cout << "ejecute todo" << '\n';
-        }
-
-        probar_arma = false;
-    }
+           
+        this->renderizar_misiles();
 
     view.mostrar();
+}
+
+
+void Game::renderizar_misiles(){
+   
+    
+    for (ObjetoDTO misil : objetos)
+    { // para mostrar las vigas
+            view.renderizar_misil(misil);
+    }
 }

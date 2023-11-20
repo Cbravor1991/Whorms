@@ -16,3 +16,8 @@ std::vector<JugadorDTO> PaqueteDTO::obtener_jugadores()
 {
     return jugadores;
 }
+
+std::vector<ObjetoDTO> PaqueteDTO::obtener_objetos()
+{
+    return objetos;
+}

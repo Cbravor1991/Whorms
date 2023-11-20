@@ -19,13 +19,13 @@ private:
     int y;
     bool direccion;
     int angulo;
-    bool is_running;   // whether the character is currently running
+    bool is_running = true;   // whether the character is currently running
     int run_phase = 0; // run animation phase
     int tipo;
     bool explosion;
 
 public:
-    ObjetoDTO(int x, int y, bool direccion, int angulo, int tipo, bool explosion);
+    ObjetoDTO(int tipo,int x, int y, bool direccion, int angulo,  bool explosion);
 
     void mostrar() const;
 

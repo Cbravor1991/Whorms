@@ -19,4 +19,6 @@ public:
     void cambiar_render(bool &permiso);
 
     std::vector<JugadorDTO> obtener_jugadores();
+
+    std::vector<ObjetoDTO> obtener_objetos();
 };
