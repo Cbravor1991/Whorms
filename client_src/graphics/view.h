@@ -48,8 +48,8 @@ public:
     void renderizar_misil(ObjetoDTO objeto);
     void reproducir_efecto_salto();
     void mutear_sonidos();
-
-
+    void reproducir_efecto(std::string path_efecto);
+    void reproducir_efecto_arma(int tipo);
 };
 
 #endif // VIEW_H

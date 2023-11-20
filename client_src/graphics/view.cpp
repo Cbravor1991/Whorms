@@ -107,7 +107,7 @@ void GameView::renderizar_viga(VigaDTO viga)
 void GameView::reproducir_musica()
 {   
     std::shared_ptr<SDL2pp::Music> music = tex_manager.getMusic();
-    //mixer.PlayMusic(*music, -1);
+    mixer.PlayMusic(*music, -1);
 }
 
 
@@ -119,9 +119,9 @@ void GameView::renderizar_misil(ObjetoDTO objeto){
 
 }
 
-void GameView::reproducir_efecto_salto()
+void GameView::reproducir_efecto(std::string path_efecto)
 {
-    this->sonido_actual = tex_manager.getSound("/sonidos/Walk-Compress.wav");
+    this->sonido_actual = tex_manager.getSound(path_efecto);
 
 	if (this->canal_anterior != -1)
 		mixer.HaltChannel(this->canal_anterior);
@@ -130,6 +130,14 @@ void GameView::reproducir_efecto_salto()
 		this->canal_anterior = mixer.PlayChannel(-1, *(this->sonido_actual), 0);
 	else
 		this->canal_anterior = -1;
+}
+
+void GameView::reproducir_efecto_arma(int tipo) {
+    if (tipo == 1) {
+        reproducir_efecto("/sonidos/ataque misiles.wav");
+    } else if (tipo == 2) {
+        reproducir_efecto("/sonidos/teletransportar.WAV");
+    } 
 }
 
 void GameView::mutear_sonidos() {

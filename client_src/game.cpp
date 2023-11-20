@@ -82,6 +82,8 @@ bool Game::manejarEventos()
                     tipo = 0;
                 }
 
+                
+
                 accion = new Weapon(tipo);
                 cliente.mandar_accion(accion);
                 break;
@@ -107,14 +109,14 @@ bool Game::manejarEventos()
 
             case (SDLK_RETURN):
             { // Enter
-                view.reproducir_efecto_salto();
+                view.reproducir_efecto("/sonidos/salto.WAV");
                 accion = new JumpFoward();
                 cliente.mandar_accion(accion);
                 break;
             }
             case (SDLK_BACKSPACE):
             { // Retorno
-                view.reproducir_efecto_salto();
+                view.reproducir_efecto("/sonidos/salto.WAV");
                 accion = new JumpBack();
                 cliente.mandar_accion(accion);
                 break;
@@ -142,6 +144,7 @@ bool Game::manejarEventos()
                 accion = new Position(mouseX, mouseY);
                 cliente.mandar_accion(accion);
             }
+            view.reproducir_efecto_arma(tipo);
         }
     }
     return true;

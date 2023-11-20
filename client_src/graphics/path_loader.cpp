@@ -47,6 +47,7 @@ void PathLoader::loadMusicPath() {
 }
 
 void PathLoader::loadSoundsPath() {
-    sounds_path.push_back("/sonidos/Walk-Compress.wav");
-    //sound_path = "/sonidos/salto.mp3";
+    sounds_path.push_back("/sonidos/salto.WAV");
+    sounds_path.push_back("/sonidos/ataque misiles.wav");
+    sounds_path.push_back("/sonidos/teletransportar.WAV");
 }
