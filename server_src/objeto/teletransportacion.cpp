@@ -8,7 +8,7 @@ Teletransportacion::~Teletransportacion() {}
 int Teletransportacion::disparar(Mundo *mundo, b2Body *disparador, std::vector<Objeto *> *objetos)
 {
 
-    b2Vec2 pos(x + 1, y + 1);
+    b2Vec2 pos(x - 25, y + 25);
     disparador->SetTransform(pos, 0);
     disparador->ApplyLinearImpulse(b2Vec2(0.0, -1.0), disparador->GetWorldCenter(), true);
     return 0;
