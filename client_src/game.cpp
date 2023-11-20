@@ -2,16 +2,13 @@
 
 #include <SDL2pp/SDL2pp.hh>
 
-#define FRAME_RATE 4.0f / 70.0f // Aumentar si queres que no salgan muchos mensajes en la terminal
-                                // pero, la pantalla se va a renderizar más lento y hace mas lento
-                                // el recibir cosas del servidor por lo que genera lag
-                                // Valor original = 30
+#define SLEEP_RATE (4.0f / 35.0f)*50 
 
 Game::Game(const std::string &hostname, const std::string &servname) : cliente(hostname, servname) {}
 
 void Game::run()
 {
-
+    uint32_t timeLost = 0;
     StateGame *estado;
     view.reproducir_musica();
     while (cliente.esta_conectado())
@@ -32,15 +29,16 @@ void Game::run()
         }
 
         uint32_t frame_ticks = SDL_GetTicks();
-        uint32_t tick_diff = frame_ticks - ticks;
+        uint32_t tick_diff = (frame_ticks - ticks) - timeLost;
 
-        if (tick_diff <= FRAME_RATE)
-        { //
-            SDL_Delay(FRAME_RATE - tick_diff);
+        if (tick_diff <= SLEEP_RATE)
+        {
+            SDL_Delay(SLEEP_RATE - tick_diff);
+            timeLost = SLEEP_RATE - tick_diff;
         }
         else
         {
-            // retraso todo?
+            timeLost = 0;
         }
     }
 }
@@ -57,10 +55,6 @@ bool Game::gameLoop(StateGame *estado, bool &nuevo_estado)
     this->renderizar();
     view.mostrar();
 
-
-
-
- 
     return this->manejarEventos();
 }
 

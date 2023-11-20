@@ -12,7 +12,7 @@
 #include <map>
 #include <cmath>
 
-const float_t FRAME_RATE = 4.0f / 60.0f;
+const float_t FRAME_RATE = 4.0f / 35.0f;
 
 struct Viga
 {

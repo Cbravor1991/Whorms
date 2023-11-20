@@ -12,7 +12,8 @@
 #include "../graphics/texture_manager.h"
 //#include "../weapons/weapon.h"
 //#include "../weapons/common_ataque_aereo.h"
-
+#include "../worm/worm_status.h"
+#include "../worm/worm_walk.h"
 
 class JugadorDTO
 {
@@ -27,6 +28,7 @@ private:
     int arma;
     int vida;
     SDL_Color color;
+    WormWalk status;
 
 public:
     JugadorDTO(int id, int x, int y, bool direccion, int angulo);
