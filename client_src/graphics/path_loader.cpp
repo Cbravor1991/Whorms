@@ -4,7 +4,7 @@
 PathLoader::PathLoader() {
 
     this->loadSpritePath();
-
+    this->loadSoundsPath();
 }
 
 std::vector<std::string>& PathLoader::getSpritePath() {
@@ -19,6 +19,9 @@ std::string& PathLoader::getMusicPath() {
     return music_path;
 }
 
+std::vector<std::string>& PathLoader::getSoundsPath() {
+    return sounds_path;
+}
 
 void PathLoader::loadSpritePath() {
     //pushear los path relativos desde la carpeta data para
@@ -41,4 +44,9 @@ void PathLoader::loadMusicPath() {
     //para varias canciones, transformar en vector a music_path
     // y usar un map(como el de los sprites, en texture_manager)
     music_path = "/sonidos/worms_music.mp3";
+}
+
+void PathLoader::loadSoundsPath() {
+    sounds_path.push_back("/sonidos/Walk-Compress.wav");
+    //sound_path = "/sonidos/salto.mp3";
 }

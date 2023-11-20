@@ -92,6 +92,11 @@ bool Game::manejarEventos()
                 cliente.mandar_accion(accion);
                 break;
             }
+            case (SDLK_m):
+            {
+                view.mutear_sonidos();
+                break;
+            }
             case (SDLK_LEFT):
             {
                 accion = new Left();
@@ -108,12 +113,14 @@ bool Game::manejarEventos()
 
             case (SDLK_RETURN):
             { // Enter
+                view.reproducir_efecto_salto();
                 accion = new JumpFoward();
                 cliente.mandar_accion(accion);
                 break;
             }
             case (SDLK_BACKSPACE):
             { // Retorno
+                view.reproducir_efecto_salto();
                 accion = new JumpBack();
                 cliente.mandar_accion(accion);
                 break;
@@ -230,7 +237,7 @@ void Game::procesar_paquete(PaqueteDTO *paquete)
 
    std::vector<ObjetoDTO> objetos_paquete = paquete->obtener_objetos();
 
-   int tamaño_paquete = static_cast<int>(objetos_paquete.size());
+   int tamanio_paquete = static_cast<int>(objetos_paquete.size());
    int cantidad_misiles = static_cast<int>(objetos.size());
 
     //std::set<int> jugadores_en_paquete;
@@ -243,9 +250,9 @@ void Game::procesar_paquete(PaqueteDTO *paquete)
 
     }
 
-    if (tamaño_paquete>0){
+    if (tamanio_paquete>0){
       
-           for (int i = 0; i < tamaño_paquete; ++i) {
+           for (int i = 0; i < tamanio_paquete; ++i) {
     std::cout << "estoy creando" << '\n';
 
     if (i >= cantidad_misiles) {
@@ -257,7 +264,7 @@ void Game::procesar_paquete(PaqueteDTO *paquete)
         if (i < cantidad_misiles) {
             objetos.at(i).actualizar(objetos_paquete.at(i));
         } else {
-            // Manejar el caso donde i es mayor que el tamaño de "objetos"
+            // Manejar el caso donde i es mayor que el tamanio de "objetos"
             // Esto podría ser un error o requerir alguna lógica adicional según tus necesidades
             std::cerr << "Error: Índice fuera de rango en 'objetos'." << std::endl;
         }

@@ -27,6 +27,8 @@ private:
     SDL2pp::Renderer renderer;
     SDL2pp::SDLTTF ttf; // para render de letra
     Mixer mixer;
+    std::shared_ptr<SDL2pp::Chunk> sonido_actual;
+	int canal_anterior;
 
 
     TextureManager tex_manager;
@@ -44,6 +46,8 @@ public:
     void renderizar_fondo_pantalla();
     void reproducir_musica();
     void renderizar_misil(ObjetoDTO objeto);
+    void reproducir_efecto_salto();
+    void mutear_sonidos();
 
 
 };

@@ -29,6 +29,27 @@ void TextureManager::loadMusic() {
 
 }
 
+void TextureManager::loadSounds() {
+
+    std::vector<std::string>& sounds_path_vector = assests.getSoundsPath();
+    
+    for (std::string sound : sounds_path_vector)
+    { 
+        std::string datapath(DATA_PATH);
+        SDL2pp::Chunk sonido(datapath.append(sound));
+
+        this->sonidos[sound] = std::make_shared<SDL2pp::Chunk>(std::move(sonido));
+    }
+
+    // SDL2pp::Chunk sonido(DATA_PATH "/sonidos/worms_music.mp3");
+    // this->sonido = std::make_shared<SDL2pp::Chunk>(std::move(sonido));
+    // std::cout << "hola" << std::endl;
+
+}
+
+std::shared_ptr<SDL2pp::Chunk> TextureManager::getSound(std::string sound_path) {
+    return this->sonidos.at(sound_path);
+}
 
 std::shared_ptr<SDL2pp::Texture> TextureManager::getTexture(std::string sprite_path) {
     return this->sprites.at(sprite_path);
