@@ -65,6 +65,8 @@ private:
 
     JugadorDTO recibir_jugador();
 
+    ObjetoDTO recibir_objeto();
+
     VigaDTO recibir_viga();
 
     StateGame *recibir_arma();

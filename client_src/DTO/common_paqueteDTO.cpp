@@ -2,7 +2,7 @@
 
 #include "common_paqueteDTO.h"
 
-PaqueteDTO::PaqueteDTO(std::vector<JugadorDTO> jugadores) : jugadores(jugadores) {}
+PaqueteDTO::PaqueteDTO(std::vector<JugadorDTO> jugadores, std::vector<ObjetoDTO> objetos) : jugadores(jugadores), objetos(objetos) {}
 
 void PaqueteDTO::cambiar_render(bool &permiso)
 {

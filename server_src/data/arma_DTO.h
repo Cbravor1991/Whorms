@@ -1,16 +1,17 @@
 #include "data_DTO.h"
 
-class Arma : public Data
+class EquipacionArma : public Data
 {
 private:
     int id;
     int tipo;
+    int ammo;
 
 public:
-    Arma(int id, int tipo) : id(id), tipo(tipo) {}
+    EquipacionArma(int id, int tipo, int ammo) : id(id), tipo(tipo), ammo(ammo) {}
 
     void enviar_data(ProtocoloServer *protocolo) override
     {
-        protocolo->enviar_arma(id, tipo);
+        protocolo->enviar_arma(id, tipo, ammo);
     }
 };

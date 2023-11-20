@@ -42,15 +42,19 @@ void Partida::run()
         auto ahora = std::chrono::steady_clock::now();
         int segundos_transcurridos = std::chrono::duration_cast<std::chrono::seconds>(ahora - ultimo_cambio_de_turno).count();
 
-        Accion *accion;
+        Accion *accion = nullptr;
         if (cola->try_pop(accion))
         {
-            id_desconectado = accion->ejecutar_accion(escenario);
-            delete accion;
+            if (accion != nullptr)
+            {
+                id_desconectado = accion->ejecutar_accion(escenario);
+                delete accion;
+            }
         }
 
         if (segundos_transcurridos >= DURACION_TURNO or id_turno == id_desconectado)
         {
+
             // Realizar el cambio de turno
             id_turno = monitor_jugadores->cambiar_turno();
             ultimo_cambio_de_turno = ahora; // Reiniciar el temporizador

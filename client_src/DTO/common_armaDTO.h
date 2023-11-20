@@ -13,9 +13,10 @@ class ArmaDTO : public StateGame
 private:
     int id;
     int arma;
+    int ammo;
 
 public:
-    ArmaDTO(int id, int arma);
+    ArmaDTO(int id, int arma, int ammo);
     void cambiar_render(bool &permiso);
-    void cargar(std::map<int, JugadorDTO>& jugadores);
+    void cargar(std::map<int, JugadorDTO> &jugadores);
 };

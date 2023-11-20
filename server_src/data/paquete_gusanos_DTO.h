@@ -1,13 +1,13 @@
 #include "data_DTO.h"
 #include "posicion_jugador.h"
 
-class Paquete : public Data
+class PaqueteGusanos : public Data
 {
 private:
     std::vector<PosicionJugador> jugadores;
 
 public:
-    Paquete(std::vector<PosicionJugador> jugadores) : jugadores(jugadores) {}
+    PaqueteGusanos(std::vector<PosicionJugador> jugadores) : jugadores(jugadores) {}
 
     void enviar_data(ProtocoloServer *protocolo) override
     {

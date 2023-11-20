@@ -2,18 +2,15 @@
 #define POSICION_JUGADOR_H
 
 #include "../server_protocol.h"
+#include "posicion_objeto.h"
 
-class PosicionJugador
+class PosicionJugador : public PosicionObjeto
 {
 private:
     int id;
-    int x;
-    int y;
-    int direccion;
-    int angulo;
 
 public:
-    PosicionJugador(int id, int x, int y, int direccion, int angulo) : id(id), x(x), y(y), direccion(direccion), angulo(angulo) {}
+    PosicionJugador(int id, int x, int y, int direccion, int angulo) : PosicionObjeto(x, y, direccion, angulo), id(id) {}
 
     int recibir_altura() { return y; }
 

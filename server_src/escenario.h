@@ -3,8 +3,11 @@
 #include <random>
 #include <vector>
 #include <sstream>
-#include "gusano.h"
+#include "objeto/gusano.h"
+#include "objeto/mundo.h"
+#include "objeto/arma.h"
 #include "data/posicion_viga.h"
+#include "data/posicion_lanzable.h"
 #include "data/posicion_jugador.h"
 #include <map>
 #include <cmath>
@@ -42,18 +45,23 @@ public:
 
     void equipar_arma(int gusano, int jugador, int arma);
 
+    void usar_arma(int gusano, int jugador, Arma *arma);
+
     ~Escenario();
 
 private:
     std::uint16_t x_size;
     std::uint16_t y_size;
     MonitorJugadores *monitor;
-    b2World *escenario;
+    Mundo *mundo;
     std::vector<PosicionViga> vigas;
     std::map<int, std::map<int, Gusano *>> gusanos;
+    std::vector<Objeto *> *objetos;
     std::vector<std::pair<int, int>> spawns;
     int cantidad_jugadores = 0;
 
     void mandar_paquete();
+    bool en_movimiento();
+    void respawnear_gusano(int jugador_id);
 };
 #endif

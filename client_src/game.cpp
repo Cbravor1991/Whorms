@@ -1,11 +1,12 @@
 #include "game.h"
 
 #include <SDL2pp/SDL2pp.hh>
+#include "actions/common_ataque_aereo.cpp"
 
-#define FRAME_RATE  4.0f / 70.0f // Aumentar si queres que no salgan muchos mensajes en la terminal
-                      // pero, la pantalla se va a renderizar más lento y hace mas lento
-                      // el recibir cosas del servidor por lo que genera lag
-                      // Valor original = 30
+#define FRAME_RATE 4.0f / 70.0f // Aumentar si queres que no salgan muchos mensajes en la terminal
+                                // pero, la pantalla se va a renderizar más lento y hace mas lento
+                                // el recibir cosas del servidor por lo que genera lag
+                                // Valor original = 30
 
 Game::Game(const std::string &hostname, const std::string &servname) : cliente(hostname, servname) {}
 
@@ -61,7 +62,7 @@ bool Game::gameLoop(StateGame *estado, bool &nuevo_estado)
 
 bool Game::manejarEventos()
 {
-    Action* accion = nullptr;
+    Action *accion = nullptr;
     SDL_Event event;
     while (SDL_PollEvent(&event))
     {
@@ -74,15 +75,16 @@ bool Game::manejarEventos()
             switch (event.key.keysym.sym)
             {
 
-            case (SDLK_w): {
-		
-                    std::cout<< "PROBAR ARMA"<<'\n';
-                    probar_arma = true;
-                    break;
-                       }           
-			case (SDLK_r):
+            case (SDLK_w):
             {
-                accion = new AtaqueAereo(0,0);
+
+                std::cout << "PROBAR ARMA" << '\n';
+                probar_arma = true;
+                break;
+            }
+            case (SDLK_r):
+            {
+                accion = new AtaqueAereo();
                 cliente.mandar_accion(accion);
                 break;
             }
@@ -121,27 +123,21 @@ bool Game::manejarEventos()
             }
             // } else if(event.type == SDL_KEYUP) {
             //     cliente.stop();//para de moverse(la animacion)
-        } 
-            else if (event.type == SDL_MOUSEBUTTONDOWN)
+        }
+        else if (event.type == SDL_MOUSEBUTTONDOWN)
         {
             if (event.button.button == SDL_BUTTON_LEFT)
             {
                 // Se ha hecho clic con el botón izquierdo del ratón
                 int mouseX = event.button.x;
-                int mouseY = event.button.y;
+                int mouseY = 200 - event.button.y;
 
                 // Ahora puedes usar las variables mouseX y mouseY según tus necesidades
                 std::cout << "Clic en la posición X: " << mouseX << ", Y: " << mouseY << std::endl;
+                accion = new Position(mouseX, mouseY);
+                cliente.mandar_accion(accion);
             }
         }
-
-         
-
-
-
-
-
-
     }
     return true;
 }
@@ -171,9 +167,10 @@ void Game::procesar_estado(StateGame *estado)
         EscenarioDTO *escenario = dynamic_cast<EscenarioDTO *>(estado);
         this->cargar_escenario(escenario);
     }
-    else if (estado->type == TIPO_ARMA) {
-      ArmaDTO *arma = dynamic_cast<ArmaDTO *>(estado);
-      arma->cargar(jugadores);
+    else if (estado->type == TIPO_ARMA)
+    {
+        ArmaDTO *arma = dynamic_cast<ArmaDTO *>(estado);
+        arma->cargar(jugadores);
     }
 }
 
@@ -189,7 +186,7 @@ void Game::procesar_paquete(PaqueteDTO *paquete)
 
         gusanoX = jugador.posicion_x();
         gusanoY = jugador.posicion_y();
- 
+
         int id = jugador.obtenerId();
         jugadores_en_paquete.insert(id);
         if (jugadores.find(id) == jugadores.end())
@@ -242,7 +239,6 @@ void Game::renderizar()
     std::string time = "Tiempo restante: " + std::to_string((tiempo_restante_turno)) +
                        " Es mi turno: " + (permiso ? "true" : "false");
 
-    
     view.renderizar_fondo_pantalla();
     SDL_Color color = {255, 255, 255, 255};
     view.renderizar_texto(time, 0, 0, color);
@@ -257,28 +253,27 @@ void Game::renderizar()
     { // para mostrar los jugadores
 
         view.renderizar_gusano(jugador);
-    }   		
+    }
 
-
-    if(probar_arma== true){
+    if (probar_arma == true)
+    {
         std::vector<int> miVector;
-    // Llenar el vector con valores desde 28 hasta 115
-    for (int i = 28; i <= 115; ++i) {
-        miVector.push_back(i);
+        // Llenar el vector con valores desde 28 hasta 115
+        for (int i = 28; i <= 115; ++i)
+        {
+            miVector.push_back(i);
+        }
+
+        for (int i : miVector)
+        {
+            armaRecibida = new AtaqueAereo();
+            view.renderizar_arma(armaRecibida);
+            SDL_Delay(100 * i);
+            std::cout << "ejecute todo" << '\n';
+        }
+
+        probar_arma = false;
     }
 
-    for (int i : miVector) {
-        armaRecibida = new AtaqueAereo(253, i);
-        view.renderizar_arma(armaRecibida);
-        SDL_Delay(100);
-         std::cout<<"ejecute todo"<<'\n';
-    }
-	
-      
-            probar_arma = false;
-      
-    }
-    
-  
     view.mostrar();
 }

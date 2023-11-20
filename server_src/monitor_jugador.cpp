@@ -11,21 +11,30 @@ int MonitorJugadores::cambiar_turno()
     return id_turno;
 }
 
-void MonitorJugadores::mandar_paquete(std::vector<PosicionJugador> jugadores)
+void MonitorJugadores::mandar_paquete_gusanos(std::vector<PosicionJugador> jugadores)
 {
     for (const auto &entry : this->jugadores)
     {
         Jugador *jugador = entry.second;
-        jugador->recibir_comando(new Paquete(jugadores));
+        jugador->recibir_comando(new PaqueteGusanos(jugadores));
     }
 }
 
-void MonitorJugadores::mandar_arma(int jugador_id, int arma)
+void MonitorJugadores::mandar_paquete_objetos(std::vector<PosicionLanzable> objetos)
 {
     for (const auto &entry : this->jugadores)
     {
         Jugador *jugador = entry.second;
-        jugador->recibir_comando(new Arma(jugador_id, arma));
+        jugador->recibir_comando(new PaqueteObjetos(objetos));
+    }
+}
+
+void MonitorJugadores::mandar_arma(int jugador_id, int arma, int ammo)
+{
+    for (const auto &entry : this->jugadores)
+    {
+        Jugador *jugador = entry.second;
+        jugador->recibir_comando(new EquipacionArma(jugador_id, arma, ammo));
     }
 }
 

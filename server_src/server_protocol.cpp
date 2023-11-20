@@ -8,7 +8,10 @@
 #include "accion/mover_derecha.h"
 #include "accion/saltar_adelante.h"
 #include "accion/saltar_atras.h"
-#include "accion/ataque_aereo.h"
+#include "accion/uso_arma.h"
+#include "accion/cambio_arma.h"
+#include "objeto/ataque_aereo.h"
+#include "objeto/teletransportacion.h"
 
 ProtocoloServer::ProtocoloServer(
     Socket socket) : socket(std::move(socket))
@@ -39,15 +42,17 @@ void ProtocoloServer::enviar_id(int id)
 
 void ProtocoloServer::enviar_turno(int turno_id)
 {
+    tipo_arma = 0;
     enviar_byte(CAMBIO_TURNO);
     enviar_int(turno_id);
 }
 
-void ProtocoloServer::enviar_arma(int id, int arma)
+void ProtocoloServer::enviar_arma(int id, int arma, int ammo)
 {
     enviar_byte(ARMA);
     enviar_int(id);
     enviar_int(arma);
+    enviar_int(ammo);
 }
 
 void ProtocoloServer::enviar_segundos(int segundos)
@@ -83,41 +88,58 @@ Accion *ProtocoloServer::leer_movimiento(int jugador)
 
 Accion *ProtocoloServer::leer_arma(int jugador)
 {
-    int tipo_arma = recibir_byte();
+    tipo_arma = recibir_byte();
     Accion *accion;
+    accion = new CambioArma(jugador, tipo_arma);
+    return accion;
+}
+
+Accion *ProtocoloServer::leer_uso_arma(int jugador)
+{
+    int x, y;
+    Arma *arma = nullptr;
     switch (tipo_arma)
     {
-    case 1:
-        accion = new AtaqueAereo(jugador);
+    case TELETRANSPORTACION:
+        x = recibir_byte();
+        y = recibir_byte();
+        arma = new Teletransportacion(x, y);
         break;
-    default:
-        // Manejo de un movimiento no válido, si es necesario
+    case ATAQUE_AEREO:
+        x = recibir_byte();
+        y = recibir_byte();
+        arma = new AtaqueAereo(x, y);
         break;
     }
+    Accion *accion;
+    accion = new UsoArma(jugador, arma);
+    tipo_arma = 0;
     return accion;
 }
 
 Accion *ProtocoloServer::leer_accion(int jugador)
 {
     int tipo_accion = recibir_tipo_accion();
-    Accion *accion;
+    Arma *arma = nullptr;
+    Accion *accion = new UsoArma(jugador, arma);
     switch (tipo_accion)
     {
     case MOVIMIENTO:
+        // delete accion;
         accion = leer_movimiento(jugador);
         break;
     case SELECCION_ARMA:
+        // delete accion;
         accion = leer_arma(jugador);
         break;
-    case TELEDIRIGIDO:
-        //
+    case USO_ARMA:
+        // delete accion;
+        accion = leer_uso_arma(jugador);
         break;
     default:
         break;
     }
     return accion;
-
-    // Agrega el movimiento como una cadena a la cola
 }
 
 int ProtocoloServer::recibir_byte()
@@ -157,9 +179,17 @@ int ProtocoloServer::recibir_tipo_accion()
         {
             return MOVIMIENTO;
         }
-        else
+        else if (buffer == ACCION_ARMA)
         {
             return SELECCION_ARMA;
+        }
+        else if (buffer == ACCION_TELEDIRIGIDO)
+        {
+            return USO_ARMA;
+        }
+        else
+        {
+            return 100;
         }
     }
     catch (const std::exception &err)
@@ -175,6 +205,16 @@ void ProtocoloServer::enviar_jugador(int id, int x, int y, int direccion, int an
     enviar_int(y);
     enviar_int(direccion);
     enviar_int(angulo);
+}
+
+void ProtocoloServer::enviar_lanzable(int tipo, int x, int y, int direccion, int angulo, bool explosion)
+{
+    enviar_int(tipo);
+    enviar_int(x);
+    enviar_int(y);
+    enviar_int(direccion);
+    enviar_int(angulo);
+    enviar_int(explosion ? 1 : 0);
 }
 
 void ProtocoloServer::enviar_viga(bool tipo, int x, int y, int angulo)
@@ -195,7 +235,12 @@ void ProtocoloServer::enviar_informacion_escenario(int x, int y, int cantidad_vi
 
 void ProtocoloServer::enviar_cantidad_jugadores(int cantidad)
 {
-    enviar_byte(PAQUETE);
+    enviar_byte(PAQUETE_JUGADORES);
+    enviar_int(cantidad);
+}
+
+void ProtocoloServer::enviar_cantidad_objetos(int cantidad)
+{
     enviar_int(cantidad);
 }
 

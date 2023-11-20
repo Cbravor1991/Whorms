@@ -9,7 +9,8 @@
 #include "server_jugador.h"
 #include "turno.h"
 #include "data/cambio_turno_DTO.h"
-#include "data/paquete_DTO.h"
+#include "data/paquete_gusanos_DTO.h"
+#include "data/paquete_objetos_DTO.h"
 #include "data/escenario_DTO.h"
 #include "data/segundo_DTO.h"
 #include "data/arma_DTO.h"
@@ -23,13 +24,15 @@ public:
 
     int cambiar_turno();
 
-    void mandar_paquete(std::vector<PosicionJugador> jugadores);
+    void mandar_paquete_gusanos(std::vector<PosicionJugador> jugadores);
+
+    void mandar_paquete_objetos(std::vector<PosicionLanzable> objetos);
 
     void mandar_escenario(int x, int y, std::vector<PosicionViga> vigas, int id);
 
     void mandar_segundos(int segundos);
 
-    void mandar_arma(int jugador, int arma);
+    void mandar_arma(int jugador, int arma, int ammo);
 
     void actualizar_jugadores_cantidad(int cantidad);
 

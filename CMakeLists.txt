@@ -29,6 +29,13 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/libs/box2d-2.4.0 ${CMAKE_SOURCE_DIR}/build/
                 ./server_src/server_receiver.cpp 
                 ./server_src/server_sender.cpp 
                 ./server_src/turno.cpp
+                ./server_src/objeto/mundo.cpp
+                ./server_src/objeto/objeto.cpp
+                ./server_src/objeto/arma.cpp
+                ./server_src/objeto/gusano.cpp
+                ./server_src/objeto/teletransportacion.cpp
+                ./server_src/objeto/ataque_aereo.cpp
+                ./server_src/objeto/misil_aereo.cpp
                 ./common_src/common_liberror.cpp
                 ./common_src/common_resolver.cpp 
                 ./common_src/common_resolvererror.cpp 
@@ -66,12 +73,12 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/libs/box2d-2.4.0 ${CMAKE_SOURCE_DIR}/build/
                 ./common_src/common_socket.cpp 
                 ./client_src/DTO/common_vigaDTO.cpp
                 ./client_src/DTO/common_jugadorDTO.cpp
+                ./client_src/DTO/common_objetoDTO.cpp
                 ./client_src/DTO/common_escenarioDTO.cpp
                 ./client_src/DTO/common_paqueteDTO.cpp
                 ./client_src/DTO/common_turnoDTO.cpp
                 ./client_src/DTO/common_segundosDTO.cpp
-                 ./client_src/DTO/common_armaDTO.cpp
-                 ./client_src/actions/common_ataque_aereo.cpp
+                ./client_src/DTO/common_armaDTO.cpp
     )
     target_include_directories(client PUBLIC ${PROJECT_SOURCE_DIR}/libs/SDL2pp)
     target_link_libraries(client SDL2pp)

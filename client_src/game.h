@@ -10,7 +10,8 @@
 #include "actions/left.h"
 #include "actions/jump_back.h"
 #include "actions/jump_foward.h"
-
+#include "actions/common_ataque_aereo.h"
+#include "actions/position.h"
 
 class Game
 {
@@ -25,8 +26,8 @@ private:
     bool permiso = false;
     int gusanoX;
     int gusanoY;
-    //prueba de concepto
-    Weapon *armaRecibida =nullptr; 
+    // prueba de concepto
+    Weapon *armaRecibida = nullptr;
 
     bool probar_arma = false;
 

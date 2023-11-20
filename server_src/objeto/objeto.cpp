@@ -1,0 +1,53 @@
+#include "objeto.h"
+#include <string>
+
+Objeto::Objeto(Mundo *world) : mundo(world), body(NULL), is_dead(false),
+                               last_position(-1, -1),
+                               last_position_sent(false), data_updated(false) {}
+Objeto::~Objeto() {}
+
+bool Objeto::en_movimiento()
+{
+
+    b2Vec2 velocidadLineal = body->GetLinearVelocity();
+    float velocidadAngular = body->GetAngularVelocity();
+
+    // Define una velocidad mínima para considerar que el body está en movimiento.
+    float velocidadMinima = 0.0f; // Ajusta este valor según tus necesidades.
+
+    if (velocidadLineal.Length() > velocidadMinima || std::abs(velocidadAngular) > velocidadMinima)
+    {
+        return true; // Al menos un body está en movimiento.
+    }
+    return false; // Ningún body está en movimiento.
+}
+
+bool Objeto::isActive()
+{
+    if (!this->body)
+    {
+        return false;
+    }
+    return this->body->IsAwake();
+}
+
+bool Objeto::esta_vivo()
+{
+    return !this->is_dead;
+}
+
+bool Objeto::isWindAffected()
+{
+    return false;
+}
+
+void Objeto::kill()
+{
+    this->is_dead = true;
+}
+
+b2Body *Objeto::getCuerpo() { return body; }
+
+// void Objeto::setInitialVelocity() {}
+
+// void Objeto::collideWithSomething(CollisionData *other) {}
