@@ -18,10 +18,13 @@ private:
     int direccion;
     Inventario inventario;
     float_t angulo_viga = 0;
+    int vida = 100;
     int id;
+    float altura;
+    bool dañado = false;
 
 public:
-    void usar_arma(Arma *arma, std::vector<Objeto *> *objetos);
+    bool usar_arma(Arma *arma, std::vector<Objeto *> *objetos);
     int cambiar_arma(int tipo);
     void cambiar_angulo_viga();
     Gusano(Mundo *mundo, b2Vec2 spawn, int id);
@@ -32,6 +35,7 @@ public:
     int getDireccion();
     PosicionJugador conseguir_posicion_gusano();
     PosicionLanzable conseguir_posicion();
+    bool daño_recibido();
     // void interactuar() override;
 };
 

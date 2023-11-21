@@ -10,8 +10,8 @@
 #include <ctime>
 #include <SDL2pp/SDL2pp.hh>
 #include "../graphics/texture_manager.h"
-//#include "../weapons/weapon.h"
-//#include "../weapons/common_ataque_aereo.h"
+// #include "../weapons/weapon.h"
+// #include "../weapons/common_ataque_aereo.h"
 #include "../worm/worm_status.h"
 #include "../worm/worm_walk.h"
 
@@ -23,15 +23,15 @@ private:
     int y;
     bool direccion;
     int angulo;
-    bool is_running;   // whether the character is currently running
     int run_phase = 0; // run animation phase
     int arma;
     int vida;
+    bool is_running;
     SDL_Color color;
     WormWalk status;
 
 public:
-    JugadorDTO(int id, int x, int y, bool direccion, int angulo);
+    JugadorDTO(int id, int x, int y, bool direccion, int angulo, int vida, bool en_movimiento);
 
     void cargar_armas(int arma);
 
@@ -43,7 +43,7 @@ public:
 
     void actualizar(JugadorDTO jugador);
 
-    void renderizar(SDL2pp::Renderer &renderer, TextureManager& tex_manager);
+    void renderizar(SDL2pp::Renderer &renderer, TextureManager &tex_manager);
 
     int posicion_x();
 

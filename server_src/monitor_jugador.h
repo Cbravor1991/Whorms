@@ -24,6 +24,8 @@ public:
 
     int cambiar_turno();
 
+    int recibir_turno();
+
     void mandar_paquete_gusanos(std::vector<PosicionJugador> jugadores);
 
     void mandar_paquete_objetos(std::vector<PosicionLanzable> objetos);

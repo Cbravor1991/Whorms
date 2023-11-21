@@ -80,7 +80,7 @@ Accion *ProtocoloServer::leer_movimiento(int jugador)
         accion = new SaltarAtras(jugador);
         break;
     default:
-        // Manejo de un movimiento no válido, si es necesario
+        accion = new CambioArma(jugador, 0);
         break;
     }
     return accion;
@@ -120,8 +120,7 @@ Accion *ProtocoloServer::leer_uso_arma(int jugador)
 Accion *ProtocoloServer::leer_accion(int jugador)
 {
     int tipo_accion = recibir_tipo_accion();
-    Arma *arma = nullptr;
-    Accion *accion = new UsoArma(jugador, arma);
+    Accion *accion;
     switch (tipo_accion)
     {
     case MOVIMIENTO:
@@ -137,6 +136,7 @@ Accion *ProtocoloServer::leer_accion(int jugador)
         accion = leer_uso_arma(jugador);
         break;
     default:
+        accion = new CambioArma(jugador, 0);
         break;
     }
     return accion;
@@ -198,13 +198,15 @@ int ProtocoloServer::recibir_tipo_accion()
     }
 }
 
-void ProtocoloServer::enviar_jugador(int id, int x, int y, int direccion, int angulo)
+void ProtocoloServer::enviar_jugador(int id, int x, int y, int direccion, int angulo, int vida, bool en_movimiento)
 {
     enviar_int(id);
     enviar_int(x);
     enviar_int(y);
     enviar_int(direccion);
     enviar_int(angulo);
+    enviar_int(vida);
+    enviar_int(en_movimiento ? 1 : 0);
 }
 
 void ProtocoloServer::enviar_lanzable(int tipo, int x, int y, int direccion, int angulo, bool explosion)

@@ -48,4 +48,13 @@ Jugador::~Jugador()
     recibidor = nullptr;
     delete socket;
     socket = nullptr;
+    if (cola != nullptr)
+    {
+        Data *data;
+        while (cola->try_pop(data))
+        {
+            delete data;
+        }
+        delete cola;
+    }
 }

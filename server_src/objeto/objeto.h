@@ -16,16 +16,14 @@ protected:
     Mundo *mundo;
     b2Body *body;
     bool is_dead;
-    b2Vec2 last_position;
-    bool last_position_sent;
-    bool data_updated;
+    bool en_movimiento = false;
     // CollisionData collision_data;
 
 public:
     Objeto(Mundo *mundo);
     virtual ~Objeto();
 
-    bool en_movimiento();
+    bool consultar_movimiento();
 
     // Destruye el cuerpo del objeto
     void destroyBody();

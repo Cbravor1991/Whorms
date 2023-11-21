@@ -11,6 +11,12 @@ int MonitorJugadores::cambiar_turno()
     return id_turno;
 }
 
+int MonitorJugadores::recibir_turno()
+{
+    int id_turno = turno.recibir_turno();
+    return id_turno;
+}
+
 void MonitorJugadores::mandar_paquete_gusanos(std::vector<PosicionJugador> jugadores)
 {
     for (const auto &entry : this->jugadores)

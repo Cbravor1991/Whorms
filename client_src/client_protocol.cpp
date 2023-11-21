@@ -166,13 +166,15 @@ ObjetoDTO ProtocoloCliente::recibir_objeto()
 
 JugadorDTO ProtocoloCliente::recibir_jugador()
 {
-    
+
     int id = recibir_byte();
     int x = recibir_byte();
     int y = recibir_byte();
     bool direccion = static_cast<bool>(recibir_byte());
     int angulo = recibir_byte();
-    JugadorDTO jugador(id, x, y, direccion, angulo - 45);
+    int vida = recibir_byte();
+    bool en_movimiento = static_cast<bool>(recibir_byte());
+    JugadorDTO jugador(id, x, y, direccion, angulo - 45, vida, en_movimiento);
     return jugador;
 }
 

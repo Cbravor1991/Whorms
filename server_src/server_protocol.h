@@ -81,7 +81,7 @@ public:
 
     void enviar_arma(int id, int arma, int ammo);
 
-    void enviar_jugador(int id, int x, int y, int direccion, int angulo);
+    void enviar_jugador(int id, int x, int y, int direccion, int angulo, int vida, bool en_movimiento);
 
     void enviar_lanzable(int tipo, int x, int y, int direccion, int angulo, bool explosion);
 

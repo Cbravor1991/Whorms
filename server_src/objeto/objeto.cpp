@@ -1,12 +1,12 @@
 #include "objeto.h"
 #include <string>
 
-Objeto::Objeto(Mundo *world) : mundo(world), body(NULL), is_dead(false),
-                               last_position(-1, -1),
-                               last_position_sent(false), data_updated(false) {}
+Objeto::Objeto(Mundo *world) : mundo(world), body(NULL), is_dead(false)
+{
+}
 Objeto::~Objeto() {}
 
-bool Objeto::en_movimiento()
+bool Objeto::consultar_movimiento()
 {
 
     b2Vec2 velocidadLineal = body->GetLinearVelocity();
@@ -19,6 +19,7 @@ bool Objeto::en_movimiento()
     {
         return true; // Al menos un body está en movimiento.
     }
+    en_movimiento = false;
     return false; // Ningún body está en movimiento.
 }
 

@@ -20,11 +20,12 @@ Gusano::Gusano(Mundo *mundo, b2Vec2 spawn, int id) : Objeto(mundo), inventario()
     body->CreateFixture(&fd);
     direccion = 1;
     body->ApplyLinearImpulse(b2Vec2(0.0, -1.0), body->GetWorldCenter(), true);
+    altura = spawn.y;
 }
 
-void Gusano::usar_arma(Arma *arma, std::vector<Objeto *> *objetos)
+bool Gusano::usar_arma(Arma *arma, std::vector<Objeto *> *objetos)
 {
-    inventario.disparar(mundo, body, arma, objetos);
+    return inventario.disparar(mundo, body, arma, objetos);
 }
 
 int Gusano::cambiar_arma(int tipo)
@@ -34,6 +35,7 @@ int Gusano::cambiar_arma(int tipo)
 
 void Gusano::mover_derecha()
 {
+    en_movimiento = true;
     float_t horizontalForce = CAMINAR * cos(angulo_viga);
     float_t verticalForce = CAMINAR * sin(angulo_viga);
     body->ApplyLinearImpulse(b2Vec2(horizontalForce, verticalForce), body->GetWorldCenter(), true); // AVANZO 0,2
@@ -42,6 +44,7 @@ void Gusano::mover_derecha()
 
 void Gusano::mover_izquierda()
 {
+    en_movimiento = true;
     float_t horizontalForce = (-1 * CAMINAR) * cos(angulo_viga);
     float_t verticalForce = (-1 * CAMINAR) * sin(angulo_viga);
     body->ApplyLinearImpulse(b2Vec2(horizontalForce, verticalForce), body->GetWorldCenter(), true); // AVANZO 0,2
@@ -50,6 +53,7 @@ void Gusano::mover_izquierda()
 
 void Gusano::mover_arriba_adelante()
 {
+    en_movimiento = true;
     float_t horizontalForce;
     float_t verticalForce;
     if (angulo_viga > 0)
@@ -72,6 +76,7 @@ void Gusano::mover_arriba_adelante()
 
 void Gusano::mover_arriba_atras()
 {
+    en_movimiento = true;
     float_t horizontalForce;
     float_t verticalForce;
     if (angulo_viga > 0)
@@ -105,18 +110,19 @@ PosicionJugador Gusano::conseguir_posicion_gusano()
     int dire = direccion;
     b2Vec2 posicion = body->GetPosition();
     int angulo = (angulo_viga * (180 / M_PI)) + 45;
-    std::cout << "X = " << posicion.x << ", Y = " << posicion.y << " angulo: " << angulo << std::endl;
+    std::cout << "X = " << posicion.x << ", Y = " << posicion.y << " vida: " << vida << std::endl;
     int x = static_cast<int>(posicion.x);
     int y = static_cast<int>(posicion.y);
     if (dire == -1)
     {
         dire = 0;
     }
-    if (y < 30)
+    if (y < 30 or vida <= 0)
     {
+        dañado = true;
         is_dead = true;
     }
-    PosicionJugador posicion_jugador(id, x, y, dire, angulo);
+    PosicionJugador posicion_jugador(id, x, y, dire, angulo, vida, en_movimiento);
     return posicion_jugador;
 }
 
@@ -135,7 +141,29 @@ void Gusano::cambiar_angulo_viga()
             // Ahora necesitas determinar cuál es el otro body involucrado
             b2Body *otherBody = (fixtureA->GetBody() == body) ? fixtureB->GetBody() : fixtureA->GetBody();
             angulo_viga = otherBody->angle;
+            b2Vec2 posicion = body->GetPosition();
+            float caida = abs(altura - posicion.y);
+            altura = posicion.y;
+            if (caida > 30)
+            {
+                vida -= (caida - 20) / 10;
+                std::cout << vida << std::endl;
+                dañado = true;
+            }
         }
         contact = contact->GetNext();
     }
+}
+
+bool Gusano::daño_recibido()
+{
+    b2Vec2 posicion = body->GetPosition();
+    if (posicion.y < 30 or vida <= 0)
+    {
+        dañado = true;
+        is_dead = true;
+    }
+    bool daño = dañado;
+    dañado = false;
+    return daño;
 }

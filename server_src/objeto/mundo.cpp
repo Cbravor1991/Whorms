@@ -12,7 +12,9 @@ Mundo::Mundo(b2Vec2 gravity) : world(gravity)
     // this->world.SetContactFilter(&this->collision_listener);
 }
 
-Mundo::~Mundo() {}
+Mundo::~Mundo()
+{
+}
 
 void Mundo::agregar_viga(int x, int y, int largo, float_t angulo)
 {

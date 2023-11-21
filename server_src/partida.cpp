@@ -52,9 +52,16 @@ void Partida::run()
             }
         }
 
+        if (id_turno != monitor_jugadores->recibir_turno())
+        {
+            id_turno = monitor_jugadores->recibir_turno();
+            ultimo_cambio_de_turno = ahora; // Reiniciar el temporizador
+            ultimo_numero_notificado = 0;
+            segundos_transcurridos = 0; // Reiniciar el último número notificado
+        }
+
         if (segundos_transcurridos >= DURACION_TURNO or id_turno == id_desconectado)
         {
-
             // Realizar el cambio de turno
             id_turno = monitor_jugadores->cambiar_turno();
             ultimo_cambio_de_turno = ahora; // Reiniciar el temporizador
@@ -78,5 +85,6 @@ void Partida::run()
         std::this_thread::sleep_for(std::chrono::milliseconds(3));
     }
     delete monitor_jugadores;
+
     delete cola;
 }
