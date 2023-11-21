@@ -31,6 +31,8 @@ void PathLoader::loadSpritePath() {
     sprite_path.push_back("/sprites/vigas/grds4.png");
     sprite_path.push_back("/sprites/Weapon/Icons/airmisil.png");
     sprite_path.push_back("/sprites/Weapon/Icons/banana.1.png");
+    sprite_path.push_back("/sprites/Weapon/Worm/airStrike/wairlnk.png");
+    sprite_path.push_back("/sprites/Weapon/Worm/teleport/wtellnk.png");
 
 }
 

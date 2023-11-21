@@ -50,6 +50,12 @@ bool Game::gameLoop(StateGame *estado, bool &nuevo_estado)
     if (nuevo_estado)
     {
         this->procesar_estado(estado);
+
+    } else {
+        //primero me fijo si esta el jugador. Si no esta es porque se desconecto recientemente
+        if(jugadores.find(turno) != jugadores.end()) {
+            jugadores.at(turno).stop_running();
+        }
     }
 
     this->renderizar();
@@ -74,15 +80,11 @@ bool Game::manejarEventos()
             {
 
             case (SDLK_r):
-            {
-                
+            { 
                 tipo++;
-
                 if (tipo>2){
                     tipo = 0;
                 }
-
-                
 
                 accion = new Weapon(tipo);
                 cliente.mandar_accion(accion);
@@ -128,8 +130,6 @@ bool Game::manejarEventos()
                 break;
             }
             }
-            // } else if(event.type == SDL_KEYUP) {
-            //     cliente.stop();//para de moverse(la animacion)
         }
         else if (event.type == SDL_MOUSEBUTTONDOWN)
         {
@@ -159,6 +159,13 @@ void Game::procesar_estado(StateGame *estado)
         this->turno = turn->obtenerIdTurno();
         permiso = turn->obtenerPermiso();
         cliente.autorizar_turno(permiso);
+
+        //Le saco el arma a todos los jugadores
+        for (auto &[id, jugador] : jugadores)
+        { 
+            jugador.cargar_armas(NO_WEAPON);
+        }
+
     }
     else if (estado->type == TIPO_SEGUNDO)
     {
@@ -180,9 +187,6 @@ void Game::procesar_estado(StateGame *estado)
         ArmaDTO *arma = dynamic_cast<ArmaDTO *>(estado);
         arma->cargar(jugadores);
       
-          
-        
-
     }
 }
 
@@ -208,7 +212,7 @@ void Game::procesar_paquete(PaqueteDTO *paquete)
         }
         else
         {
-            // found --> lo actualizo o borro si se desconecto(no recibo esta info)
+            // found --> lo actualizo o borro si se desconecto
             jugadores.at(id).actualizar(jugador);
         }
         if (id == turno)

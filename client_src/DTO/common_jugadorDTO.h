@@ -8,12 +8,19 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+
 #include <SDL2pp/SDL2pp.hh>
 #include "../graphics/texture_manager.h"
 // #include "../weapons/weapon.h"
 // #include "../weapons/common_ataque_aereo.h"
 #include "../worm/worm_status.h"
 #include "../worm/worm_walk.h"
+#include "../worm/worm_idle.h"
+
+#include "../worm/weapon/worm_weapon.h"
+#include "../worm/weapon/worm_airstrike.h"
+#include "../worm/weapon/worm_no_weapon.h"
+#include "../worm/weapon/worm_teleport.h"
 
 class JugadorDTO
 {
@@ -25,10 +32,12 @@ private:
     int angulo;
     int run_phase = 0; // run animation phase
     int arma;
+    std::shared_ptr<WormWeapon> weapon;
     int vida;
-    bool is_running;
+    bool is_running;//me indica si cambio el estado de IDLE a WALK
     SDL_Color color;
-    WormWalk status;
+    //WormStatus* status;
+    std::shared_ptr<WormStatus> status; //= std::make_unique<WormIdle>();
 
 public:
     JugadorDTO(int id, int x, int y, bool direccion, int angulo, int vida, bool en_movimiento);
@@ -52,6 +61,8 @@ public:
     int obtener_vida();
 
     SDL_Color obtener_color();
+
+    void stop_running();
 };
 
 #endif
