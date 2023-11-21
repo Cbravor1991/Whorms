@@ -21,7 +21,7 @@ private:
     int vida = 100;
     int id;
     float altura;
-    bool dañado = false;
+    bool daniado = false;
 
 public:
     bool usar_arma(Arma *arma, std::vector<Objeto *> *objetos);
@@ -35,7 +35,7 @@ public:
     int getDireccion();
     PosicionJugador conseguir_posicion_gusano();
     PosicionLanzable conseguir_posicion();
-    bool daño_recibido();
+    bool danio_recibido();
     // void interactuar() override;
 };
 

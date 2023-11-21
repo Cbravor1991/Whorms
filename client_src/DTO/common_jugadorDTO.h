@@ -38,9 +38,12 @@ private:
     SDL_Color color;
     //WormStatus* status;
     std::shared_ptr<WormStatus> status; //= std::make_unique<WormIdle>();
+    int id_cliente = 1;
+
+    void setear_color(int id, SDL_Color &color);
 
 public:
-    JugadorDTO(int id, int x, int y, bool direccion, int angulo, int vida, bool en_movimiento);
+    JugadorDTO(int id, int x, int y, bool direccion, int angulo, int vida, bool en_movimiento, int id_cliente);
 
     void cargar_armas(int arma);
 

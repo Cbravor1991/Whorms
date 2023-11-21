@@ -173,8 +173,9 @@ JugadorDTO ProtocoloCliente::recibir_jugador()
     bool direccion = static_cast<bool>(recibir_byte());
     int angulo = recibir_byte();
     int vida = recibir_byte();
+    int id_cliente = 1;
     bool en_movimiento = static_cast<bool>(recibir_byte());
-    JugadorDTO jugador(id, x, y, direccion, angulo - 45, vida, en_movimiento);
+    JugadorDTO jugador(id, x, y, direccion, angulo - 45, vida, en_movimiento, id_cliente);
     return jugador;
 }
 

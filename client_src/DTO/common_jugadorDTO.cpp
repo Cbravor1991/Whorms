@@ -1,13 +1,26 @@
 #include "common_jugadorDTO.h"
 
+void JugadorDTO::setear_color(int id, SDL_Color &color) {
+    if (id == 1) {
+        color = {255, 0, 0, 255};         // Rojo
+    } else if (id == 2) {
+        color = {255, 165, 0, 255};       // Naranja
+    } else if (id == 3) {
+        color = {255, 255, 0, 255};       // Amarillo
+    } else if (id == 4) {
+        color = {0, 255, 0, 255};         // Verde
+    } else if (id == 5) {
+        color = {0, 255, 255, 255};       // Celeste
+    } else if (id == 6) {
+        color = {0, 0, 255, 255};         // Azul
+    } else if (id == 7) {
+        color = {255, 0, 255, 255};       // Rosa
+    }
+}
 
-JugadorDTO::JugadorDTO(int id, int x, int y, bool direccion, int angulo, int vida, bool en_movimiento) : id(id), x(x), y(y), direccion(direccion), angulo(angulo), vida(vida), is_running(en_movimiento)
+JugadorDTO::JugadorDTO(int id, int x, int y, bool direccion, int angulo, int vida, bool en_movimiento, int id_cliente) : id(id), x(x), y(y), direccion(direccion), angulo(angulo), vida(vida), is_running(en_movimiento), id_cliente(id_cliente)
 {
-    std::srand(static_cast<unsigned>(std::time(nullptr)));
-    color = {static_cast<uint8_t>(0 + rand() % (255 - 0 + 1)),
-             static_cast<uint8_t>(0 + rand() % (255 - 0 + 1)),
-             static_cast<uint8_t>(0 + rand() % (255 - 0 + 1)),
-             static_cast<uint8_t>(0 + rand() % (255 - 0 + 1))};
+    setear_color(id_cliente, color);
 
     this->status.reset(new WormIdle());
 

@@ -123,7 +123,7 @@ PosicionJugador Gusano::conseguir_posicion_gusano()
     }
     if (y < 30 or vida <= 0)
     {
-        dañado = true;
+        daniado = true;
         is_dead = true;
     }
     PosicionJugador posicion_jugador(id, x, y, dire, angulo, vida, en_movimiento);
@@ -152,22 +152,22 @@ void Gusano::cambiar_angulo_viga()
             {
                 vida -= (caida - 20) / 10;
                 std::cout << vida << std::endl;
-                dañado = true;
+                daniado = true;
             }
         }
         contact = contact->GetNext();
     }
 }
 
-bool Gusano::daño_recibido()
+bool Gusano::danio_recibido()
 {
     b2Vec2 posicion = body->GetPosition();
     if (posicion.y < 30 or vida <= 0)
     {
-        dañado = true;
+        daniado = true;
         is_dead = true;
     }
-    bool daño = dañado;
-    dañado = false;
-    return daño;
+    bool danio = daniado;
+    daniado = false;
+    return danio;
 }

@@ -195,7 +195,7 @@ void Escenario::mover_gusano_derecha(int gusano, int jugador)
             gusano_a_mover->mover_derecha();
             impulseAplicado = true; // Marca que el impulso se ha aplicado
         }
-        if (gusano_a_mover and gusano_a_mover->daño_recibido())
+        if (gusano_a_mover and gusano_a_mover->danio_recibido())
         {
             monitor->cambiar_turno();
             break;
@@ -223,7 +223,7 @@ void Escenario::mover_gusano_izquierda(int gusano, int jugador)
             gusano_a_mover->mover_izquierda();
             impulseAplicado = true; // Marca que el impulso se ha aplicado
         }
-        if (gusano_a_mover and gusano_a_mover->daño_recibido())
+        if (gusano_a_mover and gusano_a_mover->danio_recibido())
         {
             monitor->cambiar_turno();
             break;
@@ -251,7 +251,7 @@ void Escenario::mover_gusano_arriba_adelante(int gusano, int jugador)
             gusano_a_mover->mover_arriba_adelante();
             impulseAplicado = true; // Marca que el impulso se ha aplicado
         }
-        if (gusano_a_mover and gusano_a_mover->daño_recibido())
+        if (gusano_a_mover and gusano_a_mover->danio_recibido())
         {
             monitor->cambiar_turno();
             break;
@@ -279,7 +279,7 @@ void Escenario::mover_gusano_arriba_atras(int gusano, int jugador)
             gusano_a_mover->mover_arriba_atras();
             impulseAplicado = true; // Marca que el impulso se ha aplicado
         }
-        if (gusano_a_mover and gusano_a_mover->daño_recibido())
+        if (gusano_a_mover and gusano_a_mover->danio_recibido())
         {
             monitor->cambiar_turno();
             break;
@@ -312,7 +312,7 @@ void Escenario::usar_arma(int gusano, int jugador, Arma *arma)
     }
     if (gusano_a_mover)
     {
-        gusano_a_mover->daño_recibido();
+        gusano_a_mover->danio_recibido();
     }
     if (arma != nullptr)
     {

@@ -42,7 +42,7 @@ void GameView::renderizar_fondo_pantalla(){
 
 void GameView::renderizar_texto(std::string texto, int pos_x, int pos_y, SDL_Color color)
 {
-    SDL2pp::Font font(DATA_PATH "/Vera.ttf", 12);
+    SDL2pp::Font font(DATA_PATH "/GROBOLD.ttf", 12);
 
     SDL2pp::Texture texto_sprite(renderer, font.RenderText_Blended(texto, color));
 
