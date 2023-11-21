@@ -24,16 +24,13 @@ void Turno::eliminar_id(int id)
     if (it != jugadores.end())
     {
         jugadores.erase(it);
-        if (turno_actual >= jugadores.size())
-        {
-            turno_actual = 0; // Ajustar el turno actual si es mayor que la cantidad de jugadores restantes
-        }
         std::cout << "ID " << id << " eliminado." << std::endl;
     }
     else
     {
         std::cout << "ID " << id << " no encontrado." << std::endl;
     }
+    turno_actual--;
 }
 
 void Turno::agregar_id(int id)
@@ -43,5 +40,9 @@ void Turno::agregar_id(int id)
 
 int Turno::recibir_turno()
 {
+    if (jugadores.empty())
+    {
+        return 0;
+    }
     return jugadores[turno_actual];
 }

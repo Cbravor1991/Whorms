@@ -20,8 +20,12 @@ void Partida::agregar_jugador(Jugador *jugador)
     if (!en_ejecucion)
     {
         en_ejecucion = true;
-        monitor_jugadores->cambiar_turno();
+        id_turno = monitor_jugadores->cambiar_turno();
         start();
+    }
+    if (id_turno == 0)
+    {
+        id_turno = monitor_jugadores->cambiar_turno();
     }
 }
 
@@ -32,8 +36,6 @@ void Partida::detener_partida()
 
 void Partida::run()
 {
-    int id_desconectado = -1;
-    int id_turno = 1;
     std::chrono::time_point<std::chrono::steady_clock> ultimo_cambio_de_turno = std::chrono::steady_clock::now();
     int ultimo_numero_notificado = 0; // Comenzar en 31 para iniciar con 30 segundos
 
@@ -47,7 +49,7 @@ void Partida::run()
         {
             if (accion != nullptr)
             {
-                id_desconectado = accion->ejecutar_accion(escenario);
+                accion->ejecutar_accion(escenario);
                 delete accion;
             }
         }
@@ -60,7 +62,7 @@ void Partida::run()
             segundos_transcurridos = 0; // Reiniciar el último número notificado
         }
 
-        if (segundos_transcurridos >= DURACION_TURNO or id_turno == id_desconectado)
+        if (segundos_transcurridos >= DURACION_TURNO)
         {
             // Realizar el cambio de turno
             id_turno = monitor_jugadores->cambiar_turno();
@@ -68,7 +70,6 @@ void Partida::run()
             ultimo_numero_notificado = 0;
             segundos_transcurridos = 0; // Reiniciar el último número notificado
             monitor_jugadores->limpiar_desconectados();
-            id_desconectado = -1;
         }
 
         // Contar en reversa desde 30 hasta 0

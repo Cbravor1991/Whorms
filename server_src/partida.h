@@ -29,6 +29,7 @@ public:
 private:
     // Variables de control de la partida
 
+    int id_turno = 1;
     bool en_ejecucion;
     MonitorJugadores *monitor_jugadores;
     Queue<Accion *> *cola;

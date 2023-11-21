@@ -90,6 +90,10 @@ void Escenario::mandar_paquete()
 
 void Escenario::avisar_desconexion(int jugador)
 {
+    if (jugador == monitor->recibir_turno())
+    {
+        monitor->cambiar_turno();
+    };
     monitor->avisar_desconexion();
     std::map<int, Gusano *> &gusanosJugador = gusanos[jugador];
     // Liberar la memoria de los gusanos del jugador
@@ -305,6 +309,10 @@ void Escenario::usar_arma(int gusano, int jugador, Arma *arma)
         mundo->paso(FRAME_RATE, 6, 2);
         mandar_paquete();
         movimiento = en_movimiento();
+    }
+    if (gusano_a_mover)
+    {
+        gusano_a_mover->daño_recibido();
     }
     if (arma != nullptr)
     {

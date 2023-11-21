@@ -45,6 +45,7 @@ void ProtocoloServer::enviar_turno(int turno_id)
     tipo_arma = 0;
     enviar_byte(CAMBIO_TURNO);
     enviar_int(turno_id);
+    std::cout << turno_id << std::endl;
 }
 
 void ProtocoloServer::enviar_arma(int id, int arma, int ammo)

@@ -111,6 +111,10 @@ PosicionJugador Gusano::conseguir_posicion_gusano()
     b2Vec2 posicion = body->GetPosition();
     int angulo = (angulo_viga * (180 / M_PI)) + 45;
     std::cout << "X = " << posicion.x << ", Y = " << posicion.y << " vida: " << vida << std::endl;
+    if (posicion.y > altura)
+    {
+        altura = posicion.y;
+    }
     int x = static_cast<int>(posicion.x);
     int y = static_cast<int>(posicion.y);
     if (dire == -1)

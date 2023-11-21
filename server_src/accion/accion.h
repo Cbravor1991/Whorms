@@ -12,10 +12,9 @@ protected:
 public:
     Accion(int id) : jugador_id(id) {}
 
-    virtual int ejecutar_accion(Escenario &escenario)
+    virtual void ejecutar_accion(Escenario &escenario)
     {
         escenario.avisar_desconexion(jugador_id);
-        return jugador_id;
     }
 
     virtual ~Accion() {}

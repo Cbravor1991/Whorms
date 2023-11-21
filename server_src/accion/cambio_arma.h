@@ -7,9 +7,8 @@ private:
 
 public:
     CambioArma(int id, int tipo_arma) : Accion(id), tipo_arma(tipo_arma) {}
-    int ejecutar_accion(Escenario &escenario) override
+    void ejecutar_accion(Escenario &escenario) override
     {
         escenario.equipar_arma(1, jugador_id, tipo_arma);
-        return -1;
     }
 };
