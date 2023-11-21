@@ -19,9 +19,15 @@ void TextureManager::loadTexture(SDL2pp::Renderer& renderer) {
 }
 
 void TextureManager::loadBackground(SDL2pp::Renderer& renderer) {
-    SDL2pp::Texture fondo(renderer, DATA_PATH "/sprites/escenario.png");
+    SDL2pp::Texture fondo(renderer, DATA_PATH "/sprites/lava_pattern.jpg");
     this->background = std::make_shared<SDL2pp::Texture>(std::move(fondo));
 }
+
+void TextureManager::loadWater(SDL2pp::Renderer& renderer) {
+    SDL2pp::Texture fondo(renderer, DATA_PATH "/sprites/water_pattern_2.png");
+    this->water = std::make_shared<SDL2pp::Texture>(std::move(fondo));
+}
+
 
 void TextureManager::loadMusic() {
     SDL2pp::Music musica_fondo(DATA_PATH "/sonidos/worms_music.mp3");
@@ -61,4 +67,9 @@ std::shared_ptr<SDL2pp::Texture> TextureManager::getBackground() {
 
 std::shared_ptr<SDL2pp::Music> TextureManager::getMusic() {
     return this->music;
+}
+
+
+std::shared_ptr<SDL2pp::Texture> TextureManager::getWater() {
+    return this-> water;
 }

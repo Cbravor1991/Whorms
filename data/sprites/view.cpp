@@ -31,12 +31,11 @@ SDL2pp::Renderer &GameView::getRenderer()
 
 void GameView::renderizar_fondo_pantalla(){
 
-  std::shared_ptr<SDL2pp::Texture> sky = tex_manager.getBackground();
+
+	  std::shared_ptr<SDL2pp::Texture> sky = tex_manager.getBackground();
       renderer.Copy(*sky, NullOpt, Rect(0, 0, window.GetWidth(),  window.GetHeight()));
      std::shared_ptr<SDL2pp::Texture> water = tex_manager.getWater();
      renderer.Copy(*water, NullOpt, Rect(0, 200, window.GetWidth(),  window.GetHeight()-100));
-
-
 
 
 
@@ -44,7 +43,7 @@ void GameView::renderizar_fondo_pantalla(){
 
 void GameView::renderizar_texto(std::string texto, int pos_x, int pos_y, SDL_Color color)
 {
-    SDL2pp::Font font(DATA_PATH "/GROBOLD.ttf", 12);
+    SDL2pp::Font font(DATA_PATH "/Vera.ttf", 12);
 
     SDL2pp::Texture texto_sprite(renderer, font.RenderText_Blended(texto, color));
 
