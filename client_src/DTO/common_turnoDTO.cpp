@@ -1,6 +1,10 @@
 
 #include "common_turnoDTO.h"
-TurnoDTO::TurnoDTO(int id, bool permiso) : id(id), permiso(permiso) {}
+TurnoDTO::TurnoDTO(int id, bool permiso) : id(id), permiso(permiso) {
+        type = 0;
+    
+
+}
 
 void TurnoDTO::cambiar_render(bool &permiso)
 {

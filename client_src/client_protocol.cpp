@@ -252,7 +252,7 @@ StateGame *ProtocoloCliente::procesar_mensaje(const int &id_jugador)
         {
 
             estado = recibir_turno(id_jugador);
-            estado->type = TIPO_TURNO;
+         
         }
         break;
 

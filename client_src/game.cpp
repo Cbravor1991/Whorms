@@ -18,7 +18,8 @@ void Game::run()
 
         std::optional<StateGame *> optional = cliente.obtener_estado();
         if (optional.has_value())
-        {
+        {   
+         
             estado = optional.value();
             nuevo_estado = true;
         }
@@ -48,10 +49,11 @@ bool Game::gameLoop(StateGame *estado, bool &nuevo_estado)
     view.clear();
     // estado->cambiar_render(permiso); -->para debuggear si llega algo no definido en procesar
     if (nuevo_estado)
-    {
+    {   std::cout<<estado->type<<'\n';
         this->procesar_estado(estado);
 
     } else {
+   
         for (auto &[id, jugador] : jugadores)
         { 
             jugador.stop_running();
@@ -153,12 +155,14 @@ bool Game::manejarEventos()
 void Game::procesar_estado(StateGame *estado)
 {
 
+
     if (estado->type == TIPO_TURNO)
     {
         TurnoDTO *turn = dynamic_cast<TurnoDTO *>(estado);
         this->turno = turn->obtenerIdTurno();
         permiso = turn->obtenerPermiso();
         cliente.autorizar_turno(permiso);
+
 
         //Le saco el arma a todos los jugadores
         for (auto &[id, jugador] : jugadores)
@@ -248,10 +252,10 @@ void Game::procesar_paquete(PaqueteDTO *paquete)
     if (tamanio_paquete>0){
       
            for (int i = 0; i < tamanio_paquete; ++i) {
-    std::cout << "estoy creando" << '\n';
+
 
     if (i >= cantidad_misiles) {
-        std::cout << "estoy creando" << '\n';
+      
         // No se encontró el índice en "objetos" --> lo guardo
         objetos.push_back(objetos_paquete.at(i));
     } else {
@@ -286,7 +290,7 @@ void Game::cargar_escenario(EscenarioDTO *escenario)
 
 void Game:: cargar_arma (PaqueteDTO *paquete){
 
-    std::cout<<"entra aca"<<'\n';
+
    
 
 }

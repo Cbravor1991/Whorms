@@ -30,7 +30,7 @@ void ObjetoDTO::actualizar(ObjetoDTO jugador)
 
 void ObjetoDTO::renderizar(SDL2pp::Renderer &renderer, TextureManager &tex_manager)
 {
-    mostrar();
+    //mostrar();
 
    
     std::string path = "/sprites/Weapon/Icons/airmisil.png";
