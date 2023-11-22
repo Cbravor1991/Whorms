@@ -65,6 +65,7 @@ private:
     std::vector<std::pair<int, int>> spawns;
     int cantidad_jugadores = 0;
 
+    Gusano *recibir_gusano(int id);
     Gusano *agregar_gusano(int jugador_id, int gusano_id);
     void mandar_paquete();
     bool en_movimiento();

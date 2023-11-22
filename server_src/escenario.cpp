@@ -11,6 +11,17 @@ Escenario::Escenario(std::uint16_t x_size, std::uint16_t y_size, MonitorJugadore
     objetos = new std::vector<Objeto *>;
 }
 
+Gusano *Escenario::recibir_gusano(int id)
+{
+    Gusano *gusano = nullptr;
+    auto iter = gusanos.find(id);
+    if (iter != gusanos.end())
+    {
+        gusano = iter->second.recibir_turno();
+    }
+    return gusano;
+}
+
 int Escenario::cambiar_turno(int id)
 {
     if (id != 0)
@@ -167,127 +178,135 @@ void Escenario::colocar_viga(int x, int y, bool tipo, int angulo_grados)
 
 void Escenario::mover_gusano_derecha(int jugador)
 {
-    Gusano *gusano_a_mover = gusanos[jugador].recibir_turno();
-    bool movimiento = true;
-    bool impulseAplicado = false;
-    while (movimiento)
+    Gusano *gusano_a_mover = recibir_gusano(jugador);
+    if (gusano_a_mover != nullptr)
     {
-        if (impulseAplicado)
+        bool movimiento = true;
+        bool impulseAplicado = false;
+        while (movimiento)
         {
-            movimiento = en_movimiento();
-        }
-        mundo->paso(FRAME_RATE, VELOCITY_ITERATION, POSITION_ITERATION);
-        if (!impulseAplicado)
-        {
-            gusano_a_mover->mover_derecha();
-            impulseAplicado = true; // Marca que el impulso se ha aplicado
-        }
+            if (impulseAplicado)
+            {
+                movimiento = en_movimiento();
+            }
+            mundo->paso(FRAME_RATE, VELOCITY_ITERATION, POSITION_ITERATION);
+            if (!impulseAplicado)
+            {
+                gusano_a_mover->mover_derecha();
+                impulseAplicado = true; // Marca que el impulso se ha aplicado
+            }
 
-        if (gusano_a_mover and gusano_a_mover->daño_recibido())
-        {
-            gusanos[jugador].cambiar_turno();
-            monitor->cambiar_turno();
-        
+            if (gusano_a_mover and gusano_a_mover->daño_recibido())
+            {
+                gusanos[jugador].cambiar_turno();
+                monitor->cambiar_turno();
+            }
+            mandar_paquete();
         }
         mandar_paquete();
+        mandar_paquete();
     }
-    mandar_paquete();
-    mandar_paquete();
 }
 
 void Escenario::mover_gusano_izquierda(int jugador)
 {
-    Gusano *gusano_a_mover = gusanos[jugador].recibir_turno();
-    bool movimiento = true;
-    bool impulseAplicado = false;
-    while (movimiento)
+    Gusano *gusano_a_mover = recibir_gusano(jugador);
+    if (gusano_a_mover != nullptr)
     {
-        if (impulseAplicado)
+        bool movimiento = true;
+        bool impulseAplicado = false;
+        while (movimiento)
         {
-            movimiento = en_movimiento();
-        }
-        mundo->paso(FRAME_RATE, VELOCITY_ITERATION, POSITION_ITERATION);
-        if (!impulseAplicado)
-        {
-            gusano_a_mover->mover_izquierda();
-            impulseAplicado = true; // Marca que el impulso se ha aplicado
-        }
-        if (gusano_a_mover and gusano_a_mover->daño_recibido())
-        {
-            gusanos[jugador].cambiar_turno();
-            monitor->cambiar_turno();
-        
+            if (impulseAplicado)
+            {
+                movimiento = en_movimiento();
+            }
+            mundo->paso(FRAME_RATE, VELOCITY_ITERATION, POSITION_ITERATION);
+            if (!impulseAplicado)
+            {
+                gusano_a_mover->mover_izquierda();
+                impulseAplicado = true; // Marca que el impulso se ha aplicado
+            }
+            if (gusano_a_mover and gusano_a_mover->daño_recibido())
+            {
+                gusanos[jugador].cambiar_turno();
+                monitor->cambiar_turno();
+            }
+            mandar_paquete();
         }
         mandar_paquete();
+        mandar_paquete();
     }
-    mandar_paquete();
-    mandar_paquete();
 }
 
 void Escenario::mover_gusano_arriba_adelante(int jugador)
 {
-    Gusano *gusano_a_mover = gusanos[jugador].recibir_turno();
-    bool movimiento = true;
-    bool impulseAplicado = false;
-    while (movimiento)
+    Gusano *gusano_a_mover = recibir_gusano(jugador);
+    if (gusano_a_mover != nullptr)
     {
-        if (impulseAplicado)
+        bool movimiento = true;
+        bool impulseAplicado = false;
+        while (movimiento)
         {
-            movimiento = en_movimiento();
-        }
-        mundo->paso(FRAME_RATE, VELOCITY_ITERATION, POSITION_ITERATION);
-        if (!impulseAplicado)
-        {
-            gusano_a_mover->mover_arriba_adelante();
-            impulseAplicado = true; // Marca que el impulso se ha aplicado
-        }
-        if (gusano_a_mover and gusano_a_mover->daño_recibido())
-        {
-            gusanos[jugador].cambiar_turno();
-            monitor->cambiar_turno();
-        
+            if (impulseAplicado)
+            {
+                movimiento = en_movimiento();
+            }
+            mundo->paso(FRAME_RATE, VELOCITY_ITERATION, POSITION_ITERATION);
+            if (!impulseAplicado)
+            {
+                gusano_a_mover->mover_arriba_adelante();
+                impulseAplicado = true; // Marca que el impulso se ha aplicado
+            }
+            if (gusano_a_mover and gusano_a_mover->daño_recibido())
+            {
+                gusanos[jugador].cambiar_turno();
+                monitor->cambiar_turno();
+            }
+            mandar_paquete();
         }
         mandar_paquete();
+        mandar_paquete();
     }
-    mandar_paquete();
-    mandar_paquete();
 }
 
 void Escenario::mover_gusano_arriba_atras(int jugador)
 {
-    Gusano *gusano_a_mover = gusanos[jugador].recibir_turno();
-    bool movimiento = true;
-    bool impulseAplicado = false;
-    while (movimiento)
+    Gusano *gusano_a_mover = recibir_gusano(jugador);
+    if (gusano_a_mover != nullptr)
     {
-        if (impulseAplicado)
+        bool movimiento = true;
+        bool impulseAplicado = false;
+        while (movimiento)
         {
-            movimiento = en_movimiento();
-        }
-        mundo->paso(FRAME_RATE, VELOCITY_ITERATION, POSITION_ITERATION);
-        if (!impulseAplicado)
-        {
-            gusano_a_mover->mover_arriba_atras();
-            impulseAplicado = true; // Marca que el impulso se ha aplicado
-        }
-        if (gusano_a_mover and gusano_a_mover->daño_recibido())
-        {
-            monitor->cambiar_turno();
-            gusanos[jugador].cambiar_turno();
-          
+            if (impulseAplicado)
+            {
+                movimiento = en_movimiento();
+            }
+            mundo->paso(FRAME_RATE, VELOCITY_ITERATION, POSITION_ITERATION);
+            if (!impulseAplicado)
+            {
+                gusano_a_mover->mover_arriba_atras();
+                impulseAplicado = true; // Marca que el impulso se ha aplicado
+            }
+            if (gusano_a_mover and gusano_a_mover->daño_recibido())
+            {
+                monitor->cambiar_turno();
+                gusanos[jugador].cambiar_turno();
+            }
+            mandar_paquete();
         }
         mandar_paquete();
+        mandar_paquete();
     }
-    mandar_paquete();
-    mandar_paquete();
 }
 
 void Escenario::equipar_arma(int jugador, int arma)
 {
+    Gusano *gusano_a_mover = recibir_gusano(jugador);
     std::pair<int, int> id_y_ammo = std::make_pair(0, 0);
-    if (arma != -1)
+    if (arma != -1 or gusano_a_mover != nullptr)
     {
-        Gusano *gusano_a_mover = gusanos[jugador].recibir_turno();
         id_y_ammo = gusano_a_mover->cambiar_arma(arma);
     }
     monitor->mandar_arma(jugador, id_y_ammo.first, arma, id_y_ammo.second);
@@ -295,28 +314,31 @@ void Escenario::equipar_arma(int jugador, int arma)
 
 void Escenario::usar_arma(int jugador, Arma *arma)
 {
-    Gusano *gusano_a_mover = gusanos[jugador].recibir_turno();
-    bool arma_usada = gusano_a_mover->usar_arma(arma, objetos);
-    bool movimiento = true;
-    while (movimiento and arma_usada)
+    Gusano *gusano_a_mover = recibir_gusano(jugador);
+    if (gusano_a_mover != nullptr)
     {
-        mundo->paso(FRAME_RATE, VELOCITY_ITERATION, POSITION_ITERATION);
-        movimiento = en_movimiento();
-        mandar_paquete();
-    }
-    if (gusano_a_mover)
-    {
-        gusano_a_mover->daño_recibido();
-    }
-    if (arma != nullptr)
-    {
-        delete arma;
-    }
-    if (arma_usada)
-    {
-        gusanos[jugador].cambiar_turno();
-        monitor->cambiar_turno();
-        mandar_paquete();
+        bool arma_usada = gusano_a_mover->usar_arma(arma, objetos);
+        bool movimiento = true;
+        while (movimiento and arma_usada)
+        {
+            mundo->paso(FRAME_RATE, VELOCITY_ITERATION, POSITION_ITERATION);
+            movimiento = en_movimiento();
+            mandar_paquete();
+        }
+        if (gusano_a_mover)
+        {
+            gusano_a_mover->daño_recibido();
+        }
+        if (arma != nullptr)
+        {
+            delete arma;
+        }
+        if (arma_usada)
+        {
+            gusanos[jugador].cambiar_turno();
+            monitor->cambiar_turno();
+            mandar_paquete();
+        }
     }
 }
 
