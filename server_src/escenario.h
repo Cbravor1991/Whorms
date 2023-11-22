@@ -16,6 +16,7 @@
 const float_t FRAME_RATE = 4.0f / 35.0f;
 const int VELOCITY_ITERATION = 6;
 const int POSITION_ITERATION = 2;
+const int GUSANOS_POR_JUGADOR = 5;
 
 struct Viga
 {
@@ -65,6 +66,7 @@ private:
     std::vector<std::pair<int, int>> spawns;
     int cantidad_jugadores = 0;
 
+    void movimiento(Gusano *gusano, int jugador);
     Gusano *recibir_gusano(int id);
     Gusano *agregar_gusano(int jugador_id, int gusano_id);
     void mandar_paquete();

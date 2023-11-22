@@ -29,6 +29,17 @@ void ProtocoloServer::enviar_byte(const uint8_t &dato)
     }
 }
 
+void ProtocoloServer::enviar_int_grande(int entero)
+{
+    // Dividir el int en dos bytes
+    uint8_t byte_msb = static_cast<uint8_t>((entero >> 8) & 0xFF); // byte más significativo
+    uint8_t byte_lsb = static_cast<uint8_t>(entero & 0xFF);        // byte menos significativo
+
+    // Enviar los dos bytes a través del socket
+    enviar_byte(byte_msb);
+    enviar_byte(byte_lsb);
+}
+
 void ProtocoloServer::enviar_int(int entero)
 {
     uint8_t byte_a_enviar = static_cast<uint8_t>(entero);
@@ -64,7 +75,7 @@ void ProtocoloServer::enviar_segundos(int segundos)
 
 Accion *ProtocoloServer::leer_movimiento(int jugador)
 {
-    int tipo_movimiento = recibir_byte();
+    int tipo_movimiento = recibir_int();
     Accion *accion;
     switch (tipo_movimiento)
     {
@@ -89,7 +100,7 @@ Accion *ProtocoloServer::leer_movimiento(int jugador)
 
 Accion *ProtocoloServer::leer_arma(int jugador)
 {
-    tipo_arma = recibir_byte();
+    tipo_arma = recibir_int();
     Accion *accion;
     accion = new CambioArma(jugador, tipo_arma);
     return accion;
@@ -102,13 +113,13 @@ Accion *ProtocoloServer::leer_uso_arma(int jugador)
     switch (tipo_arma)
     {
     case TELETRANSPORTACION:
-        x = recibir_byte();
-        y = recibir_byte();
+        x = recibir_int_grande();
+        y = recibir_int_grande();
         arma = new Teletransportacion(x, y);
         break;
     case ATAQUE_AEREO:
-        x = recibir_byte();
-        y = recibir_byte();
+        x = recibir_int_grande();
+        y = recibir_int_grande();
         arma = new AtaqueAereo(x, y);
         break;
     }
@@ -143,7 +154,7 @@ Accion *ProtocoloServer::leer_accion(int jugador)
     return accion;
 }
 
-int ProtocoloServer::recibir_byte()
+uint8_t ProtocoloServer::recibir_byte()
 {
     try
     {
@@ -154,14 +165,27 @@ int ProtocoloServer::recibir_byte()
         {
             en_conexion = false;
         }
-        int valor_entero = static_cast<int>(buffer);
-
-        return valor_entero;
+        return buffer;
     }
     catch (const std::exception &err)
     {
         return -1;
     }
+}
+
+int ProtocoloServer::recibir_int()
+{
+    uint8_t byte = recibir_byte();
+    int entero = static_cast<int>(byte);
+    return entero;
+}
+
+int ProtocoloServer::recibir_int_grande()
+{
+    uint8_t byte_msb = recibir_byte();
+    uint8_t byte_lsb = recibir_byte();
+    int entero = (static_cast<int>(byte_msb) << 8) | static_cast<int>(byte_lsb);
+    return entero;
 }
 
 int ProtocoloServer::recibir_tipo_accion()
@@ -203,8 +227,8 @@ void ProtocoloServer::enviar_jugador(int id, int id_gusano, int x, int y, int di
 {
     enviar_int(id);
     enviar_int(id_gusano);
-    enviar_int(x);
-    enviar_int(y);
+    enviar_int_grande(x);
+    enviar_int_grande(y);
     enviar_int(direccion);
     enviar_int(angulo);
     enviar_int(vida);
@@ -214,8 +238,8 @@ void ProtocoloServer::enviar_jugador(int id, int id_gusano, int x, int y, int di
 void ProtocoloServer::enviar_lanzable(int tipo, int x, int y, int direccion, int angulo, bool explosion)
 {
     enviar_int(tipo);
-    enviar_int(x);
-    enviar_int(y);
+    enviar_int_grande(x);
+    enviar_int_grande(y);
     enviar_int(direccion);
     enviar_int(angulo);
     enviar_int(explosion ? 1 : 0);
@@ -224,8 +248,8 @@ void ProtocoloServer::enviar_lanzable(int tipo, int x, int y, int direccion, int
 void ProtocoloServer::enviar_viga(bool tipo, int x, int y, int angulo)
 {
     enviar_int(static_cast<int>(tipo));
-    enviar_int(x);
-    enviar_int(y);
+    enviar_int_grande(x);
+    enviar_int_grande(y);
     enviar_int(angulo);
 }
 

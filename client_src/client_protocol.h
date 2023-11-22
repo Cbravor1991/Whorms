@@ -18,12 +18,6 @@
 #include "DTO/common_armaDTO.h"
 #include <cstring>
 
-const int TIPO_TURNO = 0;
-const int TIPO_SEGUNDO = 1;
-const int TIPO_PAQUETE = 2;
-const int TIPO_ESCENARIO = 3;
-const int TIPO_ARMA = 4;
-
 struct Viga
 {
     bool tipo;
@@ -51,7 +45,11 @@ private:
     Socket socket;
     bool en_conexion = true;
 
-    int recibir_byte();
+    uint8_t recibir_byte();
+
+    int recibir_int();
+
+    int recibir_int_grande();
 
     int recibir_mensaje();
 
@@ -88,6 +86,8 @@ public:
     void enviar_byte(const uint8_t &dato);
 
     void enviar_int(int entero);
+
+    void enviar_int_grande(int entero);
 
     StateGame *procesar_mensaje(const int &id_jugador);
 

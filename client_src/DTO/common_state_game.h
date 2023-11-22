@@ -7,6 +7,12 @@
 #include <map>
 #include <vector>
 
+const int TIPO_TURNO = 0;
+const int TIPO_SEGUNDO = 1;
+const int TIPO_PAQUETE = 2;
+const int TIPO_ESCENARIO = 3;
+const int TIPO_ARMA = 4;
+
 class StateGame
 {
 

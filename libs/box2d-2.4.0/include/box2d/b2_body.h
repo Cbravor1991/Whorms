@@ -131,7 +131,7 @@ struct b2BodyDef
 class b2Body
 {
 public:
-    float_t angle;
+    float_t angle = 0.0;
     /// Creates a fixture and attach it to this body. Use this function if you need
     /// to set some fixture parameters, like friction. Otherwise you can create the
     /// fixture directly from a shape.

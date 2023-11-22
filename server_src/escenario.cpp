@@ -132,8 +132,10 @@ Gusano *Escenario::agregar_gusano(int jugador_id, int gusano_id)
 
 void Escenario::agregar_jugador(int jugador_id)
 {
-    gusanos[jugador_id].agregar_gusano(agregar_gusano(jugador_id, 1));
-    gusanos[jugador_id].agregar_gusano(agregar_gusano(jugador_id, 2));
+    for (int i = 1; i <= GUSANOS_POR_JUGADOR; ++i)
+    {
+        gusanos[jugador_id].agregar_gusano(agregar_gusano(jugador_id, i));
+    }
     monitor->mandar_escenario(x_size, y_size, vigas, jugador_id);
     mandar_paquete();
     int movimiento = true;
@@ -160,20 +162,59 @@ void Escenario::colocar_viga(int x, int y, bool tipo, int angulo_grados)
         largo = 30;
     }
     mundo->agregar_viga(x, y, largo, angulo);
-    // Calcular los puntos por encima de la viga y guárdalos en spawns
-    float_t incrementoX = cos(angulo) * 0.5f;      // Incremento en la dirección X
-    float_t incrementoY = abs(sin(angulo) * 0.5f); // Incremento en la dirección Y
-    float_t puntoX = x + 1.0f;                     // Iniciar en la parte superior de la viga
-    float_t puntoY = y + 8.0f + 10.0;
 
-    while (puntoX < x + largo - 2.0f)
+    // Calcular los puntos por encima de la viga y guárdalos en spawns
+    float_t incrementoX = cos(angulo) * 3.0f;      // Incremento en la dirección X
+    float_t incrementoY = abs(sin(angulo) * 3.0f); // Incremento en la dirección Y
+    float_t puntoX = x + 8.0f + -angulo_grados * 0.3f;
+    float_t puntoY = y + 12.0f + -angulo_grados * 0.3f;
+    if (tipo) // Si es una viga larga
     {
-        spawns.push_back(std::make_pair(static_cast<int>(puntoX), static_cast<int>(puntoY + 1.0)));
+        if (angulo_grados > 0)
+        {
+            puntoY += incrementoY * angulo_grados / 7;
+            puntoX += incrementoX * angulo_grados / 7;
+        }
         puntoX += incrementoX;
         puntoY += incrementoY;
+        spawns.push_back(std::make_pair(static_cast<int>(puntoX), static_cast<int>(puntoY + 1.0)));
+        puntoX += incrementoX * 10;
+        puntoY += incrementoY * 10;
+        spawns.push_back(std::make_pair(static_cast<int>(puntoX), static_cast<int>(puntoY + 1.0)));
+    }
+    else // Si es una viga chica
+    {
+        if (angulo_grados > 0)
+        {
+            puntoY += incrementoY * angulo_grados / 7;
+            puntoX += incrementoX * angulo_grados / 7;
+        }
+        puntoX += incrementoX;
+        puntoY += incrementoY;
+        spawns.push_back(std::make_pair(static_cast<int>(puntoX), static_cast<int>(puntoY + 1.0)));
     }
     PosicionViga posicion_viga(tipo, x, y, angulo_grados + 45);
     vigas.push_back(posicion_viga);
+}
+
+void Escenario::movimiento(Gusano *gusano, int jugador)
+{
+    bool daño = false;
+    bool movimiento = true;
+    while (movimiento)
+    {
+        movimiento = en_movimiento();
+        mundo->paso(FRAME_RATE, VELOCITY_ITERATION, POSITION_ITERATION);
+        if ((!daño) and gusano->daño_recibido())
+        {
+            gusanos[jugador].cambiar_turno();
+            monitor->cambiar_turno();
+            daño = true;
+        }
+        mandar_paquete();
+    }
+    mandar_paquete();
+    mandar_paquete();
 }
 
 void Escenario::mover_gusano_derecha(int jugador)
@@ -181,30 +222,8 @@ void Escenario::mover_gusano_derecha(int jugador)
     Gusano *gusano_a_mover = recibir_gusano(jugador);
     if (gusano_a_mover != nullptr)
     {
-        bool movimiento = true;
-        bool impulseAplicado = false;
-        while (movimiento)
-        {
-            if (impulseAplicado)
-            {
-                movimiento = en_movimiento();
-            }
-            mundo->paso(FRAME_RATE, VELOCITY_ITERATION, POSITION_ITERATION);
-            if (!impulseAplicado)
-            {
-                gusano_a_mover->mover_derecha();
-                impulseAplicado = true; // Marca que el impulso se ha aplicado
-            }
-
-            if (gusano_a_mover and gusano_a_mover->daño_recibido())
-            {
-                gusanos[jugador].cambiar_turno();
-                monitor->cambiar_turno();
-            }
-            mandar_paquete();
-        }
-        mandar_paquete();
-        mandar_paquete();
+        gusano_a_mover->mover_derecha();
+        movimiento(gusano_a_mover, jugador);
     }
 }
 
@@ -213,29 +232,8 @@ void Escenario::mover_gusano_izquierda(int jugador)
     Gusano *gusano_a_mover = recibir_gusano(jugador);
     if (gusano_a_mover != nullptr)
     {
-        bool movimiento = true;
-        bool impulseAplicado = false;
-        while (movimiento)
-        {
-            if (impulseAplicado)
-            {
-                movimiento = en_movimiento();
-            }
-            mundo->paso(FRAME_RATE, VELOCITY_ITERATION, POSITION_ITERATION);
-            if (!impulseAplicado)
-            {
-                gusano_a_mover->mover_izquierda();
-                impulseAplicado = true; // Marca que el impulso se ha aplicado
-            }
-            if (gusano_a_mover and gusano_a_mover->daño_recibido())
-            {
-                gusanos[jugador].cambiar_turno();
-                monitor->cambiar_turno();
-            }
-            mandar_paquete();
-        }
-        mandar_paquete();
-        mandar_paquete();
+        gusano_a_mover->mover_izquierda();
+        movimiento(gusano_a_mover, jugador);
     }
 }
 
@@ -244,29 +242,8 @@ void Escenario::mover_gusano_arriba_adelante(int jugador)
     Gusano *gusano_a_mover = recibir_gusano(jugador);
     if (gusano_a_mover != nullptr)
     {
-        bool movimiento = true;
-        bool impulseAplicado = false;
-        while (movimiento)
-        {
-            if (impulseAplicado)
-            {
-                movimiento = en_movimiento();
-            }
-            mundo->paso(FRAME_RATE, VELOCITY_ITERATION, POSITION_ITERATION);
-            if (!impulseAplicado)
-            {
-                gusano_a_mover->mover_arriba_adelante();
-                impulseAplicado = true; // Marca que el impulso se ha aplicado
-            }
-            if (gusano_a_mover and gusano_a_mover->daño_recibido())
-            {
-                gusanos[jugador].cambiar_turno();
-                monitor->cambiar_turno();
-            }
-            mandar_paquete();
-        }
-        mandar_paquete();
-        mandar_paquete();
+        gusano_a_mover->mover_arriba_adelante();
+        movimiento(gusano_a_mover, jugador);
     }
 }
 
@@ -275,29 +252,8 @@ void Escenario::mover_gusano_arriba_atras(int jugador)
     Gusano *gusano_a_mover = recibir_gusano(jugador);
     if (gusano_a_mover != nullptr)
     {
-        bool movimiento = true;
-        bool impulseAplicado = false;
-        while (movimiento)
-        {
-            if (impulseAplicado)
-            {
-                movimiento = en_movimiento();
-            }
-            mundo->paso(FRAME_RATE, VELOCITY_ITERATION, POSITION_ITERATION);
-            if (!impulseAplicado)
-            {
-                gusano_a_mover->mover_arriba_atras();
-                impulseAplicado = true; // Marca que el impulso se ha aplicado
-            }
-            if (gusano_a_mover and gusano_a_mover->daño_recibido())
-            {
-                monitor->cambiar_turno();
-                gusanos[jugador].cambiar_turno();
-            }
-            mandar_paquete();
-        }
-        mandar_paquete();
-        mandar_paquete();
+        gusano_a_mover->mover_arriba_atras();
+        movimiento(gusano_a_mover, jugador);
     }
 }
 
@@ -325,6 +281,12 @@ void Escenario::usar_arma(int jugador, Arma *arma)
             movimiento = en_movimiento();
             mandar_paquete();
         }
+        if (arma_usada)
+        {
+            gusanos[jugador].cambiar_turno();
+            monitor->cambiar_turno();
+            mandar_paquete();
+        }
         if (gusano_a_mover)
         {
             gusano_a_mover->daño_recibido();
@@ -332,12 +294,6 @@ void Escenario::usar_arma(int jugador, Arma *arma)
         if (arma != nullptr)
         {
             delete arma;
-        }
-        if (arma_usada)
-        {
-            gusanos[jugador].cambiar_turno();
-            monitor->cambiar_turno();
-            mandar_paquete();
         }
     }
 }

@@ -1,9 +1,8 @@
 
 #include "common_turnoDTO.h"
-TurnoDTO::TurnoDTO(int id, bool permiso) : id(id), permiso(permiso) {
-        type = 0;
-    
-
+TurnoDTO::TurnoDTO(int id, bool permiso) : id(id), permiso(permiso)
+{
+    type = TIPO_TURNO;
 }
 
 void TurnoDTO::cambiar_render(bool &permiso)

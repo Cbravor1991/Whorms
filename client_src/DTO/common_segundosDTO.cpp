@@ -2,6 +2,7 @@
 
 SegundosDTO::SegundosDTO(int segundos) : segundos(segundos)
 {
+    type = TIPO_SEGUNDO;
 }
 
 void SegundosDTO::cambiar_render(bool &permiso)

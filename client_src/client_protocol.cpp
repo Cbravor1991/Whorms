@@ -13,7 +13,33 @@ ProtocoloCliente::ProtocoloCliente(const std::string &hostname,
 {
 }
 
-int ProtocoloCliente::recibir_byte()
+int ProtocoloCliente::recibir_int()
+{
+    uint8_t byte = recibir_byte();
+    int entero = static_cast<int>(byte);
+    return entero;
+}
+
+int ProtocoloCliente::recibir_int_grande()
+{
+    uint8_t byte_msb = recibir_byte();
+    uint8_t byte_lsb = recibir_byte();
+    int entero = (static_cast<int>(byte_msb) << 8) | static_cast<int>(byte_lsb);
+    return entero;
+}
+
+void ProtocoloCliente::enviar_int_grande(int entero)
+{
+    // Dividir el int en dos bytes
+    uint8_t byte_msb = static_cast<uint8_t>((entero >> 8) & 0xFF); // byte más significativo
+    uint8_t byte_lsb = static_cast<uint8_t>(entero & 0xFF);        // byte menos significativo
+
+    // Enviar los dos bytes a través del socket
+    enviar_byte(byte_msb);
+    enviar_byte(byte_lsb);
+}
+
+uint8_t ProtocoloCliente::recibir_byte()
 {
     try
     {
@@ -24,9 +50,7 @@ int ProtocoloCliente::recibir_byte()
         {
             en_conexion = false;
         }
-        int valor_entero = static_cast<int>(buffer);
-
-        return valor_entero;
+        return buffer;
     }
     catch (const std::exception &err)
     {
@@ -36,12 +60,12 @@ int ProtocoloCliente::recibir_byte()
 
 int ProtocoloCliente::recibir_id_jugador()
 {
-    return recibir_byte();
+    return recibir_int();
 }
 
 StateGame *ProtocoloCliente::recibir_turno(int jugador_id)
 {
-    int turno_id = recibir_byte();
+    int turno_id = recibir_int();
     bool permiso = (turno_id == jugador_id);
     StateGame *estado_juego = new TurnoDTO(turno_id, permiso);
     return estado_juego;
@@ -49,7 +73,7 @@ StateGame *ProtocoloCliente::recibir_turno(int jugador_id)
 
 StateGame *ProtocoloCliente::recibir_segundo()
 {
-    int segundo = recibir_byte();
+    int segundo = recibir_int();
     StateGame *estado_juego = new SegundosDTO(segundo);
     return estado_juego;
 }
@@ -69,8 +93,8 @@ void ProtocoloCliente::enviar_arma(int tipo)
 void ProtocoloCliente::enviar_posicion(int x, int y)
 {
     enviar_byte(ENVIAR_TELEDIRIGIDO);
-    enviar_int(x);
-    enviar_int(y);
+    enviar_int_grande(x);
+    enviar_int_grande(y);
 }
 
 void ProtocoloCliente::enviar_byte(const uint8_t &dato)
@@ -114,7 +138,7 @@ StateGame *ProtocoloCliente::recibir_paquete()
 {
     std::vector<JugadorDTO> jugadores;
     std::vector<ObjetoDTO> objetos;
-    int cantidad_jugadores = recibir_byte();
+    int cantidad_jugadores = recibir_int();
 
     for (int i = 0; i < cantidad_jugadores; i++)
     {
@@ -122,7 +146,7 @@ StateGame *ProtocoloCliente::recibir_paquete()
         jugadores.push_back(jugador);
     }
 
-    int cantidad_objetos = recibir_byte();
+    int cantidad_objetos = recibir_int();
     for (int i = 0; i < cantidad_objetos; i++)
     {
         ObjetoDTO objeto = recibir_objeto();
@@ -135,9 +159,9 @@ StateGame *ProtocoloCliente::recibir_paquete()
 StateGame *ProtocoloCliente::recibir_escenario()
 {
     std::vector<VigaDTO> vigas;
-    int x = recibir_byte();
+    int x = recibir_int();
 
-    int y = recibir_byte();
+    int y = recibir_int();
 
     int cantidad_vigas = recibir_byte();
 
@@ -154,11 +178,11 @@ StateGame *ProtocoloCliente::recibir_escenario()
 ObjetoDTO ProtocoloCliente::recibir_objeto()
 {
 
-    int tipo = recibir_byte();
-    int x = recibir_byte();
-    int y = recibir_byte();
-    bool direccion = static_cast<bool>(recibir_byte());
-    int angulo = recibir_byte();
+    int tipo = recibir_int();
+    int x = recibir_int_grande();
+    int y = recibir_int_grande();
+    bool direccion = static_cast<bool>(recibir_int());
+    int angulo = recibir_int();
     bool explosion = (recibir_byte() != 0);
     ObjetoDTO objeto(tipo, x, y, direccion, angulo - 45, explosion);
     return objeto;
@@ -167,37 +191,34 @@ ObjetoDTO ProtocoloCliente::recibir_objeto()
 JugadorDTO ProtocoloCliente::recibir_jugador()
 {
 
-    int id = recibir_byte();
-    int id_cliente = recibir_byte();
-    int x = recibir_byte();
-    int y = recibir_byte();
-    bool direccion = static_cast<bool>(recibir_byte());
-    int angulo = recibir_byte();
-    int vida = recibir_byte();
-    bool en_movimiento = static_cast<bool>(recibir_byte());
+    int id = recibir_int();
+    int id_cliente = recibir_int();
+    int x = recibir_int_grande();
+    int y = recibir_int_grande();
+    bool direccion = static_cast<bool>(recibir_int());
+    int angulo = recibir_int();
+    int vida = recibir_int();
+    bool en_movimiento = static_cast<bool>(recibir_int());
     JugadorDTO jugador(id, x, y, direccion, angulo - 45, vida, en_movimiento, id_cliente);
     return jugador;
 }
 
 StateGame *ProtocoloCliente::recibir_arma()
 {
-    int id = recibir_byte();
-    int id_cliente = recibir_byte();
-    int arma = recibir_byte();
-    int ammo = recibir_byte();
+    int id = recibir_int();
+    int id_cliente = recibir_int();
+    int arma = recibir_int();
+    int ammo = recibir_int();
     StateGame *estado = new ArmaDTO(id, id_cliente, arma, ammo);
     return estado;
 }
 
 VigaDTO ProtocoloCliente::recibir_viga()
 {
-    int tipo = recibir_byte();
-
-    int x = recibir_byte();
-
-    int y = recibir_byte();
-
-    int angulo = recibir_byte();
+    int tipo = recibir_int();
+    int x = recibir_int_grande();
+    int y = recibir_int_grande();
+    int angulo = recibir_int();
     VigaDTO viga(tipo, x, y, angulo - 45); //
     return viga;
 }
@@ -252,7 +273,6 @@ StateGame *ProtocoloCliente::procesar_mensaje(const int &id_jugador)
         {
 
             estado = recibir_turno(id_jugador);
-         
         }
         break;
 
@@ -261,14 +281,12 @@ StateGame *ProtocoloCliente::procesar_mensaje(const int &id_jugador)
         {
 
             estado = recibir_segundo();
-            estado->type = TIPO_SEGUNDO;
         }
         break;
     case TIPO_PAQUETE:
         if (conectado)
         {
             estado = recibir_paquete();
-            estado->type = TIPO_PAQUETE;
         }
         break;
 
@@ -277,7 +295,6 @@ StateGame *ProtocoloCliente::procesar_mensaje(const int &id_jugador)
         {
 
             estado = recibir_escenario();
-            estado->type = TIPO_ESCENARIO;
         }
         break;
     case TIPO_ARMA:
@@ -285,7 +302,6 @@ StateGame *ProtocoloCliente::procesar_mensaje(const int &id_jugador)
         {
 
             estado = recibir_arma();
-            estado->type = TIPO_ARMA;
         }
         break;
         // case TIPO_PAQUETE_OBJETOS:if (conectado) {estado = recibir_paquete();estado->type = TIPO_PAQUETE_OBJ;}break;

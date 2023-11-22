@@ -56,12 +56,12 @@ void Gusano::mover_arriba_adelante()
     en_movimiento = true;
     float_t horizontalForce;
     float_t verticalForce;
-    if (angulo_viga > 0)
+    if (angulo_viga > 10)
     {
         horizontalForce = direccion * SALTO_ADELANTE_X * std::abs(cos(angulo_viga));
         verticalForce = ((SALTO_ADELANTE_Y + body->GetMass() * 2) + (direccion)) * std::abs(sin(angulo_viga));
     }
-    else if (angulo_viga < 0)
+    else if (angulo_viga < -10)
     {
         horizontalForce = direccion * SALTO_ADELANTE_X * std::abs(cos(angulo_viga));
         verticalForce = ((SALTO_ADELANTE_Y + body->GetMass() * 2) - (direccion)) * std::abs(sin(angulo_viga));
@@ -79,12 +79,12 @@ void Gusano::mover_arriba_atras()
     en_movimiento = true;
     float_t horizontalForce;
     float_t verticalForce;
-    if (angulo_viga > 0)
+    if (angulo_viga > 10)
     {
         horizontalForce = -1 * direccion * SALTO_ATRAS_X * std::abs(cos(angulo_viga));
         verticalForce = ((SALTO_ATRAS_Y + body->GetMass() * 2) + (-direccion)) * std::abs(sin(angulo_viga));
     }
-    else if (angulo_viga < 0)
+    else if (angulo_viga < -10)
     {
         horizontalForce = -1 * direccion * SALTO_ATRAS_X * std::abs(cos(angulo_viga));
         verticalForce = ((SALTO_ATRAS_Y + body->GetMass() * 2) - (-direccion)) * std::abs(sin(angulo_viga));

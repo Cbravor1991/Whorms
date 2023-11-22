@@ -52,13 +52,19 @@ private:
 
     void enviar_byte(const uint8_t &dato);
 
+    void enviar_int_grande(int entero);
+
     Accion *leer_movimiento(int jugador);
 
     Accion *leer_arma(int jugador);
 
     Accion *leer_uso_arma(int jugador);
 
-    int recibir_byte();
+    uint8_t recibir_byte();
+
+    int recibir_int();
+
+    int recibir_int_grande();
 
     int recibir_tipo_accion();
 

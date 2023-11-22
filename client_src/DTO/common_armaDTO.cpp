@@ -2,6 +2,7 @@
 
 ArmaDTO::ArmaDTO(int id, int id_cliente, int arma, int ammo) : id(id), id_cliente(id_cliente), arma(arma), ammo(ammo)
 {
+    type = TIPO_ARMA;
 }
 
 void ArmaDTO::cambiar_render(bool &permiso)
@@ -9,8 +10,8 @@ void ArmaDTO::cambiar_render(bool &permiso)
 }
 
 void ArmaDTO::cargar(std::map<int, JugadorDTO> &jugadores)
-{   
-    int id_gusano = id*10 + id_cliente;
+{
+    int id_gusano = id * 10 + id_cliente;
     auto it = jugadores.find(id_gusano);
 
     if (it != jugadores.end())
