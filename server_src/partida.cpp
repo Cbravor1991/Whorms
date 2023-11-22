@@ -10,6 +10,8 @@ Partida::Partida() : en_ejecucion(false), monitor_jugadores(new MonitorJugadores
     escenario.colocar_viga(150, 80, 1, 40);
     escenario.colocar_viga(220, 110, 0, 0);
     escenario.colocar_viga(90, 140, 1, 0);
+
+   
 }
 
 void Partida::agregar_jugador(Jugador *jugador)
