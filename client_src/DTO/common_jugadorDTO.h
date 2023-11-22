@@ -36,11 +36,10 @@ private:
     int vida;
     bool is_running; // me indica si cambio el estado de IDLE a WALK
     SDL_Color color;
-    // WormStatus* status;
-    std::shared_ptr<WormStatus> status; //= std::make_unique<WormIdle>();
+    std::shared_ptr<WormStatus> status;
     int id_cliente;
 
-    void setear_color(int id, SDL_Color &color);
+    void setear_color();
 
 public:
     JugadorDTO(int id, int x, int y, bool direccion, int angulo, int vida, bool en_movimiento, int id_cliente);

@@ -1,6 +1,6 @@
 #include "common_jugadorDTO.h"
 
-void JugadorDTO::setear_color(int id, SDL_Color &color) {
+void JugadorDTO::setear_color() {
     if (id == 1) {
         color = {255, 0, 0, 255};         // Rojo
     } else if (id == 2) {
@@ -20,7 +20,7 @@ void JugadorDTO::setear_color(int id, SDL_Color &color) {
 
 JugadorDTO::JugadorDTO(int id, int x, int y, bool direccion, int angulo, int vida, bool en_movimiento, int id_cliente) : id(id), x(x), y(y), direccion(direccion), angulo(angulo), vida(vida), is_running(en_movimiento), id_cliente(id_cliente)
 {
-    setear_color(id_cliente, color);
+    setear_color();
 
     this->status.reset(new WormIdle());
 
@@ -28,7 +28,10 @@ JugadorDTO::JugadorDTO(int id, int x, int y, bool direccion, int angulo, int vid
 }
 
 void JugadorDTO::mostrar() const { std::cout << "Jugador id " << id << " en X: " << x << " Y: " << y << " Angulo:" << angulo << "vida " << vida << "mov" << is_running << std::endl; }
-int JugadorDTO::obtenerId() { return id; }
+int JugadorDTO::obtenerId() { 
+    
+    return id*10 + id_cliente;   
+}
 
 void JugadorDTO::activa_animacion(bool permiso)
 {
@@ -39,18 +42,18 @@ void JugadorDTO::actualizar(JugadorDTO jugador)
 {
 
     status->update_animation();
-    if (this->id != jugador.id)
-        return; // lanzar exepcion
+    if (this->obtenerId() != jugador.obtenerId()) 
+        return;
+    
+    if((this->x != jugador.x) or (this->y != jugador.y)) 
+        this->is_running = true;
+    
 
     this->x = jugador.x;
     this->y = jugador.y;
     this->angulo = jugador.angulo;
     this->vida = jugador.vida;
     this->direccion = jugador.direccion;
-    
-    // if((this->x != jugador.x) and (this->y != jugador.y)) {
-    //     this->is_running = true;
-    // }
 
     if ((this->is_running) and (this->status->getState() != WALK)) {
         this->status.reset(new WormWalk());

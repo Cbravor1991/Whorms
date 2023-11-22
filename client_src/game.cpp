@@ -52,9 +52,9 @@ bool Game::gameLoop(StateGame *estado, bool &nuevo_estado)
         this->procesar_estado(estado);
 
     } else {
-        //primero me fijo si esta el jugador. Si no esta es porque se desconecto recientemente
-        if(jugadores.find(turno) != jugadores.end()) {
-            jugadores.at(turno).stop_running();
+        for (auto &[id, jugador] : jugadores)
+        { 
+            jugador.stop_running();
         }
     }
 
@@ -202,9 +202,10 @@ void Game::procesar_paquete(PaqueteDTO *paquete)
 
         gusanoX = jugador.posicion_x();
         gusanoY = jugador.posicion_y();
-
+        
         int id = jugador.obtenerId();
-        jugadores_en_paquete.insert(id);
+        jugadores_en_paquete.insert(id);//para borrar al jugador desconectado
+
         if (jugadores.find(id) == jugadores.end())
         {
             // not found --> lo guardo
@@ -212,20 +213,12 @@ void Game::procesar_paquete(PaqueteDTO *paquete)
         }
         else
         {
-            // found --> lo actualizo o borro si se desconecto
+            // found --> lo actualizo
             jugadores.at(id).actualizar(jugador);
-        }
-        if (id == turno)
-        {
-            jugadores.at(id).activa_animacion(true);
-        }
-        else
-        {
-            jugadores.at(id).activa_animacion(false);
         }
     }
     for (auto it = jugadores.begin(); it != jugadores.end();)
-    {
+    {   
         if (jugadores_en_paquete.find(it->first) == jugadores_en_paquete.end())
         {
             it = jugadores.erase(it);
@@ -244,6 +237,7 @@ void Game::procesar_paquete(PaqueteDTO *paquete)
     //std::set<int> jugadores_en_paquete;
 
     if(objetos.size()> objetos_paquete.size()){
+        //animar la explosion aca
         int misiles_destruidos = objetos.size()-objetos_paquete.size();
 
         objetos.erase(objetos.begin(), objetos.begin() + misiles_destruidos);
