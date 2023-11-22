@@ -36,6 +36,7 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/libs/box2d-2.4.0 ${CMAKE_SOURCE_DIR}/build/
                 ./server_src/objeto/teletransportacion.cpp
                 ./server_src/objeto/ataque_aereo.cpp
                 ./server_src/objeto/misil_aereo.cpp
+                ./server_src/turno_gusano.cpp
                 ./common_src/common_liberror.cpp
                 ./common_src/common_resolver.cpp 
                 ./common_src/common_resolvererror.cpp 

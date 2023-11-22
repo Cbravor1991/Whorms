@@ -168,12 +168,12 @@ JugadorDTO ProtocoloCliente::recibir_jugador()
 {
 
     int id = recibir_byte();
+    int id_cliente = recibir_byte();
     int x = recibir_byte();
     int y = recibir_byte();
     bool direccion = static_cast<bool>(recibir_byte());
     int angulo = recibir_byte();
     int vida = recibir_byte();
-    int id_cliente = 1;
     bool en_movimiento = static_cast<bool>(recibir_byte());
     JugadorDTO jugador(id, x, y, direccion, angulo - 45, vida, en_movimiento, id_cliente);
     return jugador;
@@ -182,9 +182,10 @@ JugadorDTO ProtocoloCliente::recibir_jugador()
 StateGame *ProtocoloCliente::recibir_arma()
 {
     int id = recibir_byte();
+    int id_cliente = recibir_byte();
     int arma = recibir_byte();
     int ammo = recibir_byte();
-    StateGame *estado = new ArmaDTO(id, arma, ammo);
+    StateGame *estado = new ArmaDTO(id, id_cliente, arma, ammo);
     return estado;
 }
 

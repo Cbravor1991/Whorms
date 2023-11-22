@@ -9,6 +9,7 @@
 #include "data/posicion_viga.h"
 #include "data/posicion_lanzable.h"
 #include "data/posicion_jugador.h"
+#include "turno_gusano.h"
 #include <map>
 #include <cmath>
 
@@ -29,23 +30,25 @@ class Escenario
 public:
     Escenario(std::uint16_t x_size, std::uint16_t y_size, MonitorJugadores *monitor);
 
-    void agregar_gusano(int jugador_id);
+    int cambiar_turno(int id);
+
+    void agregar_jugador(int jugador_id);
 
     void colocar_viga(int x, int y, bool tipo, int inclinacion);
 
     void avisar_desconexion(int jugador);
 
-    void mover_gusano_derecha(int gusano, int jugador);
+    void mover_gusano_derecha(int jugador);
 
-    void mover_gusano_izquierda(int gusano, int jugador);
+    void mover_gusano_izquierda(int jugador);
 
-    void mover_gusano_arriba_adelante(int gusano, int jugador);
+    void mover_gusano_arriba_adelante(int jugador);
 
-    void mover_gusano_arriba_atras(int gusano, int jugador);
+    void mover_gusano_arriba_atras(int jugador);
 
-    void equipar_arma(int gusano, int jugador, int arma);
+    void equipar_arma(int jugador, int arma);
 
-    void usar_arma(int gusano, int jugador, Arma *arma);
+    void usar_arma(int jugador, Arma *arma);
 
     ~Escenario();
 
@@ -55,11 +58,12 @@ private:
     MonitorJugadores *monitor;
     Mundo *mundo;
     std::vector<PosicionViga> vigas;
-    std::map<int, std::map<int, Gusano *>> gusanos;
+    std::map<int, TurnoGusano> gusanos;
     std::vector<Objeto *> *objetos;
     std::vector<std::pair<int, int>> spawns;
     int cantidad_jugadores = 0;
 
+    Gusano *agregar_gusano(int jugador_id, int gusano_id);
     void mandar_paquete();
     bool en_movimiento();
     void respawnear_gusano(int jugador_id);

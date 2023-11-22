@@ -12,11 +12,12 @@ class ArmaDTO : public StateGame
 {
 private:
     int id;
+    int id_cliente;
     int arma;
     int ammo;
 
 public:
-    ArmaDTO(int id, int arma, int ammo);
+    ArmaDTO(int id, int id_cliente, int arma, int ammo);
     void cambiar_render(bool &permiso);
     void cargar(std::map<int, JugadorDTO> &jugadores);
 };

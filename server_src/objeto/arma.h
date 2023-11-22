@@ -14,9 +14,6 @@ protected:
     float angulo;
     float fuerza;
 
-    // Ataca a los gusanos en el radio de explosion
-    // void attackWormExplosion(const b2Vec2 &center, int angle);
-
 public:
     Arma();
     virtual ~Arma();

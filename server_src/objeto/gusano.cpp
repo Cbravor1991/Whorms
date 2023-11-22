@@ -3,7 +3,7 @@
 #include <iostream>
 #include <ostream>
 
-Gusano::Gusano(Mundo *mundo, b2Vec2 spawn, int id) : Objeto(mundo), inventario(), id(id)
+Gusano::Gusano(Mundo *mundo, b2Vec2 spawn, int id_cliente, int id_gusano) : Objeto(mundo), inventario(), id_cliente(id_cliente), id_gusano(id_gusano)
 {
     float_t squareSize = 1.0f;
     b2BodyDef bd;
@@ -28,9 +28,9 @@ bool Gusano::usar_arma(Arma *arma, std::vector<Objeto *> *objetos)
     return inventario.disparar(mundo, body, arma, objetos);
 }
 
-int Gusano::cambiar_arma(int tipo)
+std::pair<int, int> Gusano::cambiar_arma(int tipo)
 {
-    return inventario.cambiar_arma(tipo);
+    return std::make_pair(id_gusano, inventario.cambiar_arma(tipo));
 }
 
 void Gusano::mover_derecha()
@@ -123,10 +123,11 @@ PosicionJugador Gusano::conseguir_posicion_gusano()
     }
     if (y < 30 or vida <= 0)
     {
-        daniado = true;
+        dañado = true;
         is_dead = true;
+        mundo->eliminar_objeto(body);
     }
-    PosicionJugador posicion_jugador(id, x, y, dire, angulo, vida, en_movimiento);
+    PosicionJugador posicion_jugador(id_cliente, id_gusano, x, y, dire, angulo, vida, en_movimiento);
     return posicion_jugador;
 }
 
@@ -151,23 +152,22 @@ void Gusano::cambiar_angulo_viga()
             if (caida > 30)
             {
                 vida -= (caida - 20) / 10;
-                std::cout << vida << std::endl;
-                daniado = true;
+                dañado = true;
             }
         }
         contact = contact->GetNext();
     }
 }
 
-bool Gusano::danio_recibido()
+bool Gusano::daño_recibido()
 {
     b2Vec2 posicion = body->GetPosition();
     if (posicion.y < 30 or vida <= 0)
     {
-        daniado = true;
+        dañado = true;
         is_dead = true;
     }
-    bool danio = daniado;
-    daniado = false;
-    return danio;
+    bool daño = dañado;
+    dañado = false;
+    return daño;
 }

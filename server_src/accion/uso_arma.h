@@ -10,6 +10,6 @@ public:
     void ejecutar_accion(Escenario &escenario) override
     {
 
-        escenario.usar_arma(1, jugador_id, arma);
+        escenario.usar_arma(jugador_id, arma);
     }
 };

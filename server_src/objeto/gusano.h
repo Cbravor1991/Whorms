@@ -5,6 +5,7 @@
 #include "../data/posicion_jugador.h"
 #include "../inventario.h"
 #include "objeto.h"
+#include "mundo.h"
 
 const float_t CAMINAR = 12.2;
 const float_t SALTO_ADELANTE_X = 4.945; // X
@@ -19,15 +20,16 @@ private:
     Inventario inventario;
     float_t angulo_viga = 0;
     int vida = 100;
-    int id;
+    int id_cliente;
+    int id_gusano;
     float altura;
-    bool daniado = false;
+    bool dañado = false;
 
 public:
     bool usar_arma(Arma *arma, std::vector<Objeto *> *objetos);
-    int cambiar_arma(int tipo);
+    std::pair<int, int> cambiar_arma(int tipo);
     void cambiar_angulo_viga();
-    Gusano(Mundo *mundo, b2Vec2 spawn, int id);
+    Gusano(Mundo *mundo, b2Vec2 spawn, int id_cliente, int id_gusano);
     void mover_derecha();
     void mover_izquierda();
     void mover_arriba_adelante();
@@ -35,7 +37,7 @@ public:
     int getDireccion();
     PosicionJugador conseguir_posicion_gusano();
     PosicionLanzable conseguir_posicion();
-    bool danio_recibido();
+    bool daño_recibido();
     // void interactuar() override;
 };
 

@@ -34,11 +34,11 @@ private:
     int arma;
     std::shared_ptr<WormWeapon> weapon;
     int vida;
-    bool is_running;//me indica si cambio el estado de IDLE a WALK
+    bool is_running; // me indica si cambio el estado de IDLE a WALK
     SDL_Color color;
-    //WormStatus* status;
+    // WormStatus* status;
     std::shared_ptr<WormStatus> status; //= std::make_unique<WormIdle>();
-    int id_cliente = 1;
+    int id_cliente;
 
     void setear_color(int id, SDL_Color &color);
 

@@ -45,13 +45,13 @@ void ProtocoloServer::enviar_turno(int turno_id)
     tipo_arma = 0;
     enviar_byte(CAMBIO_TURNO);
     enviar_int(turno_id);
-    std::cout << turno_id << std::endl;
 }
 
-void ProtocoloServer::enviar_arma(int id, int arma, int ammo)
+void ProtocoloServer::enviar_arma(int id, int id_gusano, int arma, int ammo)
 {
     enviar_byte(ARMA);
     enviar_int(id);
+    enviar_int(id_gusano);
     enviar_int(arma);
     enviar_int(ammo);
 }
@@ -81,7 +81,7 @@ Accion *ProtocoloServer::leer_movimiento(int jugador)
         accion = new SaltarAtras(jugador);
         break;
     default:
-        accion = new CambioArma(jugador, 0);
+        accion = new CambioArma(jugador, -1);
         break;
     }
     return accion;
@@ -137,7 +137,7 @@ Accion *ProtocoloServer::leer_accion(int jugador)
         accion = leer_uso_arma(jugador);
         break;
     default:
-        accion = new CambioArma(jugador, 0);
+        accion = new CambioArma(jugador, -1);
         break;
     }
     return accion;
@@ -199,9 +199,10 @@ int ProtocoloServer::recibir_tipo_accion()
     }
 }
 
-void ProtocoloServer::enviar_jugador(int id, int x, int y, int direccion, int angulo, int vida, bool en_movimiento)
+void ProtocoloServer::enviar_jugador(int id, int id_gusano, int x, int y, int direccion, int angulo, int vida, bool en_movimiento)
 {
     enviar_int(id);
+    enviar_int(id_gusano);
     enviar_int(x);
     enviar_int(y);
     enviar_int(direccion);

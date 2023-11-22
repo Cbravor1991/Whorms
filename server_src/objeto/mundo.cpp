@@ -8,8 +8,6 @@ Mundo::Mundo(b2Vec2 gravity) : world(gravity)
     world.SetAllowSleeping(true);
     world.SetWarmStarting(true);
     world.SetSubStepping(false);
-    // this->world.SetContactListener(&this->collision_listener);
-    // this->world.SetContactFilter(&this->collision_listener);
 }
 
 Mundo::~Mundo()
@@ -54,9 +52,8 @@ b2Body *Mundo::crear_objeto(b2BodyDef body_def)
     return this->world.CreateBody(&body_def);
 }
 
-void Mundo::eliminar_objeto(Objeto *objeto)
+void Mundo::eliminar_objeto(b2Body *body)
 {
-    b2Body *body = objeto->getCuerpo();
     if (body)
     {
         this->world.DestroyBody(body);

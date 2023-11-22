@@ -1,6 +1,6 @@
 #include "common_armaDTO.h"
 
-ArmaDTO::ArmaDTO(int id, int arma, int ammo) : id(id), arma(arma), ammo(ammo)
+ArmaDTO::ArmaDTO(int id, int id_cliente, int arma, int ammo) : id(id), id_cliente(id_cliente), arma(arma), ammo(ammo)
 {
 }
 

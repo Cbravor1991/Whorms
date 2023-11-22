@@ -16,7 +16,7 @@ void Partida::agregar_jugador(Jugador *jugador)
 {
     int jugador_id = monitor_jugadores->agregar_jugador(jugador);
     jugador->jugar(cola, jugador_id);
-    escenario.agregar_gusano(jugador_id);
+    escenario.agregar_jugador(jugador_id);
     if (!en_ejecucion)
     {
         en_ejecucion = true;
@@ -65,7 +65,7 @@ void Partida::run()
         if (segundos_transcurridos >= DURACION_TURNO)
         {
             // Realizar el cambio de turno
-            id_turno = monitor_jugadores->cambiar_turno();
+            id_turno = escenario.cambiar_turno(id_turno);
             ultimo_cambio_de_turno = ahora; // Reiniciar el temporizador
             ultimo_numero_notificado = 0;
             segundos_transcurridos = 0; // Reiniciar el último número notificado

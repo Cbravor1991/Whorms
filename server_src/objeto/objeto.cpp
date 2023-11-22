@@ -4,7 +4,7 @@
 Objeto::Objeto(Mundo *world) : mundo(world), body(NULL), is_dead(false)
 {
 }
-Objeto::~Objeto() {}
+Objeto::~Objeto() { mundo->eliminar_objeto(body); }
 
 bool Objeto::consultar_movimiento()
 {
@@ -23,32 +23,9 @@ bool Objeto::consultar_movimiento()
     return false; // Ningún body está en movimiento.
 }
 
-bool Objeto::isActive()
-{
-    if (!this->body)
-    {
-        return false;
-    }
-    return this->body->IsAwake();
-}
-
 bool Objeto::esta_vivo()
 {
     return !this->is_dead;
 }
 
-bool Objeto::isWindAffected()
-{
-    return false;
-}
-
-void Objeto::kill()
-{
-    this->is_dead = true;
-}
-
 b2Body *Objeto::getCuerpo() { return body; }
-
-// void Objeto::setInitialVelocity() {}
-
-// void Objeto::collideWithSomething(CollisionData *other) {}

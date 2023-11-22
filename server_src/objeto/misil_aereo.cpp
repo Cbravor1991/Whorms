@@ -49,6 +49,7 @@ PosicionLanzable MisilAereo::conseguir_posicion()
     if (y < 30 or !consultar_movimiento())
     {
         is_dead = true;
+        mundo->eliminar_objeto(body);
     }
     // contacto();
     return PosicionLanzable(1, x, y, 0, 0, is_dead);

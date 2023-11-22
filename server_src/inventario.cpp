@@ -4,6 +4,7 @@
 
 Inventario::Inventario()
 {
+    ammo[0] = 0;
     ammo[1] = 12;
     ammo[2] = 100;
 }

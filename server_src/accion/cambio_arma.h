@@ -9,6 +9,6 @@ public:
     CambioArma(int id, int tipo_arma) : Accion(id), tipo_arma(tipo_arma) {}
     void ejecutar_accion(Escenario &escenario) override
     {
-        escenario.equipar_arma(1, jugador_id, tipo_arma);
+        escenario.equipar_arma(jugador_id, tipo_arma);
     }
 };

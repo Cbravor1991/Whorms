@@ -17,7 +17,6 @@ public:
 
     PosicionLanzable conseguir_posicion();
     void contacto();
-    // bool isWindAffected() override;
 };
 
 #endif

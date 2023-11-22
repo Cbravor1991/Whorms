@@ -24,6 +24,8 @@ public:
 
     int cambiar_turno();
 
+    void eliminar_turno(int id);
+
     int recibir_turno();
 
     void mandar_paquete_gusanos(std::vector<PosicionJugador> jugadores);
@@ -34,7 +36,7 @@ public:
 
     void mandar_segundos(int segundos);
 
-    void mandar_arma(int jugador, int arma, int ammo);
+    void mandar_arma(int jugador, int gusano_id, int arma, int ammo);
 
     void actualizar_jugadores_cantidad(int cantidad);
 

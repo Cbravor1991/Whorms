@@ -35,12 +35,12 @@ void MonitorJugadores::mandar_paquete_objetos(std::vector<PosicionLanzable> obje
     }
 }
 
-void MonitorJugadores::mandar_arma(int jugador_id, int arma, int ammo)
+void MonitorJugadores::mandar_arma(int jugador_id, int gusano_id, int arma, int ammo)
 {
     for (const auto &entry : this->jugadores)
     {
         Jugador *jugador = entry.second;
-        jugador->recibir_comando(new EquipacionArma(jugador_id, arma, ammo));
+        jugador->recibir_comando(new EquipacionArma(jugador_id, gusano_id, arma, ammo));
     }
 }
 
@@ -99,6 +99,11 @@ void MonitorJugadores::limpiar_desconectados()
 
     // Limpiar el vector
     jugadores_desconectados.clear();
+}
+
+void MonitorJugadores::eliminar_turno(int id)
+{
+    turno.eliminar_id(id);
 }
 
 void MonitorJugadores::eliminar_jugadores_desconectados()

@@ -6,6 +6,6 @@ public:
     SaltarAtras(int id) : Accion(id) {}
     void ejecutar_accion(Escenario &escenario) override
     {
-        escenario.mover_gusano_arriba_atras(1, jugador_id);
+        escenario.mover_gusano_arriba_atras(jugador_id);
     }
 };
