@@ -187,7 +187,7 @@ void Escenario::mover_gusano_derecha(int jugador)
         {
             gusanos[jugador].cambiar_turno();
             monitor->cambiar_turno();
-            break;
+        
         }
         mandar_paquete();
     }
@@ -216,7 +216,7 @@ void Escenario::mover_gusano_izquierda(int jugador)
         {
             gusanos[jugador].cambiar_turno();
             monitor->cambiar_turno();
-            break;
+        
         }
         mandar_paquete();
     }
@@ -245,7 +245,7 @@ void Escenario::mover_gusano_arriba_adelante(int jugador)
         {
             gusanos[jugador].cambiar_turno();
             monitor->cambiar_turno();
-            break;
+        
         }
         mandar_paquete();
     }
@@ -274,7 +274,7 @@ void Escenario::mover_gusano_arriba_atras(int jugador)
         {
             monitor->cambiar_turno();
             gusanos[jugador].cambiar_turno();
-            break;
+          
         }
         mandar_paquete();
     }
