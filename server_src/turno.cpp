@@ -10,7 +10,7 @@ int Turno::cambiar_turno()
     if (jugadores.empty())
     {
         std::cout << "No hay jugadores para cambiar de turno." << std::endl;
-        return 0;
+        return VACIO;
     }
 
     turno_actual = (turno_actual + 1) % jugadores.size();
@@ -42,7 +42,7 @@ int Turno::recibir_turno()
 {
     if (jugadores.empty())
     {
-        return 0;
+        return VACIO;
     }
     return jugadores[turno_actual];
 }

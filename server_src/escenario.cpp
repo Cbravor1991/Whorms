@@ -75,6 +75,7 @@ void Escenario::mandar_paquete()
         if (!(*it)->esta_vivo())
         {
             // Si el objeto no está vivo, elimínalo del vector.
+            delete (*it);
             it = objetos->erase(it);
         }
         else
@@ -92,6 +93,7 @@ void Escenario::avisar_desconexion(int jugador)
         monitor->cambiar_turno();
     };
     monitor->avisar_desconexion();
+    gusanos.erase(jugador);
     mandar_paquete();
 }
 
@@ -101,7 +103,7 @@ void Escenario::respawnear_gusano(int jugador_id)
     int movimiento = true;
     while (movimiento)
     {
-        mundo->paso(FRAME_RATE, 6, 2);
+        mundo->paso(FRAME_RATE, VELOCITY_ITERATION, POSITION_ITERATION);
         mandar_paquete();
         movimiento = en_movimiento();
     }
@@ -126,7 +128,7 @@ void Escenario::agregar_jugador(int jugador_id)
     int movimiento = true;
     while (movimiento)
     {
-        mundo->paso(FRAME_RATE, 6, 2);
+        mundo->paso(FRAME_RATE, VELOCITY_ITERATION, POSITION_ITERATION);
         mandar_paquete();
         movimiento = en_movimiento();
     }
@@ -174,7 +176,7 @@ void Escenario::mover_gusano_derecha(int jugador)
         {
             movimiento = en_movimiento();
         }
-        mundo->paso(FRAME_RATE, 6, 2);
+        mundo->paso(FRAME_RATE, VELOCITY_ITERATION, POSITION_ITERATION);
         if (!impulseAplicado)
         {
             gusano_a_mover->mover_derecha();
@@ -204,7 +206,7 @@ void Escenario::mover_gusano_izquierda(int jugador)
         {
             movimiento = en_movimiento();
         }
-        mundo->paso(FRAME_RATE, 6, 2);
+        mundo->paso(FRAME_RATE, VELOCITY_ITERATION, POSITION_ITERATION);
         if (!impulseAplicado)
         {
             gusano_a_mover->mover_izquierda();
@@ -233,7 +235,7 @@ void Escenario::mover_gusano_arriba_adelante(int jugador)
         {
             movimiento = en_movimiento();
         }
-        mundo->paso(FRAME_RATE, 6, 2);
+        mundo->paso(FRAME_RATE, VELOCITY_ITERATION, POSITION_ITERATION);
         if (!impulseAplicado)
         {
             gusano_a_mover->mover_arriba_adelante();
@@ -262,7 +264,7 @@ void Escenario::mover_gusano_arriba_atras(int jugador)
         {
             movimiento = en_movimiento();
         }
-        mundo->paso(FRAME_RATE, 6, 2);
+        mundo->paso(FRAME_RATE, VELOCITY_ITERATION, POSITION_ITERATION);
         if (!impulseAplicado)
         {
             gusano_a_mover->mover_arriba_atras();
@@ -298,9 +300,9 @@ void Escenario::usar_arma(int jugador, Arma *arma)
     bool movimiento = true;
     while (movimiento and arma_usada)
     {
-        mundo->paso(FRAME_RATE, 6, 2);
-        mandar_paquete();
+        mundo->paso(FRAME_RATE, VELOCITY_ITERATION, POSITION_ITERATION);
         movimiento = en_movimiento();
+        mandar_paquete();
     }
     if (gusano_a_mover)
     {
@@ -314,12 +316,14 @@ void Escenario::usar_arma(int jugador, Arma *arma)
     {
         gusanos[jugador].cambiar_turno();
         monitor->cambiar_turno();
+        mandar_paquete();
     }
 }
 
 Escenario::~Escenario()
 {
     // Limpiar el vector de spawns
+    gusanos.clear();
     delete mundo;
 
     // Limpiar el vector de objetos
@@ -333,5 +337,4 @@ Escenario::~Escenario()
     }
 
     spawns.clear();
-    gusanos.clear();
 }

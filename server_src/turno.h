@@ -5,6 +5,8 @@
 #include <vector>
 #include <cstddef>
 
+const int VACIO = 0;
+
 class Turno
 {
 public:

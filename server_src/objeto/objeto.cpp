@@ -4,7 +4,10 @@
 Objeto::Objeto(Mundo *world) : mundo(world), body(NULL), is_dead(false)
 {
 }
-Objeto::~Objeto() { mundo->eliminar_objeto(body); }
+Objeto::~Objeto()
+{
+    mundo->eliminar_objeto(body);
+}
 
 bool Objeto::consultar_movimiento()
 {

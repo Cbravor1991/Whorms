@@ -26,6 +26,14 @@ bool Inventario::disparar(Mundo *world, b2Body *posicion, Arma *arma, std::vecto
 
 int Inventario::cambiar_arma(int tipo)
 {
-    arma_actual = tipo;
-    return ammo[tipo];
+    if (tipo >= 0 && tipo < static_cast<int>(ammo.size()))
+    {
+        arma_actual = tipo;
+        return ammo[tipo];
+    }
+    else
+    {
+        std::cerr << "Error: Tipo de arma fuera de rango." << std::endl;
+        return -1;
+    }
 }

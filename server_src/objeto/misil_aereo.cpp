@@ -45,11 +45,10 @@ PosicionLanzable MisilAereo::conseguir_posicion()
     b2Vec2 posicion = body->GetPosition();
     int x = static_cast<int>(posicion.x);
     int y = static_cast<int>(posicion.y);
-    std::cout << "Misil X = " << posicion.x << ", Y = " << posicion.y << std::endl;
-    if (y < 30 or !consultar_movimiento())
+    if (y < ALTURA_AGUA or !consultar_movimiento())
     {
         is_dead = true;
-        mundo->eliminar_objeto(body);
+        std::cout << "Misil X = " << posicion.x << ", Y = " << posicion.y << std::endl;
     }
     // contacto();
     return PosicionLanzable(1, x, y, 0, 0, is_dead);

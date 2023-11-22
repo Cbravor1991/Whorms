@@ -9,7 +9,7 @@
 class Inventario
 {
 private:
-    std::map<int, unsigned int> ammo;
+    std::map<int, int> ammo;
     int arma_actual;
 
 public:

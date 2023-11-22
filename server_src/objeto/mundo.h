@@ -4,6 +4,8 @@
 #include "../../libs/box2d-2.4.0/include/box2d/box2d.h"
 #include "objeto.h"
 
+const int ALTURA_AGUA = 0;
+
 class Mundo
 {
 private:

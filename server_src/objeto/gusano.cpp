@@ -121,11 +121,10 @@ PosicionJugador Gusano::conseguir_posicion_gusano()
     {
         dire = 0;
     }
-    if (y < 30 or vida <= 0)
+    if (y < ALTURA_AGUA or vida <= 0)
     {
         dañado = true;
         is_dead = true;
-        mundo->eliminar_objeto(body);
     }
     PosicionJugador posicion_jugador(id_cliente, id_gusano, x, y, dire, angulo, vida, en_movimiento);
     return posicion_jugador;
@@ -162,7 +161,7 @@ void Gusano::cambiar_angulo_viga()
 bool Gusano::daño_recibido()
 {
     b2Vec2 posicion = body->GetPosition();
-    if (posicion.y < 30 or vida <= 0)
+    if (posicion.y < ALTURA_AGUA or vida <= 0)
     {
         dañado = true;
         is_dead = true;

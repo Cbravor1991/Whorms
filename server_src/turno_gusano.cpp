@@ -38,7 +38,6 @@ std::vector<PosicionJugador> TurnoGusano::recibir_posiciones_gusanos()
 
         if (!(*it)->esta_vivo())
         {
-            // Eliminar gusano si no está vivo+
             delete *it;
             it = gusanos.erase(it);
         }

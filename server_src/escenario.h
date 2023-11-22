@@ -14,6 +14,8 @@
 #include <cmath>
 
 const float_t FRAME_RATE = 4.0f / 35.0f;
+const int VELOCITY_ITERATION = 6;
+const int POSITION_ITERATION = 2;
 
 struct Viga
 {
