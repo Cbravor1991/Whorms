@@ -14,6 +14,13 @@ Mundo::~Mundo()
 {
 }
 
+b2Body *Mundo::getClosestObject(RayCastWeaponExploded *callback,
+                                b2Vec2 center, b2Vec2 end)
+{
+    this->world.RayCast(callback, center, end);
+    return callback->getClosestWorm();
+}
+
 void Mundo::agregar_viga(int x, int y, int largo, float_t angulo)
 {
     float_t grosor = 8.0f;

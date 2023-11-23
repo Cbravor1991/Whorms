@@ -8,11 +8,12 @@ class Arma : public Objeto
 {
 protected:
     int damanio;
-    int radio;
+    int radio = 1;
     bool waiting_to_explode;
     int tiempo_hasta_explotar;
-    float angulo;
+    float angulo = 0.0;
     float fuerza;
+    RayCastWeaponExploded explosion;
 
 public:
     Arma();
@@ -22,7 +23,7 @@ public:
     virtual int disparar(Mundo *mundo, b2Body *disparador, std::vector<Objeto *> *objetos);
 
     // Explota el arma
-    // virtual void explode();
+    virtual void explotar(const b2Vec2 &center);
 };
 
 #endif

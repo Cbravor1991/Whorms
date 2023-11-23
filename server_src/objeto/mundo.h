@@ -3,6 +3,7 @@
 
 #include "../../libs/box2d-2.4.0/include/box2d/box2d.h"
 #include "objeto.h"
+#include "RayCastWeaponExploded.h"
 
 const int ALTURA_AGUA = 0;
 
@@ -15,6 +16,9 @@ private:
 public:
     explicit Mundo(b2Vec2 gravity);
     ~Mundo();
+
+    b2Body *getClosestObject(RayCastWeaponExploded *callback,
+                             b2Vec2 center, b2Vec2 end);
 
     void agregar_viga(int x, int y, int largo, float_t angulo);
 

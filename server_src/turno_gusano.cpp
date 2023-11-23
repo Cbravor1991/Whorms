@@ -34,7 +34,6 @@ std::vector<PosicionJugador> TurnoGusano::recibir_posiciones_gusanos()
     for (auto it = gusanos.begin(); it != gusanos.end();)
     {
         PosicionJugador posicion = (*it)->conseguir_posicion_gusano();
-        posicion_jugadores.push_back(posicion);
 
         if (!(*it)->esta_vivo())
         {
@@ -43,6 +42,7 @@ std::vector<PosicionJugador> TurnoGusano::recibir_posiciones_gusanos()
         }
         else
         {
+            posicion_jugadores.push_back(posicion);
             ++it;
         }
     }

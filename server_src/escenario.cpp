@@ -275,22 +275,24 @@ void Escenario::usar_arma(int jugador, Arma *arma)
     {
         bool arma_usada = gusano_a_mover->usar_arma(arma, objetos);
         bool movimiento = true;
+        bool daño = false;
         while (movimiento and arma_usada)
         {
             mundo->paso(FRAME_RATE, VELOCITY_ITERATION, POSITION_ITERATION);
             movimiento = en_movimiento();
+            if (!daño and gusano_a_mover->daño_recibido())
+            {
+                daño = true;
+            }
             mandar_paquete();
         }
-        if (arma_usada)
+        if (arma_usada and (recibir_gusano(jugador) != nullptr))
         {
             gusanos[jugador].cambiar_turno();
             monitor->cambiar_turno();
             mandar_paquete();
         }
-        if (gusano_a_mover)
-        {
-            gusano_a_mover->daño_recibido();
-        }
+        mandar_paquete();
         if (arma != nullptr)
         {
             delete arma;

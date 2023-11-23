@@ -18,6 +18,8 @@ MisilAereo::MisilAereo(Mundo *world, float x, float y, int misil)
     fd.restitution = 0.0f;
     body->CreateFixture(&fd);
     body->ApplyLinearImpulse(b2Vec2(0.0, -0.1), body->GetWorldCenter(), true);
+    radio = 20;
+    damanio = 40;
 }
 
 MisilAereo::~MisilAereo() {}
@@ -49,6 +51,8 @@ PosicionLanzable MisilAereo::conseguir_posicion()
     {
         is_dead = true;
         std::cout << "Misil X = " << posicion.x << ", Y = " << posicion.y << std::endl;
+        b2Vec2 center = this->body->GetPosition();
+        explotar(center);
     }
     // contacto();
     return PosicionLanzable(1, x, y, 0, 0, is_dead);

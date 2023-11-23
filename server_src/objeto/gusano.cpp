@@ -21,6 +21,7 @@ Gusano::Gusano(Mundo *mundo, b2Vec2 spawn, int id_cliente, int id_gusano) : Obje
     direccion = 1;
     body->ApplyLinearImpulse(b2Vec2(0.0, -1.0), body->GetWorldCenter(), true);
     altura = spawn.y;
+    body->angle = -1;
 }
 
 bool Gusano::usar_arma(Arma *arma, std::vector<Objeto *> *objetos)
@@ -110,7 +111,7 @@ PosicionJugador Gusano::conseguir_posicion_gusano()
     int dire = direccion;
     b2Vec2 posicion = body->GetPosition();
     int angulo = (angulo_viga * (180 / M_PI)) + 45;
-    std::cout << "X = " << posicion.x << ", Y = " << posicion.y << " vida: " << vida << std::endl;
+    std::cout << "X = " << posicion.x << ", Y = " << posicion.y << " vida: " << body->vida << std::endl;
     if (posicion.y > altura)
     {
         altura = posicion.y;
@@ -121,12 +122,12 @@ PosicionJugador Gusano::conseguir_posicion_gusano()
     {
         dire = 0;
     }
-    if (y < ALTURA_AGUA or vida <= 0)
+    if (y < ALTURA_AGUA or body->vida <= 0)
     {
-        dañado = true;
+        body->daniado = true;
         is_dead = true;
     }
-    PosicionJugador posicion_jugador(id_cliente, id_gusano, x, y, dire, angulo, vida, en_movimiento);
+    PosicionJugador posicion_jugador(id_cliente, id_gusano, x, y, dire, angulo, body->vida, en_movimiento);
     return posicion_jugador;
 }
 
@@ -150,8 +151,8 @@ void Gusano::cambiar_angulo_viga()
             altura = posicion.y;
             if (caida > 30)
             {
-                vida -= (caida - 20) / 10;
-                dañado = true;
+                body->vida -= (caida - 20) / 10;
+                body->daniado = true;
             }
         }
         contact = contact->GetNext();
@@ -161,12 +162,12 @@ void Gusano::cambiar_angulo_viga()
 bool Gusano::daño_recibido()
 {
     b2Vec2 posicion = body->GetPosition();
-    if (posicion.y < ALTURA_AGUA or vida <= 0)
+    if (posicion.y < ALTURA_AGUA or body->vida <= 0)
     {
-        dañado = true;
+        body->daniado = true;
         is_dead = true;
     }
-    bool daño = dañado;
-    dañado = false;
+    bool daño = body->daniado;
+    body->daniado = false;
     return daño;
 }

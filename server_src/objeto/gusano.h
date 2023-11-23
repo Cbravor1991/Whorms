@@ -19,11 +19,9 @@ private:
     int direccion;
     Inventario inventario;
     float_t angulo_viga = 0;
-    int vida = 100;
     int id_cliente;
     int id_gusano;
     float altura;
-    bool dañado = false;
 
 public:
     bool usar_arma(Arma *arma, std::vector<Objeto *> *objetos);
