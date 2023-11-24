@@ -8,6 +8,20 @@ project(Worms
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED YES)
 
+# Find the QtWidgets library
+find_package(Qt5Widgets CONFIG REQUIRED)
+
+include_directories(${PROJECT_SOURCE_DIR}/client_src/graphics_lobby)
+qt5_wrap_ui(UIS_HEADERS
+            ./graphics_lobby/mainwindow.ui
+         )
+# Instruct CMake to run moc automatically when neededcd
+set(CMAKE_AUTOMOC ON)
+# Create code from a list of Qt designer ui files
+set(CMAKE_AUTORCC ON)
+
+
+
 
 add_definitions(-DDATA_PATH="${PROJECT_SOURCE_DIR}/data")
 
@@ -101,3 +115,13 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/libs/box2d-2.4.0 ${CMAKE_SOURCE_DIR}/build/
 
 
 
+    find_package(Qt5 COMPONENTS Widgets REQUIRED)
+  
+    add_executable(qt
+    ./graphics_lobby/main.cpp
+	./graphics_lobby/mainwindow.cpp
+	./graphics_lobby/assets/resources.qrc
+    ${UIS_HEADERS}
+)
+
+target_link_libraries(qt PUBLIC Qt5::Widgets Qt5::Core)

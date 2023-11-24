@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>AmazMegaGrungeOne.ttf</file>
+        <file>lobby_background.jpg</file>
+    </qresource>
+</RCC>
