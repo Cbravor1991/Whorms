@@ -18,7 +18,9 @@ void WormGreenGrenade::render(SDL2pp::Renderer& renderer, TextureManager& tex_ma
             -angulo,                            // rotation
             SDL2pp::NullOpt,                    // rotation center - not needed
             flip                                //flip
-        ); 
+        );
+        
+    mira.render(renderer, tex_manager, x, y, angulo, flip);
 }
 
 const int WormGreenGrenade::getWeapon() {

@@ -19,6 +19,8 @@ void WormBat::render(SDL2pp::Renderer& renderer, TextureManager& tex_manager, in
             SDL2pp::NullOpt,                    // rotation center - not needed
             flip                                //flip
         ); 
+    
+    mira.render(renderer, tex_manager, x, y, angulo, flip);
 }
 
 const int WormBat::getWeapon() {
