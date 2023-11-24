@@ -24,6 +24,7 @@ private:
     float altura;
 
 public:
+    int conseguir_id();
     bool usar_arma(Arma *arma, std::vector<Objeto *> *objetos);
     std::pair<int, int> cambiar_arma(int tipo);
     void cambiar_angulo_viga();

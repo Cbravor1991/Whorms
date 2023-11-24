@@ -10,7 +10,7 @@ b2Body *RayCastWeaponExploded::getClosestWorm()
     {
         return NULL;
     }
-    if (this->closest->angle != -1)
+    if (!this->closest->gusano)
     {
         this->closest = NULL;
         return NULL;

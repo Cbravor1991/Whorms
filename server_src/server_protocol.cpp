@@ -12,6 +12,8 @@
 #include "accion/cambio_arma.h"
 #include "objeto/ataque_aereo.h"
 #include "objeto/teletransportacion.h"
+#include "objeto/banana.h"
+#include "objeto/bate.h"
 
 ProtocoloServer::ProtocoloServer(
     Socket socket) : socket(std::move(socket))
@@ -51,11 +53,12 @@ void ProtocoloServer::enviar_id(int id)
     enviar_int(id);
 }
 
-void ProtocoloServer::enviar_turno(int turno_id)
+void ProtocoloServer::enviar_turno(int turno_id, int id_gusano)
 {
     tipo_arma = 0;
     enviar_byte(CAMBIO_TURNO);
     enviar_int(turno_id);
+    enviar_int(id_gusano);
 }
 
 void ProtocoloServer::enviar_arma(int id, int id_gusano, int arma, int ammo)
@@ -108,19 +111,65 @@ Accion *ProtocoloServer::leer_arma(int jugador)
 
 Accion *ProtocoloServer::leer_uso_arma(int jugador)
 {
-    int x, y;
+    int x, y, angulo;
+    bool direccion;
     Arma *arma = nullptr;
     switch (tipo_arma)
     {
-    case TELETRANSPORTACION:
+    case TELEPORT:
         x = recibir_int_grande();
         y = recibir_int_grande();
         arma = new Teletransportacion(x, y);
         break;
-    case ATAQUE_AEREO:
+    case AIR_STRIKE:
         x = recibir_int_grande();
         y = recibir_int_grande();
         arma = new AtaqueAereo(x, y);
+        break;
+    case BAT:
+        angulo = recibir_int();
+        direccion = static_cast<bool>(recibir_int());
+        arma = new Bate(direccion, angulo);
+        break;
+    case DYNAMITE:
+        x = recibir_int_grande();
+        y = recibir_int_grande();
+        arma = new AtaqueAereo(x, y);
+        break;
+    case BAZOOKA:
+        angulo = recibir_int();
+        direccion = static_cast<bool>(recibir_int());
+        arma = new Banana(direccion, angulo);
+        break;
+    case MORTAR:
+        angulo = recibir_int();
+        direccion = static_cast<bool>(recibir_int());
+        arma = new Banana(direccion, angulo);
+        break;
+    case GREEN_GRENADE:
+        angulo = recibir_int();
+        direccion = static_cast<bool>(recibir_int());
+        arma = new Banana(direccion, angulo);
+        break;
+    case CLUSTER_GRENADE:
+        angulo = recibir_int();
+        direccion = static_cast<bool>(recibir_int());
+        arma = new Banana(direccion, angulo);
+        break;
+    case HOLY_GRENADE:
+        angulo = recibir_int();
+        direccion = static_cast<bool>(recibir_int());
+        arma = new Banana(direccion, angulo);
+        break;
+    case BANANA:
+        angulo = recibir_int();
+        direccion = static_cast<bool>(recibir_int());
+        arma = new Banana(direccion, angulo);
+        break;
+    default:
+        x = recibir_int_grande();
+        y = recibir_int_grande();
+        arma = new Teletransportacion(x, y);
         break;
     }
     Accion *accion;
@@ -208,7 +257,7 @@ int ProtocoloServer::recibir_tipo_accion()
         {
             return SELECCION_ARMA;
         }
-        else if (buffer == ACCION_TELEDIRIGIDO)
+        else if (buffer == ACCION_USO_ARMA)
         {
             return USO_ARMA;
         }

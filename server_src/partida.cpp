@@ -35,12 +35,7 @@ void Partida::agregar_jugador(Jugador *jugador)
     if (!en_ejecucion)
     {
         en_ejecucion = true;
-        id_turno = monitor_jugadores->cambiar_turno();
         start();
-    }
-    if (VACIO == monitor_jugadores->recibir_turno())
-    {
-        id_turno = monitor_jugadores->cambiar_turno();
     }
 }
 

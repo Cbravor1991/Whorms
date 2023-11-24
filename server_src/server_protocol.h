@@ -18,24 +18,38 @@ struct Mensaje
     bool tipo_mensaje = false;
 };
 
-const int TELETRANSPORTACION = 2;
-const int ATAQUE_AEREO = 1;
+const int NO_WEAPON = 0;
+const int AIR_STRIKE = 1;
+const int TELEPORT = 2;
+const int BAT = 3;
+const int DYNAMITE = 4;
+const int BAZOOKA = 5;
+const int MORTAR = 6;
+const int GREEN_GRENADE = 7;
+const int CLUSTER_GRENADE = 8;
+const int HOLY_GRENADE = 9;
+const int BANANA = 10;
+
 const int MOVIMIENTO = 0;
 const int SELECCION_ARMA = 1;
 const int USO_ARMA = 5;
+
 const uint8_t ACCION_MOVIMIENTO = 0x00;
 const uint8_t ACCION_ARMA = 0x01;
-const uint8_t ACCION_TELEDIRIGIDO = 0x05;
+const uint8_t ACCION_USO_ARMA = 0x05;
+
 const int MOVIMIENTO_IZQUIERDA = 1;
 const int MOVIMIENTO_DERECHA = 2;
 const int MOVIMIENTO_ARRIBA_ADELANTE = 3;
 const int MOVIMIENTO_ARRIBA_ATRAS = 4;
+
 const uint8_t CAMBIO_TURNO = 0x00;
 const uint8_t SEGUNDOS = 0x01;
 const uint8_t PAQUETE_JUGADORES = 0x03;
 const uint8_t PAQUETE_OBJETOS = 0x07;
 const uint8_t ESCENARIO = 0x04;
 const uint8_t ARMA = 0x05;
+
 const int BYTES_CANT_JUGADORES = 2;
 const int RECIBIR_BYTE = 1;
 
@@ -81,7 +95,7 @@ public:
 
     void enviar_cantidad_objetos(int cantidad);
 
-    void enviar_turno(int jugador_id);
+    void enviar_turno(int jugador_id, int id_gusano);
 
     void enviar_segundos(int segundo);
 

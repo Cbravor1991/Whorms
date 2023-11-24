@@ -25,3 +25,27 @@ void Arma::explotar(const b2Vec2 &center)
         }
     }
 }
+
+void Arma::contacto()
+{
+    b2Contact *contact = mundo->recibir_contactos();
+    while (contact != nullptr)
+    {
+
+        b2Fixture *fixtureA = contact->GetFixtureA();
+        b2Fixture *fixtureB = contact->GetFixtureB();
+
+        // Comprueba si uno de los cuerpos es el cuadrado
+        if (fixtureA->GetBody() == body || fixtureB->GetBody() == body)
+        {
+            b2Body *otherBody = (fixtureA->GetBody() == body) ? fixtureB->GetBody() : fixtureA->GetBody();
+            contactos += 1;
+            if (otherBody->gusano)
+            {
+                otherBody->vida -= damanio;
+                is_dead = true;
+            }
+        }
+        contact = contact->GetNext();
+    }
+}

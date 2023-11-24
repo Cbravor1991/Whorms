@@ -8,15 +8,15 @@
 #include <vector>
 #include <tuple>
 #include "../common_src/common_socket.h"
-#include "DTO/common_state_game.h"
-#include "DTO/common_vigaDTO.h"
-#include "DTO/common_jugadorDTO.h"
-#include "DTO/common_paqueteDTO.h"
-#include "DTO/common_escenarioDTO.h"
-#include "DTO/common_turnoDTO.h"
-#include "DTO/common_segundosDTO.h"
-#include "DTO/common_armaDTO.h"
+
 #include <cstring>
+
+class StateGame;
+class JugadorDTO;
+class ObjetoDTO;
+class VigaDTO;
+class EscenarioDTO;
+class PaqueteDTO;
 
 struct Viga
 {
@@ -27,7 +27,7 @@ struct Viga
 
 const uint8_t ENVIAR_ARMA = 0x01;
 const uint8_t ENVIAR_MOVIMIENTO = 0x00;
-const uint8_t ENVIAR_TELEDIRIGIDO = 0x05;
+const uint8_t ENVIAR_USO_ARMA = 0x05;
 const std::int8_t RECIBIR_SEGUNDO = 0x01;
 const std::int8_t RECIBIR_TURNO = 0x00;
 const std::int8_t RECIBIR_PAQUETE = 0x03;
@@ -80,6 +80,8 @@ public:
     void enviar_movimiento(int tipo);
 
     void enviar_arma(int tipo);
+
+    void enviar_disparo(int angulo, bool direccion);
 
     void enviar_posicion(int x, int y);
 

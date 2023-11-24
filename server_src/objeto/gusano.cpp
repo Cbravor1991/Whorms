@@ -21,7 +21,7 @@ Gusano::Gusano(Mundo *mundo, b2Vec2 spawn, int id_cliente, int id_gusano) : Obje
     direccion = 1;
     body->ApplyLinearImpulse(b2Vec2(0.0, -1.0), body->GetWorldCenter(), true);
     altura = spawn.y;
-    body->angle = -1;
+    body->gusano = true;
 }
 
 bool Gusano::usar_arma(Arma *arma, std::vector<Objeto *> *objetos)
@@ -111,7 +111,7 @@ PosicionJugador Gusano::conseguir_posicion_gusano()
     int dire = direccion;
     b2Vec2 posicion = body->GetPosition();
     int angulo = (angulo_viga * (180 / M_PI)) + 45;
-    std::cout << "X = " << posicion.x << ", Y = " << posicion.y << " vida: " << body->vida << std::endl;
+    // std::cout << "X = " << posicion.x << ", Y = " << posicion.y << " vida: " << body->vida << std::endl;
     if (posicion.y > altura)
     {
         altura = posicion.y;
@@ -145,7 +145,11 @@ void Gusano::cambiar_angulo_viga()
         {
             // Ahora necesitas determinar cuál es el otro body involucrado
             b2Body *otherBody = (fixtureA->GetBody() == body) ? fixtureB->GetBody() : fixtureA->GetBody();
-            angulo_viga = otherBody->angle;
+            if (!otherBody->gusano)
+            {
+                angulo_viga = otherBody->angle;
+                body->angle = angulo_viga;
+            }
             b2Vec2 posicion = body->GetPosition();
             float caida = abs(altura - posicion.y);
             altura = posicion.y;
@@ -170,4 +174,9 @@ bool Gusano::daño_recibido()
     bool daño = body->daniado;
     body->daniado = false;
     return daño;
+}
+
+int Gusano::conseguir_id()
+{
+    return id_gusano;
 }

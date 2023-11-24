@@ -17,7 +17,6 @@
 #include "../worm/worm_walk.h"
 #include "../worm/worm_idle.h"
 
-
 #include "../worm/weapon/worm_no_weapon.h"
 #include "../worm/weapon/worm_airstrike.h"
 #include "../worm/weapon/worm_teleport.h"
@@ -30,8 +29,7 @@
 #include "../worm/weapon/worm_grenade.h"
 #include "../worm/weapon/worm_mortar.h"
 
-
-
+class Action;
 
 class JugadorDTO
 {
@@ -56,6 +54,8 @@ public:
     JugadorDTO(int id, int x, int y, bool direccion, int angulo, int vida, bool en_movimiento, int id_cliente);
 
     void cargar_armas(int arma, int ammo);
+
+    Action *usar_arma(int x, int y);
 
     void mostrar() const;
 

@@ -12,7 +12,15 @@
 #include "actions/jump_foward.h"
 #include "actions/weapon.h"
 #include "actions/position.h"
-
+#include "DTO/common_state_game.h"
+#include "DTO/common_vigaDTO.h"
+#include "DTO/common_jugadorDTO.h"
+#include "DTO/common_paqueteDTO.h"
+#include "DTO/common_escenarioDTO.h"
+#include "DTO/common_turnoDTO.h"
+#include "DTO/common_segundosDTO.h"
+#include "DTO/common_armaDTO.h"
+#include "DTO/common_objetoDTO.h"
 
 class Game
 {
@@ -31,7 +39,6 @@ private:
     int armaY;
     int tipo;
 
-    
     // prueba de concepto
     Weapon *armaRecibida = nullptr;
 
@@ -51,11 +58,11 @@ public:
 
     void cargar_escenario(EscenarioDTO *escenario);
 
-    void cargar_arma (PaqueteDTO *paquete);
+    void cargar_arma(PaqueteDTO *paquete);
 
     void procesar_paquete(PaqueteDTO *paquete);
 
-    void renderizar_misiles ();
+    void renderizar_misiles();
 
     void renderizar();
 };

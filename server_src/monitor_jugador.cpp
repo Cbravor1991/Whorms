@@ -3,12 +3,17 @@
 int MonitorJugadores::cambiar_turno()
 {
     int id_turno = turno.cambiar_turno();
+    return id_turno;
+}
+
+void MonitorJugadores::enviar_turno(int id_gusano)
+{
+    int id_turno = turno.recibir_turno();
     for (const auto &entry : jugadores)
     {
         Jugador *jugador = entry.second;
-        jugador->recibir_comando(new CambioTurno(id_turno));
+        jugador->recibir_comando(new CambioTurno(id_turno, id_gusano));
     }
-    return id_turno;
 }
 
 int MonitorJugadores::recibir_turno()

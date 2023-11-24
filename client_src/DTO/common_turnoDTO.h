@@ -12,9 +12,10 @@ class TurnoDTO : public StateGame
 private:
     int id;
     bool permiso;
+    int gusano_id;
 
 public:
-    TurnoDTO(int id, bool permiso);
+    TurnoDTO(int id, bool permiso, int gusano_id);
 
     void cambiar_render(bool &permiso);
 

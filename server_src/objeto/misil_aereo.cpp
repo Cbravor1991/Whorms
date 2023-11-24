@@ -24,23 +24,6 @@ MisilAereo::MisilAereo(Mundo *world, float x, float y, int misil)
 
 MisilAereo::~MisilAereo() {}
 
-void MisilAereo::contacto()
-{
-    b2Contact *contact = mundo->recibir_contactos();
-    while (contact != nullptr)
-    {
-
-        b2Fixture *fixtureA = contact->GetFixtureA();
-        b2Fixture *fixtureB = contact->GetFixtureB();
-
-        // Comprueba si uno de los cuerpos es el cuadrado
-        if (fixtureA->GetBody() == body || fixtureB->GetBody() == body)
-        {
-        }
-        contact = contact->GetNext();
-    }
-}
-
 PosicionLanzable MisilAereo::conseguir_posicion()
 {
 

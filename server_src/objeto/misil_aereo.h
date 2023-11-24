@@ -9,14 +9,11 @@ class MisilAereo : public Arma
 {
 
 private:
-    int contador = 0;
-
 public:
     MisilAereo(Mundo *world, float x, float y, int misil);
     ~MisilAereo();
 
     PosicionLanzable conseguir_posicion();
-    void contacto();
 };
 
 #endif

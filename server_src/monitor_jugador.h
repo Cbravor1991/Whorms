@@ -24,6 +24,8 @@ public:
 
     int cambiar_turno();
 
+    void enviar_turno(int id_gusano);
+
     void eliminar_turno(int id);
 
     int recibir_turno();

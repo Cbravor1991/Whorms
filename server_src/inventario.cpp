@@ -7,6 +7,14 @@ Inventario::Inventario()
     ammo[0] = 0;
     ammo[1] = 12;
     ammo[2] = 100;
+    ammo[3] = 100;
+    ammo[4] = 100;
+    ammo[5] = 100;
+    ammo[6] = 100;
+    ammo[7] = 100;
+    ammo[8] = 100;
+    ammo[9] = 100;
+    ammo[10] = 100;
 }
 
 Inventario::~Inventario() {}

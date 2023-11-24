@@ -2,7 +2,7 @@
 
 #include <SDL2pp/SDL2pp.hh>
 
-#define SLEEP_RATE (4.0f / 35.0f)*50 
+#define SLEEP_RATE (4.0f / 35.0f) * 50
 
 Game::Game(const std::string &hostname, const std::string &servname) : cliente(hostname, servname) {}
 
@@ -18,8 +18,8 @@ void Game::run()
 
         std::optional<StateGame *> optional = cliente.obtener_estado();
         if (optional.has_value())
-        {   
-         
+        {
+
             estado = optional.value();
             nuevo_estado = true;
         }
@@ -49,13 +49,15 @@ bool Game::gameLoop(StateGame *estado, bool &nuevo_estado)
     view.clear();
     // estado->cambiar_render(permiso); -->para debuggear si llega algo no definido en procesar
     if (nuevo_estado)
-    {   std::cout<<estado->type<<'\n';
+    {
+        std::cout << estado->type << '\n';
         this->procesar_estado(estado);
+    }
+    else
+    {
 
-    } else {
-   
         for (auto &[id, jugador] : jugadores)
-        { 
+        {
             jugador.stop_running();
         }
     }
@@ -82,9 +84,10 @@ bool Game::manejarEventos()
             {
 
             case (SDLK_r):
-            { 
+            {
                 tipo++;
-                if (tipo>2){
+                if (tipo > 10)
+                {
                     tipo = 0;
                 }
 
@@ -113,30 +116,34 @@ bool Game::manejarEventos()
 
             case (SDLK_RETURN):
             { // Enter
-                if(permiso){
-                    view.reproducir_efecto("/sonidos/salto.WAV");}
-                    accion = new JumpFoward();
-                    cliente.mandar_accion(accion);
+                if (permiso)
+                {
+                    view.reproducir_efecto("/sonidos/salto.WAV");
+                }
+                accion = new JumpFoward();
+                cliente.mandar_accion(accion);
                 break;
             }
             case (SDLK_BACKSPACE):
             { // Retorno
-                if(permiso){
-                    view.reproducir_efecto("/sonidos/salto.WAV");}
-                    accion = new JumpBack();
-                    cliente.mandar_accion(accion);
+                if (permiso)
+                {
+                    view.reproducir_efecto("/sonidos/salto.WAV");
+                }
+                accion = new JumpBack();
+                cliente.mandar_accion(accion);
                 break;
             }
-            case(SDLK_UP):
+            case (SDLK_UP):
             {
-                //turno tiene que ser el super_id o le envio al server
-                //jugadores.at(14).aumentar_angulo_arma();
+                // turno tiene que ser el super_id o le envio al server
+                jugadores.at(turno).aumentar_angulo_arma();
                 break;
             }
-            case(SDLK_DOWN):
-            {   
-                //turno tiene que ser el super_id o le envio al server
-                //jugadores.at(14).disminuir_angulo_arma();
+            case (SDLK_DOWN):
+            {
+                // turno tiene que ser el super_id o le envio al server
+                jugadores.at(turno).disminuir_angulo_arma();
                 break;
             }
             default:
@@ -157,10 +164,12 @@ bool Game::manejarEventos()
 
                 // Ahora puedes usar las variables mouseX y mouseY según tus necesidades
                 std::cout << "Clic en la posición X: " << mouseX << ", Y: " << mouseY << std::endl;
-                accion = new Position(mouseX, mouseY);
-                cliente.mandar_accion(accion);
+                cliente.mandar_accion(jugadores.at(turno).usar_arma(mouseX, mouseY));
             }
-            if(permiso) {view.reproducir_efecto_arma(tipo);}
+            if (permiso)
+            {
+                view.reproducir_efecto_arma(tipo);
+            }
         }
     }
     return true;
@@ -169,7 +178,6 @@ bool Game::manejarEventos()
 void Game::procesar_estado(StateGame *estado)
 {
 
-
     if (estado->type == TIPO_TURNO)
     {
         TurnoDTO *turn = dynamic_cast<TurnoDTO *>(estado);
@@ -177,13 +185,11 @@ void Game::procesar_estado(StateGame *estado)
         permiso = turn->obtenerPermiso();
         cliente.autorizar_turno(permiso);
 
-
-        //Le saco el arma a todos los jugadores
+        // Le saco el arma a todos los jugadores
         for (auto &[id, jugador] : jugadores)
-        { 
+        {
             jugador.cargar_armas(NO_WEAPON, 0);
         }
-
     }
     else if (estado->type == TIPO_SEGUNDO)
     {
@@ -204,7 +210,6 @@ void Game::procesar_estado(StateGame *estado)
     {
         ArmaDTO *arma = dynamic_cast<ArmaDTO *>(estado);
         arma->cargar(jugadores);
-      
     }
 }
 
@@ -220,9 +225,9 @@ void Game::procesar_paquete(PaqueteDTO *paquete)
 
         gusanoX = jugador.posicion_x();
         gusanoY = jugador.posicion_y();
-        
+
         int id = jugador.obtenerId();
-        jugadores_en_paquete.insert(id);//para borrar al jugador desconectado
+        jugadores_en_paquete.insert(id); // para borrar al jugador desconectado
 
         if (jugadores.find(id) == jugadores.end())
         {
@@ -236,7 +241,7 @@ void Game::procesar_paquete(PaqueteDTO *paquete)
         }
     }
     for (auto it = jugadores.begin(); it != jugadores.end();)
-    {   
+    {
         if (jugadores_en_paquete.find(it->first) == jugadores_en_paquete.end())
         {
             it = jugadores.erase(it);
@@ -247,49 +252,49 @@ void Game::procesar_paquete(PaqueteDTO *paquete)
         }
     }
 
-   std::vector<ObjetoDTO> objetos_paquete = paquete->obtener_objetos();
+    std::vector<ObjetoDTO> objetos_paquete = paquete->obtener_objetos();
 
-   int tamanio_paquete = static_cast<int>(objetos_paquete.size());
-   int cantidad_misiles = static_cast<int>(objetos.size());
+    int tamanio_paquete = static_cast<int>(objetos_paquete.size());
+    int cantidad_misiles = static_cast<int>(objetos.size());
 
-    //std::set<int> jugadores_en_paquete;
+    // std::set<int> jugadores_en_paquete;
 
-    if(objetos.size()> objetos_paquete.size()){
-        //animar la explosion aca
-        int misiles_destruidos = objetos.size()-objetos_paquete.size();
+    if (objetos.size() > objetos_paquete.size())
+    {
+        // animar la explosion aca
+        int misiles_destruidos = objetos.size() - objetos_paquete.size();
 
         objetos.erase(objetos.begin(), objetos.begin() + misiles_destruidos);
-
-
     }
 
-    if (tamanio_paquete>0){
-      
-           for (int i = 0; i < tamanio_paquete; ++i) {
+    if (tamanio_paquete > 0)
+    {
 
+        for (int i = 0; i < tamanio_paquete; ++i)
+        {
 
-    if (i >= cantidad_misiles) {
-      
-        // No se encontró el índice en "objetos" --> lo guardo
-        objetos.push_back(objetos_paquete.at(i));
-    } else {
-        // Verificar que objetos.at(i) esté dentro del rango válido
-        if (i < cantidad_misiles) {
-            objetos.at(i).actualizar(objetos_paquete.at(i));
-        } else {
-            // Manejar el caso donde i es mayor que el tamanio de "objetos"
-            // Esto podría ser un error o requerir alguna lógica adicional según tus necesidades
-            std::cerr << "Error: Índice fuera de rango en 'objetos'." << std::endl;
+            if (i >= cantidad_misiles)
+            {
+
+                // No se encontró el índice en "objetos" --> lo guardo
+                objetos.push_back(objetos_paquete.at(i));
+            }
+            else
+            {
+                // Verificar que objetos.at(i) esté dentro del rango válido
+                if (i < cantidad_misiles)
+                {
+                    objetos.at(i).actualizar(objetos_paquete.at(i));
+                }
+                else
+                {
+                    // Manejar el caso donde i es mayor que el tamanio de "objetos"
+                    // Esto podría ser un error o requerir alguna lógica adicional según tus necesidades
+                    std::cerr << "Error: Índice fuera de rango en 'objetos'." << std::endl;
+                }
+            }
         }
     }
-}
-
-       
-    }
-
-
-       
-
 }
 
 void Game::cargar_escenario(EscenarioDTO *escenario)
@@ -302,11 +307,8 @@ void Game::cargar_escenario(EscenarioDTO *escenario)
     }
 }
 
-void Game:: cargar_arma (PaqueteDTO *paquete){
-
-
-   
-
+void Game::cargar_arma(PaqueteDTO *paquete)
+{
 }
 
 void Game::renderizar()
@@ -333,18 +335,16 @@ void Game::renderizar()
         view.renderizar_gusano(jugador);
     }
 
-           
-        this->renderizar_misiles();
+    this->renderizar_misiles();
 
     view.mostrar();
 }
 
+void Game::renderizar_misiles()
+{
 
-void Game::renderizar_misiles(){
-   
-    
     for (ObjetoDTO misil : objetos)
     { // para mostrar las vigas
-            view.renderizar_misil(misil);
+        view.renderizar_misil(misil);
     }
 }

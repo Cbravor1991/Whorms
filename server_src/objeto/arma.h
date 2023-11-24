@@ -9,10 +9,12 @@ class Arma : public Objeto
 protected:
     int damanio;
     int radio = 1;
+    bool direccion;
     bool waiting_to_explode;
     int tiempo_hasta_explotar;
     float angulo = 0.0;
     float fuerza;
+    int contactos = 0;
     RayCastWeaponExploded explosion;
 
 public:
@@ -24,6 +26,8 @@ public:
 
     // Explota el arma
     virtual void explotar(const b2Vec2 &center);
+
+    void contacto();
 };
 
 #endif

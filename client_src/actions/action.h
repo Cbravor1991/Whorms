@@ -9,11 +9,14 @@ const int MOVIMIENTO_DERECHA = 2;
 const int MOVIMIENTO_ARRIBA_ADELANTE = 3;
 const int MOVIMIENTO_ARRIBA_ATRAS = 4;
 
-class Action {
+class ProtocoloCliente;
+
+class Action
+{
 
 public:
     Action() {}
-    virtual void mandar_accion(ProtocoloCliente& protocolo){}
+    virtual void mandar_accion(ProtocoloCliente &protocolo) {}
     virtual ~Action() {}
 };
 

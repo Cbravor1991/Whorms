@@ -134,6 +134,7 @@ public:
     float_t angle = 0.0;
     int vida = 100;
     bool daniado = false;
+    bool gusano = false;
     /// Creates a fixture and attach it to this body. Use this function if you need
     /// to set some fixture parameters, like friction. Otherwise you can create the
     /// fixture directly from a shape.

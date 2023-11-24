@@ -18,6 +18,7 @@ protected:
     b2Body *body;
     bool is_dead;
     bool en_movimiento = false;
+    float velocidad_minima = 0.0f;
     // CollisionData collision_data;
 
 public:

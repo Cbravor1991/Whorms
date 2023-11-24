@@ -30,11 +30,18 @@ void Turno::eliminar_id(int id)
     {
         std::cout << "ID " << id << " no encontrado." << std::endl;
     }
-    turno_actual--;
+    if (turno_actual != 0)
+    {
+        turno_actual--;
+    }
 }
 
 void Turno::agregar_id(int id)
 {
+    if (jugadores.empty())
+    {
+        cambiar_turno();
+    }
     jugadores.push_back(id);
 }
 

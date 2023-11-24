@@ -28,7 +28,13 @@ int Escenario::cambiar_turno(int id)
     {
         gusanos[id].cambiar_turno();
     }
-    return monitor->cambiar_turno();
+    int turno = monitor->cambiar_turno();
+    if (turno != 0)
+    {
+        Gusano *gusano = gusanos[turno].recibir_turno();
+        monitor->enviar_turno(gusano->conseguir_id());
+    }
+    return turno;
 }
 
 bool Escenario::en_movimiento()
@@ -44,8 +50,11 @@ bool Escenario::en_movimiento()
     }
     for (auto &objeto : *objetos)
     {
+        std::cout << objetos->size()
+                  << std::endl;
         if (objeto->consultar_movimiento())
         {
+            std::cout << "me muevooo" << std::endl;
             return true;
         }
     }
@@ -68,7 +77,7 @@ void Escenario::mandar_paquete()
             monitor->eliminar_turno(clave);
             if (clave - 1 == monitor->recibir_turno())
             {
-                monitor->cambiar_turno();
+                cambiar_turno(0);
             };
             it = gusanos.erase(it);
         }
@@ -101,7 +110,7 @@ void Escenario::avisar_desconexion(int jugador)
 {
     if (jugador == monitor->recibir_turno())
     {
-        monitor->cambiar_turno();
+        cambiar_turno(0);
     };
     monitor->avisar_desconexion();
     gusanos.erase(jugador);
@@ -132,6 +141,11 @@ Gusano *Escenario::agregar_gusano(int jugador_id, int gusano_id)
 
 void Escenario::agregar_jugador(int jugador_id)
 {
+    bool vacio = false;
+    if (gusanos.empty())
+    {
+        vacio = true;
+    }
     for (int i = 1; i <= GUSANOS_POR_JUGADOR; ++i)
     {
         gusanos[jugador_id].agregar_gusano(agregar_gusano(jugador_id, i));
@@ -147,6 +161,10 @@ void Escenario::agregar_jugador(int jugador_id)
     }
     mandar_paquete();
     mandar_paquete();
+    if (vacio)
+    {
+        cambiar_turno(0);
+    }
 }
 
 void Escenario::colocar_viga(int x, int y, bool tipo, int angulo_grados)
@@ -207,8 +225,7 @@ void Escenario::movimiento(Gusano *gusano, int jugador)
         mundo->paso(FRAME_RATE, VELOCITY_ITERATION, POSITION_ITERATION);
         if ((!daño) and gusano->daño_recibido())
         {
-            gusanos[jugador].cambiar_turno();
-            monitor->cambiar_turno();
+            cambiar_turno(jugador);
             daño = true;
         }
         mandar_paquete();
@@ -288,8 +305,7 @@ void Escenario::usar_arma(int jugador, Arma *arma)
         }
         if (arma_usada and (recibir_gusano(jugador) != nullptr))
         {
-            gusanos[jugador].cambiar_turno();
-            monitor->cambiar_turno();
+            cambiar_turno(jugador);
             mandar_paquete();
         }
         mandar_paquete();

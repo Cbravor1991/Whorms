@@ -6,6 +6,14 @@
 #include <algorithm>
 #include "client_protocol.h"
 #include "DTO/common_state_game.h"
+#include "DTO/common_vigaDTO.h"
+#include "DTO/common_jugadorDTO.h"
+#include "DTO/common_paqueteDTO.h"
+#include "DTO/common_escenarioDTO.h"
+#include "DTO/common_turnoDTO.h"
+#include "DTO/common_segundosDTO.h"
+#include "DTO/common_armaDTO.h"
+#include "DTO/common_objetoDTO.h"
 #include <tuple>
 
 ProtocoloCliente::ProtocoloCliente(const std::string &hostname,
@@ -66,8 +74,9 @@ int ProtocoloCliente::recibir_id_jugador()
 StateGame *ProtocoloCliente::recibir_turno(int jugador_id)
 {
     int turno_id = recibir_int();
+    int gusano_id = recibir_int();
     bool permiso = (turno_id == jugador_id);
-    StateGame *estado_juego = new TurnoDTO(turno_id, permiso);
+    StateGame *estado_juego = new TurnoDTO(turno_id, permiso, gusano_id);
     return estado_juego;
 }
 
@@ -92,9 +101,16 @@ void ProtocoloCliente::enviar_arma(int tipo)
 
 void ProtocoloCliente::enviar_posicion(int x, int y)
 {
-    enviar_byte(ENVIAR_TELEDIRIGIDO);
+    enviar_byte(ENVIAR_USO_ARMA);
     enviar_int_grande(x);
     enviar_int_grande(y);
+}
+
+void ProtocoloCliente::enviar_disparo(int angulo, bool direccion)
+{
+    enviar_byte(ENVIAR_USO_ARMA);
+    enviar_int(angulo);
+    enviar_int(direccion ? 1 : 0);
 }
 
 void ProtocoloCliente::enviar_byte(const uint8_t &dato)
