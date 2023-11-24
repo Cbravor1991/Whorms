@@ -114,17 +114,29 @@ bool Game::manejarEventos()
             case (SDLK_RETURN):
             { // Enter
                 if(permiso){
-                view.reproducir_efecto("/sonidos/salto.WAV");}
-                accion = new JumpFoward();
-                cliente.mandar_accion(accion);
+                    view.reproducir_efecto("/sonidos/salto.WAV");}
+                    accion = new JumpFoward();
+                    cliente.mandar_accion(accion);
                 break;
             }
             case (SDLK_BACKSPACE):
             { // Retorno
-            if(permiso){
-                view.reproducir_efecto("/sonidos/salto.WAV");}
-                accion = new JumpBack();
-                cliente.mandar_accion(accion);
+                if(permiso){
+                    view.reproducir_efecto("/sonidos/salto.WAV");}
+                    accion = new JumpBack();
+                    cliente.mandar_accion(accion);
+                break;
+            }
+            case(SDLK_UP):
+            {
+                //turno tiene que ser el super_id o le envio al server
+                //jugadores.at(14).aumentar_angulo_arma();
+                break;
+            }
+            case(SDLK_DOWN):
+            {   
+                //turno tiene que ser el super_id o le envio al server
+                //jugadores.at(14).disminuir_angulo_arma();
                 break;
             }
             default:
@@ -169,7 +181,7 @@ void Game::procesar_estado(StateGame *estado)
         //Le saco el arma a todos los jugadores
         for (auto &[id, jugador] : jugadores)
         { 
-            jugador.cargar_armas(NO_WEAPON);
+            jugador.cargar_armas(NO_WEAPON, 0);
         }
 
     }

@@ -1,7 +1,7 @@
 #include "worm_airstrike.h"
+#include <iostream>//borrar
 
-
-WormAirstike::WormAirstike() {}
+WormAirstike::WormAirstike(int ammo) : municion(ammo) {}
 
 void WormAirstike::render(SDL2pp::Renderer& renderer, TextureManager& tex_manager, int x, int y, int flip, int angulo) 
 {
@@ -24,4 +24,16 @@ void WormAirstike::render(SDL2pp::Renderer& renderer, TextureManager& tex_manage
 const int WormAirstike::getWeapon() {
 
     return AIR_STRIKE;
+}
+
+void WormAirstike::increaseAngle() {
+    //mira.aumentar_angulo();
+}
+
+void WormAirstike::decreaseAngle() {
+    //mira.disminuir_angulo();
+}
+
+int WormAirstike::getAmmo() {
+    return municion;
 }

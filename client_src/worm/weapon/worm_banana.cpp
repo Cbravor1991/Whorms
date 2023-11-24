@@ -1,14 +1,15 @@
-#include "worm_teleport.h"
+#include "worm_banana.h"
 
-WormTeleport::WormTeleport(int ammo) : municion(INFINITE_AMMO) {}
+WormBanana::WormBanana(int ammo) : municion(ammo) {}
 
-void WormTeleport::render(SDL2pp::Renderer& renderer, TextureManager& tex_manager, int x, int y, int flip, int angulo) 
+void WormBanana::render(SDL2pp::Renderer& renderer, TextureManager& tex_manager, int x, int y, int flip, int angulo) 
 {
-    std::string path = "/sprites/Weapon/Worm/teleport/wtellnk.png";
+    std::string path = "/sprites/Weapon/Worm/banana/wbanlnk.png";
+    //ver de usar el sprite de apuntar
     std::shared_ptr<SDL2pp::Texture> texture = tex_manager.getTexture(path);
 
     int src_x = 0, src_y = 0; 
-    src_y = 60 * 9;
+    src_y = 60 * 6;
 
     renderer.Copy(
             *texture,
@@ -20,15 +21,19 @@ void WormTeleport::render(SDL2pp::Renderer& renderer, TextureManager& tex_manage
         ); 
 }
 
-const int WormTeleport::getWeapon() {
+const int WormBanana::getWeapon() {
 
-    return TELEPORT;
+    return BANANA;
 }
 
-void WormTeleport::increaseAngle() {}
+void WormBanana::increaseAngle() {
+    mira.aumentar_angulo();
+}
+    
+void WormBanana::decreaseAngle() {
+    mira.disminuir_angulo();
+}
 
-void WormTeleport::decreaseAngle() {}
-
-int WormTeleport::getAmmo() {
+int WormBanana::getAmmo() {
     return municion;
 }

@@ -27,7 +27,7 @@ JugadorDTO::JugadorDTO(int id, int x, int y, bool direccion, int angulo, int vid
 
     this->status.reset(new WormIdle());
 
-    this->weapon.reset(new WormNoWeapon());
+    this->weapon.reset(new WormNoWeapon(0));
 }
 
 void JugadorDTO::mostrar() const { std::cout << "Jugador id " << id << " en X: " << x << " Y: " << y << " Angulo:" << angulo << "vida " << vida << "mov" << is_running << std::endl; }
@@ -72,6 +72,7 @@ void JugadorDTO::renderizar(SDL2pp::Renderer &renderer, TextureManager &tex_mana
     if(this->direccion) flip = SDL_FLIP_HORIZONTAL;
     else flip = SDL_FLIP_NONE;
 
+
     if((this->status->getState() == IDLE) and (this->weapon->getWeapon() != NO_WEAPON)) {
         this->weapon->render(renderer, tex_manager, x, y, flip, angulo);
 
@@ -100,12 +101,21 @@ SDL_Color JugadorDTO::obtener_color()
     return color;
 }
 
-void JugadorDTO::cargar_armas(int arma)
+void JugadorDTO::cargar_armas(int arma, int ammo)
 {
     this->arma = arma;
-    if(arma == AIR_STRIKE) this->weapon.reset(new WormAirstike());
-    else if (arma == TELEPORT) this->weapon.reset(new WormTeleport());
-    else this->weapon.reset(new WormNoWeapon());
+    //actualmente, solo estan implementadas Airstrike y Teleport
+    if(arma == AIR_STRIKE) this->weapon.reset(new WormAirstike(ammo));
+    else if (arma == TELEPORT) this->weapon.reset(new WormTeleport(ammo));
+    else if (arma == BAT) this->weapon.reset(new WormBat(ammo));
+    else if (arma == DYNAMITE) this->weapon.reset(new WormDynamite(ammo));
+    else if (arma == BAZOOKA) this->weapon.reset(new WormBazooka(ammo));
+    else if (arma == MORTAR) this->weapon.reset(new WormMortar(ammo));
+    else if (arma == GREEN_GRENADE) this->weapon.reset(new WormGreenGrenade(ammo));
+    else if (arma == CLUSTER_GRENADE) this->weapon.reset(new WormClusterGrenade(ammo));
+    else if (arma == HOLY_GRENADE) this->weapon.reset(new WormHolyGrenade(ammo));
+    else if (arma == BANANA) this->weapon.reset(new WormBanana(ammo));
+    else this->weapon.reset(new WormNoWeapon(ammo));
 
     std::cout << "Soy jugador " << id << " con arma: " << arma << std::endl;
 }
@@ -116,4 +126,11 @@ void JugadorDTO::stop_running() {
 
     this->is_running = false;
     this->status.reset(new WormIdle());
+}
+
+void JugadorDTO::aumentar_angulo_arma() {
+    weapon->increaseAngle();
+}
+void JugadorDTO::disminuir_angulo_arma() {
+    weapon->decreaseAngle();
 }

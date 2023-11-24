@@ -85,7 +85,17 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/libs/box2d-2.4.0 ${CMAKE_SOURCE_DIR}/build/
                 ./client_src/worm/worm_idle.cpp
                 ./client_src/worm/weapon/worm_airstrike.cpp
                 ./client_src/worm/weapon/worm_teleport.cpp
+                ./client_src/worm/weapon/worm_banana.cpp
+                ./client_src/worm/weapon/worm_bat.cpp
+                ./client_src/worm/weapon/worm_bazooka.cpp
+                ./client_src/worm/weapon/worm_dynamite.cpp
+                ./client_src/worm/weapon/worm_grenade_cluster.cpp
+                ./client_src/worm/weapon/worm_grenade_holy.cpp
+                ./client_src/worm/weapon/worm_mortar.cpp
+                ./client_src/worm/weapon/worm_grenade.cpp
+                ./client_src/worm/weapon/crosshair.cpp
     )
+
     target_include_directories(client PUBLIC ${PROJECT_SOURCE_DIR}/libs/SDL2pp)
     target_link_libraries(client SDL2pp)
 

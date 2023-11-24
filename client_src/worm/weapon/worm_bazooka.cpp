@@ -1,14 +1,15 @@
-#include "worm_teleport.h"
+#include "worm_bazooka.h"
 
-WormTeleport::WormTeleport(int ammo) : municion(INFINITE_AMMO) {}
+WormBazooka::WormBazooka(int ammo) : municion(INFINITE_AMMO) {}
 
-void WormTeleport::render(SDL2pp::Renderer& renderer, TextureManager& tex_manager, int x, int y, int flip, int angulo) 
+void WormBazooka::render(SDL2pp::Renderer& renderer, TextureManager& tex_manager, int x, int y, int flip, int angulo) 
 {
-    std::string path = "/sprites/Weapon/Worm/teleport/wtellnk.png";
+    std::string path = "/sprites/Weapon/Worm/bazooka/wbazlnk.png";
+    //ver de usar el sprite de apuntar
     std::shared_ptr<SDL2pp::Texture> texture = tex_manager.getTexture(path);
 
     int src_x = 0, src_y = 0; 
-    src_y = 60 * 9;
+    src_y = 60 * 6;
 
     renderer.Copy(
             *texture,
@@ -20,15 +21,19 @@ void WormTeleport::render(SDL2pp::Renderer& renderer, TextureManager& tex_manage
         ); 
 }
 
-const int WormTeleport::getWeapon() {
+const int WormBazooka::getWeapon() {
 
-    return TELEPORT;
+    return BAZOOKA;
 }
 
-void WormTeleport::increaseAngle() {}
+void WormBazooka::increaseAngle() {
+    mira.aumentar_angulo();
+}
+    
+void WormBazooka::decreaseAngle() {
+    mira.disminuir_angulo();
+}
 
-void WormTeleport::decreaseAngle() {}
-
-int WormTeleport::getAmmo() {
+int WormBazooka::getAmmo() {
     return municion;
 }

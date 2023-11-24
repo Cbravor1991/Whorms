@@ -17,10 +17,21 @@
 #include "../worm/worm_walk.h"
 #include "../worm/worm_idle.h"
 
-#include "../worm/weapon/worm_weapon.h"
-#include "../worm/weapon/worm_airstrike.h"
+
 #include "../worm/weapon/worm_no_weapon.h"
+#include "../worm/weapon/worm_airstrike.h"
 #include "../worm/weapon/worm_teleport.h"
+#include "../worm/weapon/worm_banana.h"
+#include "../worm/weapon/worm_bat.h"
+#include "../worm/weapon/worm_bazooka.h"
+#include "../worm/weapon/worm_dynamite.h"
+#include "../worm/weapon/worm_grenade_cluster.h"
+#include "../worm/weapon/worm_grenade_holy.h"
+#include "../worm/weapon/worm_grenade.h"
+#include "../worm/weapon/worm_mortar.h"
+
+
+
 
 class JugadorDTO
 {
@@ -44,7 +55,7 @@ private:
 public:
     JugadorDTO(int id, int x, int y, bool direccion, int angulo, int vida, bool en_movimiento, int id_cliente);
 
-    void cargar_armas(int arma);
+    void cargar_armas(int arma, int ammo);
 
     void mostrar() const;
 
@@ -65,6 +76,9 @@ public:
     SDL_Color obtener_color();
 
     void stop_running();
+
+    void aumentar_angulo_arma();
+    void disminuir_angulo_arma();
 };
 
 #endif

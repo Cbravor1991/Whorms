@@ -33,6 +33,15 @@ void PathLoader::loadSpritePath() {
     sprite_path.push_back("/sprites/Weapon/Icons/banana.1.png");
     sprite_path.push_back("/sprites/Weapon/Worm/airStrike/wairlnk.png");
     sprite_path.push_back("/sprites/Weapon/Worm/teleport/wtellnk.png");
+    sprite_path.push_back("/sprites/Weapon/Worm/banana/wbanlnk.png");
+    sprite_path.push_back("/sprites/Weapon/Worm/bat/wbsblnk.png");
+    sprite_path.push_back("/sprites/Weapon/Worm/bazooka/wbazlnk.png");
+    sprite_path.push_back("/sprites/Weapon/Worm/dynamite/wdynlnk.png");
+    sprite_path.push_back("/sprites/Weapon/Worm/clusterGrenade/wclslnk.png");
+    sprite_path.push_back("/sprites/Weapon/Worm/holyGrenade/whgrlnk.png");
+    sprite_path.push_back("/sprites/Weapon/Worm/grenade/wgrnlnk.png");
+    sprite_path.push_back("/sprites/crshairr.png");
+
 
 }
 
