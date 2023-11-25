@@ -54,7 +54,6 @@ PosicionLanzable Banana::conseguir_posicion()
     if (y < ALTURA_AGUA or !consultar_movimiento() or contactos > 200)
     {
         is_dead = true;
-        std::cout << "bana X = " << posicion.x << ", Y = " << posicion.y << std::endl;
     }
     return PosicionLanzable(1, x, y, 0, 0, is_dead);
 }

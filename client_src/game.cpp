@@ -50,7 +50,6 @@ bool Game::gameLoop(StateGame *estado, bool &nuevo_estado)
     // estado->cambiar_render(permiso); -->para debuggear si llega algo no definido en procesar
     if (nuevo_estado)
     {
-        std::cout << estado->type << '\n';
         this->procesar_estado(estado);
     }
     else
@@ -76,13 +75,21 @@ bool Game::manejarEventos()
     {
         if (event.type == SDL_QUIT)
         {
-            return false;
+            return false; // Salir del juego sin necesidad de permiso
         }
         else if (event.type == SDL_KEYDOWN)
         {
+            if (!permiso)
+            {
+                // Si no tienes permiso, solo permitir mutear el sonido
+                if (event.key.keysym.sym != SDLK_m)
+                {
+                    continue; // Ignorar otras teclas si no hay permiso
+                }
+            }
+
             switch (event.key.keysym.sym)
             {
-
             case (SDLK_r):
             {
                 tipo++;
@@ -116,34 +123,37 @@ bool Game::manejarEventos()
 
             case (SDLK_RETURN):
             { // Enter
-                if (permiso)
-                {
-                    view.reproducir_efecto("/sonidos/salto.WAV");
-                }
+                view.reproducir_efecto("/sonidos/salto.WAV");
                 accion = new JumpFoward();
                 cliente.mandar_accion(accion);
                 break;
             }
             case (SDLK_BACKSPACE):
             { // Retorno
-                if (permiso)
-                {
-                    view.reproducir_efecto("/sonidos/salto.WAV");
-                }
+                view.reproducir_efecto("/sonidos/salto.WAV");
                 accion = new JumpBack();
                 cliente.mandar_accion(accion);
                 break;
             }
             case (SDLK_UP):
             {
-                // turno tiene que ser el super_id o le envio al server
-                jugadores.at(turno).aumentar_angulo_arma();
+                auto it = jugadores.find(turno);
+                if (it != jugadores.end())
+                {
+                    // El elemento en la posición indicada por "turno" existe en el mapa
+                    it->second.aumentar_angulo_arma();
+                }
                 break;
             }
             case (SDLK_DOWN):
             {
                 // turno tiene que ser el super_id o le envio al server
-                jugadores.at(turno).disminuir_angulo_arma();
+                auto it = jugadores.find(turno);
+                if (it != jugadores.end())
+                {
+                    // El elemento en la posición indicada por "turno" existe en el mapa
+                    it->second.disminuir_angulo_arma();
+                }
                 break;
             }
             default:
@@ -156,19 +166,24 @@ bool Game::manejarEventos()
         }
         else if (event.type == SDL_MOUSEBUTTONDOWN)
         {
+            if (!permiso)
+            {
+                continue; // Ignorar clics de ratón si no hay permiso
+            }
+
             if (event.button.button == SDL_BUTTON_LEFT)
             {
-                // Se ha hecho clic con el botón izquierdo del ratón
                 int mouseX = event.button.x;
                 int mouseY = 200 - event.button.y;
-
-                // Ahora puedes usar las variables mouseX y mouseY según tus necesidades
                 std::cout << "Clic en la posición X: " << mouseX << ", Y: " << mouseY << std::endl;
-                cliente.mandar_accion(jugadores.at(turno).usar_arma(mouseX, mouseY));
-            }
-            if (permiso)
-            {
-                view.reproducir_efecto_arma(tipo);
+                auto it = jugadores.find(turno);
+                if (it != jugadores.end())
+                {
+                    // El elemento en la posición indicada por "turno" existe en el mapa
+                    accion = it->second.usar_arma(mouseX, mouseY);
+                    cliente.mandar_accion(accion);
+                    view.reproducir_efecto_arma(tipo);
+                }
             }
         }
     }

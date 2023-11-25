@@ -61,7 +61,6 @@ void Crosshair::aumentar_angulo()
         return;
     }
     this->angle += 5;
-    std::cout << "Angulo: " << angle << "\n";
 }
 
 void Crosshair::disminuir_angulo()
@@ -71,7 +70,6 @@ void Crosshair::disminuir_angulo()
         angle = -90;
         return;
     }
-    std::cout << "Angulo: " << angle << "\n";
     this->angle -= 5;
 }
 

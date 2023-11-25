@@ -2,7 +2,7 @@
 #include <string>
 #include <iostream>
 #include <exception>
-//#include "client.h"
+// #include "client.h"
 #//include "./game.h"
 #include <QApplication>
 #include "./client_lobby.h"
@@ -17,18 +17,17 @@ int main(int argc, char *argv[])
             std::cerr << "Uso: " << argv[0] << " <ip/hostname server> <puerto/servicename>\n";
             return 1;
         }
-         const std::string hostname = std::string(argv[1]);
-         const std::string servname = std::string(argv[2]);
+        const std::string hostname = std::string(argv[1]);
+        const std::string servname = std::string(argv[2]);
 
-         /*PARA PROBAR LA APP DE QT DESCOMENTAR ESTAS LINEAS*/
+        /*PARA PROBAR LA APP DE QT DESCOMENTAR ESTAS LINEAS*/
         // QApplication app(argc, argv);
-	    // Lobby lobby(hostname, servname);
-	    //  MainWindow w(&lobby);
+        // Lobby lobby(hostname, servname);
+        // MainWindow w(&lobby);
         // w.show();
-	    //  app.exec();
+        // app.exec();
 
-      
-      /*PARA PROBAR LA APP DE QT COMENTAR ESTAS DOS LINEAS*/
+        /*PARA PROBAR LA APP DE QT COMENTAR ESTAS DOS LINEAS*/
         Game juego(hostname, servname);
         juego.run();
 

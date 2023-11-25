@@ -53,7 +53,6 @@ PosicionLanzable Bate::conseguir_posicion()
     if (y < ALTURA_AGUA or !consultar_movimiento())
     {
         is_dead = true;
-        std::cout << "bana X = " << posicion.x << ", Y = " << posicion.y << std::endl;
     }
     return PosicionLanzable(1, x, y, 0, 0, is_dead);
 }

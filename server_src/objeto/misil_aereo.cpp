@@ -33,7 +33,6 @@ PosicionLanzable MisilAereo::conseguir_posicion()
     if (y < ALTURA_AGUA or !consultar_movimiento())
     {
         is_dead = true;
-        std::cout << "Misil X = " << posicion.x << ", Y = " << posicion.y << std::endl;
         b2Vec2 center = this->body->GetPosition();
         explotar(center);
     }

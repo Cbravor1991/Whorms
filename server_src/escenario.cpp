@@ -50,11 +50,8 @@ bool Escenario::en_movimiento()
     }
     for (auto &objeto : *objetos)
     {
-        std::cout << objetos->size()
-                  << std::endl;
         if (objeto->consultar_movimiento())
         {
-            std::cout << "me muevooo" << std::endl;
             return true;
         }
     }

@@ -34,9 +34,6 @@ void JugadorDTO::setear_color()
 
 JugadorDTO::JugadorDTO(int id, int x, int y, bool direccion, int angulo, int vida, bool en_movimiento, int id_cliente) : id(id), x(x), y(y), direccion(direccion), angulo(angulo), vida(vida), is_running(en_movimiento), id_cliente(id_cliente)
 {
-    std::cout << "X: " << x << '\n';
-    std::cout << "Y: " << y << '\n';
-    std::cout << "vida: " << vida << '\n';
     setear_color();
 
     this->status.reset(new WormIdle());
@@ -147,7 +144,7 @@ void JugadorDTO::cargar_armas(int arma, int ammo)
     else
         this->weapon.reset(new WormNoWeapon(ammo));
 
-    std::cout << "Soy jugador " << id << " con arma: " << arma << std::endl;
+    // std::cout << "Soy jugador " << id << " con arma: " << arma << std::endl;
 }
 
 Action *JugadorDTO::usar_arma(int x, int y)
