@@ -79,6 +79,8 @@ public:
 
     void aumentar_angulo_arma();
     void disminuir_angulo_arma();
+
+    int obtenerMunicion();
 };
 
 #endif

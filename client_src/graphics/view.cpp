@@ -109,6 +109,7 @@ void GameView::renderizar_viga(VigaDTO viga)
 void GameView::reproducir_musica()
 {   
     std::shared_ptr<SDL2pp::Music> music = tex_manager.getMusic();
+    mixer.SetMusicVolume(70);
     mixer.PlayMusic(*music, -1);
 }
 
@@ -142,6 +143,22 @@ void GameView::reproducir_efecto_arma(int tipo) {
     } 
 }
 
+void GameView::reproducir_sonido_explosion() {
+    reproducir_efecto("/sonidos/Explosion1.wav");
+}
+
 void GameView::mutear_sonidos() {
     mixer.PauseMusic();
+}
+
+void GameView::renderizar_municion(JugadorDTO& jugador) {
+    int municion = jugador.obtenerMunicion();
+    std::string texto = "Municion: " + ((municion < 0) ? "Infinita" : std::to_string(municion));
+    SDL_Color color = {255, 255, 255, 255};
+    this->renderizar_texto(texto, 0, 10, color);
+}
+
+void GameView::renderizar_explocion(Explotion& explotion) {
+    explotion.renderizar(renderer, tex_manager);
+    //se actualiza sola (?
 }

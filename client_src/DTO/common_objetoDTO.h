@@ -40,6 +40,8 @@ public:
     int posicion_x();
 
     int posicion_y();
+
+    bool exploto();
 };
 
 #endif

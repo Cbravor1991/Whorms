@@ -29,6 +29,7 @@ class Game
 private:
     Cliente cliente;
     GameView view;
+    std::vector<Explotion> explosiones;
     std::vector<ObjetoDTO> objetos;
     std::vector<VigaDTO> vigas;
     std::map<int, JugadorDTO> jugadores;

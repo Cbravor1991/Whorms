@@ -10,6 +10,7 @@
 #include "../DTO/common_vigaDTO.h"
 #include "texture_manager.h"
 #include "../DTO/common_objetoDTO.h"
+#include "explotion.h"
 
 #include <SDL.h>
 #include <SDL_mixer.h>
@@ -50,6 +51,9 @@ public:
     void mutear_sonidos();
     void reproducir_efecto(std::string path_efecto);
     void reproducir_efecto_arma(int tipo);
+    void renderizar_municion(JugadorDTO& jugador);
+    void renderizar_explocion(Explotion& explotion);
+    void reproducir_sonido_explosion();
 };
 
 #endif // VIEW_H

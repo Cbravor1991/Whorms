@@ -60,3 +60,8 @@ int ObjetoDTO::posicion_y()
 {
     return y;
 }
+
+bool ObjetoDTO::exploto() {
+
+    return explosion;
+}

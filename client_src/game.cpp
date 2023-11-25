@@ -274,9 +274,19 @@ void Game::procesar_paquete(PaqueteDTO *paquete)
 
     // std::set<int> jugadores_en_paquete;
 
+    //itero por los misiles(objetos_paquete) y me fijo si explosion es true.
+    //si lo es, creo un objeto explocion en la posicion del misil
+    //el objeto explocion, luego de renderizarse, se destruye
+    for (auto & proyectil : objetos_paquete) {
+        if(proyectil.exploto()){
+            Explotion explotion(proyectil.posicion_x(), proyectil.posicion_y());
+            explosiones.push_back(explotion);
+            view.reproducir_sonido_explosion();
+        }
+    }
+
     if (objetos.size() > objetos_paquete.size())
     {
-        // animar la explosion aca
         int misiles_destruidos = objetos.size() - objetos_paquete.size();
 
         objetos.erase(objetos.begin(), objetos.begin() + misiles_destruidos);
@@ -329,7 +339,7 @@ void Game::cargar_arma(PaqueteDTO *paquete)
 void Game::renderizar()
 {
     // Centra la vista en la posición actual del gusano
-    view.centrarEnGusano(gusanoX, gusanoY);
+    //view.centrarEnGusano(gusanoX, gusanoY);
 
     std::string time = "Tiempo restante: " + std::to_string((tiempo_restante_turno)) +
                        " Es mi turno: " + (permiso ? "true" : "false");
@@ -338,6 +348,10 @@ void Game::renderizar()
     SDL_Color color = {255, 255, 255, 255};
     view.renderizar_texto(time, 0, 0, color);
     // view.renderizar_gusano(0,0);
+
+    if(turno >= 10) {//si el turno es de una id valida
+        view.renderizar_municion(jugadores.at(turno));
+    }
 
     for (VigaDTO viga : vigas)
     { // para mostrar las vigas
@@ -351,6 +365,19 @@ void Game::renderizar()
     }
 
     this->renderizar_misiles();
+
+    for (Explotion& explotion : explosiones)
+    { // para mostrar las vigas
+        view.renderizar_explocion(explotion);
+    }
+    //chequeo si alguna termino y la borro
+    for (auto iter = explosiones.begin(); iter != explosiones.end(); ) {
+        if (iter->finalizo()) {
+            iter = explosiones.erase(iter);
+        } else {
+            ++iter;
+        }
+    }
 
     view.mostrar();
 }

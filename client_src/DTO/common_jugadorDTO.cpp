@@ -170,3 +170,7 @@ void JugadorDTO::disminuir_angulo_arma()
 {
     weapon->decreaseAngle();
 }
+
+int JugadorDTO::obtenerMunicion() {
+    return this->weapon->getAmmo();
+}

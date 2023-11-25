@@ -43,6 +43,12 @@ void TextureManager::loadSounds() {
     { 
         std::string datapath(DATA_PATH);
         SDL2pp::Chunk sonido(datapath.append(sound));
+        if(sound == "/sonidos/Explosion1.wav") {
+            sonido.SetVolume(10);
+        } else {
+            sonido.SetVolume(25);
+        }
+        
 
         this->sonidos[sound] = std::make_shared<SDL2pp::Chunk>(std::move(sonido));
     }

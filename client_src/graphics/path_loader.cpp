@@ -41,7 +41,9 @@ void PathLoader::loadSpritePath() {
     sprite_path.push_back("/sprites/Weapon/Worm/holyGrenade/whgrlnk.png");
     sprite_path.push_back("/sprites/Weapon/Worm/grenade/wgrnlnk.png");
     sprite_path.push_back("/sprites/crshairr.png");
-
+    sprite_path.push_back("/Effects/explosion/circle50.png");
+    sprite_path.push_back("/Effects/explosion/elipse75.png");
+    sprite_path.push_back("/Effects/explosion/expow.png");
 
 }
 
@@ -61,4 +63,5 @@ void PathLoader::loadSoundsPath() {
     sounds_path.push_back("/sonidos/salto.WAV");
     sounds_path.push_back("/sonidos/ataque misiles.wav");
     sounds_path.push_back("/sonidos/teletransportar.WAV");
+    sounds_path.push_back("/sonidos/Explosion1.wav");
 }
