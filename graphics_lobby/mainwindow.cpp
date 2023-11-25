@@ -5,16 +5,12 @@
 #include <iostream>
 
 
-/* MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
-{
-    ui->setupUi(this);
-} */
 
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+MainWindow::MainWindow(Lobby* lobby, QWidget *parent)
+    : QMainWindow(parent), 
+     ui(new Ui::MainWindow),
+      loby(lobby)
+    
  
 {
     ui->setupUi(this);
@@ -51,12 +47,9 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 }
 
 void MainWindow::on_createButton_clicked() {
-    if(ui->startButton->isEnabled()){
-        ui->labelMatch->show();
-        timer->start(2000);
-    } else {
-      std::cout <<"Presionaste boton de crear partida"<<'\n';
-    }
+      QApplication::exit();
+    loby->start_game();
+
 }
 
 
@@ -71,7 +64,7 @@ void MainWindow::on_joinButton_clicked() {
 
 void MainWindow::on_startButton_clicked() {
     QApplication::exit();
-    std::cout <<"Presionaste boton de salida"<<'\n';
+    loby->start_game();
 }
 
 void MainWindow::on_exitButton_clicked() {

@@ -42,7 +42,7 @@ public:
         createButton = new QPushButton(centralwidget);
         createButton->setObjectName(QString::fromUtf8("createButton"));
         createButton->setEnabled(true);
-        createButton->setGeometry(QRect(70, 350, 200, 41));
+        createButton->setGeometry(QRect(80, 590, 200, 41));
         createButton->setMaximumSize(QSize(200, 50));
         QFont font;
         font.setPointSize(14);
@@ -62,7 +62,7 @@ public:
         joinButton = new QPushButton(centralwidget);
         joinButton->setObjectName(QString::fromUtf8("joinButton"));
         joinButton->setEnabled(true);
-        joinButton->setGeometry(QRect(70, 470, 200, 41));
+        joinButton->setGeometry(QRect(500, 590, 200, 41));
         joinButton->setMaximumSize(QSize(200, 50));
         joinButton->setFont(font);
         joinButton->setMouseTracking(true);
@@ -79,7 +79,7 @@ public:
         exitButton = new QPushButton(centralwidget);
         exitButton->setObjectName(QString::fromUtf8("exitButton"));
         exitButton->setEnabled(true);
-        exitButton->setGeometry(QRect(70, 590, 200, 41));
+        exitButton->setGeometry(QRect(960, 590, 200, 41));
         exitButton->setMaximumSize(QSize(200, 50));
         exitButton->setFont(font);
         exitButton->setMouseTracking(true);
@@ -114,7 +114,7 @@ public:
         labelMatch = new QLabel(centralwidget);
         labelMatch->setObjectName(QString::fromUtf8("labelMatch"));
         labelMatch->setEnabled(true);
-        labelMatch->setGeometry(QRect(450, 360, 600, 50));
+        labelMatch->setGeometry(QRect(450, 540, 600, 50));
         labelMatch->setStyleSheet(QString::fromUtf8("border: none;\n"
 "background: none;\n"
 "color : rgb(255,255,255);"));

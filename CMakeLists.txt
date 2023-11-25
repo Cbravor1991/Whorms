@@ -110,10 +110,18 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/libs/box2d-2.4.0 ${CMAKE_SOURCE_DIR}/build/
                 ./client_src/worm/weapon/worm_mortar.cpp
                 ./client_src/worm/weapon/worm_grenade.cpp
                 ./client_src/worm/weapon/crosshair.cpp
+                ./graphics_lobby/mainwindow.cpp
+	            ./graphics_lobby/assets/resources.qrc
+                ./client_src/client_lobby.cpp
+                ${UIS_HEADERS}
+
+         
+                
     )
 
     target_include_directories(client PUBLIC ${PROJECT_SOURCE_DIR}/libs/SDL2pp)
-    target_link_libraries(client SDL2pp)
+    target_link_libraries(client PUBLIC Qt5::Widgets Qt5::Core SDL2pp)
+
 
 
 
@@ -123,6 +131,8 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/libs/box2d-2.4.0 ${CMAKE_SOURCE_DIR}/build/
     ./graphics_lobby/main.cpp
 	./graphics_lobby/mainwindow.cpp
 	./graphics_lobby/assets/resources.qrc
+    ./client_src/client_lobby.cpp
+ 
     ${UIS_HEADERS}
 )
 

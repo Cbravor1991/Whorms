@@ -1,16 +1,16 @@
 
-#include "mainwindow.h"
+//#include "mainwindow.h"
 
 #include <QApplication>
 
-//#include "../client/lobby.h"
 
 int main(int argc, char *argv[])
 {
-	//Lobby lobby(argv[1], argv[2]);
-	QApplication app(argc, argv);
-	MainWindow w;
-    w.show();
-	app.exec();
+
+	// QApplication app(argc, argv);
+	// Lobby lobby;
+	// MainWindow w(&lobby);
+    // w.show();
+	// app.exec();
     return 0;
 }

@@ -1,8 +1,12 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#pragma once
 #include <QMainWindow>
 #include <QTimer>
+#include "../client_src/client_lobby.h"
+
+
 
 
 QT_BEGIN_NAMESPACE
@@ -14,7 +18,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    MainWindow(Lobby* lobby, QWidget *parent = nullptr);
     //MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
@@ -35,9 +39,7 @@ protected:
      
 private:
     Ui::MainWindow *ui;
-
-
-
     QTimer *timer;
+    Lobby* loby;
 };
 #endif // MAINWINDOW_H
