@@ -2,10 +2,11 @@
 #define LOBBY_H
 
 #pragma once
-//#include "./game.h"
+#include "./game.h"
 #include <optional>
 #include <vector>
 #include <string>
+#include <QApplication>
 
 
 class Lobby
@@ -14,6 +15,7 @@ private:
 
 const std::string hostname;
 const std::string servname;
+
 
 
    

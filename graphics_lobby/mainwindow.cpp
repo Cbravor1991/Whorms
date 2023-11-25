@@ -47,8 +47,10 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 }
 
 void MainWindow::on_createButton_clicked() {
-      QApplication::exit();
+       QApplication::exit(1);
+    hide();
     loby->start_game();
+ 
 
 }
 
@@ -63,8 +65,7 @@ void MainWindow::on_joinButton_clicked() {
 }
 
 void MainWindow::on_startButton_clicked() {
-    QApplication::exit();
-    loby->start_game();
+    std::cout <<"Presionaste boton de join"<<'\n';
 }
 
 void MainWindow::on_exitButton_clicked() {

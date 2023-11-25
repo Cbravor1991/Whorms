@@ -132,8 +132,43 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/libs/box2d-2.4.0 ${CMAKE_SOURCE_DIR}/build/
 	./graphics_lobby/mainwindow.cpp
 	./graphics_lobby/assets/resources.qrc
     ./client_src/client_lobby.cpp
+
+                ./client_src/client_protocol.cpp 
+                ./client_src/client_receiver.cpp 
+                ./client_src/client_sender.cpp 
+                ./client_src/client.cpp 
+                ./client_src/game.cpp
+                ./client_src/graphics/view.cpp
+                ./client_src/graphics/whorms.cpp
+                ./client_src/graphics/path_loader.cpp
+                ./client_src/graphics/texture_manager.cpp
+                ./common_src/common_liberror.cpp
+                ./common_src/common_resolver.cpp 
+                ./common_src/common_resolvererror.cpp 
+                ./common_src/common_socket.cpp 
+                ./client_src/DTO/common_vigaDTO.cpp
+                ./client_src/DTO/common_jugadorDTO.cpp
+                ./client_src/DTO/common_objetoDTO.cpp
+                ./client_src/DTO/common_escenarioDTO.cpp
+                ./client_src/DTO/common_paqueteDTO.cpp
+                ./client_src/DTO/common_turnoDTO.cpp
+                ./client_src/DTO/common_segundosDTO.cpp
+                ./client_src/DTO/common_armaDTO.cpp
+                ./client_src/worm/worm_walk.cpp
+                ./client_src/worm/worm_idle.cpp
+                ./client_src/worm/weapon/worm_airstrike.cpp
+                ./client_src/worm/weapon/worm_teleport.cpp
+                ./client_src/worm/weapon/worm_banana.cpp
+                ./client_src/worm/weapon/worm_bat.cpp
+                ./client_src/worm/weapon/worm_bazooka.cpp
+                ./client_src/worm/weapon/worm_dynamite.cpp
+                ./client_src/worm/weapon/worm_grenade_cluster.cpp
+                ./client_src/worm/weapon/worm_grenade_holy.cpp
+                ./client_src/worm/weapon/worm_mortar.cpp
+                ./client_src/worm/weapon/worm_grenade.cpp
+                ./client_src/worm/weapon/crosshair.cpp
  
     ${UIS_HEADERS}
 )
 
-target_link_libraries(qt PUBLIC Qt5::Widgets Qt5::Core)
+target_link_libraries(qt PUBLIC Qt5::Widgets Qt5::Core SDL2pp)
