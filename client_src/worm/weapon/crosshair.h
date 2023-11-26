@@ -18,7 +18,7 @@ private:
 public:
     explicit Crosshair();
 
-    void render(SDL2pp::Renderer &renderer, TextureManager &tex_manager, int worm_x, int worm_y, int worm_angle, int flag);
+    void render(SDL2pp::Renderer &renderer, TextureManager &tex_manager, int worm_x, int worm_y, int worm_angle, int flip);
 
     void aumentar_angulo();
     void disminuir_angulo();

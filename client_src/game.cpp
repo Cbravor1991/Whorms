@@ -156,6 +156,66 @@ bool Game::manejarEventos()
                 }
                 break;
             }
+            case(SDLK_SPACE):
+            {
+                auto it = jugadores.find(turno);
+                if (it != jugadores.end())
+                {
+                    //si suelto o llego al maximo, disparo?
+                    it->second.aumentar_potencia();
+                }
+                break;
+            }
+            case(SDLK_1):
+            {
+                auto it = jugadores.find(turno);
+                if (it != jugadores.end())
+                {
+                    // El elemento en la posición indicada por "turno" existe en el mapa
+                    it->second.cambiar_timer_arma(1);
+                }
+                break;
+            }
+            case(SDLK_2):
+            {
+                auto it = jugadores.find(turno);
+                if (it != jugadores.end())
+                {
+                    // El elemento en la posición indicada por "turno" existe en el mapa
+                    it->second.cambiar_timer_arma(2);
+                }
+                break;
+            }
+            case(SDLK_3):
+            {
+                auto it = jugadores.find(turno);
+                if (it != jugadores.end())
+                {
+                    // El elemento en la posición indicada por "turno" existe en el mapa
+                    it->second.cambiar_timer_arma(3);
+                }
+                break;
+            }
+            case(SDLK_4):
+            {
+                auto it = jugadores.find(turno);
+                if (it != jugadores.end())
+                {
+                    // El elemento en la posición indicada por "turno" existe en el mapa
+                    it->second.cambiar_timer_arma(4);
+                }
+                break;
+            }
+            case(SDLK_5):
+            {
+                auto it = jugadores.find(turno);
+                if (it != jugadores.end())
+                {
+                    // El elemento en la posición indicada por "turno" existe en el mapa
+                    it->second.cambiar_timer_arma(5);
+                }
+                break;
+            }
             default:
             {
                 // si llego aca, es una tecla que no uso

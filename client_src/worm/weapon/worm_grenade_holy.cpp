@@ -1,6 +1,6 @@
 #include "worm_grenade_holy.h"
 
-WormHolyGrenade::WormHolyGrenade(int ammo) : municion(ammo) {}
+WormHolyGrenade::WormHolyGrenade(int ammo) : municion(ammo), timer(5) {}
 
 void WormHolyGrenade::render(SDL2pp::Renderer &renderer, TextureManager &tex_manager, int x, int y, int flip, int angulo)
 {
@@ -49,4 +49,19 @@ void WormHolyGrenade::decreaseAngle()
 int WormHolyGrenade::getAmmo()
 {
     return municion;
+}
+
+void WormHolyGrenade::setTimer(int segundos) 
+{
+    timer = segundos;
+}
+
+int WormHolyGrenade::getTimer() 
+{
+    return timer;
+}
+
+void WormHolyGrenade::increasePower() 
+{
+    potencia++;
 }

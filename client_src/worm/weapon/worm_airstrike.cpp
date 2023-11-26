@@ -34,17 +34,20 @@ const int WormAirstike::getWeapon()
     return AIR_STRIKE;
 }
 
-void WormAirstike::increaseAngle()
-{
-    // mira.aumentar_angulo();
-}
+void WormAirstike::increaseAngle() {}
 
-void WormAirstike::decreaseAngle()
-{
-    // mira.disminuir_angulo();
-}
+void WormAirstike::decreaseAngle() {}
 
 int WormAirstike::getAmmo()
 {
     return municion;
 }
+
+void WormAirstike::setTimer(int segundos) {}
+
+int WormAirstike::getTimer() 
+{
+    return 0;
+}
+
+void WormAirstike::increasePower() {}

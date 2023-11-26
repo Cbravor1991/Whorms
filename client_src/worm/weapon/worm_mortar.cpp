@@ -50,3 +50,15 @@ int WormMortar::getAmmo()
 {
     return municion;
 }
+
+void WormMortar::setTimer(int segundos) {}
+
+int WormMortar::getTimer() 
+{
+    return 0;
+}
+
+void WormMortar::increasePower() 
+{
+    potencia++;
+}

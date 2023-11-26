@@ -9,7 +9,8 @@ class WormClusterGrenade : public WormWeapon
 private:
     Crosshair mira;
     int municion;
-
+    int timer;
+    int potencia;
 public:
     explicit WormClusterGrenade(int ammo);
     void render(SDL2pp::Renderer &renderer, TextureManager &tex_manager, int x, int y, int flip, int angulo);
@@ -18,6 +19,9 @@ public:
     void increaseAngle();
     void decreaseAngle();
     int getAmmo();
+    void setTimer(int segundos);
+    int getTimer();
+    void increasePower();
     ~WormClusterGrenade() {}
 };
 

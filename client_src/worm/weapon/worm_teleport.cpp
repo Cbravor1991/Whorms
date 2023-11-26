@@ -41,3 +41,12 @@ int WormTeleport::getAmmo()
 {
     return municion;
 }
+
+void WormTeleport::setTimer(int segundos) {}
+
+int WormTeleport::getTimer() 
+{
+    return 0;
+}
+
+void WormTeleport::increasePower() {}

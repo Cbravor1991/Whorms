@@ -2,7 +2,6 @@
 #define WORM_AIRSTRIKE_H
 
 #include "worm_weapon.h"
-#include "crosshair.h"
 class WormAirstike : public WormWeapon
 {
 private:
@@ -16,6 +15,9 @@ public:
     void increaseAngle();
     void decreaseAngle();
     int getAmmo();
+    void setTimer(int segundos);
+    int getTimer();
+    void increasePower();
     ~WormAirstike() {}
 };
 

@@ -33,6 +33,9 @@ public:
     virtual void decreaseAngle() = 0;
     virtual Action *usar(int x, int y, bool direccion) = 0;
     virtual int getAmmo() = 0;
+    virtual void setTimer(int segundos) = 0;
+    virtual int getTimer() = 0;
+    virtual void increasePower() = 0;
     virtual ~WormWeapon() {}
 };
 

@@ -1,7 +1,7 @@
 #include "worm_banana.h"
 #include "../../actions/shoot.h"
 
-WormBanana::WormBanana(int ammo) : municion(ammo) {}
+WormBanana::WormBanana(int ammo) : municion(ammo), timer(5) {}
 
 void WormBanana::render(SDL2pp::Renderer &renderer, TextureManager &tex_manager, int x, int y, int flip, int angulo)
 {
@@ -33,7 +33,6 @@ Action *WormBanana::usar(int x, int y, bool direccion)
 
 const int WormBanana::getWeapon()
 {
-
     return BANANA;
 }
 
@@ -50,4 +49,19 @@ void WormBanana::decreaseAngle()
 int WormBanana::getAmmo()
 {
     return municion;
+}
+
+void WormBanana::setTimer(int segundos) 
+{
+    timer = segundos;
+}
+
+int WormBanana::getTimer() 
+{
+    return timer;
+}
+
+void WormBanana::increasePower() 
+{
+    potencia++;
 }

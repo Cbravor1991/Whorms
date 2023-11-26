@@ -1,6 +1,6 @@
 #include "worm_grenade.h"
 
-WormGreenGrenade::WormGreenGrenade(int ammo) : municion(INFINITE_AMMO) {}
+WormGreenGrenade::WormGreenGrenade(int ammo) : municion(INFINITE_AMMO), timer(5) {}
 
 void WormGreenGrenade::render(SDL2pp::Renderer &renderer, TextureManager &tex_manager, int x, int y, int flip, int angulo)
 {
@@ -49,4 +49,19 @@ void WormGreenGrenade::decreaseAngle()
 int WormGreenGrenade::getAmmo()
 {
     return municion;
+}
+
+void WormGreenGrenade::setTimer(int segundos) 
+{
+    timer = segundos;
+}
+
+int WormGreenGrenade::getTimer() 
+{
+    return timer;
+}
+
+void WormGreenGrenade::increasePower() 
+{
+    potencia++;
 }

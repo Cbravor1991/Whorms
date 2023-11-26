@@ -78,9 +78,14 @@ public:
     void stop_running();
 
     void aumentar_angulo_arma();
+
     void disminuir_angulo_arma();
 
     int obtenerMunicion();
+
+    void cambiar_timer_arma(int segundos);
+    
+    void aumentar_potencia();
 };
 
 #endif

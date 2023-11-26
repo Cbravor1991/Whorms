@@ -18,6 +18,9 @@ public:
     void increaseAngle() {}
     void decreaseAngle() {}
     int getAmmo() { return 0; }
+    void setTimer(int segundos) {}
+    int getTimer() { return 0; }
+    void increasePower() {}
     ~WormNoWeapon() {}
 };
 

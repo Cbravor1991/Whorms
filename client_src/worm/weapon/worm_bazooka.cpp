@@ -50,3 +50,15 @@ int WormBazooka::getAmmo()
 {
     return municion;
 }
+
+void WormBazooka::setTimer(int segundos) {}
+
+int WormBazooka::getTimer() 
+{
+    return 0;
+}
+
+void WormBazooka::increasePower() 
+{
+    potencia++;
+}

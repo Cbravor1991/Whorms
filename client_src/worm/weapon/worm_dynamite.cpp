@@ -1,6 +1,6 @@
 #include "worm_dynamite.h"
 
-WormDynamite::WormDynamite(int ammo) : municion(ammo) {}
+WormDynamite::WormDynamite(int ammo) : municion(ammo), timer(5) {}
 
 void WormDynamite::render(SDL2pp::Renderer &renderer, TextureManager &tex_manager, int x, int y, int flip, int angulo)
 {
@@ -40,3 +40,15 @@ int WormDynamite::getAmmo()
 {
     return municion;
 }
+
+void WormDynamite::setTimer(int segundos) 
+{
+    timer = segundos;
+}
+
+int WormDynamite::getTimer() 
+{
+    return timer;
+}
+
+void WormDynamite::increasePower() {}

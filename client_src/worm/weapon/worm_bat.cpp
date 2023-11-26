@@ -51,3 +51,12 @@ int WormBat::getAmmo()
 {
     return municion;
 }
+
+void WormBat::setTimer(int segundos) {}
+
+int WormBat::getTimer() 
+{
+    return 0;
+}
+
+void WormBat::increasePower() {}

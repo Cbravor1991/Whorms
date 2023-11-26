@@ -5,7 +5,7 @@
 class WormDynamite : public WormWeapon
 {
     int municion;
-
+    int timer;
 public:
     explicit WormDynamite(int ammo);
     void render(SDL2pp::Renderer &renderer, TextureManager &tex_manager, int x, int y, int flip, int angulo);
@@ -14,6 +14,9 @@ public:
     void increaseAngle();
     void decreaseAngle();
     int getAmmo();
+    void setTimer(int segundos);
+    int getTimer();
+    void increasePower();
     ~WormDynamite() {}
 };
 

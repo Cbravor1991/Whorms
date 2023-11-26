@@ -166,6 +166,7 @@ void JugadorDTO::aumentar_angulo_arma()
 {
     weapon->increaseAngle();
 }
+
 void JugadorDTO::disminuir_angulo_arma()
 {
     weapon->decreaseAngle();
@@ -173,4 +174,14 @@ void JugadorDTO::disminuir_angulo_arma()
 
 int JugadorDTO::obtenerMunicion() {
     return this->weapon->getAmmo();
+}
+
+void JugadorDTO::cambiar_timer_arma(int segundos) 
+{
+    this->weapon->setTimer(segundos);
+}
+
+void JugadorDTO::aumentar_potencia()
+{
+    this->weapon->increasePower();
 }

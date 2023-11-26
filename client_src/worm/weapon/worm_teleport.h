@@ -17,6 +17,9 @@ public:
     void increaseAngle();
     void decreaseAngle();
     int getAmmo();
+    void setTimer(int segundos);
+    int getTimer();
+    void increasePower();
     ~WormTeleport() {}
 };
 
