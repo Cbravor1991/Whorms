@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file>AmazMegaGrungeOne.ttf</file>
         <file>lobby_background.jpg</file>
+        <file>BackgroundPopUp.jpg</file>
     </qresource>
 </RCC>

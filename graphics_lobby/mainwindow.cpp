@@ -9,6 +9,7 @@
 MainWindow::MainWindow(Lobby* lobby, QWidget *parent)
     : QMainWindow(parent), 
      ui(new Ui::MainWindow),
+     create_pop_up (nullptr),
       loby(lobby)
     
  
@@ -47,9 +48,13 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 }
 
 void MainWindow::on_createButton_clicked() {
-       QApplication::exit(1);
+       
     hide();
-    loby->start_game();
+
+    //loby->start_game();
+
+     create_pop_up = new createPopUp(loby, nullptr, nullptr);
+     create_pop_up->show();  
  
 
 }

@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #pragma once
+#include "createpopup.h"
 #include <QMainWindow>
 #include <QTimer>
 #include "../client_src/client_lobby.h"
@@ -39,6 +40,7 @@ protected:
      
 private:
     Ui::MainWindow *ui;
+        createPopUp* create_pop_up;
     QTimer *timer;
     Lobby* loby;
 };
