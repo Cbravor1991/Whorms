@@ -26,9 +26,8 @@ createPopUp::createPopUp(Lobby* lobby, QPushButton* startButton,  QWidget *paren
             ui->labelPlayers->setFont(font);
             ui->playersNumber->setFont(font);
             ui->createButton->setFont(font);
-       
-      
             ui->labelConfirm->setFont(font);
+            ui->accept->setFont(font);
        
         }
     }
@@ -63,6 +62,8 @@ void createPopUp::on_createButton_clicked()
          //lobby->start_game();
 
         ui->labelConfirm->setText(text);
+         ui->accept->setEnabled(true);
+        ui->accept->setStyleSheet("color: rgb(255, 255, 255);");
 
         startButton->setEnabled(true);
         startButton->setStyleSheet("QPushButton {"
@@ -73,7 +74,7 @@ void createPopUp::on_createButton_clicked()
                         "QPushButton:hover {"
                             "color: rgb(176, 10, 10);"
                         "}");
-        hide();
+        //hide();
         
     }
     else{
@@ -82,4 +83,10 @@ void createPopUp::on_createButton_clicked()
     
     }
 }
+
+void createPopUp::on_accept_clicked() {
+    this->close();
+
+}
+
 

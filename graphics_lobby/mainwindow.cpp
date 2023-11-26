@@ -49,9 +49,6 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 
 void MainWindow::on_createButton_clicked() {
        
-   // hide();
-
-    //loby->start_game();
      create_pop_up = new createPopUp(loby, ui->startButton, nullptr);
      create_pop_up->show();  
  
@@ -69,7 +66,9 @@ void MainWindow::on_joinButton_clicked() {
 }
 
 void MainWindow::on_startButton_clicked() {
-    std::cout <<"Presionaste boton de join"<<'\n';
+    hide();
+    this->close();
+    
 }
 
 void MainWindow::on_exitButton_clicked() {

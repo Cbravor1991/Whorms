@@ -17,7 +17,6 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
-#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QVBoxLayout>
 
 QT_BEGIN_NAMESPACE
@@ -35,7 +34,7 @@ public:
     QPushButton *createButton;
     QLabel *labelConfirm;
     QHBoxLayout *horizontalLayout_4;
-    QSpacerItem *horizontalSpacer;
+    QPushButton *accept;
 
     void setupUi(QDialog *createPopUp)
     {
@@ -101,9 +100,20 @@ public:
 
         horizontalLayout_4 = new QHBoxLayout();
         horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
-        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+        accept = new QPushButton(createPopUp);
+        accept->setObjectName(QString::fromUtf8("accept"));
+        accept->setEnabled(false);
+        QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(accept->sizePolicy().hasHeightForWidth());
+        accept->setSizePolicy(sizePolicy);
+        accept->setMinimumSize(QSize(0, 0));
+        accept->setMaximumSize(QSize(200, 30));
+        accept->setLayoutDirection(Qt::LeftToRight);
+        accept->setStyleSheet(QString::fromUtf8("color: rgb(157, 157, 157);"));
 
-        horizontalLayout_4->addItem(horizontalSpacer);
+        horizontalLayout_4->addWidget(accept);
 
 
         verticalLayout->addLayout(horizontalLayout_4);
@@ -116,16 +126,17 @@ public:
 
     void retranslateUi(QDialog *createPopUp)
     {
-        createPopUp->setWindowTitle(QCoreApplication::translate("createPopUp", "Crear Juego", nullptr));
+        createPopUp->setWindowTitle(QCoreApplication::translate("createPopUp", "Dialog", nullptr));
         labelPlayers->setText(QCoreApplication::translate("createPopUp", "Seleccione la cantidad de jugadores:", nullptr));
         playersNumber->setItemText(0, QCoreApplication::translate("createPopUp", "1", nullptr));
         playersNumber->setItemText(1, QCoreApplication::translate("createPopUp", "2", nullptr));
         playersNumber->setItemText(2, QCoreApplication::translate("createPopUp", "3", nullptr));
         playersNumber->setItemText(3, QCoreApplication::translate("createPopUp", "4", nullptr));
 
-        labelName->setText(QCoreApplication::translate("createPopUp", "Nombre de partida", nullptr));
+        labelName->setText(QCoreApplication::translate("createPopUp", "Ingresar nombre de partida", nullptr));
         createButton->setText(QCoreApplication::translate("createPopUp", "Crear", nullptr));
         labelConfirm->setText(QString());
+        accept->setText(QCoreApplication::translate("createPopUp", "ACEPTAR", nullptr));
     } // retranslateUi
 
 };

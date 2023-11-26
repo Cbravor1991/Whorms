@@ -17,10 +17,12 @@ class createPopUp : public QDialog
 public:
     //explicit createPopUp(QWidget *parent = nullptr);
     createPopUp( Lobby* lobby, QPushButton* startButton, QWidget *parent = nullptr);
+  
     ~createPopUp();
 
 private slots:
     void on_createButton_clicked();
+    void on_accept_clicked();
     
 
 private:
