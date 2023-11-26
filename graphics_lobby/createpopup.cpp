@@ -43,14 +43,37 @@ createPopUp::~createPopUp()
 void createPopUp::on_createButton_clicked()
 {
     int8_t game_players = ui->playersNumber->currentText().toInt();
+    std::string nombre_partida =  ui->labelName->text().toStdString();
+    /*creamos la partida a traves del lobby
+   bool partida_creada = lony->crear_partida(nombrePartida, cantidad_jugadores)
+     */
+    bool partida_creada = true;
 
   
-    if (1==1){
-        QString text = QString("Partida creada. El codigo es: 0");
+    if (partida_creada){
+        /*obtener el codigo de la partida creada asi el otro jugador se puede unir
+        int8_t = loby->obtener_codigo_partida_cread;
+        */
+         QString text = QString("Partida %1 creada. El codigo es: %2").arg(nombre_partida.c_str()).arg(0);
+
+
+        std::cout<<"La cantidad de jugadores es: "<< static_cast<int>(game_players)<<'\n';
+        std::cout<<"La cantidad de jugadores es: "<< nombre_partida<<'\n';
+        
+         //lobby->start_game();
+
         ui->labelConfirm->setText(text);
-        std::cout<<"La cantidad de jugadores es: "<< game_players<<'\n';
+
+        startButton->setEnabled(true);
+        startButton->setStyleSheet("QPushButton {"
+                            "border: none;"
+                            "background: none;"
+                            "color: rgb(255, 255, 255);"
+                        "}"
+                        "QPushButton:hover {"
+                            "color: rgb(176, 10, 10);"
+                        "}");
         hide();
-         lobby->start_game();
         
     }
     else{

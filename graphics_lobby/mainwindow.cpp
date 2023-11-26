@@ -49,11 +49,10 @@ void MainWindow::closeEvent(QCloseEvent *e) {
 
 void MainWindow::on_createButton_clicked() {
        
-    hide();
+   // hide();
 
     //loby->start_game();
-
-     create_pop_up = new createPopUp(loby, nullptr, nullptr);
+     create_pop_up = new createPopUp(loby, ui->startButton, nullptr);
      create_pop_up->show();  
  
 
