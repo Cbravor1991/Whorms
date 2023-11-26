@@ -67,22 +67,6 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="selectSoldier">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">color: rgb(157, 157, 157);</string>
-       </property>
-       <property name="text">
-        <string>SELECCIONAR SOLDADO</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-  </layout>
- </widget>
  <resources/>
  <connections/>
 </ui>
