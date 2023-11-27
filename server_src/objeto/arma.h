@@ -7,7 +7,7 @@
 class Arma : public Objeto
 {
 protected:
-    int danio;
+    int damanio;
     int radio = 1;
     bool direccion;
     bool waiting_to_explode;

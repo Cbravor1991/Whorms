@@ -53,10 +53,13 @@ void JoinPopUp::on_createButton_clicked()
         /*obtener el codigo de la partida creada asi el otro jugador se puede unir
         int8_t = loby->obtener_codigo_partida_cread;
         */
+       
          hide();
          QString text = QString("Partida %1 creada. El codigo es: %2").arg(nombre_partida.c_str()).arg(0);
+
+         lobby->enviar_partida(std::stoi(nombre_partida));
         std::cout<<"EL nombre de la partida es: "<< nombre_partida<<'\n';
-        lobby->start_game();
+
       
         
     }

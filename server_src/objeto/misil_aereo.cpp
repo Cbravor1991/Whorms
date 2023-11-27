@@ -18,8 +18,8 @@ MisilAereo::MisilAereo(Mundo *world, float x, float y, int misil)
     fd.restitution = 0.0f;
     body->CreateFixture(&fd);
     body->ApplyLinearImpulse(b2Vec2(0.0, -0.1), body->GetWorldCenter(), true);
-    radio = configuracion.getRadioAtaqueAereo();
-    danio = configuracion.getDanioAtaqueAereo();
+    radio = 20;
+    damanio = 40;
 }
 
 MisilAereo::~MisilAereo() {}

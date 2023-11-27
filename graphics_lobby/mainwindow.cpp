@@ -17,7 +17,6 @@ MainWindow::MainWindow(Lobby* lobby, QWidget *parent)
 {
     ui->setupUi(this);
     int id = QFontDatabase::addApplicationFont(":AmazMegaGrungeOne.ttf");
-   
     if (id != -1) {
         QStringList fontFamilies = QFontDatabase::applicationFontFamilies(id);
 
@@ -35,6 +34,7 @@ MainWindow::MainWindow(Lobby* lobby, QWidget *parent)
     ui->labelMatch->hide();
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(hideTemporaryLabel()));
+  
 }
 
 MainWindow::~MainWindow()
@@ -67,7 +67,7 @@ void MainWindow::on_joinButton_clicked() {
 
 void MainWindow::on_startButton_clicked() {
     hide();
-     loby->start_game();
+    // loby->start_game();
     
 }
 

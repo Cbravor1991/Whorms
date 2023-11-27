@@ -10,8 +10,8 @@ Bate::Bate(bool direccion, int angulo)
     {
         fuerza = -100000;
     }
-    danio = configuracion.getDanioBateBaseball();
-    radio = configuracion.getRadioBateBaseball();
+    damanio = 10;
+    radio = 20;
 }
 
 int Bate::disparar(Mundo *mundo, b2Body *disparador, std::vector<Objeto *> *objetos)
@@ -37,7 +37,7 @@ void Bate::empujar(const b2Vec2 &center)
         {
             b2Vec2 linear_velocity(fuerza * cos(angulo), abs(fuerza) * sin(angulo));
             closest->ApplyLinearImpulse(linear_velocity, closest->GetWorldCenter(), true);
-            closest->vida -= danio;
+            closest->vida -= damanio;
             break;
         }
         inicio += incremento;

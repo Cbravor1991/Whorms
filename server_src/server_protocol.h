@@ -49,6 +49,8 @@ const uint8_t PAQUETE_JUGADORES = 0x03;
 const uint8_t PAQUETE_OBJETOS = 0x07;
 const uint8_t ESCENARIO = 0x04;
 const uint8_t ARMA = 0x05;
+const uint8_t PARTIDAS = 0x10;
+
 
 const int BYTES_CANT_JUGADORES = 2;
 const int RECIBIR_BYTE = 1;
@@ -110,6 +112,22 @@ public:
     bool check_en_conexion();
 
     void desconectar();
-};
+
+    void enviar_partidas (std::vector<int> partidas_ids);
+
+    void enviar_escenarios (std::vector<int> escenarios_ids);
+
+    
+    bool recibir_modo();
+
+    int recibir_escenario();
+
+    int recibir_partida();
+
+
+
+
+   
+     };
 
 #endif

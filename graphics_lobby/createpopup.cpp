@@ -54,7 +54,8 @@ void createPopUp::on_createButton_clicked()
         int8_t = loby->obtener_codigo_partida_cread;
         */
          QString text = QString("Partida %1 creada. El codigo es: %2").arg(nombre_partida.c_str()).arg(0);
-
+         
+        lobby->enviar_escenario(0);
 
         std::cout<<"La cantidad de jugadores es: "<< static_cast<int>(game_players)<<'\n';
         std::cout<<"La cantidad de jugadores es: "<< nombre_partida<<'\n';

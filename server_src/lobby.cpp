@@ -3,15 +3,32 @@
 Lobby::Lobby()
 {
     Partida *partida = new Partida();
-    partidas[1] = partida;
+    partidas[0] = partida;
 }
 
-std::map<int, Partida *> Lobby::obtener_partidas() const
-{
-    return partidas;
+std::vector<int> Lobby::obtener_partidas()
+{  
+    std::vector<int> partidas_ids;
+    for (const auto& par : partidas) {
+        partidas_ids.push_back(par.first);
+    }
+    
+    return partidas_ids;
 }
 
-void Lobby::crear_partida(Jugador *jugador)
+     std::vector<int> Lobby::obtener_escenarios()
+{   
+
+     std::vector<int> partidas_ids;
+     partidas_ids.push_back(1);
+    //  for (const auto& par : partidas) {
+    //      partidas_ids.push_back(par.first);
+    //  }
+    
+    return partidas_ids;
+}
+
+void Lobby::crear_partida(Jugador *jugador, int escenario)
 {
     Partida *partida = new Partida();
     partidas[partida_id] = partida;

@@ -332,3 +332,35 @@ void ProtocoloServer::desconectar()
     socket.shutdown(2);
     socket.close();
 }
+
+ void ProtocoloServer::enviar_partidas (std::vector<int> partidas_ids){
+
+        enviar_int(partidas_ids.size());
+        for (const auto& par : partidas_ids) {
+            enviar_int(par);
+    }
+
+}
+
+
+ void ProtocoloServer::enviar_escenarios (std::vector<int> escenarios_ids){
+        enviar_int(escenarios_ids.size());
+        for (const auto& par : escenarios_ids) {
+            enviar_int(par);
+    }
+
+}
+
+
+    bool ProtocoloServer::recibir_modo(){
+        bool modo = static_cast<bool>(recibir_int());
+        return modo;
+        }
+
+    int ProtocoloServer::recibir_escenario(){
+        return recibir_int();
+    }
+
+    int ProtocoloServer::recibir_partida(){
+            return recibir_int();
+    }

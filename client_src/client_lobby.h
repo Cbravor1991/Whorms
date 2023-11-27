@@ -7,6 +7,7 @@
 #include <vector>
 #include <string>
 #include <QApplication>
+#include "client_protocol.h"
 
 
 class Lobby
@@ -15,6 +16,9 @@ private:
 
 const std::string hostname;
 const std::string servname;
+ProtocoloCliente protocolo;
+std::vector<int> partida;
+std::vector<int> escenarios;
 
 
 
@@ -23,7 +27,9 @@ public:
     
     Lobby(const std::string &hostname, const std::string &servname);
 
-    void start_game();
+    void enviar_partida (int partida);
+
+    void enviar_escenario (int escenario);
 
   
 };

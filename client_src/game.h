@@ -49,7 +49,7 @@ private:
 
 public:
     // reemplazar por socket cuando este lobby
-    explicit Game(const std::string &hostname, const std::string &servname);
+    explicit Game( ProtocoloCliente & protocolo);
 
     void run();
 

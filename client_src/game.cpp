@@ -4,7 +4,7 @@
 
 #define SLEEP_RATE (4.0f / 35.0f) * 50
 
-Game::Game(const std::string &hostname, const std::string &servname) : cliente(hostname, servname) {}
+Game::Game(ProtocoloCliente & protocolo) : cliente(protocolo) {}
 
 void Game::run()
 {

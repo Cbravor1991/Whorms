@@ -19,7 +19,7 @@ void Arma::explotar(const b2Vec2 &center)
             float distance = b2Distance(center, closest->GetPosition());
 
             // Justo en el borde hace la mitad de danio
-            int worm_damage = abs(this->danio * (1 - distance / (2 * this->radio)));
+            int worm_damage = abs(this->damanio * (1 - distance / (2 * this->radio)));
 
             closest->vida -= worm_damage;
         }
@@ -42,7 +42,7 @@ void Arma::contacto()
             contactos += 1;
             if (otherBody->gusano)
             {
-                otherBody->vida -= danio;
+                otherBody->vida -= damanio;
                 is_dead = true;
             }
         }

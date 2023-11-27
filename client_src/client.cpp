@@ -14,10 +14,8 @@
 
 using namespace SDL2pp;
 
-Cliente::Cliente(const std::string &hostname,
-                 const std::string &servname) : hostname(hostname),
-                                                servname(servname),
-                                                protocolo(hostname, servname), queue_sender(100), queue_receiver(100),
+Cliente::Cliente(ProtocoloCliente & protocolo) :
+                                                protocolo(protocolo), queue_sender(100), queue_receiver(100),
                                                 lanzador(protocolo, queue_sender, queue_receiver)
 
 {

@@ -7,12 +7,9 @@
 #include <iostream>
 #include <ostream>
 #include "../data/posicion_lanzable.h"
-#include "../../server_src/configuracion.h"
 #include "mundo.h"
 
 class Mundo;
-
-#define configuracion Configuracion::obtener_configuracion()
 
 class Objeto
 {

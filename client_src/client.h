@@ -15,9 +15,7 @@
 class Cliente
 {
 private:
-    const std::string hostname;
-    const std::string servname;
-    ProtocoloCliente protocolo;
+    ProtocoloCliente& protocolo;
     bool conectado = true;
     uint8_t id;
     Queue<Action*> queue_sender;
@@ -25,7 +23,7 @@ private:
     ClienteLanzador lanzador;
 
 public:
-    Cliente(const std::string &hostname, const std::string &servname);
+    Cliente(ProtocoloCliente&  protocolo);
     ~Cliente();
 
     void cargar_id_jugador(const uint8_t id);
