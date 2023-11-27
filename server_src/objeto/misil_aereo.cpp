@@ -18,15 +18,14 @@ MisilAereo::MisilAereo(Mundo *world, float x, float y, int misil)
     fd.restitution = 0.0f;
     body->CreateFixture(&fd);
     body->ApplyLinearImpulse(b2Vec2(0.0, -0.1), body->GetWorldCenter(), true);
-    radio = 20;
-    damanio = 40;
+    radio = configuracion.getRadioAtaqueAereo() * 10;
+    danio = configuracion.getDanioAtaqueAereo();
 }
 
 MisilAereo::~MisilAereo() {}
 
 PosicionLanzable MisilAereo::conseguir_posicion()
 {
-
     b2Vec2 posicion = body->GetPosition();
     int x = static_cast<int>(posicion.x);
     int y = static_cast<int>(posicion.y);

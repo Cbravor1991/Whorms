@@ -22,11 +22,12 @@ Gusano::Gusano(Mundo *mundo, b2Vec2 spawn, int id_cliente, int id_gusano) : Obje
     body->ApplyLinearImpulse(b2Vec2(0.0, -1.0), body->GetWorldCenter(), true);
     altura = spawn.y;
     body->gusano = true;
+    body->vida = 100;
 }
 
-bool Gusano::usar_arma(Arma *arma, std::vector<Objeto *> *objetos)
+bool Gusano::usar_arma(Arma *arma)
 {
-    return inventario.disparar(mundo, body, arma, objetos);
+    return inventario.disparar(mundo, body, arma);
 }
 
 std::pair<int, int> Gusano::cambiar_arma(int tipo)

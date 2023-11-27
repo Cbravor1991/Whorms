@@ -15,7 +15,7 @@ public:
     AtaqueAereo(int x, int y);
     ~AtaqueAereo();
 
-    int disparar(Mundo *mundo, b2Body *disparador, std::vector<Objeto *> *objetos) override;
+    int disparar(Mundo *mundo, b2Body *disparador) override;
 
     PosicionLanzable conseguir_posicion();
 };

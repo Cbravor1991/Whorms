@@ -14,6 +14,8 @@
 #include "objeto/teletransportacion.h"
 #include "objeto/banana.h"
 #include "objeto/bate.h"
+#include "objeto/mortero.h"
+#include "objeto/bazooka.h"
 
 ProtocoloServer::ProtocoloServer(
     Socket socket) : socket(std::move(socket))
@@ -139,12 +141,14 @@ Accion *ProtocoloServer::leer_uso_arma(int jugador)
     case BAZOOKA:
         angulo = recibir_int();
         direccion = static_cast<bool>(recibir_int());
-        arma = new Banana(direccion, angulo);
+        // arma = new Banana(direccion, angulo);
+        arma = new Bazooka(direccion, angulo);
         break;
     case MORTAR:
         angulo = recibir_int();
         direccion = static_cast<bool>(recibir_int());
         arma = new Banana(direccion, angulo);
+        // arma = new Mortero(direccion, angulo);
         break;
     case GREEN_GRENADE:
         angulo = recibir_int();
@@ -333,34 +337,37 @@ void ProtocoloServer::desconectar()
     socket.close();
 }
 
- void ProtocoloServer::enviar_partidas (std::vector<int> partidas_ids){
+void ProtocoloServer::enviar_partidas(std::vector<int> partidas_ids)
+{
 
-        enviar_int(partidas_ids.size());
-        for (const auto& par : partidas_ids) {
-            enviar_int(par);
+    enviar_int(partidas_ids.size());
+    for (const auto &par : partidas_ids)
+    {
+        enviar_int(par);
     }
-
 }
 
-
- void ProtocoloServer::enviar_escenarios (std::vector<int> escenarios_ids){
-        enviar_int(escenarios_ids.size());
-        for (const auto& par : escenarios_ids) {
-            enviar_int(par);
+void ProtocoloServer::enviar_escenarios(std::vector<int> escenarios_ids)
+{
+    enviar_int(escenarios_ids.size());
+    for (const auto &par : escenarios_ids)
+    {
+        enviar_int(par);
     }
-
 }
 
+bool ProtocoloServer::recibir_modo()
+{
+    bool modo = static_cast<bool>(recibir_int());
+    return modo;
+}
 
-    bool ProtocoloServer::recibir_modo(){
-        bool modo = static_cast<bool>(recibir_int());
-        return modo;
-        }
+int ProtocoloServer::recibir_escenario()
+{
+    return recibir_int();
+}
 
-    int ProtocoloServer::recibir_escenario(){
-        return recibir_int();
-    }
-
-    int ProtocoloServer::recibir_partida(){
-            return recibir_int();
-    }
+int ProtocoloServer::recibir_partida()
+{
+    return recibir_int();
+}

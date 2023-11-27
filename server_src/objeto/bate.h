@@ -12,7 +12,7 @@ private:
 public:
     Bate(bool direccion, int angulo);
     ~Bate();
-    int disparar(Mundo *mundo, b2Body *disparador, std::vector<Objeto *> *objetos) override;
+    int disparar(Mundo *mundo, b2Body *disparador) override;
     PosicionLanzable conseguir_posicion();
 };
 

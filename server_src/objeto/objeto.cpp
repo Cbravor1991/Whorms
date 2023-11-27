@@ -27,7 +27,7 @@ bool Objeto::consultar_movimiento()
 
 bool Objeto::esta_vivo()
 {
-    return !this->is_dead;
+    return !is_dead;
 }
 
 b2Body *Objeto::getCuerpo() { return body; }

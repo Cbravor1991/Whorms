@@ -25,7 +25,7 @@ private:
 
 public:
     int conseguir_id();
-    bool usar_arma(Arma *arma, std::vector<Objeto *> *objetos);
+    bool usar_arma(Arma *arma);
     std::pair<int, int> cambiar_arma(int tipo);
     void cambiar_angulo_viga();
     Gusano(Mundo *mundo, b2Vec2 spawn, int id_cliente, int id_gusano);

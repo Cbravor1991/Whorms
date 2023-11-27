@@ -57,6 +57,9 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/libs/box2d-2.4.0 ${CMAKE_SOURCE_DIR}/build/
                 ./server_src/objeto/misil_aereo.cpp
                 ./server_src/objeto/banana.cpp
                 ./server_src/objeto/bate.cpp
+                ./server_src/objeto/mortero.cpp
+                ./server_src/objeto/fragmento.cpp
+                ./server_src/objeto/bazooka.cpp
                 ./server_src/objeto/RayCastWeaponExploded.cpp
                 ./server_src/turno_gusano.cpp
                 ./common_src/common_liberror.cpp

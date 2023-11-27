@@ -16,7 +16,7 @@ public:
     PosicionLanzable conseguir_posicion();
 
     // Teletransporta al gusano
-    int disparar(Mundo *mundo, b2Body *disparador, std::vector<Objeto *> *objetos) override;
+    int disparar(Mundo *mundo, b2Body *disparador) override;
 };
 
 #endif

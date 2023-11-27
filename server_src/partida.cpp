@@ -3,28 +3,9 @@
 #include <chrono>
 #include <cmath>
 
-Partida::Partida() : en_ejecucion(false), monitor_jugadores(new MonitorJugadores()), cola(new Queue<Accion *>(100)), escenario(200, 200, monitor_jugadores)
+Partida::Partida(Escenario &escenario) : en_ejecucion(false), monitor_jugadores(new MonitorJugadores()), cola(new Queue<Accion *>(100)), escenario(escenario)
 {
-    // escenario.colocar_viga(50, 70, 0, -40);
-    escenario.colocar_viga(70, 100, 1, 11);
-    escenario.colocar_viga(180, 80, 1, 9);
-    escenario.colocar_viga(150, 110, 0, -11);
-    escenario.colocar_viga(370, 40, 0, -9);
-    escenario.colocar_viga(200, 160, 1, 45);
-    escenario.colocar_viga(300, 50, 1, 20);
-    escenario.colocar_viga(250, 80, 1, -45);
-    escenario.colocar_viga(300, 110, 0, 20);
-    escenario.colocar_viga(400, 60, 0, -20);
-    escenario.colocar_viga(0, 80, 1, 0);
-    escenario.colocar_viga(100, 170, 0, -30);
-    escenario.colocar_viga(340, 170, 1, 0);
-    escenario.colocar_viga(500, 60, 0, 23);
-    escenario.colocar_viga(450, 80, 0, 12);
-    escenario.colocar_viga(480, 180, 1, -32);
-    // escenario.colocar_viga(90, 140, 1, 0);
-    // escenario.colocar_viga(340, 140, 1, 0);
-    // escenario.colocar_viga(440, 210, 1, 0);
-    // escenario.colocar_viga(940, 10, 1, 0);
+    this->escenario.iniciar(monitor_jugadores);
 }
 
 void Partida::agregar_jugador(Jugador *jugador)

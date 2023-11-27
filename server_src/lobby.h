@@ -14,7 +14,7 @@ public:
     Lobby();
     ~Lobby();
 
-    std::vector<int>obtener_partidas();
+    std::vector<int> obtener_partidas();
     std::vector<int> obtener_escenarios();
 
     void agregar_jugador(Jugador *jugador, int partida_id);
@@ -24,7 +24,7 @@ public:
 
 private:
     std::map<int, Partida *> partidas;
-    std::map<int, Escenario *> escenarios;
+    std::map<int, Escenario> escenarios;
     int partida_id = 1;
 };
 

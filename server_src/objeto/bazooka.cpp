@@ -1,7 +1,7 @@
-#include "banana.h"
+#include "bazooka.h"
 #include <string>
 
-Banana::Banana(bool direccion, int angulo)
+Bazooka::Bazooka(bool direccion, int angulo)
 {
 
     this->angulo = angulo * (M_PI / 180);
@@ -12,15 +12,16 @@ Banana::Banana(bool direccion, int angulo)
     }
 }
 
-Banana::Banana(Mundo *mundo, b2Body *cuerpo)
+Bazooka::Bazooka(Mundo *mundo, b2Body *cuerpo)
 {
     this->mundo = mundo;
     body = cuerpo;
-    danio = configuracion.getDanioBanana();
+    danio = configuracion.getDanioBazooka();
+    radio = configuracion.getRadioBazooka();
     velocidad_minima = 1.2f;
 }
 
-int Banana::disparar(Mundo *mundo, b2Body *disparador)
+int Bazooka::disparar(Mundo *mundo, b2Body *disparador)
 {
     this->mundo = mundo;
     b2Vec2 posicion = disparador->GetPosition();
@@ -35,30 +36,17 @@ int Banana::disparar(Mundo *mundo, b2Body *disparador)
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &circleShape;
     fixtureDef.density = 0.5f;
-    fixtureDef.restitution = 9;
+    fixtureDef.restitution = 0;
     body->CreateFixture(&fixtureDef);
     b2Vec2 linear_velocity(fuerza * cos(angulo + disparador->angle),
                            abs(fuerza) * sin(angulo + disparador->angle));
     body->ApplyLinearImpulse(linear_velocity, body->GetWorldCenter(), true);
-    Objeto *banana = new Banana(mundo, body);
-    mundo->agregar_objeto(banana);
+    Objeto *bazooka = new Bazooka(mundo, body);
+    mundo->agregar_objeto(bazooka);
     return 0;
 }
 
-PosicionLanzable Banana::conseguir_posicion()
-{
-    contacto();
-    b2Vec2 posicion = body->GetPosition();
-    int x = static_cast<int>(posicion.x);
-    int y = static_cast<int>(posicion.y);
-    if (y < ALTURA_AGUA or !consultar_movimiento() or contactos > 200)
-    {
-        is_dead = true;
-    }
-    return PosicionLanzable(1, x, y, 0, 0, is_dead);
-}
-
-void Banana::contacto()
+void Bazooka::contacto_explosivo()
 {
     b2Contact *contact = mundo->recibir_contactos();
     while (contact != nullptr)
@@ -72,9 +60,10 @@ void Banana::contacto()
         {
             b2Body *otherBody = (fixtureA->GetBody() == body) ? fixtureB->GetBody() : fixtureA->GetBody();
             contactos += 1;
-            if (otherBody->gusano)
+            if (otherBody->gusano or contactos > 5)
             {
-                otherBody->vida -= danio;
+                b2Vec2 center = this->body->GetPosition();
+                explotar(center);
                 is_dead = true;
             }
         }
@@ -82,4 +71,17 @@ void Banana::contacto()
     }
 }
 
-Banana::~Banana() {}
+PosicionLanzable Bazooka::conseguir_posicion()
+{
+    contacto_explosivo();
+    b2Vec2 posicion = body->GetPosition();
+    int x = static_cast<int>(posicion.x);
+    int y = static_cast<int>(posicion.y);
+    if (y < ALTURA_AGUA or !consultar_movimiento())
+    {
+        is_dead = true;
+    }
+    return PosicionLanzable(1, x, y, 0, 0, is_dead);
+}
+
+Bazooka::~Bazooka() {}

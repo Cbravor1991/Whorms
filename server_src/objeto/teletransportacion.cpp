@@ -5,7 +5,7 @@ Teletransportacion::Teletransportacion(int x, int y) : x(x), y(y) {}
 
 Teletransportacion::~Teletransportacion() {}
 
-int Teletransportacion::disparar(Mundo *mundo, b2Body *disparador, std::vector<Objeto *> *objetos)
+int Teletransportacion::disparar(Mundo *mundo, b2Body *disparador)
 {
 
     b2Vec2 pos(x - 25, y + 25);

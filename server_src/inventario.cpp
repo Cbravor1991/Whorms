@@ -8,14 +8,14 @@ Inventario::Inventario() : ammo({0, 12, 100, 100, 100, 100, 100, 100, 100, 100, 
 
 Inventario::~Inventario() {}
 
-bool Inventario::disparar(Mundo *world, b2Body *posicion, Arma *arma, std::vector<Objeto *> *objetos)
+bool Inventario::disparar(Mundo *world, b2Body *posicion, Arma *arma)
 {
 
     if (this->ammo[this->arma_actual] <= 0)
     {
         return false;
     }
-    int ammo_usada = arma->disparar(world, posicion, objetos);
+    int ammo_usada = arma->disparar(world, posicion);
     this->ammo[this->arma_actual] -= ammo_usada;
     arma_actual = 0;
     return true;

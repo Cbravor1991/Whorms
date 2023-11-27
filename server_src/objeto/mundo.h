@@ -7,10 +7,13 @@
 
 const int ALTURA_AGUA = 0;
 
+class Objeto;
+
 class Mundo
 {
 private:
     b2World world;
+    std::vector<Objeto *> objetos;
     // Viento viento;
 
 public:
@@ -27,6 +30,12 @@ public:
 
     // Remueve un objeto del mundo
     void eliminar_objeto(b2Body *body);
+
+    void agregar_objeto(Objeto *objeto);
+
+    std::vector<PosicionLanzable> recibir_posiciones_objetos();
+
+    bool en_movimiento();
 
     b2Contact *recibir_contactos();
 

@@ -18,7 +18,7 @@ public:
     ~Inventario();
 
     // Devuelve si puede disparar el arma, y disminuye la municion
-    bool disparar(Mundo *world, b2Body *posicion, Arma *arma, std::vector<Objeto *> *objetos);
+    bool disparar(Mundo *world, b2Body *posicion, Arma *arma);
 
     // Cambia el arma actual
     int cambiar_arma(int tipo);

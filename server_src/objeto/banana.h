@@ -9,10 +9,12 @@ class Banana : public Arma
 private:
 public:
     Banana(bool direccion, int angulo);
-    Banana(Mundo *mundo, b2Body* cuerpo);
+    Banana(Mundo *mundo, b2Body *cuerpo);
     ~Banana();
 
-    int disparar(Mundo *mundo, b2Body *disparador, std::vector<Objeto *> *objetos) override;
+    int disparar(Mundo *mundo, b2Body *disparador) override;
+
+    void contacto();
 
     PosicionLanzable conseguir_posicion();
 };

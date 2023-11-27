@@ -31,7 +31,9 @@ class MonitorJugadores;
 class Escenario
 {
 public:
-    Escenario(std::uint16_t x_size, std::uint16_t y_size, MonitorJugadores *monitor);
+    Escenario();
+
+    void iniciar(MonitorJugadores *monitor);
 
     int cambiar_turno(int id);
 
@@ -62,7 +64,6 @@ private:
     Mundo *mundo;
     std::vector<PosicionViga> vigas;
     std::map<int, TurnoGusano> gusanos;
-    std::vector<Objeto *> *objetos;
     std::vector<std::pair<int, int>> spawns;
     int cantidad_jugadores = 0;
 

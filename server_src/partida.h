@@ -17,7 +17,7 @@ const int DURACION_TURNO = 30;
 class Partida : public Thread
 {
 public:
-    Partida(); // Constructor
+    Partida(Escenario &escenario); // Constructor
 
     // Función para detener la partida
     void detener_partida();
@@ -33,7 +33,7 @@ private:
     bool en_ejecucion;
     MonitorJugadores *monitor_jugadores;
     Queue<Accion *> *cola;
-    Escenario escenario;
+    Escenario &escenario;
 };
 
 #endif

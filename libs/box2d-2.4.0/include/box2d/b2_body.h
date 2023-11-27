@@ -132,7 +132,7 @@ class b2Body
 {
 public:
     float_t angle = 0.0;
-    int vida = 100;
+    int vida;
     bool daniado = false;
     bool gusano = false;
     /// Creates a fixture and attach it to this body. Use this function if you need

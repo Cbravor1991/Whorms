@@ -3,12 +3,16 @@
 #include "monitor_jugador.h"
 #include "data/posicion_objeto.h"
 
-Escenario::Escenario(std::uint16_t x_size, std::uint16_t y_size, MonitorJugadores *monitor) : x_size(x_size),
-                                                                                              y_size(y_size), monitor(monitor)
+Escenario::Escenario()
 {
     b2Vec2 gravity(0.0f, -10.0f);
     mundo = new Mundo(gravity);
-    objetos = new std::vector<Objeto *>;
+}
+
+void Escenario::iniciar(MonitorJugadores *monitor)
+{
+
+    this->monitor = monitor;
 }
 
 Gusano *Escenario::recibir_gusano(int id)
@@ -48,12 +52,9 @@ bool Escenario::en_movimiento()
             return true;
         }
     }
-    for (auto &objeto : *objetos)
+    if (mundo->en_movimiento())
     {
-        if (objeto->consultar_movimiento())
-        {
-            return true;
-        }
+        return true;
     }
     return false;
 }
@@ -84,22 +85,7 @@ void Escenario::mandar_paquete()
         }
     }
     monitor->mandar_paquete_gusanos(posicion_totales);
-    std::vector<PosicionLanzable> posicion_objetos;
-    for (auto it = objetos->begin(); it != objetos->end();)
-    {
-        PosicionLanzable objeto = (*it)->conseguir_posicion();
-        posicion_objetos.push_back(objeto);
-        if (!(*it)->esta_vivo())
-        {
-            // Si el objeto no está vivo, elimínalo del vector.
-            delete (*it);
-            it = objetos->erase(it);
-        }
-        else
-        {
-            ++it; // Solo incrementa el iterador si no eliminaste el objeto.
-        }
-    }
+    std::vector<PosicionLanzable> posicion_objetos = mundo->recibir_posiciones_objetos();
     monitor->mandar_paquete_objetos(posicion_objetos);
 }
 
@@ -287,7 +273,7 @@ void Escenario::usar_arma(int jugador, Arma *arma)
     Gusano *gusano_a_mover = recibir_gusano(jugador);
     if (gusano_a_mover != nullptr)
     {
-        bool arma_usada = gusano_a_mover->usar_arma(arma, objetos);
+        bool arma_usada = gusano_a_mover->usar_arma(arma);
         bool movimiento = true;
         bool danio = false;
         while (movimiento and arma_usada)
@@ -318,16 +304,5 @@ Escenario::~Escenario()
     // Limpiar el vector de spawns
     gusanos.clear();
     delete mundo;
-
-    // Limpiar el vector de objetos
-    if (objetos != nullptr)
-    {
-        for (Objeto *objeto : *objetos)
-        {
-            delete objeto;
-        }
-        delete objetos;
-    }
-
     spawns.clear();
 }

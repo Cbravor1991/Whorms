@@ -12,6 +12,50 @@ Mundo::Mundo(b2Vec2 gravity) : world(gravity)
 
 Mundo::~Mundo()
 {
+    // Limpiar el vector de objetos
+
+    for (Objeto *objeto : objetos)
+    {
+        delete objeto;
+    }
+}
+
+std::vector<PosicionLanzable> Mundo::recibir_posiciones_objetos()
+{
+    std::vector<PosicionLanzable> posicion_objetos;
+    for (auto it = objetos.begin(); it != objetos.end();)
+    {
+        PosicionLanzable objeto = (*it)->conseguir_posicion();
+        posicion_objetos.push_back(objeto);
+        if (!(*it)->esta_vivo())
+        {
+            // Si el objeto no está vivo, elimínalo del vector.
+            delete (*it);
+            it = objetos.erase(it);
+        }
+        else
+        {
+            ++it; // Solo incrementa el iterador si no eliminaste el objeto.
+        }
+    }
+    return posicion_objetos;
+}
+
+bool Mundo::en_movimiento()
+{
+    for (auto &objeto : objetos)
+    {
+        if (objeto->consultar_movimiento())
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+void Mundo::agregar_objeto(Objeto *objeto)
+{
+    objetos.push_back(objeto);
 }
 
 b2Body *Mundo::getClosestObject(RayCastWeaponExploded *callback,
