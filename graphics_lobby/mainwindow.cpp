@@ -10,6 +10,7 @@ MainWindow::MainWindow(Lobby* lobby, QWidget *parent)
     : QMainWindow(parent), 
      ui(new Ui::MainWindow),
      create_pop_up (nullptr),
+     join_pop_up (nullptr), 
       loby(lobby)
     
  
@@ -57,17 +58,16 @@ void MainWindow::on_createButton_clicked() {
 
 
 void MainWindow::on_joinButton_clicked() {
-    if(ui->startButton->isEnabled()){
-        ui->labelMatch->show();
-        timer->start(2000);
-    } else {
-       std::cout <<"Presionaste boton de join"<<'\n';
-    }   
+    hide();
+    join_pop_up = new JoinPopUp(loby,nullptr, nullptr);
+     join_pop_up->show();  
+ 
+ 
 }
 
 void MainWindow::on_startButton_clicked() {
     hide();
-    this->close();
+     loby->start_game();
     
 }
 
