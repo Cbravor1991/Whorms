@@ -16,7 +16,7 @@ Banana::Banana(Mundo *mundo, b2Body *cuerpo)
 {
     this->mundo = mundo;
     body = cuerpo;
-    damanio = 10;
+    danio = configuracion.getDanioBanana();
     velocidad_minima = 1.2f;
 }
 
