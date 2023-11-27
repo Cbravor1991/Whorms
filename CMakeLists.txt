@@ -11,6 +11,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED YES)
 # Find the QtWidgets library
 find_package(Qt5Widgets CONFIG REQUIRED)
 
+find_package(yaml-cpp REQUIRED)
+
 include_directories(${PROJECT_SOURCE_DIR}/client_src/graphics_lobby)
 qt5_wrap_ui(UIS_HEADERS
             ./graphics_lobby/mainwindow.ui
@@ -61,10 +63,14 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/libs/box2d-2.4.0 ${CMAKE_SOURCE_DIR}/build/
                 ./common_src/common_resolver.cpp 
                 ./common_src/common_resolvererror.cpp 
                 ./common_src/common_socket.cpp 
+                ./server_src/configuracion.cpp
     )
 
     target_include_directories(server PUBLIC ${PROJECT_SOURCE_DIR}/libs/box2d)
     target_link_libraries(server box2d)
+
+    target_include_directories(server PUBLIC ${PROJECT_SOURCE_DIR}/libs/yaml-cpp)
+    target_link_libraries(server yaml-cpp)
 
 	set(SERVER_OUTPUT_DIR ${CMAKE_BINARY_DIR})
 

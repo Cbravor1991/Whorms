@@ -163,7 +163,7 @@ void Gusano::cambiar_angulo_viga()
     }
 }
 
-bool Gusano::daño_recibido()
+bool Gusano::danio_recibido()
 {
     b2Vec2 posicion = body->GetPosition();
     if (posicion.y < ALTURA_AGUA or body->vida <= 0)
@@ -171,9 +171,9 @@ bool Gusano::daño_recibido()
         body->daniado = true;
         is_dead = true;
     }
-    bool daño = body->daniado;
+    bool danio = body->daniado;
     body->daniado = false;
-    return daño;
+    return danio;
 }
 
 int Gusano::conseguir_id()

@@ -1,0 +1,48 @@
+gusano:
+  vida: 100
+  tiempo_turno: 60
+  velocidad: 0.2
+  salto_enter_adelante: 1
+  salto_enter_alto: 0.5
+  salto_return_atras: 0.2
+  salto_return_alto: 1.2
+
+armas:
+  bazooka:
+    daño: 50
+    radio: 2
+  mortero:
+    municiones: 10
+    daño: 50
+    radio: 2
+    daño_fragmento: 50
+    radio_fragmento: 2
+    cant_fragmentos: 6
+  granada_verde:
+    municiones: 5
+    daño: 70
+    radio: 4
+  granada_santa:
+    municiones: 2
+    daño: 110
+    radio: 8
+  dinamita:
+    municiones: 5
+    daño: 50
+    radio: 4
+  bate_baseball:
+    daño: 30
+    radio: 2
+  granada_roja:
+    municiones: 10
+    daño: 30
+    radio: 2
+    daño_fragmento: 10
+    radio_fragmento: 2
+    cant_fragmentos: 6
+  banana:
+    daño: 10
+  ataque_aereo:
+    municiones: 2
+    daño: 40
+    radio: 2

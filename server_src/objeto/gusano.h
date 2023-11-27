@@ -36,7 +36,7 @@ public:
     int getDireccion();
     PosicionJugador conseguir_posicion_gusano();
     PosicionLanzable conseguir_posicion();
-    bool daño_recibido();
+    bool danio_recibido();
     // void interactuar() override;
 };
 

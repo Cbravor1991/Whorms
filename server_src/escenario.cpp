@@ -214,16 +214,16 @@ void Escenario::colocar_viga(int x, int y, bool tipo, int angulo_grados)
 
 void Escenario::movimiento(Gusano *gusano, int jugador)
 {
-    bool daño = false;
+    bool danio = false;
     bool movimiento = true;
     while (movimiento)
     {
         movimiento = en_movimiento();
         mundo->paso(FRAME_RATE, VELOCITY_ITERATION, POSITION_ITERATION);
-        if ((!daño) and gusano->daño_recibido())
+        if ((!danio) and gusano->danio_recibido())
         {
             cambiar_turno(jugador);
-            daño = true;
+            danio = true;
         }
         mandar_paquete();
     }
@@ -289,14 +289,14 @@ void Escenario::usar_arma(int jugador, Arma *arma)
     {
         bool arma_usada = gusano_a_mover->usar_arma(arma, objetos);
         bool movimiento = true;
-        bool daño = false;
+        bool danio = false;
         while (movimiento and arma_usada)
         {
             mundo->paso(FRAME_RATE, VELOCITY_ITERATION, POSITION_ITERATION);
             movimiento = en_movimiento();
-            if (!daño and gusano_a_mover->daño_recibido())
+            if (!danio and gusano_a_mover->danio_recibido())
             {
-                daño = true;
+                danio = true;
             }
             mandar_paquete();
         }
