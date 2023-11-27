@@ -9,28 +9,30 @@
 #include <QApplication>
 #include "client_protocol.h"
 
-
 class Lobby
 {
 private:
+    const std::string hostname;
+    const std::string servname;
+    ProtocoloCliente protocolo;
+    std::vector<int> partida;
+    std::vector<int> escenarios;
 
-const std::string hostname;
-const std::string servname;
-ProtocoloCliente protocolo;
-std::vector<int> partida;
-std::vector<int> escenarios;
-
-
-
-   
 public:
-    
+    bool en_juego = false;
+
     Lobby(const std::string &hostname, const std::string &servname);
 
-    void enviar_partida (int partida);
+    void enviar_partida(int partida);
 
-    void enviar_escenario (int escenario);
+    void enviar_escenario(int escenario);
 
-  
+    void jugar();
+
+    bool modo_partida();
+
+    int cantidad_jugadores();
+
+    void enviar_comienzo_juego();
 };
 #endif

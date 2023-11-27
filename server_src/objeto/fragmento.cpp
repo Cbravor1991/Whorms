@@ -3,7 +3,7 @@
 
 Fragmento::Fragmento(Mundo *world, b2Vec2 center, int danio, int radio, float angulo, int tipo)
 {
-    danio = danio;
+    this->danio = danio;
     this->radio = radio;
     mundo = world;
     b2BodyDef bd;
@@ -38,11 +38,16 @@ void Fragmento::contacto_explosivo()
         // Comprueba si uno de los cuerpos es el cuadrado
         if (fixtureA->GetBody() == body || fixtureB->GetBody() == body)
         {
-            b2Vec2 center = this->body->GetPosition();
-            explotar(center);
-            is_dead = true;
+            b2Body *otherBody = (fixtureA->GetBody() == body) ? fixtureB->GetBody() : fixtureA->GetBody();
+            contactos += 1;
+            if (otherBody->gusano or contactos > 5)
+            {
+                b2Vec2 center = this->body->GetPosition();
+                explotar(center);
+                is_dead = true;
+            }
         }
-        esta_vivo();
+
         contact = contact->GetNext();
     }
 }

@@ -22,16 +22,17 @@ int main(int argc, char *argv[])
 
         /*PARA PROBAR LA APP DE QT DESCOMENTAR ESTAS LINEAS*/
         // QApplication app(argc, argv);
-        //  Lobby lobby(hostname, servname);
-        //  MainWindow w(&lobby);
-        //  w.show();
-        //  app.exec();
+        // Lobby lobby(hostname, servname);
+        // MainWindow w(&lobby);
+        // w.show();
+        // app.exec();
 
         /*PARA PROBAR LA APP DE QT COMENTAR ESTAS DOS LINEAS*/
-         Lobby lobby(hostname, servname);
-         lobby.enviar_partida(0);
+        Lobby lobby(hostname, servname);
+        lobby.enviar_escenario(0);
+        lobby.enviar_comienzo_juego();
+        lobby.jugar();
 
-     
         return 0;
     }
     catch (const std::exception &e)

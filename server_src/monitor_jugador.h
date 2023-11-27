@@ -24,6 +24,10 @@ public:
 
     int cambiar_turno();
 
+    void comenzar_juego(Queue<Accion *> *cola);
+
+    void enviar_cantidad_jugadores();
+
     void enviar_turno(int id_gusano);
 
     void eliminar_turno(int id);
@@ -44,11 +48,13 @@ public:
 
     void actualizar_jugadores_jugador(int id, int x, int y);
 
-    int agregar_jugador(Jugador *jugador);
+    void agregar_jugador(Jugador *jugador);
 
     void limpiar_desconectados();
 
     void avisar_desconexion();
+
+    std::vector<int> obtener_jugadores();
 
     ~MonitorJugadores();
 

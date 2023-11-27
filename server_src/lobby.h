@@ -20,7 +20,9 @@ public:
     void agregar_jugador(Jugador *jugador, int partida_id);
 
     // Crear una nueva partida con un escenario
-    void crear_partida(Jugador *jugador, int escenario);
+    int crear_partida(Jugador *jugador, int escenario);
+
+    void iniciar_partida(int partida);
 
 private:
     std::map<int, Partida *> partidas;

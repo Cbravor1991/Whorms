@@ -16,6 +16,7 @@ Mortero::Mortero(Mundo *mundo, b2Body *cuerpo)
 {
     this->mundo = mundo;
     body = cuerpo;
+    radio = configuracion.getRadioMortero();
     danio = configuracion.getDanioMortero();
     velocidad_minima = 1.2f;
 }
@@ -57,10 +58,15 @@ void Mortero::contacto_explosivo()
         // Comprueba si uno de los cuerpos es el cuadrado
         if (fixtureA->GetBody() == body || fixtureB->GetBody() == body)
         {
-            b2Vec2 center = this->body->GetPosition();
-            explotar(center);
-            is_dead = true;
-            mandar_fragmentos(10, configuracion.getRadioFragmentoMortero() * 10, configuracion.getCantFragmentosMortero(), 1);
+            b2Body *otherBody = (fixtureA->GetBody() == body) ? fixtureB->GetBody() : fixtureA->GetBody();
+            contactos += 1;
+            if (otherBody->gusano or contactos > 5)
+            {
+                b2Vec2 center = this->body->GetPosition();
+                explotar(center);
+                mandar_fragmentos(10, configuracion.getRadioFragmentoMortero() * 10, configuracion.getCantFragmentosMortero(), 1);
+                is_dead = true;
+            }
         }
         contact = contact->GetNext();
     }

@@ -33,7 +33,8 @@ const std::int8_t RECIBIR_TURNO = 0x00;
 const std::int8_t RECIBIR_PAQUETE = 0x03;
 const std::int8_t RECIBIR_ESCENARIO = 0x04;
 const std::int8_t RECIBIR_ARMA = 0x05;
-const std::int8_t RECIBIR_PARTIDA = 0x10;
+const std::int8_t RECIBIR_CANTIDAD_JUGADORES = 0x10;
+const std::int8_t RECIBIR_JUGAR = 0x11;
 const int RECIBO_BYTE = 1;
 const int BYTES_ID = 2;
 const int BYTES_X = 2;
@@ -98,9 +99,9 @@ public:
 
     void desconectar();
 
-    std::vector<int> recibir_partidas ();
+    std::vector<int> recibir_partidas();
 
-    std::vector<int> recibir_escenarios ();
+    std::vector<int> recibir_escenarios();
 
     void enviar_partida(int partida);
 
@@ -108,8 +109,13 @@ public:
 
     void enviar_modo(int modo);
 
+    int recibir_cantidad_jugadores_en_espera();
 
-     ProtocoloCliente(const ProtocoloCliente &) = delete;
+    bool recibir_modo_partida();
+
+    void enviar_comienzo_juego();
+
+    ProtocoloCliente(const ProtocoloCliente &) = delete;
     ProtocoloCliente &operator=(const ProtocoloCliente &) = delete;
 };
 

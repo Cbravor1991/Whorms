@@ -15,6 +15,7 @@ public:
     void eliminar_id(int id);
     void agregar_id(int id);
     int recibir_turno();
+    std::vector<int> obtener_jugadores();
 
 private:
     std::vector<int> jugadores;

@@ -371,3 +371,23 @@ int ProtocoloServer::recibir_partida()
 {
     return recibir_int();
 }
+
+bool ProtocoloServer::recibir_jugar()
+{
+
+    bool modo = static_cast<bool>(recibir_int());
+    return modo;
+}
+
+void ProtocoloServer::enviar_cantidad_jugadores_en_espera(int cantidad_jugadores)
+{
+
+    enviar_byte(CANTIDAD_JUGADORES);
+    enviar_int(cantidad_jugadores);
+}
+
+void ProtocoloServer::enviar_comienzo_juego()
+{
+
+    enviar_byte(COMIENZO_JUEGO);
+}

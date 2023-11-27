@@ -44,12 +44,18 @@ std::vector<int> Lobby::obtener_escenarios()
     return escenarios_ids;
 }
 
-void Lobby::crear_partida(Jugador *jugador, int escenario)
+int Lobby::crear_partida(Jugador *jugador, int escenario)
 {
     Partida *partida = new Partida(escenarios[escenario]);
     partidas[partida_id] = partida;
     partida->agregar_jugador(jugador);
     partida_id++;
+    return partida_id--;
+}
+
+void Lobby::iniciar_partida(int partida)
+{
+    partidas[partida_id]->start();
 }
 
 void Lobby::agregar_jugador(Jugador *jugador, int partida_id)

@@ -10,14 +10,10 @@ Partida::Partida(Escenario &escenario) : en_ejecucion(false), monitor_jugadores(
 
 void Partida::agregar_jugador(Jugador *jugador)
 {
-    int jugador_id = monitor_jugadores->agregar_jugador(jugador);
-    jugador->jugar(cola, jugador_id);
-    escenario.agregar_jugador(jugador_id);
-    if (!en_ejecucion)
-    {
-        en_ejecucion = true;
-        start();
-    }
+
+    monitor_jugadores->agregar_jugador(jugador);
+
+    monitor_jugadores->enviar_cantidad_jugadores();
 }
 
 void Partida::detener_partida()
@@ -27,9 +23,16 @@ void Partida::detener_partida()
 
 void Partida::run()
 {
+
+    monitor_jugadores->comenzar_juego(cola);
+    std::vector<int> jugadores = monitor_jugadores->obtener_jugadores();
+    for (int jugador : jugadores)
+    {
+        escenario.agregar_jugador(jugador);
+    }
     std::chrono::time_point<std::chrono::steady_clock> ultimo_cambio_de_turno = std::chrono::steady_clock::now();
     int ultimo_numero_notificado = 0; // Comenzar en 31 para iniciar con 30 segundos
-
+    en_ejecucion = true;
     while (en_ejecucion)
     {
         auto ahora = std::chrono::steady_clock::now();

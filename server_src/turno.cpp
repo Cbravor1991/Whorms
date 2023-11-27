@@ -3,7 +3,7 @@
 #include <iostream>
 #include <algorithm>
 
-Turno::Turno() : turno_actual(0) {}
+Turno::Turno() : turno_actual(-1) {}
 
 int Turno::cambiar_turno()
 {
@@ -52,4 +52,9 @@ int Turno::recibir_turno()
         return VACIO;
     }
     return jugadores[turno_actual];
+}
+
+std::vector<int> Turno::obtener_jugadores()
+{
+    return jugadores;
 }

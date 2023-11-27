@@ -16,11 +16,16 @@ private:
     ServerLanzador *lanzador;
     ServerRecibidor *recibidor;
     Queue<Data *> *cola;
+    int id;
 
 public:
     Jugador(ProtocoloServer *socket);
 
-    void jugar(Queue<Accion *> *cola, int jugador_id);
+    void asignar_id(int jugador_id);
+
+    void jugar(Queue<Accion *> *cola);
+
+    void enviar_cantidad_jugadores(int cantidad_jugadores);
 
     void recibir_comando(Data *comando);
 

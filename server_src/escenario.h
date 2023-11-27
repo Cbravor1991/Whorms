@@ -58,8 +58,8 @@ public:
     ~Escenario();
 
 private:
-    std::uint16_t x_size;
-    std::uint16_t y_size;
+    std::uint16_t x_size = 200;
+    std::uint16_t y_size = 200;
     MonitorJugadores *monitor;
     Mundo *mundo;
     std::vector<PosicionViga> vigas;

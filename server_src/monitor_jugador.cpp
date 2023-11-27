@@ -6,6 +6,29 @@ int MonitorJugadores::cambiar_turno()
     return id_turno;
 }
 
+std::vector<int> MonitorJugadores::obtener_jugadores()
+{
+    return turno.obtener_jugadores();
+}
+
+void MonitorJugadores::comenzar_juego(Queue<Accion *> *cola)
+{
+    for (const auto &entry : jugadores)
+    {
+        Jugador *jugador = entry.second;
+        jugador->jugar(cola);
+    }
+}
+
+void MonitorJugadores::enviar_cantidad_jugadores()
+{
+    for (const auto &entry : jugadores)
+    {
+        Jugador *jugador = entry.second;
+        jugador->enviar_cantidad_jugadores(cantidad_jugadores);
+    }
+}
+
 void MonitorJugadores::enviar_turno(int id_gusano)
 {
     int id_turno = turno.recibir_turno();
@@ -71,7 +94,7 @@ void MonitorJugadores::actualizar_jugadores_cantidad(int cantidad)
               << ", esperando al resto de tus amigos…" << std::endl;
 }
 
-int MonitorJugadores::agregar_jugador(Jugador *jugador)
+void MonitorJugadores::agregar_jugador(Jugador *jugador)
 {
     actualizar_cantidad_jugadores(1);
     std::unique_lock<std::mutex> lck(mutex_);
@@ -82,10 +105,8 @@ int MonitorJugadores::agregar_jugador(Jugador *jugador)
     }
     jugadores[id] = jugador;
     turno.agregar_id(id);
-
+    jugador->asignar_id(id);
     lck.unlock();
-
-    return id;
 }
 
 void MonitorJugadores::avisar_desconexion()

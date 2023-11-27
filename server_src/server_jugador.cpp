@@ -12,13 +12,24 @@ Jugador::Jugador(ProtocoloServer *socket) : socket(socket), lanzador(nullptr), r
 {
 }
 
-void Jugador::jugar(Queue<Accion *> *cola, int jugador_id)
+void Jugador::asignar_id(int jugador_id)
 {
-    socket->enviar_id(jugador_id);
-    recibidor = new ServerRecibidor(socket, cola, jugador_id);
+    id = jugador_id;
+}
+
+void Jugador::jugar(Queue<Accion *> *cola)
+{
+    socket->enviar_comienzo_juego();
+    socket->enviar_id(id);
+    recibidor = new ServerRecibidor(socket, cola, id);
     recibidor->start();
     lanzador = new ServerLanzador(socket, this->cola);
     lanzador->start();
+}
+
+void Jugador::enviar_cantidad_jugadores(int cantidad_jugadores)
+{
+    socket->enviar_cantidad_jugadores_en_espera(cantidad_jugadores);
 }
 
 void Jugador::recibir_comando(Data *comando)

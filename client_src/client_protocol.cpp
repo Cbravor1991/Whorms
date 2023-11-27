@@ -326,12 +326,12 @@ StateGame *ProtocoloCliente::procesar_mensaje(const int &id_jugador)
     return estado;
 }
 
+std::vector<int> ProtocoloCliente::recibir_partidas()
+{
 
-    std::vector<int> ProtocoloCliente::recibir_partidas (){
+    std::vector<int> partidas;
 
-         std::vector<int> partidas;
-        
-     int cantidad_partidas = recibir_int();
+    int cantidad_partidas = recibir_int();
 
     for (int i = 0; i < cantidad_partidas; i++)
     {
@@ -341,28 +341,55 @@ StateGame *ProtocoloCliente::procesar_mensaje(const int &id_jugador)
     return partidas;
 }
 
-    std::vector<int> ProtocoloCliente::recibir_escenarios (){
-              std::vector<int> partidas;
-        
-         int cantidad_partidas = recibir_int();
+std::vector<int> ProtocoloCliente::recibir_escenarios()
+{
+    std::vector<int> partidas;
 
-     for (int i = 0; i < cantidad_partidas; i++)
+    int cantidad_partidas = recibir_int();
+
+    for (int i = 0; i < cantidad_partidas; i++)
     {
         int partida = recibir_int();
         partidas.push_back(partida);
     }
     return partidas;
+}
 
-    }
+void ProtocoloCliente::enviar_partida(int partida)
+{
+    enviar_int(partida);
+}
 
-    void ProtocoloCliente::enviar_partida(int partida){
-        enviar_int(partida);
-    }
+void ProtocoloCliente::enviar_escenario(int escenario)
+{
+    enviar_int(escenario);
+}
 
-    void ProtocoloCliente::enviar_escenario(int escenario){
-        enviar_int(escenario);
-    }
+void ProtocoloCliente::enviar_modo(int modo)
+{
+    enviar_int(modo);
+}
 
-    void ProtocoloCliente::enviar_modo(int modo){
-        enviar_int(modo);
+int ProtocoloCliente::recibir_cantidad_jugadores_en_espera()
+{
+    return recibir_int();
+}
+
+bool ProtocoloCliente::recibir_modo_partida()
+{
+    uint8_t byte = recibir_byte();
+    if (byte == RECIBIR_CANTIDAD_JUGADORES)
+    {
+        return false;
     }
+    else if (byte == RECIBIR_JUGAR)
+    {
+        return true;
+    }
+    return true;
+}
+
+void ProtocoloCliente::enviar_comienzo_juego()
+{
+    enviar_int(1);
+}
