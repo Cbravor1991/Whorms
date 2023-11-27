@@ -6,6 +6,7 @@
 #include <QMainWindow>
 #include <QTimer>
 #include "../client_src/client_lobby.h"
+#include "joinpopup.h"
 
 
 
@@ -41,6 +42,7 @@ protected:
 private:
     Ui::MainWindow *ui;
         createPopUp* create_pop_up;
+        JoinPopUp * join_pop_up;
     QTimer *timer;
     Lobby* loby;
 };

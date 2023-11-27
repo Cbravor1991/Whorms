@@ -16,7 +16,6 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
-#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QVBoxLayout>
 
 QT_BEGIN_NAMESPACE
@@ -26,12 +25,11 @@ class Ui_JoinPopUp
 public:
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout;
-    QLineEdit *gameCode;
-    QPushButton *joinButton;
-    QLabel *confirmLabel;
-    QHBoxLayout *horizontalLayout_2;
-    QSpacerItem *horizontalSpacer;
-
+    QLineEdit *labelName;
+    QPushButton *createButton;
+    QLabel *labelConfirm;
+    QHBoxLayout *horizontalLayout_4;
+    QPushButton *accept;
 
     void setupUi(QDialog *JoinPopUp)
     {
@@ -43,38 +41,48 @@ public:
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
-        gameCode = new QLineEdit(JoinPopUp);
-        gameCode->setObjectName(QString::fromUtf8("gameCode"));
-        gameCode->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
+        labelName = new QLineEdit(JoinPopUp);
+        labelName->setObjectName(QString::fromUtf8("labelName"));
+        labelName->setEnabled(true);
+        labelName->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
 
-        horizontalLayout->addWidget(gameCode);
+        horizontalLayout->addWidget(labelName);
 
-        joinButton = new QPushButton(JoinPopUp);
-        joinButton->setObjectName(QString::fromUtf8("joinButton"));
-        joinButton->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
+        createButton = new QPushButton(JoinPopUp);
+        createButton->setObjectName(QString::fromUtf8("createButton"));
+        createButton->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
 
-        horizontalLayout->addWidget(joinButton);
+        horizontalLayout->addWidget(createButton);
 
 
         verticalLayout->addLayout(horizontalLayout);
 
-        confirmLabel = new QLabel(JoinPopUp);
-        confirmLabel->setObjectName(QString::fromUtf8("confirmLabel"));
-        confirmLabel->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
+        labelConfirm = new QLabel(JoinPopUp);
+        labelConfirm->setObjectName(QString::fromUtf8("labelConfirm"));
+        labelConfirm->setEnabled(false);
+        labelConfirm->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
 
-        verticalLayout->addWidget(confirmLabel);
+        verticalLayout->addWidget(labelConfirm);
 
-        horizontalLayout_2 = new QHBoxLayout();
-        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
-        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+        horizontalLayout_4 = new QHBoxLayout();
+        horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
+        accept = new QPushButton(JoinPopUp);
+        accept->setObjectName(QString::fromUtf8("accept"));
+        QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(accept->sizePolicy().hasHeightForWidth());
+        accept->setSizePolicy(sizePolicy);
+        accept->setMinimumSize(QSize(0, 0));
+        accept->setMaximumSize(QSize(200, 30));
+        accept->setLayoutDirection(Qt::LeftToRight);
+        accept->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
 
-        horizontalLayout_2->addItem(horizontalSpacer);
-
-      
+        horizontalLayout_4->addWidget(accept);
 
 
+        verticalLayout->addLayout(horizontalLayout_4);
 
-        verticalLayout->addLayout(horizontalLayout_2);
 
 
         retranslateUi(JoinPopUp);
@@ -85,16 +93,16 @@ public:
     void retranslateUi(QDialog *JoinPopUp)
     {
         JoinPopUp->setWindowTitle(QCoreApplication::translate("JoinPopUp", "Dialog", nullptr));
-        gameCode->setText(QCoreApplication::translate("JoinPopUp", "XXXXXX", nullptr));
-        joinButton->setText(QCoreApplication::translate("JoinPopUp", "Unirse", nullptr));
-        confirmLabel->setText(QString());
-      
+        labelName->setText(QCoreApplication::translate("JoinPopUp", "NOMBRE DE PARTIDA", nullptr));
+        createButton->setText(QCoreApplication::translate("JoinPopUp", "UNIRSE", nullptr));
+        labelConfirm->setText(QString());
+          accept->setText(QCoreApplication::translate("JoinPopUp", "SALIR", nullptr));
     } // retranslateUi
 
 };
 
 namespace Ui {
-    class JoinPopUp: public Ui_JoinPopUp {};
+    class JoinPopUp: public Ui_JoinPopUp{};
 } // namespace Ui
 
 QT_END_NAMESPACE

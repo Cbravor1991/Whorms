@@ -20,29 +20,35 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QLineEdit" name="gameCode">
+      <widget class="QLineEdit" name="labelName">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
        <property name="styleSheet">
         <string notr="true">color: rgb(255, 255, 255);</string>
        </property>
        <property name="text">
-        <string>XXXXXX</string>
+        <string>NOMBRE DE PARTIDA</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="joinButton">
+      <widget class="QPushButton" name="createButton">
        <property name="styleSheet">
         <string notr="true">color: rgb(255, 255, 255);</string>
        </property>
        <property name="text">
-        <string>Unirse</string>
+        <string>UNIRSE</string>
        </property>
       </widget>
      </item>
     </layout>
    </item>
    <item>
-    <widget class="QLabel" name="confirmLabel">
+    <widget class="QLabel" name="labelConfirm">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="styleSheet">
       <string notr="true">color: rgb(255, 255, 255);</string>
      </property>
@@ -50,36 +56,6 @@
       <string/>
      </property>
     </widget>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
-     <item>
-      <spacer name="horizontalSpacer">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QPushButton" name="selectGusano">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">color: rgb(157, 157, 157);</string>
-       </property>
-       <property name="text">
-        <string>SELECCIONAR GUSANO</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
    </item>
   </layout>
  </widget>

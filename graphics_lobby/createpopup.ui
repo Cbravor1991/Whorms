@@ -145,7 +145,7 @@
         <string notr="true">color: rgb(157, 157, 157);</string>
        </property>
        <property name="text">
-        <string>SELECCIONAR SOLDADO</string>
+        <string>SELECCIONAR GUSANO</string>
        </property>
       </widget>
      </item>
