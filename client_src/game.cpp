@@ -4,7 +4,7 @@
 
 #define SLEEP_RATE (4.0f / 35.0f) * 50
 
-Game::Game(ProtocoloCliente & protocolo) : cliente(protocolo) {}
+Game::Game(ProtocoloCliente &protocolo) : cliente(protocolo) {}
 
 void Game::run()
 {
@@ -156,17 +156,17 @@ bool Game::manejarEventos()
                 }
                 break;
             }
-            case(SDLK_SPACE):
+            case (SDLK_SPACE):
             {
                 auto it = jugadores.find(turno);
                 if (it != jugadores.end())
                 {
-                    //si suelto o llego al maximo, disparo?
+                    // si suelto o llego al maximo, disparo?
                     it->second.aumentar_potencia();
                 }
                 break;
             }
-            case(SDLK_1):
+            case (SDLK_1):
             {
                 auto it = jugadores.find(turno);
                 if (it != jugadores.end())
@@ -176,7 +176,7 @@ bool Game::manejarEventos()
                 }
                 break;
             }
-            case(SDLK_2):
+            case (SDLK_2):
             {
                 auto it = jugadores.find(turno);
                 if (it != jugadores.end())
@@ -186,7 +186,7 @@ bool Game::manejarEventos()
                 }
                 break;
             }
-            case(SDLK_3):
+            case (SDLK_3):
             {
                 auto it = jugadores.find(turno);
                 if (it != jugadores.end())
@@ -196,7 +196,7 @@ bool Game::manejarEventos()
                 }
                 break;
             }
-            case(SDLK_4):
+            case (SDLK_4):
             {
                 auto it = jugadores.find(turno);
                 if (it != jugadores.end())
@@ -206,7 +206,7 @@ bool Game::manejarEventos()
                 }
                 break;
             }
-            case(SDLK_5):
+            case (SDLK_5):
             {
                 auto it = jugadores.find(turno);
                 if (it != jugadores.end())
@@ -334,11 +334,13 @@ void Game::procesar_paquete(PaqueteDTO *paquete)
 
     // std::set<int> jugadores_en_paquete;
 
-    //itero por los misiles(objetos_paquete) y me fijo si explosion es true.
-    //si lo es, creo un objeto explocion en la posicion del misil
-    //el objeto explocion, luego de renderizarse, se destruye
-    for (auto & proyectil : objetos_paquete) {
-        if(proyectil.exploto()){
+    // itero por los misiles(objetos_paquete) y me fijo si explosion es true.
+    // si lo es, creo un objeto explocion en la posicion del misil
+    // el objeto explocion, luego de renderizarse, se destruye
+    for (auto &proyectil : objetos_paquete)
+    {
+        if (proyectil.exploto())
+        {
             Explotion explotion(proyectil.posicion_x(), proyectil.posicion_y());
             explosiones.push_back(explotion);
             view.reproducir_sonido_explosion();
@@ -406,7 +408,7 @@ void Game::cargar_arma(PaqueteDTO *paquete)
 void Game::renderizar()
 {
     // Centra la vista en la posición actual del gusano
-    //view.centrarEnGusano(gusanoX, gusanoY);
+    // view.centrarEnGusano(gusanoX, gusanoY);
 
     std::string time = "Tiempo restante: " + std::to_string((tiempo_restante_turno)) +
                        " Es mi turno: " + (permiso ? "true" : "false");
@@ -416,7 +418,8 @@ void Game::renderizar()
     view.renderizar_texto(time, 0, 0, color);
     // view.renderizar_gusano(0,0);
 
-    if(turno >= 10) {//si el turno es de una id valida
+    if (jugadores.find(turno) != jugadores.end())
+    {
         view.renderizar_municion(jugadores.at(turno));
     }
 
@@ -438,15 +441,19 @@ void Game::renderizar()
 
     this->renderizar_misiles();
 
-    for (Explotion& explotion : explosiones)
+    for (Explotion &explotion : explosiones)
     { // para mostrar las vigas
         view.renderizar_explocion(explotion);
     }
-    //chequeo si alguna termino y la borro
-    for (auto iter = explosiones.begin(); iter != explosiones.end(); ) {
-        if (iter->finalizo()) {
+    // chequeo si alguna termino y la borro
+    for (auto iter = explosiones.begin(); iter != explosiones.end();)
+    {
+        if (iter->finalizo())
+        {
             iter = explosiones.erase(iter);
-        } else {
+        }
+        else
+        {
             ++iter;
         }
     }

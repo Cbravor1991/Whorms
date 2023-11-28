@@ -17,8 +17,6 @@ Lobby::Lobby()
     escenarios[0].colocar_viga(500, 60, 0, 23);
     escenarios[0].colocar_viga(450, 80, 0, 12);
     escenarios[0].colocar_viga(480, 180, 1, -32);
-    Partida *partida = new Partida(escenarios[0]);
-    partidas[0] = partida;
 }
 
 std::vector<int> Lobby::obtener_partidas()
@@ -49,13 +47,14 @@ int Lobby::crear_partida(Jugador *jugador, int escenario)
     Partida *partida = new Partida(escenarios[escenario]);
     partidas[partida_id] = partida;
     partida->agregar_jugador(jugador);
+    int id = partida_id;
     partida_id++;
-    return partida_id--;
+    return id;
 }
 
 void Lobby::iniciar_partida(int partida)
 {
-    partidas[partida_id]->start();
+    partidas[partida]->start();
 }
 
 void Lobby::agregar_jugador(Jugador *jugador, int partida_id)

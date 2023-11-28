@@ -36,7 +36,7 @@ private:
     bool en_ejecucion;
     MonitorJugadores *monitor_jugadores;
     Queue<Accion *> *cola;
-    Escenario &escenario;
+    Escenario escenario;
 };
 
 #endif
