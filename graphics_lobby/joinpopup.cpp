@@ -11,7 +11,7 @@ JoinPopUp::JoinPopUp(Lobby *lobby, QPushButton *startButton, QWidget *parent) : 
 {
     ui->setupUi(this);
 
-    int id = QFontDatabase::addApplicationFont(":AmazMegaGrungeOne.ttf");
+    int id = QFontDatabase::addApplicationFont(":GROBOLD.ttf");
 
     if (id != -1)
     {

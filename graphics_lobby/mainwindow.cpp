@@ -13,7 +13,7 @@ MainWindow::MainWindow(Lobby *lobby, QWidget *parent)
 
 {
     ui->setupUi(this);
-    int id = QFontDatabase::addApplicationFont(":AmazMegaGrungeOne.ttf");
+    int id = QFontDatabase::addApplicationFont(":GROBOLD.ttf");
     if (id != -1)
     {
         QStringList fontFamilies = QFontDatabase::applicationFontFamilies(id);
