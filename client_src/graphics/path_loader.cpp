@@ -44,7 +44,7 @@ void PathLoader::loadSpritePath() {
     sprite_path.push_back("/Effects/explosion/circle50.png");
     sprite_path.push_back("/Effects/explosion/elipse75.png");
     sprite_path.push_back("/Effects/explosion/expow.png");
-
+    sprite_path.push_back("/sprites/misc/crates/wcrate0.png");
 }
 
 void PathLoader::loadBackgroundPath() {

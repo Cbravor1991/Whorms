@@ -23,6 +23,7 @@
 #include "DTO/common_segundosDTO.h"
 #include "DTO/common_armaDTO.h"
 #include "DTO/common_objetoDTO.h"
+#include "DTO/common_provisionDTO.h"
 
 class Game
 {
@@ -32,6 +33,7 @@ private:
     std::vector<Explotion> explosiones;
     std::vector<ObjetoDTO> objetos;
     std::vector<VigaDTO> vigas;
+    std::vector<ProvisionDTO> provisiones;
     std::map<int, JugadorDTO> jugadores;
     int tiempo_restante_turno = 30;
     int turno = 1; // id del jugador con turno

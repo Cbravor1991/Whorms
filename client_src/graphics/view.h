@@ -11,6 +11,8 @@
 #include "texture_manager.h"
 #include "../DTO/common_objetoDTO.h"
 #include "explotion.h"
+#include "../DTO/common_provisionDTO.h"
+
 
 #include <SDL.h>
 #include <SDL_mixer.h>
@@ -42,6 +44,7 @@ public:
     SDL2pp::Renderer &getRenderer();//
     void renderizar_texto(const std::string texto, int pos_x, int pos_y, SDL_Color color);
     void renderizar_viga(VigaDTO viga); // 140 20 70 20
+    void renderizar_provision(ProvisionDTO provision);
     void centrarEnGusano(int x, int y);
     void renderizar_gusano(JugadorDTO jugador);
     void renderizar_fondo_pantalla();

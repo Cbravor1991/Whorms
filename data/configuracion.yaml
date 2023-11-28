@@ -1,6 +1,6 @@
 gusano:
   vida: 100
-  tiempo_turno: 60
+  tiempo_turno: 30
   velocidad: 0.2
   salto_enter_adelante: 1
   salto_enter_alto: 0.5

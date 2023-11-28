@@ -11,8 +11,11 @@
 #include "accion/accion.h"
 #include "server_jugador.h"
 #include "monitor_jugador.h"
+#include "../../server_src/configuracion.h"
 
-const int DURACION_TURNO = 30;
+#define configuracion Configuracion::obtener_configuracion()
+
+const int DURACION_TURNO = configuracion.getTiempoTurnoGusano();
 
 class Partida : public Thread
 {

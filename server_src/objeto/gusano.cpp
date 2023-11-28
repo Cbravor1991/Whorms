@@ -22,7 +22,7 @@ Gusano::Gusano(Mundo *mundo, b2Vec2 spawn, int id_cliente, int id_gusano) : Obje
     body->ApplyLinearImpulse(b2Vec2(0.0, -1.0), body->GetWorldCenter(), true);
     altura = spawn.y;
     body->gusano = true;
-    body->vida = 100;
+    body->vida = configuracion.getVidaGusano();
 }
 
 bool Gusano::usar_arma(Arma *arma)

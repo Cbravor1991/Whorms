@@ -1,7 +1,7 @@
 
 #include "common_escenarioDTO.h"
 
-EscenarioDTO::EscenarioDTO(int x, int y, std::vector<VigaDTO> vigas) : x(x), y(y), vigas(vigas) { type = TIPO_ESCENARIO; }
+EscenarioDTO::EscenarioDTO(int x, int y, std::vector<VigaDTO> vigas, std::vector<ProvisionDTO> provisiones) : x(x), y(y), vigas(vigas), provisiones(provisiones) { type = TIPO_ESCENARIO; }
 
 void EscenarioDTO::cambiar_render(bool &permiso)
 {
@@ -14,4 +14,9 @@ void EscenarioDTO::cambiar_render(bool &permiso)
 std::vector<VigaDTO> EscenarioDTO::obtener_vigas()
 {
     return vigas;
+}
+
+std::vector<ProvisionDTO> EscenarioDTO::obtener_provisiones()
+{
+    return provisiones;
 }
