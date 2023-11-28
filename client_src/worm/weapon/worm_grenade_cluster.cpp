@@ -1,6 +1,6 @@
 #include "worm_grenade_cluster.h"
 
-WormClusterGrenade::WormClusterGrenade(int ammo) : municion(ammo), timer(5) {}
+WormClusterGrenade::WormClusterGrenade(int ammo) : mira(LONG_SIGHT), municion(ammo), timer(5) {}
 
 void WormClusterGrenade::render(SDL2pp::Renderer &renderer, TextureManager &tex_manager, int x, int y, int flip, int angulo)
 {
@@ -20,6 +20,7 @@ void WormClusterGrenade::render(SDL2pp::Renderer &renderer, TextureManager &tex_
         flip                                // flip
     );
 
+    potencia.render(renderer, tex_manager, x, y, angulo, mira.recibir_angulo(), flip);
     mira.render(renderer, tex_manager, x, y, angulo, flip);
 }
 
@@ -27,6 +28,7 @@ Action *WormClusterGrenade::usar(int x, int y, bool direccion)
 {
     int angulo = mira.recibir_angulo();
     Action *accion = new Shoot(angulo, direccion);
+    potencia.resetearPotencia();
     return accion;
 }
 
@@ -63,5 +65,12 @@ int WormClusterGrenade::getTimer()
 
 void WormClusterGrenade::increasePower() 
 {
-    potencia++;
+    //potencia++;
+    potencia.aumentarPotencia();
 }
+
+bool WormClusterGrenade::isMaxPower() 
+{
+    return (potencia.obtenerPotencia() >= MAXIMA_POTENCIA);
+}
+

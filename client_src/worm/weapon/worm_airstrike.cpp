@@ -51,3 +51,8 @@ int WormAirstike::getTimer()
 }
 
 void WormAirstike::increasePower() {}
+
+bool WormAirstike::isMaxPower() 
+{//como no tiene potencia, nunca llega a MAXIMA_POTENCIA
+    return false;
+}

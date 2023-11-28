@@ -21,6 +21,7 @@ public:
     void setTimer(int segundos) {}
     int getTimer() { return 0; }
     void increasePower() {}
+    bool isMaxPower() {return false;}
     ~WormNoWeapon() {}
 };
 

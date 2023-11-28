@@ -124,6 +124,7 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/libs/box2d-2.4.0 ${CMAKE_SOURCE_DIR}/build/
                 ./client_src/worm/weapon/worm_mortar.cpp
                 ./client_src/worm/weapon/worm_grenade.cpp
                 ./client_src/worm/weapon/crosshair.cpp
+                ./client_src/worm/weapon/powerbar.cpp
                 ./graphics_lobby/mainwindow.cpp
 	            ./graphics_lobby/assets/resources.qrc
                 ./client_src/client_lobby.cpp
@@ -186,6 +187,7 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/libs/box2d-2.4.0 ${CMAKE_SOURCE_DIR}/build/
                 ./client_src/worm/weapon/worm_mortar.cpp
                 ./client_src/worm/weapon/worm_grenade.cpp
                 ./client_src/worm/weapon/crosshair.cpp
+                ./client_src/worm/weapon/powerbar.cpp
                 ./client_src/graphics/explotion.cpp
                 ./graphics_lobby/assets/resources.qrc
                 ./graphics_lobby/createpopup.cpp

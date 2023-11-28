@@ -1,7 +1,7 @@
 #include "crosshair.h"
 #include <cmath>
 
-Crosshair::Crosshair() : radius(30), angle(0), total_frames(31), animation_frame(0)
+Crosshair::Crosshair(int radio) : radius(radio), angle(0), total_frames(31), animation_frame(0)
 {
 
     for (int i = 0; i < (total_frames * 4) + 1; i++)

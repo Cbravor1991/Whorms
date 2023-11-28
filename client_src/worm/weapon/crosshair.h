@@ -3,6 +3,9 @@
 
 #include "../../graphics/texture_manager.h"
 
+#define SHORT_SIGHT 25
+#define LONG_SIGHT 45
+
 class Crosshair
 {
 
@@ -16,7 +19,7 @@ private:
     std::vector<int> animation;
 
 public:
-    explicit Crosshair();
+    explicit Crosshair(int radio);
 
     void render(SDL2pp::Renderer &renderer, TextureManager &tex_manager, int worm_x, int worm_y, int worm_angle, int flip);
 

@@ -86,6 +86,10 @@ public:
     void cambiar_timer_arma(int segundos);
     
     void aumentar_potencia();
+
+    int potencia_arma_es_maxima();
+    
+    int obtener_arma();
 };
 
 #endif

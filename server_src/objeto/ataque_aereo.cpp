@@ -7,7 +7,7 @@ AtaqueAereo::~AtaqueAereo() {}
 
 int AtaqueAereo::disparar(Mundo *mundo, b2Body *disparador)
 {
-    float pos_x = x - 6 * 10 / 2;
+    float pos_x = x - 6 * 25 / 2;
     float pos_y = 250; // altura maxima
     for (int i = 0; i < 6; i++, pos_x += 25)
     {

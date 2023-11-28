@@ -36,6 +36,7 @@ public:
     virtual void setTimer(int segundos) = 0;
     virtual int getTimer() = 0;
     virtual void increasePower() = 0;
+    virtual bool isMaxPower() = 0;
     virtual ~WormWeapon() {}
 };
 

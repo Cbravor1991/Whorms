@@ -1,6 +1,6 @@
 #include "worm_grenade.h"
 
-WormGreenGrenade::WormGreenGrenade(int ammo) : municion(INFINITE_AMMO), timer(5) {}
+WormGreenGrenade::WormGreenGrenade(int ammo) : mira(LONG_SIGHT), municion(INFINITE_AMMO), timer(5) {}
 
 void WormGreenGrenade::render(SDL2pp::Renderer &renderer, TextureManager &tex_manager, int x, int y, int flip, int angulo)
 {
@@ -20,6 +20,7 @@ void WormGreenGrenade::render(SDL2pp::Renderer &renderer, TextureManager &tex_ma
         flip                                // flip
     );
 
+    potencia.render(renderer, tex_manager, x, y, angulo, mira.recibir_angulo(), flip);
     mira.render(renderer, tex_manager, x, y, angulo, flip);
 }
 
@@ -27,6 +28,7 @@ Action *WormGreenGrenade::usar(int x, int y, bool direccion)
 {
     int angulo = mira.recibir_angulo();
     Action *accion = new Shoot(angulo, direccion);
+    potencia.resetearPotencia();
     return accion;
 }
 
@@ -63,5 +65,12 @@ int WormGreenGrenade::getTimer()
 
 void WormGreenGrenade::increasePower() 
 {
-    potencia++;
+    //potencia++;
+    potencia.aumentarPotencia();
 }
+
+bool WormGreenGrenade::isMaxPower() 
+{//como no tiene potencia, nunca llega a MAXIMA_POTENCIA
+    return (potencia.obtenerPotencia() >= MAXIMA_POTENCIA);
+}
+

@@ -29,8 +29,20 @@ void PathLoader::loadSpritePath() {
     sprite_path.push_back("/sprites/worm/walk/wwalk.png");
     sprite_path.push_back("/sprites/vigas/grdl4.png");
     sprite_path.push_back("/sprites/vigas/grds4.png");
+
     sprite_path.push_back("/sprites/Weapon/Icons/airmisil.png");
+
+    sprite_path.push_back("/sprites/Weapon/In-game/airmisil.png");
+    sprite_path.push_back("/sprites/Weapon/In-game/dynamite.png");
+    sprite_path.push_back("/sprites/Weapon/In-game/bzkmisil.png");
+    sprite_path.push_back("/sprites/Weapon/In-game/mortar.png");
+    sprite_path.push_back("/sprites/Weapon/In-game/grenade.png");
+    sprite_path.push_back("/sprites/Weapon/In-game/cgrenade.png");
+    sprite_path.push_back("/sprites/Weapon/In-game/hgrenade.png");
+    sprite_path.push_back("/sprites/Weapon/In-game/banana.png");
+
     sprite_path.push_back("/sprites/Weapon/Icons/banana.1.png");
+    sprite_path.push_back("/sprites/Weapon/Worm/mortar/wbaz2.png");
     sprite_path.push_back("/sprites/Weapon/Worm/airStrike/wairlnk.png");
     sprite_path.push_back("/sprites/Weapon/Worm/teleport/wtellnk.png");
     sprite_path.push_back("/sprites/Weapon/Worm/banana/wbanlnk.png");
@@ -41,6 +53,7 @@ void PathLoader::loadSpritePath() {
     sprite_path.push_back("/sprites/Weapon/Worm/holyGrenade/whgrlnk.png");
     sprite_path.push_back("/sprites/Weapon/Worm/grenade/wgrnlnk.png");
     sprite_path.push_back("/sprites/crshairr.png");
+    sprite_path.push_back("/Effects/potencia/blob.png");
     sprite_path.push_back("/Effects/explosion/circle50.png");
     sprite_path.push_back("/Effects/explosion/elipse75.png");
     sprite_path.push_back("/Effects/explosion/expow.png");

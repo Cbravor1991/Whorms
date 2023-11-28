@@ -33,7 +33,7 @@ void ObjetoDTO::renderizar(SDL2pp::Renderer &renderer, TextureManager &tex_manag
     //mostrar();
 
    
-    std::string path = "/sprites/Weapon/Icons/airmisil.png";
+    std::string path = this->obtener_path();
     std::shared_ptr<SDL2pp::Texture> sprites = tex_manager.getTexture(path);
 
     int src_x = 0, src_y = 0; // by default, standing sprite
@@ -64,4 +64,48 @@ int ObjetoDTO::posicion_y()
 bool ObjetoDTO::exploto() {
 
     return explosion;
+}
+
+std::string ObjetoDTO::obtener_path() {
+
+    std::string path;
+    switch (this->tipo)
+    {    
+        case(AIR_STRIKE): {
+            path = "/sprites/Weapon/In-game/airmisil.png";
+            break;
+        }
+        case(DYNAMITE): {
+            path = "/sprites/Weapon/In-game/dynamite.png";
+            break;
+        }
+        case(BAZOOKA): {
+            path = "/sprites/Weapon/In-game/bzkmisil.png";
+            break;
+        }
+        case(MORTAR): {
+            path = "/sprites/Weapon/In-game/mortar.png";
+            break;
+        }
+        case(GREEN_GRENADE): {
+            path = "/sprites/Weapon/In-game/grenade.png";
+            break;
+        }
+        case(CLUSTER_GRENADE): {
+            path = "/sprites/Weapon/In-game/cgrenade.png";
+            break;
+        }
+        case(HOLY_GRENADE): {
+            path = "/sprites/Weapon/In-game/hgrenade.png";
+            break;
+        }
+        case(BANANA): {
+            path = "/sprites/Weapon/In-game/banana.png";
+            break;
+        }
+        default:
+        std::cout << "Si llega aca es porque es un proyectil no valido o un proyectil no implementado\n";
+        break;
+    }
+    return path;
 }

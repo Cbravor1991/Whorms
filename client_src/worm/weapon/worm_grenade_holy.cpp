@@ -1,6 +1,6 @@
 #include "worm_grenade_holy.h"
 
-WormHolyGrenade::WormHolyGrenade(int ammo) : municion(ammo), timer(5) {}
+WormHolyGrenade::WormHolyGrenade(int ammo) : mira(LONG_SIGHT), municion(ammo), timer(5) {}
 
 void WormHolyGrenade::render(SDL2pp::Renderer &renderer, TextureManager &tex_manager, int x, int y, int flip, int angulo)
 {
@@ -20,6 +20,7 @@ void WormHolyGrenade::render(SDL2pp::Renderer &renderer, TextureManager &tex_man
         flip                                // flip
     );
 
+    potencia.render(renderer, tex_manager, x, y, angulo, mira.recibir_angulo(), flip);
     mira.render(renderer, tex_manager, x, y, angulo, flip);
 }
 
@@ -27,6 +28,7 @@ Action *WormHolyGrenade::usar(int x, int y, bool direccion)
 {
     int angulo = mira.recibir_angulo();
     Action *accion = new Shoot(angulo, direccion);
+    potencia.resetearPotencia();
     return accion;
 }
 
@@ -63,5 +65,12 @@ int WormHolyGrenade::getTimer()
 
 void WormHolyGrenade::increasePower() 
 {
-    potencia++;
+    //potencia++;
+    potencia.aumentarPotencia();
 }
+
+bool WormHolyGrenade::isMaxPower() 
+{//como no tiene potencia, nunca llega a MAXIMA_POTENCIA
+    return (potencia.obtenerPotencia() >= MAXIMA_POTENCIA);
+}
+

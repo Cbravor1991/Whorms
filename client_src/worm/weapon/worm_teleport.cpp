@@ -50,3 +50,9 @@ int WormTeleport::getTimer()
 }
 
 void WormTeleport::increasePower() {}
+
+bool WormTeleport::isMaxPower() 
+{//como no tiene potencia, nunca llega a MAXIMA_POTENCIA
+    return false;
+}
+

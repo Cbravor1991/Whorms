@@ -185,3 +185,13 @@ void JugadorDTO::aumentar_potencia()
 {
     this->weapon->increasePower();
 }
+
+int JugadorDTO::potencia_arma_es_maxima() 
+{
+    return this->weapon->isMaxPower();
+}
+
+int JugadorDTO::obtener_arma() 
+{
+    return this->weapon->getWeapon();
+}

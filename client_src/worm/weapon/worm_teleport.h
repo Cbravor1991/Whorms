@@ -20,6 +20,7 @@ public:
     void setTimer(int segundos);
     int getTimer();
     void increasePower();
+    bool isMaxPower();
     ~WormTeleport() {}
 };
 

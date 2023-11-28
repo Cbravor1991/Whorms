@@ -1,7 +1,7 @@
 #include "worm_bat.h"
 #include "../../actions/shoot.h"
 
-WormBat::WormBat(int ammo) : municion(INFINITE_AMMO) {}
+WormBat::WormBat(int ammo) : mira(SHORT_SIGHT), municion(INFINITE_AMMO) {}
 
 void WormBat::render(SDL2pp::Renderer &renderer, TextureManager &tex_manager, int x, int y, int flip, int angulo)
 {
@@ -60,3 +60,9 @@ int WormBat::getTimer()
 }
 
 void WormBat::increasePower() {}
+
+bool WormBat::isMaxPower() 
+{//como no tiene potencia, nunca llega a MAXIMA_POTENCIA
+    return false;
+}
+

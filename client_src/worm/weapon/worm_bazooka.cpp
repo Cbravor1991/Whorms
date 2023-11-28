@@ -1,6 +1,6 @@
 #include "worm_bazooka.h"
 
-WormBazooka::WormBazooka(int ammo) : municion(INFINITE_AMMO) {}
+WormBazooka::WormBazooka(int ammo) : mira(LONG_SIGHT), municion(INFINITE_AMMO) {}
 
 void WormBazooka::render(SDL2pp::Renderer &renderer, TextureManager &tex_manager, int x, int y, int flip, int angulo)
 {
@@ -20,6 +20,7 @@ void WormBazooka::render(SDL2pp::Renderer &renderer, TextureManager &tex_manager
         flip                                // flip
     );
 
+    potencia.render(renderer, tex_manager, x, y, angulo, mira.recibir_angulo(), flip);
     mira.render(renderer, tex_manager, x, y, angulo, flip);
 }
 
@@ -27,6 +28,7 @@ Action *WormBazooka::usar(int x, int y, bool direccion)
 {
     int angulo = mira.recibir_angulo();
     Action *accion = new Shoot(angulo, direccion);
+    potencia.resetearPotencia();
     return accion;
 }
 
@@ -60,5 +62,12 @@ int WormBazooka::getTimer()
 
 void WormBazooka::increasePower() 
 {
-    potencia++;
+    //potencia++;
+    potencia.aumentarPotencia();
 }
+
+bool WormBazooka::isMaxPower() 
+{//como no tiene potencia, nunca llega a MAXIMA_POTENCIA
+    return (potencia.obtenerPotencia() >= MAXIMA_POTENCIA);
+}
+

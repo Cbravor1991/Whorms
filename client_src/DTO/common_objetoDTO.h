@@ -8,6 +8,7 @@
 #include <iostream>
 #include <SDL2pp/SDL2pp.hh>
 #include "../graphics/texture_manager.h"
+#include "../worm/weapon/worm_weapon.h"
 // #include "../weapons/weapon.h"
 // #include "../weapons/common_ataque_aereo.h"
 
@@ -24,6 +25,7 @@ private:
     int tipo;
     bool explosion;
 
+    std::string obtener_path();
 public:
     ObjetoDTO(int tipo,int x, int y, bool direccion, int angulo,  bool explosion);
 

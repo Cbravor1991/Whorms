@@ -162,7 +162,13 @@ bool Game::manejarEventos()
                 if (it != jugadores.end())
                 {
                     // si suelto o llego al maximo, disparo?
+                    //it->second.aumentar_potencia();
                     it->second.aumentar_potencia();
+                    if(it->second.potencia_arma_es_maxima()) {
+                        accion = it->second.usar_arma(it->second.posicion_x(), it->second.posicion_y());
+                        cliente.mandar_accion(accion);
+                        view.reproducir_efecto_arma(tipo);
+                    }
                 }
                 break;
             }
@@ -238,11 +244,32 @@ bool Game::manejarEventos()
                 std::cout << "Clic en la posición X: " << mouseX << ", Y: " << mouseY << std::endl;
                 auto it = jugadores.find(turno);
                 if (it != jugadores.end())
-                {
+                {   
                     // El elemento en la posición indicada por "turno" existe en el mapa
-                    accion = it->second.usar_arma(mouseX, mouseY);
-                    cliente.mandar_accion(accion);
-                    view.reproducir_efecto_arma(tipo);
+                    int arma = it->second.obtener_arma();
+                    if(arma == AIR_STRIKE or arma == TELEPORT)  {
+                        accion = it->second.usar_arma(mouseX, mouseY);
+                        cliente.mandar_accion(accion);
+                        view.reproducir_efecto_arma(tipo);
+                    }
+                }
+            }
+        }
+        else if (event.type == SDL_KEYUP) //
+        {   //ver si es necesario setear el arma en 0 despues de disparar(por tema de sonido)
+            if(event.key.keysym.sym == SDLK_SPACE) 
+            { 
+                //deje de apretar espacio disparo si no es arma teledirigida
+                auto it = jugadores.find(turno);
+                if (it != jugadores.end())
+                {
+                    int arma = it->second.obtener_arma();
+                    if(arma != AIR_STRIKE and arma != TELEPORT)//si es arma con potencia o cuerpo a cuerpo  
+                    {
+                        accion = it->second.usar_arma(it->second.posicion_x(), it->second.posicion_y());
+                        cliente.mandar_accion(accion);
+                        view.reproducir_efecto_arma(tipo);
+                    }
                 }
             }
         }
