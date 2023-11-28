@@ -106,7 +106,7 @@ void MonitorJugadores::agregar_jugador(Jugador *jugador)
     jugadores[id] = jugador;
     turno.agregar_id(id);
     jugador->asignar_id(id);
-    lck.unlock();
+    lck.unlock(); //Creo que no es necesario hacer el unlock pq el lock es RAII.
 }
 
 void MonitorJugadores::avisar_desconexion()

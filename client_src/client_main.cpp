@@ -28,6 +28,7 @@ int main(int argc, char *argv[])
         // app.exec();
 
         /*PARA PROBAR LA APP DE QT COMENTAR ESTAS DOS LINEAS*/
+        //No está bueno que el main está poblado.
         Lobby lobby(hostname, servname);
         lobby.enviar_escenario(0);
         lobby.enviar_comienzo_juego();

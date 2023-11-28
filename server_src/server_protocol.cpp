@@ -184,8 +184,10 @@ Accion *ProtocoloServer::leer_uso_arma(int jugador)
 
 Accion *ProtocoloServer::leer_accion(int jugador)
 {
+  //Acá están haciendo dos veces los mismos ifs, primero en recibir_tipo_accion
+  //y después a partir del switch de línea 191
     int tipo_accion = recibir_tipo_accion();
-    Accion *accion;
+    Accion *accion; //Punteros inteligentes
     switch (tipo_accion)
     {
     case MOVIMIENTO:
