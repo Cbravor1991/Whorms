@@ -31,7 +31,8 @@ void Game::run()
 
         uint32_t frame_ticks = SDL_GetTicks();
         uint32_t tick_diff = (frame_ticks - ticks) - timeLost;
-
+        //Acá si hacen correctamente lo de dormir una cantidad de tiempo constante,
+        //a diferencia del servidor.
         if (tick_diff <= SLEEP_RATE)
         {
             SDL_Delay(SLEEP_RATE - tick_diff);

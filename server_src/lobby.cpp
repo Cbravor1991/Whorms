@@ -45,6 +45,7 @@ std::vector<int> Lobby::obtener_escenarios()
 int Lobby::crear_partida(Jugador *jugador, int escenario)
 {
     Partida *partida = new Partida(escenarios[escenario]);
+    //Usar punteros inteligentes
     partidas[partida_id] = partida;
     partida->agregar_jugador(jugador);
     int id = partida_id;

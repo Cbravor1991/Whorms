@@ -22,6 +22,8 @@ void ServerLobby::run()
     // se utiliza para saber si el jugador se va a unir o crear una partida
 
     bool modo_lobby = protocolo->recibir_modo();
+    //OJO: la clase lobby puede ser accedida por varios ServerLobby threads al mismo
+    //tiempo, es necesario que lobby tenga un lock (por lo menos) para proteger esos recursos.
     if (modo_lobby)
     {
         int escenario = protocolo->recibir_escenario();

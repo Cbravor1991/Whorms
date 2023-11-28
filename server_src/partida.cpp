@@ -44,11 +44,12 @@ void Partida::run()
             if (accion != nullptr)
             {
                 accion->ejecutar_accion(escenario);
-                delete accion;
+                delete accion; //Punteros inteligentes
             }
         }
 
         if (id_turno != monitor_jugadores->recibir_turno())
+        //Este caso no entiendo cuál es.
         {
             id_turno = monitor_jugadores->recibir_turno();
             ultimo_cambio_de_turno = ahora; // Reiniciar el temporizador
@@ -78,6 +79,18 @@ void Partida::run()
 
         // Sleep de 3 milisegundos para evitar un busy wait
         std::this_thread::sleep_for(std::chrono::milliseconds(3));
+        //Esto no está bien, cada loop puede durar más de 3mili segundos.
+        //Si en el turno no hubo acciones, se duerme el loop dura 3mili segundos.
+        //Si sí hubo acciones, el loop podría durar más de 3milisegundos, lo que
+        //hace q la cantidad de tiempo en cada loop no sea constante.
+        //Para arreglar esto, recordar lo visto en clase respecto a hacer un sleep:
+        //sleep_for(CONSTANTE - tiempo_ejecutando_acciones)), donde tiempo_ejecutando_acciones
+        //es un timer que se activa entre q comienza el loop y se detiene después de
+        //ejecutar todas las acciones. De esta forma el loop dura siempre lo mismo.
+        //Observaciones:
+        // El valor de CONSTANTE vayan probando cuál sirve bien, puede mantenerse en 3ms.
+        // Ojo con que CONSTANTE - tiempo_ejecutando_acciones sea negativo, en tal
+        // caso se lanzaría una excepción. solo se debería dormir si esa resta es mayor a 0.
     }
     delete monitor_jugadores;
 
