@@ -9,6 +9,8 @@ Objeto::~Objeto()
     mundo->eliminar_objeto(body);
 }
 
+void Objeto::explotar_regresiva() {}
+
 bool Objeto::consultar_movimiento()
 {
 

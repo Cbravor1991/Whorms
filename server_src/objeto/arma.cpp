@@ -8,6 +8,12 @@ Arma::~Arma()
 
 int Arma::disparar(Mundo *mundo, b2Body *disparador) { return 0; }
 
+int Arma::cuenta_regresiva() { return tiempo_hasta_explotar; }
+
+void Arma::explotar_regresiva()
+{
+}
+
 void Arma::mandar_fragmentos(int danio, int radio, int cantidad, int tipo)
 {
     for (float grados = 0; grados < 360; grados += (360 / cantidad))

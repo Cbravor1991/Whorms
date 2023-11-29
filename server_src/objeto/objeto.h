@@ -36,6 +36,8 @@ public:
     // Devuelve el cuerpo del objeto
     b2Body *getCuerpo();
 
+    virtual void explotar_regresiva();
+
     // Devuelve true si el objeto esta muerto
     bool esta_vivo();
 };

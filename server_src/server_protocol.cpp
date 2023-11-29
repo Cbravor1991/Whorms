@@ -16,6 +16,10 @@
 #include "objeto/bate.h"
 #include "objeto/mortero.h"
 #include "objeto/bazooka.h"
+#include "objeto/dinamita.h"
+#include "objeto/granada_santa.h"
+#include "objeto/granada_roja.h"
+#include "objeto/granada_verde.h"
 
 ProtocoloServer::ProtocoloServer(
     Socket socket) : socket(std::move(socket))
@@ -136,7 +140,7 @@ Accion *ProtocoloServer::leer_uso_arma(int jugador)
     case DYNAMITE:
         x = recibir_int_grande();
         y = recibir_int_grande();
-        arma = new AtaqueAereo(x, y);
+        arma = new Dinamita(true, 5);
         break;
     case BAZOOKA:
         angulo = recibir_int();
@@ -152,17 +156,17 @@ Accion *ProtocoloServer::leer_uso_arma(int jugador)
     case GREEN_GRENADE:
         angulo = recibir_int();
         direccion = static_cast<bool>(recibir_int());
-        arma = new Banana(direccion, angulo);
+        arma = new GranadaVerde(direccion, angulo, 5);
         break;
     case CLUSTER_GRENADE:
         angulo = recibir_int();
         direccion = static_cast<bool>(recibir_int());
-        arma = new Banana(direccion, angulo);
+        arma = new GranadaRoja(direccion, angulo, 5);
         break;
     case HOLY_GRENADE:
         angulo = recibir_int();
         direccion = static_cast<bool>(recibir_int());
-        arma = new Banana(direccion, angulo);
+        arma = new GranadaSanta(direccion, angulo, 5);
         break;
     case BANANA:
         angulo = recibir_int();

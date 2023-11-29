@@ -7,8 +7,12 @@ private:
 
 public:
     CambioArma(int id, int tipo_arma) : Accion(id), tipo_arma(tipo_arma) {}
-    void ejecutar_accion(Escenario &escenario) override
+    int ejecutar_accion(Escenario &escenario, bool cuenta_regresiva) override
     {
-        escenario.equipar_arma(jugador_id, tipo_arma);
+        if (!cuenta_regresiva)
+        {
+            escenario.equipar_arma(jugador_id, tipo_arma);
+        }
+        return -1;
     }
 };

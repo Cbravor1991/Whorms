@@ -13,11 +13,19 @@ Mundo::Mundo(b2Vec2 gravity) : world(gravity)
 Mundo::~Mundo()
 {
     // Limpiar el vector de objetos
-    std::cout << objetos.size() << std::endl;
+    // std::cout << objetos.size() << std::endl;
     for (Objeto *objeto : objetos)
     {
         delete objeto;
         objeto = nullptr;
+    }
+}
+
+void Mundo::explotar_bombas_regresivas()
+{
+    for (Objeto *objeto : objetos)
+    {
+        objeto->explotar_regresiva();
     }
 }
 

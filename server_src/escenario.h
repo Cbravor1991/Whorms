@@ -73,6 +73,8 @@ public:
 
     void usar_arma(int jugador, Arma *arma);
 
+    void explotar_bombas_regresivas(int jugador);
+
     ~Escenario();
 
 private:

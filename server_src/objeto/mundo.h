@@ -35,6 +35,8 @@ public:
 
     std::vector<PosicionLanzable> recibir_posiciones_objetos();
 
+    void explotar_bombas_regresivas();
+
     bool en_movimiento();
 
     b2Contact *recibir_contactos();

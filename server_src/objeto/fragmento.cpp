@@ -3,6 +3,7 @@
 
 Fragmento::Fragmento(Mundo *world, b2Vec2 center, int danio, int radio, float angulo, int tipo)
 {
+    this->tipo = tipo;
     this->danio = danio;
     this->radio = radio;
     mundo = world;
@@ -62,5 +63,5 @@ PosicionLanzable Fragmento::conseguir_posicion()
     {
         is_dead = true;
     }
-    return PosicionLanzable(MORTAR, x, y, 0, 0, is_dead);
+    return PosicionLanzable(tipo, x, y, 0, 0, is_dead);
 }

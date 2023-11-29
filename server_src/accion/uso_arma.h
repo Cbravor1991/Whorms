@@ -7,9 +7,13 @@ private:
 
 public:
     UsoArma(int id, Arma *arma) : Accion(id), arma(arma) {}
-    void ejecutar_accion(Escenario &escenario) override
+    int ejecutar_accion(Escenario &escenario, bool cuenta_regresiva) override
     {
-
-        escenario.usar_arma(jugador_id, arma);
+        if (!cuenta_regresiva)
+        {
+            escenario.usar_arma(jugador_id, arma);
+            return arma->cuenta_regresiva();
+        }
+        return -1;
     }
 };

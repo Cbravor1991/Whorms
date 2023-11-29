@@ -60,6 +60,10 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/libs/box2d-2.4.0 ${CMAKE_SOURCE_DIR}/build/
                 ./server_src/objeto/mortero.cpp
                 ./server_src/objeto/fragmento.cpp
                 ./server_src/objeto/bazooka.cpp
+                ./server_src/objeto/dinamita.cpp
+                ./server_src/objeto/granada_santa.cpp
+                ./server_src/objeto/granada_verde.cpp
+                ./server_src/objeto/granada_roja.cpp
                 ./server_src/objeto/RayCastWeaponExploded.cpp
                 ./server_src/turno_gusano.cpp
                 ./common_src/common_liberror.cpp

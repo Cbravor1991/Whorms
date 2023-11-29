@@ -1,9 +1,10 @@
-#include "mortero.h"
+#include "granada_santa.h"
 #include <string>
 
-Mortero::Mortero(bool direccion, int angulo)
+GranadaSanta::GranadaSanta(bool direccion, int angulo, int segundos)
 {
-
+    this->angulo = angulo * (M_PI / 180);
+    tiempo_hasta_explotar = segundos;
     this->angulo = angulo * (M_PI / 180);
     fuerza = 10000;
     if (!direccion)
@@ -12,16 +13,18 @@ Mortero::Mortero(bool direccion, int angulo)
     }
 }
 
-Mortero::Mortero(Mundo *mundo, b2Body *cuerpo)
+GranadaSanta::GranadaSanta(Mundo *mundo, b2Body *cuerpo, int segundos)
 {
+    tiempo_hasta_explotar = segundos;
+    esperando_a_explotar = true;
     this->mundo = mundo;
     body = cuerpo;
-    radio = configuracion.getRadioMortero();
-    danio = configuracion.getDanioMortero();
+    danio = configuracion.getDanioGranadaSanta();
+    radio = configuracion.getRadioGranadaSanta();
     velocidad_minima = 1.2f;
 }
 
-int Mortero::disparar(Mundo *mundo, b2Body *disparador)
+int GranadaSanta::disparar(Mundo *mundo, b2Body *disparador)
 {
     this->mundo = mundo;
     b2Vec2 posicion = disparador->GetPosition();
@@ -35,18 +38,38 @@ int Mortero::disparar(Mundo *mundo, b2Body *disparador)
     circleShape.m_radius = 3 / 2;
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &circleShape;
-    fixtureDef.density = 0.5f;
-    fixtureDef.restitution = 0;
+    fixtureDef.density = 0.0f;
+    fixtureDef.friction = 5.0f;
     body->CreateFixture(&fixtureDef);
     b2Vec2 linear_velocity(fuerza * cos(angulo + disparador->angle),
                            abs(fuerza) * sin(angulo + disparador->angle));
     body->ApplyLinearImpulse(linear_velocity, body->GetWorldCenter(), true);
-    Objeto *mortero = new Mortero(mundo, body);
-    mundo->agregar_objeto(mortero);
+    Objeto *granada_santa = new GranadaSanta(mundo, body, tiempo_hasta_explotar);
+    mundo->agregar_objeto(granada_santa);
     return 0;
 }
 
-void Mortero::contacto_explosivo()
+PosicionLanzable GranadaSanta::conseguir_posicion()
+{
+    // contacto();
+    b2Vec2 posicion = body->GetPosition();
+    int x = static_cast<int>(posicion.x);
+    int y = static_cast<int>(posicion.y);
+    if (y < ALTURA_AGUA)
+    {
+        is_dead = true;
+    }
+    return PosicionLanzable(HOLY_GRENADE, x, y, 0, 0, is_dead);
+}
+
+void GranadaSanta::explotar_regresiva()
+{
+    b2Vec2 center = this->body->GetPosition();
+    explotar(center);
+    is_dead = true;
+}
+
+void GranadaSanta::contacto()
 {
     b2Contact *contact = mundo->recibir_contactos();
     while (contact != nullptr)
@@ -59,12 +82,10 @@ void Mortero::contacto_explosivo()
         if (fixtureA->GetBody() == body || fixtureB->GetBody() == body)
         {
             b2Body *otherBody = (fixtureA->GetBody() == body) ? fixtureB->GetBody() : fixtureA->GetBody();
-            contactos += 1;
-            if (otherBody->gusano or contactos > 5)
+            if (otherBody->gusano)
             {
                 b2Vec2 center = this->body->GetPosition();
                 explotar(center);
-                mandar_fragmentos(10, configuracion.getRadioFragmentoMortero(), configuracion.getCantFragmentosMortero(), MORTAR);
                 is_dead = true;
             }
         }
@@ -72,17 +93,4 @@ void Mortero::contacto_explosivo()
     }
 }
 
-PosicionLanzable Mortero::conseguir_posicion()
-{
-    contacto_explosivo();
-    b2Vec2 posicion = body->GetPosition();
-    int x = static_cast<int>(posicion.x);
-    int y = static_cast<int>(posicion.y);
-    if (y < ALTURA_AGUA or !consultar_movimiento())
-    {
-        is_dead = true;
-    }
-    return PosicionLanzable(MORTAR, x, y, 0, 0, is_dead);
-}
-
-Mortero::~Mortero() {}
+GranadaSanta::~GranadaSanta() {}

@@ -12,9 +12,10 @@ protected:
 public:
     Accion(int id) : jugador_id(id) {}
 
-    virtual void ejecutar_accion(Escenario &escenario)
+    virtual int ejecutar_accion(Escenario &escenario, bool cuenta_regresiva)
     {
         escenario.avisar_desconexion(jugador_id);
+        return -1;
     }
 
     virtual ~Accion() {}

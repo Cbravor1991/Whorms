@@ -33,6 +33,9 @@ void Partida::run()
     std::chrono::time_point<std::chrono::steady_clock> ultimo_cambio_de_turno = std::chrono::steady_clock::now();
     int ultimo_numero_notificado = 0; // Comenzar en 31 para iniciar con 30 segundos
     en_ejecucion = true;
+    int segundos_regresivos = -1;
+    int segundo_actual = 30;
+    bool cuenta_regresiva = false;
     while (en_ejecucion)
     {
         auto ahora = std::chrono::steady_clock::now();
@@ -43,9 +46,24 @@ void Partida::run()
         {
             if (accion != nullptr)
             {
-                accion->ejecutar_accion(escenario);
+                int regresivo = accion->ejecutar_accion(escenario, cuenta_regresiva);
+                if (regresivo > 0)
+                {
+                    segundos_regresivos = segundo_actual - regresivo;
+                    cuenta_regresiva = true;
+                    if (segundos_regresivos < 0)
+                    {
+                        segundos_regresivos = 1;
+                    }
+                }
                 delete accion;
             }
+        }
+
+        if (segundos_regresivos == segundo_actual and cuenta_regresiva)
+        {
+            escenario.explotar_bombas_regresivas(id_turno);
+            cuenta_regresiva = false;
         }
 
         if (id_turno != monitor_jugadores->recibir_turno())
@@ -64,10 +82,11 @@ void Partida::run()
             ultimo_numero_notificado = 0;
             segundos_transcurridos = 0; // Reiniciar el último número notificado
             monitor_jugadores->limpiar_desconectados();
+            cuenta_regresiva = false;
         }
 
         // Contar en reversa desde 30 hasta 0
-        int segundo_actual = round(DURACION_TURNO - segundos_transcurridos);
+        segundo_actual = round(DURACION_TURNO - segundos_transcurridos);
 
         // Verificar si es un nuevo número antes de notificar a los jugadores
         if (segundo_actual != ultimo_numero_notificado)
@@ -80,6 +99,5 @@ void Partida::run()
         std::this_thread::sleep_for(std::chrono::milliseconds(3));
     }
     delete monitor_jugadores;
-
     delete cola;
 }

@@ -305,7 +305,7 @@ void Escenario::usar_arma(int jugador, Arma *arma)
             }
             mandar_paquete();
         }
-        if (arma_usada and (recibir_gusano(jugador) != nullptr))
+        if (arma_usada and (recibir_gusano(jugador) != nullptr and arma->cuenta_regresiva() == -1))
         {
             cambiar_turno(jugador);
             mandar_paquete();
@@ -316,6 +316,19 @@ void Escenario::usar_arma(int jugador, Arma *arma)
             delete arma;
         }
     }
+}
+
+void Escenario::explotar_bombas_regresivas(int jugador)
+{
+    mundo->explotar_bombas_regresivas();
+    while (en_movimiento())
+    {
+        mundo->paso(FRAME_RATE, VELOCITY_ITERATION, POSITION_ITERATION);
+        mandar_paquete();
+    }
+    cambiar_turno(jugador);
+    mandar_paquete();
+    mandar_paquete();
 }
 
 Escenario::~Escenario()
