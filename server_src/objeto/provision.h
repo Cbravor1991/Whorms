@@ -15,7 +15,6 @@ class Provision : public Arma
 {
 private:
     int danio = 20;
-    int radio = 20;
     int tipo;
     int x;
     int y;
@@ -28,7 +27,7 @@ public:
     virtual ~Provision();
 
     void recargar(b2Body *disparador);
-    
+
     void intentar_curar();
 
     PosicionLanzable conseguir_posicion();

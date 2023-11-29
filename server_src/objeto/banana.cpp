@@ -55,7 +55,7 @@ PosicionLanzable Banana::conseguir_posicion()
     {
         is_dead = true;
     }
-    return PosicionLanzable(1, x, y, 0, 0, is_dead);
+    return PosicionLanzable(BANANA, x, y, 0, 0, is_dead);
 }
 
 void Banana::contacto()

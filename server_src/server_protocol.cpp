@@ -147,8 +147,7 @@ Accion *ProtocoloServer::leer_uso_arma(int jugador)
     case MORTAR:
         angulo = recibir_int();
         direccion = static_cast<bool>(recibir_int());
-        arma = new Banana(direccion, angulo);
-        // arma = new Mortero(direccion, angulo);
+        arma = new Mortero(direccion, angulo);
         break;
     case GREEN_GRENADE:
         angulo = recibir_int();

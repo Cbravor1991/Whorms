@@ -12,8 +12,11 @@ Escenario::Escenario()
 
 void Escenario::iniciar(MonitorJugadores *monitor)
 {
-
     this->monitor = monitor;
+    for (int i = 0; i < configuracion.getCantidadProvisiones(); i++)
+    {
+        colocar_provision();
+    }
 }
 
 Gusano *Escenario::recibir_gusano(int id)
@@ -199,20 +202,18 @@ void Escenario::colocar_viga(int x, int y, bool tipo, int angulo_grados)
     vigas.push_back(posicion_viga);
 }
 
-void Escenario::colocar_provision() {
+void Escenario::colocar_provision()
+{
     if (vigas.empty())
     {
         return;
     }
 
-    size_t viga_random = rand() % vigas.size();
-    const PosicionViga& viga_aleatoria = vigas[viga_random];
-
-    int x_provision = viga_aleatoria.obtener_x() + rand() % 6;
-    int y_provision = viga_aleatoria.obtener_y() + rand() % 6;
+    int spawnIndex = rand() % spawns.size();
+    b2Vec2 spawn(spawns[spawnIndex].first + 10, spawns[spawnIndex].second);
     int tipo_provision_random = rand() % 3;
 
-    Objeto* provision = new Provision(mundo, tipo_provision_random, x_provision, y_provision);
+    Objeto *provision = new Provision(mundo, tipo_provision_random, spawn.x, spawn.y);
     mundo->agregar_objeto(provision);
 }
 

@@ -81,7 +81,7 @@ PosicionLanzable Bazooka::conseguir_posicion()
     {
         is_dead = true;
     }
-    return PosicionLanzable(1, x, y, 0, 0, is_dead);
+    return PosicionLanzable(BAZOOKA, x, y, 0, 0, is_dead);
 }
 
 Bazooka::~Bazooka() {}

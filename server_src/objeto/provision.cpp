@@ -1,6 +1,7 @@
 #include "provision.h"
 
-Provision::Provision(Mundo *mundo, int tipo, int x, int y) : tipo(tipo), x(x), y(y) {
+Provision::Provision(Mundo *mundo, int tipo, int x, int y) : tipo(tipo), x(x), y(y)
+{
     this->mundo = mundo;
     float_t squareSize = 1.0f;
     b2BodyDef bd;
@@ -21,8 +22,8 @@ Provision::Provision(Mundo *mundo, int tipo, int x, int y) : tipo(tipo), x(x), y
 
 Provision::~Provision() {}
 
-void Provision::recargar(b2Body *disparador) {
-
+void Provision::recargar(b2Body *disparador)
+{
 }
 
 void Provision::intentar_curar()
@@ -48,23 +49,6 @@ void Provision::intentar_curar()
     }
 }
 
-PosicionLanzable Provision::conseguir_posicion()
-{
-    if (tipo == EXPLOTAR) {
-        intentar_explotar();
-    } else if (tipo == CURAR) {
-        intentar_curar();
-    } else if (tipo == RECARGAR) {
-        intentar_curar();
-    }
-
-    b2Vec2 posicion = body->GetPosition();
-    int x = static_cast<int>(posicion.x);
-    int y = static_cast<int>(posicion.y);
-    
-    return PosicionLanzable(11, x, y, 0, 0, is_dead);
-}
-
 void Provision::intentar_explotar()
 {
     b2Contact *contact = mundo->recibir_contactos();
@@ -80,11 +64,33 @@ void Provision::intentar_explotar()
             b2Body *otherBody = (fixtureA->GetBody() == body) ? fixtureB->GetBody() : fixtureA->GetBody();
             if (otherBody->gusano)
             {
-                b2Vec2 center = this->body->GetPosition();
-                explotar(center);
+                otherBody->vida -= danio;
+                otherBody->daniado = true;
                 is_dead = true;
             }
         }
         contact = contact->GetNext();
     }
+}
+
+PosicionLanzable Provision::conseguir_posicion()
+{
+    if (tipo == EXPLOTAR)
+    {
+        intentar_explotar();
+    }
+    else if (tipo == CURAR)
+    {
+        intentar_curar();
+    }
+    else if (tipo == RECARGAR)
+    {
+        intentar_curar();
+    }
+
+    b2Vec2 posicion = body->GetPosition();
+    int x = static_cast<int>(posicion.x);
+    int y = static_cast<int>(posicion.y);
+
+    return PosicionLanzable(11, x, y, 0, 0, is_dead);
 }

@@ -13,25 +13,27 @@ Mundo::Mundo(b2Vec2 gravity) : world(gravity)
 Mundo::~Mundo()
 {
     // Limpiar el vector de objetos
-
+    std::cout << objetos.size() << std::endl;
     for (Objeto *objeto : objetos)
     {
         delete objeto;
+        objeto = nullptr;
     }
 }
 
 std::vector<PosicionLanzable> Mundo::recibir_posiciones_objetos()
 {
     std::vector<PosicionLanzable> posicion_objetos;
-    for (auto it = objetos.begin(); it != objetos.end();)
+    size_t it = 0;
+    while (it < objetos.size())
     {
-        PosicionLanzable objeto = (*it)->conseguir_posicion();
+        PosicionLanzable objeto = objetos[it]->conseguir_posicion();
         posicion_objetos.push_back(objeto);
-        if (!(*it)->esta_vivo())
+        if (!objetos[it]->esta_vivo())
         {
             // Si el objeto no está vivo, elimínalo del vector.
-            delete (*it);
-            it = objetos.erase(it);
+            delete objetos[it];
+            objetos.erase(objetos.begin() + it);
         }
         else
         {

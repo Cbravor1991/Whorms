@@ -82,7 +82,7 @@ PosicionLanzable Mortero::conseguir_posicion()
     {
         is_dead = true;
     }
-    return PosicionLanzable(1, x, y, 0, 0, is_dead);
+    return PosicionLanzable(MORTAR, x, y, 0, 0, is_dead);
 }
 
 Mortero::~Mortero() {}

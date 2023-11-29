@@ -18,7 +18,7 @@ Fragmento::Fragmento(Mundo *world, b2Vec2 center, int danio, int radio, float an
     fd.friction = 1.0f;
     fd.restitution = 0.0f;
     body->CreateFixture(&fd);
-    int fuerza = 100;
+    int fuerza = 1000;
     b2Vec2 linear_velocity(fuerza * cos(angulo),
                            abs(fuerza) * sin(angulo));
     body->ApplyLinearImpulse(linear_velocity, body->GetWorldCenter(), true);
@@ -40,7 +40,7 @@ void Fragmento::contacto_explosivo()
         {
             b2Body *otherBody = (fixtureA->GetBody() == body) ? fixtureB->GetBody() : fixtureA->GetBody();
             contactos += 1;
-            if (otherBody->gusano or contactos > 5)
+            if (otherBody->gusano or contactos > 25)
             {
                 b2Vec2 center = this->body->GetPosition();
                 explotar(center);
@@ -62,5 +62,5 @@ PosicionLanzable Fragmento::conseguir_posicion()
     {
         is_dead = true;
     }
-    return PosicionLanzable(1, x, y, 0, 0, is_dead);
+    return PosicionLanzable(MORTAR, x, y, 0, 0, is_dead);
 }
