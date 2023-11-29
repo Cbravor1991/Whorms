@@ -85,6 +85,12 @@ public:
 
     void enviar_disparo(int angulo, bool direccion);
 
+    void enviar_disparo_timeado(int direccion, int timer);
+
+    void enviar_disparo_potente(int angulo, int direccion, int potencia);
+
+    void enviar_disparo_potente_timeado(int angulo, int direccion, int potencia, int timer);
+
     void enviar_posicion(int x, int y);
 
     void enviar_byte(const uint8_t &dato);

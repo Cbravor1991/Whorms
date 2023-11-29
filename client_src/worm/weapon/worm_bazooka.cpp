@@ -1,4 +1,5 @@
 #include "worm_bazooka.h"
+#include "../../actions/shoot_power.h"
 
 WormBazooka::WormBazooka(int ammo) : mira(LONG_SIGHT), municion(INFINITE_AMMO) {}
 
@@ -27,7 +28,9 @@ void WormBazooka::render(SDL2pp::Renderer &renderer, TextureManager &tex_manager
 Action *WormBazooka::usar(int x, int y, bool direccion)
 {
     int angulo = mira.recibir_angulo();
-    Action *accion = new Shoot(angulo, direccion);
+    int pot = potencia.obtenerPotencia();
+    Action *accion = new PowerShoot(angulo, direccion, pot);
+    //Action *accion = new Shoot(angulo, direccion);
     potencia.resetearPotencia();
     return accion;
 }

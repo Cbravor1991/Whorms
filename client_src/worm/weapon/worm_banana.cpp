@@ -1,5 +1,4 @@
 #include "worm_banana.h"
-#include "../../actions/shoot.h"
 
 WormBanana::WormBanana(int ammo) :mira(LONG_SIGHT), municion(ammo), timer(5) {}
 
@@ -28,7 +27,9 @@ void WormBanana::render(SDL2pp::Renderer &renderer, TextureManager &tex_manager,
 Action *WormBanana::usar(int x, int y, bool direccion)
 {
     int angulo = mira.recibir_angulo();
-    Action *accion = new Shoot(angulo, direccion);
+    int pot = potencia.obtenerPotencia();
+    Action *accion = new TimedPowerShoot(angulo, direccion, pot, timer);
+    //Action *accion = new Shoot(angulo, direccion);
     potencia.resetearPotencia();
     return accion;
 }

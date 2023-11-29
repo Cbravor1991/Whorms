@@ -117,7 +117,7 @@ Accion *ProtocoloServer::leer_arma(int jugador)
 
 Accion *ProtocoloServer::leer_uso_arma(int jugador)
 {
-    int x, y, angulo;
+    int x, y, angulo, timer, potencia;
     bool direccion;
     Arma *arma = nullptr;
     switch (tipo_arma)
@@ -138,39 +138,51 @@ Accion *ProtocoloServer::leer_uso_arma(int jugador)
         arma = new Bate(direccion, angulo);
         break;
     case DYNAMITE:
-        x = recibir_int_grande();
-        y = recibir_int_grande();
-        arma = new Dinamita(true, 5);
+        //x = recibir_int_grande();
+        //y = recibir_int_grande();
+        direccion = static_cast<bool>(recibir_int());
+        timer = recibir_int();//
+        arma = new Dinamita(true, timer);
         break;
     case BAZOOKA:
         angulo = recibir_int();
         direccion = static_cast<bool>(recibir_int());
+        potencia = recibir_int();
         // arma = new Banana(direccion, angulo);
         arma = new Bazooka(direccion, angulo);
         break;
     case MORTAR:
         angulo = recibir_int();
         direccion = static_cast<bool>(recibir_int());
+        potencia = recibir_int();
         arma = new Mortero(direccion, angulo);
         break;
     case GREEN_GRENADE:
         angulo = recibir_int();
         direccion = static_cast<bool>(recibir_int());
-        arma = new GranadaVerde(direccion, angulo, 5);
+        potencia = recibir_int();
+        timer = recibir_int();
+        arma = new GranadaVerde(direccion, angulo, timer);
         break;
     case CLUSTER_GRENADE:
         angulo = recibir_int();
         direccion = static_cast<bool>(recibir_int());
-        arma = new GranadaRoja(direccion, angulo, 5);
+        potencia = recibir_int();
+        timer = recibir_int();
+        arma = new GranadaRoja(direccion, angulo, timer);
         break;
     case HOLY_GRENADE:
         angulo = recibir_int();
         direccion = static_cast<bool>(recibir_int());
-        arma = new GranadaSanta(direccion, angulo, 5);
+        potencia = recibir_int();
+        timer = recibir_int();
+        arma = new GranadaSanta(direccion, angulo, timer);
         break;
     case BANANA:
         angulo = recibir_int();
         direccion = static_cast<bool>(recibir_int());
+        potencia = recibir_int();
+        timer = recibir_int();
         arma = new Banana(direccion, angulo);
         break;
     default:
@@ -179,6 +191,7 @@ Accion *ProtocoloServer::leer_uso_arma(int jugador)
         arma = new Teletransportacion(x, y);
         break;
     }
+    std::cout << "Potencia: " << potencia << "\n"; 
     Accion *accion;
     accion = new UsoArma(jugador, arma);
     tipo_arma = 0;

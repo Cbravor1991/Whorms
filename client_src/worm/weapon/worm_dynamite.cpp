@@ -1,5 +1,4 @@
 #include "worm_dynamite.h"
-
 WormDynamite::WormDynamite(int ammo) : municion(ammo), timer(5) {}
 
 void WormDynamite::render(SDL2pp::Renderer &renderer, TextureManager &tex_manager, int x, int y, int flip, int angulo)
@@ -21,8 +20,9 @@ void WormDynamite::render(SDL2pp::Renderer &renderer, TextureManager &tex_manage
 }
 
 Action *WormDynamite::usar(int x, int y, bool direccion)
-{
-    Action *accion = new Position(x, y);
+{//aca hace falta cambiarlo? -> hay que enviar timer, pero no el angulo
+    Action *accion = new TimedShoot(direccion, timer);
+    //Action *accion = new Position(x, y);//hace falta la posicion? deberia ser como el bate, pero con timer y sin angulo
     return accion;
 }
 

@@ -27,7 +27,9 @@ void WormClusterGrenade::render(SDL2pp::Renderer &renderer, TextureManager &tex_
 Action *WormClusterGrenade::usar(int x, int y, bool direccion)
 {
     int angulo = mira.recibir_angulo();
-    Action *accion = new Shoot(angulo, direccion);
+    int pot = potencia.obtenerPotencia();
+    Action *accion = new TimedPowerShoot(angulo, direccion, pot, timer);
+    //Action *accion = new Shoot(angulo, direccion);
     potencia.resetearPotencia();
     return accion;
 }

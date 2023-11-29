@@ -3,8 +3,11 @@
 
 #include "../../graphics/texture_manager.h"
 #include "../../actions/action.h"
-#include "../../actions/shoot.h"
+#include "../../actions/shoot.h"//para el bate
 #include "../../actions/position.h"
+#include "../../actions/shoot_power_timer.h"
+#include "../../actions/shoot_power.h"
+#include "../../actions/shoot_timer.h"
 
 const int NO_WEAPON = 0;
 const int AIR_STRIKE = 1;

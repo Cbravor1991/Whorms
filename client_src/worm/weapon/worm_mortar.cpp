@@ -27,7 +27,9 @@ void WormMortar::render(SDL2pp::Renderer &renderer, TextureManager &tex_manager,
 Action *WormMortar::usar(int x, int y, bool direccion)
 {
     int angulo = mira.recibir_angulo();
-    Action *accion = new Shoot(angulo, direccion);
+    int pot = potencia.obtenerPotencia();
+    Action *accion = new PowerShoot(angulo, direccion, pot);
+    //Action *accion = new Shoot(angulo, direccion);
     potencia.resetearPotencia();
     return accion;
 }
