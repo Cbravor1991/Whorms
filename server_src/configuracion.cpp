@@ -42,7 +42,9 @@ Configuracion::Configuracion(const YAML::Node& node) :
     danio_banana(node["armas"]["banana"]["daño"].as<int>()),
     municiones_ataque_aereo(node["armas"]["ataque_aereo"]["municiones"].as<int>()),
     danio_ataque_aereo(node["armas"]["ataque_aereo"]["daño"].as<int>()),
-    radio_ataque_aereo(node["armas"]["ataque_aereo"]["radio"].as<int>()) {}
+    radio_ataque_aereo(node["armas"]["ataque_aereo"]["radio"].as<int>()),
+    cantidad_provisiones(node["provisiones"]["cantidad_provisiones"].as<int>()),
+    vida_extra_provisiones(node["provisiones"]["vida"].as<int>()) {}
 
 int Configuracion::getVidaGusano() const {
     return vida_gusano;
@@ -183,5 +185,14 @@ int Configuracion::getDanioAtaqueAereo() const {
 int Configuracion::getRadioAtaqueAereo() const {
     return radio_ataque_aereo;
 }
+
+int Configuracion::getCantidadProvisiones() const {
+    return cantidad_provisiones;
+}
+
+int Configuracion::getVidaExtraProvisiones() const {
+    return vida_extra_provisiones;
+}
+
 
 Configuracion::~Configuracion() {}

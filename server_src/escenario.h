@@ -6,12 +6,15 @@
 #include "objeto/gusano.h"
 #include "objeto/mundo.h"
 #include "objeto/arma.h"
+#include "objeto/provision.h"
 #include "data/posicion_viga.h"
 #include "data/posicion_lanzable.h"
 #include "data/posicion_jugador.h"
 #include "turno_gusano.h"
 #include <map>
 #include <cmath>
+#include <random>
+#include <cstdlib>
 
 const float_t FRAME_RATE = 4.0f / 35.0f;
 const int VELOCITY_ITERATION = 6;
@@ -53,6 +56,8 @@ public:
     void agregar_jugador(int jugador_id);
 
     void colocar_viga(int x, int y, bool tipo, int inclinacion);
+
+    void colocar_provision();
 
     void avisar_desconexion(int jugador);
 

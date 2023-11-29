@@ -67,6 +67,7 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/libs/box2d-2.4.0 ${CMAKE_SOURCE_DIR}/build/
                 ./common_src/common_resolvererror.cpp 
                 ./common_src/common_socket.cpp 
                 ./server_src/configuracion.cpp
+                ./server_src/objeto/provision.cpp
     )
 
     target_include_directories(server PUBLIC ${PROJECT_SOURCE_DIR}/libs/box2d)
@@ -107,7 +108,6 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/libs/box2d-2.4.0 ${CMAKE_SOURCE_DIR}/build/
                 ./client_src/DTO/common_objetoDTO.cpp
                 ./client_src/DTO/common_escenarioDTO.cpp
                 ./client_src/DTO/common_paqueteDTO.cpp
-                ./client_src/DTO/common_provisionDTO.cpp
                 ./client_src/DTO/common_turnoDTO.cpp
                 ./client_src/DTO/common_segundosDTO.cpp
                 ./client_src/DTO/common_armaDTO.cpp
@@ -169,7 +169,6 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/libs/box2d-2.4.0 ${CMAKE_SOURCE_DIR}/build/
                 ./client_src/DTO/common_jugadorDTO.cpp
                 ./client_src/DTO/common_objetoDTO.cpp
                 ./client_src/DTO/common_escenarioDTO.cpp
-                ./client_src/DTO/common_provisionDTO.cpp
                 ./client_src/DTO/common_paqueteDTO.cpp
                 ./client_src/DTO/common_turnoDTO.cpp
                 ./client_src/DTO/common_segundosDTO.cpp

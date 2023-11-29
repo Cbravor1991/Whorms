@@ -7,6 +7,10 @@
 #include "monitor_jugador.h"
 #include "partida.h"
 
+#include "../../server_src/configuracion.h"
+
+#define configuracion Configuracion::obtener_configuracion()
+
 // Definición de la clase Lobby
 class Lobby
 {

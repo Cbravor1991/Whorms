@@ -5,6 +5,7 @@
 
 Escenario::Escenario()
 {
+    srand(static_cast<unsigned int>(time(nullptr)));
     b2Vec2 gravity(0.0f, -10.0f);
     mundo = new Mundo(gravity);
 }
@@ -196,6 +197,23 @@ void Escenario::colocar_viga(int x, int y, bool tipo, int angulo_grados)
     }
     PosicionViga posicion_viga(tipo, x, y, angulo_grados + 45);
     vigas.push_back(posicion_viga);
+}
+
+void Escenario::colocar_provision() {
+    if (vigas.empty())
+    {
+        return;
+    }
+
+    size_t viga_random = rand() % vigas.size();
+    const PosicionViga& viga_aleatoria = vigas[viga_random];
+
+    int x_provision = viga_aleatoria.obtener_x() + rand() % 6;
+    int y_provision = viga_aleatoria.obtener_y() + rand() % 6;
+    int tipo_provision_random = rand() % 3;
+
+    Objeto* provision = new Provision(mundo, tipo_provision_random, x_provision, y_provision);
+    mundo->agregar_objeto(provision);
 }
 
 void Escenario::movimiento(Gusano *gusano, int jugador)

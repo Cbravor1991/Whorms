@@ -415,16 +415,9 @@ void Game::cargar_escenario(EscenarioDTO *escenario)
 {
     std::vector<VigaDTO> vigas_escenario = escenario->obtener_vigas();
 
-    std::vector<ProvisionDTO> provisiones_escenario = escenario->obtener_provisiones();
-
     for (VigaDTO viga : vigas_escenario)
     {
         vigas.push_back(viga);
-    }
-
-    for (ProvisionDTO provision : provisiones_escenario)
-    {
-        provisiones.push_back(provision);
     }
 }
 
@@ -453,11 +446,6 @@ void Game::renderizar()
     for (VigaDTO viga : vigas)
     { // para mostrar las vigas
         view.renderizar_viga(viga);
-    }
-
-    for (ProvisionDTO provision : provisiones)
-    {
-        view.renderizar_provision(provision);
     }
 
     for (auto const &[id, jugador] : jugadores)

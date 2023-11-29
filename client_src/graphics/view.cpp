@@ -106,11 +106,6 @@ void GameView::renderizar_viga(VigaDTO viga)
    
 }
 
-void GameView::renderizar_provision(ProvisionDTO provision)
-{
-    provision.renderizar(renderer, tex_manager);//paso renderer y text_manager
-}
-
 void GameView::reproducir_musica()
 {   
     std::shared_ptr<SDL2pp::Music> music = tex_manager.getMusic();

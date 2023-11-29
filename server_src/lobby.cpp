@@ -17,6 +17,10 @@ Lobby::Lobby()
     escenarios[0].colocar_viga(500, 60, 0, 23);
     escenarios[0].colocar_viga(450, 80, 0, 12);
     escenarios[0].colocar_viga(480, 180, 1, -32);
+
+    // for (int i = 0; i < configuracion.getCantidadProvisiones(); i++) {
+    //     escenarios[0].colocar_provision();
+    // }
 }
 
 std::vector<int> Lobby::obtener_partidas()

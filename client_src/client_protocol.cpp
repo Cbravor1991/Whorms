@@ -188,19 +188,7 @@ StateGame *ProtocoloCliente::recibir_escenario()
         vigas.push_back(viga);
     }
 
-    std::vector<ProvisionDTO> provisiones;
-
-    //int cantidad_provisiones = recibir_byte();
-    int cantidad_provisiones = 1;
-
-    for (int i = 0; i < cantidad_provisiones; i++)
-    {
-        //VigaDTO viga = recibir_viga();
-        ProvisionDTO provision(0, 63, 65, 4);
-        provisiones.push_back(provision);
-    }
-
-    StateGame *estado_juego = new EscenarioDTO(x, y, vigas, provisiones);
+    StateGame *estado_juego = new EscenarioDTO(x, y, vigas);
     return estado_juego;
 }
 

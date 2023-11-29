@@ -53,6 +53,8 @@ private:
     int danio_ataque_aereo;
     int radio_ataque_aereo;
 
+    int cantidad_provisiones;
+    int vida_extra_provisiones;
 
     Configuracion(const YAML::Node& node);
 
@@ -104,6 +106,9 @@ public:
     int getMunicionesAtaqueAereo() const;
     int getDanioAtaqueAereo() const;
     int getRadioAtaqueAereo() const;
+
+    int getCantidadProvisiones() const;
+    int getVidaExtraProvisiones() const;
 
     Configuracion(const Configuracion&) = delete;
     Configuracion& operator=(const Configuracion&) = delete;

@@ -18,6 +18,18 @@ public:
     {
         protocolo->enviar_viga(tipo, x, y, angulo);
     }
+
+    int obtener_x() const {
+        return x;
+    }
+
+    int obtener_y() const {
+        return y;
+    }
+
+    bool obtener_tipo() const {
+        return tipo;
+    }
 };
 
 #endif

@@ -103,6 +103,10 @@ std::string ObjetoDTO::obtener_path() {
             path = "/sprites/Weapon/In-game/banana.png";
             break;
         }
+        case(PROVISION): {
+            path = "/sprites/misc/crates/wcrate0.png";
+            break;
+        }
         default:
         std::cout << "Si llega aca es porque es un proyectil no valido o un proyectil no implementado\n";
         break;
