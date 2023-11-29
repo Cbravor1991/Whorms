@@ -1,14 +1,14 @@
 #include "bazooka.h"
 #include <string>
 
-Bazooka::Bazooka(bool direccion, int angulo)
+Bazooka::Bazooka(bool direccion, int angulo, int potencia)
 {
 
     this->angulo = angulo * (M_PI / 180);
-    fuerza = 10000;
+    fuerza = std::pow(potencia, FUERZA_LANZAMIENTO);
     if (!direccion)
     {
-        fuerza = -10000;
+        fuerza = -std::pow(potencia, FUERZA_LANZAMIENTO);
     }
 }
 
@@ -19,6 +19,8 @@ Bazooka::Bazooka(Mundo *mundo, b2Body *cuerpo)
     danio = configuracion.getDanioBazooka();
     radio = configuracion.getRadioBazooka();
     velocidad_minima = 1.2f;
+    float viento = mundo->recibir_velocidad_viento();
+    body->ApplyLinearImpulse(b2Vec2(viento, 0.0), body->GetWorldCenter(), true);
 }
 
 int Bazooka::disparar(Mundo *mundo, b2Body *disparador)
@@ -39,7 +41,7 @@ int Bazooka::disparar(Mundo *mundo, b2Body *disparador)
     fixtureDef.restitution = 0;
     body->CreateFixture(&fixtureDef);
     b2Vec2 linear_velocity(fuerza * cos(angulo + disparador->angle),
-                           abs(fuerza) * sin(angulo + disparador->angle));
+                           abs(fuerza) * abs(sin(angulo + disparador->angle)));
     body->ApplyLinearImpulse(linear_velocity, body->GetWorldCenter(), true);
     Objeto *bazooka = new Bazooka(mundo, body);
     mundo->agregar_objeto(bazooka);

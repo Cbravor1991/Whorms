@@ -8,7 +8,7 @@ class GranadaRoja : public Arma
 {
 private:
 public:
-    GranadaRoja(bool direccion, int angulo, int segundos);
+    GranadaRoja(bool direccion, int angulo, int segundos, int potencia);
     GranadaRoja(Mundo *mundo, b2Body *cuerpo, int segundos);
     ~GranadaRoja();
 

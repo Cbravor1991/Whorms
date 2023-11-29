@@ -5,10 +5,10 @@ Dinamita::Dinamita(bool direccion, int segundos)
 {
     tiempo_hasta_explotar = segundos;
     this->angulo = angulo * (M_PI / 180);
-    fuerza = 5;
+    fuerza = 9;
     if (!direccion)
     {
-        fuerza = -5;
+        fuerza = -9;
     }
 }
 

@@ -29,6 +29,7 @@ const int GREEN_GRENADE = 7;
 const int CLUSTER_GRENADE = 8;
 const int HOLY_GRENADE = 9;
 const int BANANA = 10;
+const int PROVISION = 11;
 
 const int MOVIMIENTO = 0;
 const int SELECCION_ARMA = 1;

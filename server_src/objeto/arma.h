@@ -2,10 +2,12 @@
 #define ARMA_H
 
 #include "objeto.h"
-
+#include <cmath>
 #include <string>
 
 class Fragmento;
+
+const int FUERZA_LANZAMIENTO = 10;
 
 class Arma : public Objeto
 {

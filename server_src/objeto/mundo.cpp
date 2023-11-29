@@ -21,6 +21,16 @@ Mundo::~Mundo()
     }
 }
 
+float Mundo::recibir_velocidad_viento()
+{
+    return viento.getVelocity();
+}
+
+void Mundo::actualizar()
+{
+    viento.cambiar();
+}
+
 void Mundo::explotar_bombas_regresivas()
 {
     for (Objeto *objeto : objetos)

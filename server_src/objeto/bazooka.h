@@ -8,7 +8,7 @@ class Bazooka : public Arma
 {
 private:
 public:
-    Bazooka(bool direccion, int angulo);
+    Bazooka(bool direccion, int angulo, int potencia);
     Bazooka(Mundo *mundo, b2Body *cuerpo);
     ~Bazooka();
 

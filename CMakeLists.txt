@@ -49,6 +49,7 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/libs/box2d-2.4.0 ${CMAKE_SOURCE_DIR}/build/
                 ./server_src/server_sender.cpp 
                 ./server_src/turno.cpp
                 ./server_src/objeto/mundo.cpp
+                ./server_src/objeto/viento.cpp
                 ./server_src/objeto/objeto.cpp
                 ./server_src/objeto/arma.cpp
                 ./server_src/objeto/gusano.cpp

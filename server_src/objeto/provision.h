@@ -32,6 +32,8 @@ public:
 
     PosicionLanzable conseguir_posicion();
 
+    void cambiar_angulo_viga();
+
     void intentar_explotar();
 };
 

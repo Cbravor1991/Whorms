@@ -73,8 +73,33 @@ void Provision::intentar_explotar()
     }
 }
 
+void Provision::cambiar_angulo_viga()
+{
+    b2Contact *contact = mundo->recibir_contactos();
+    while (contact != nullptr)
+    {
+
+        b2Fixture *fixtureA = contact->GetFixtureA();
+        b2Fixture *fixtureB = contact->GetFixtureB();
+
+        // Comprueba si uno de los cuerpos es el cuadrado
+        if (fixtureA->GetBody() == body || fixtureB->GetBody() == body)
+        {
+            // Ahora necesitas determinar cuál es el otro body involucrado
+            b2Body *otherBody = (fixtureA->GetBody() == body) ? fixtureB->GetBody() : fixtureA->GetBody();
+            if (!otherBody->gusano)
+            {
+
+                body->angle = otherBody->angle;
+            }
+        }
+        contact = contact->GetNext();
+    }
+}
+
 PosicionLanzable Provision::conseguir_posicion()
 {
+    cambiar_angulo_viga();
     if (tipo == EXPLOTAR)
     {
         intentar_explotar();
@@ -87,10 +112,8 @@ PosicionLanzable Provision::conseguir_posicion()
     {
         intentar_curar();
     }
-
     b2Vec2 posicion = body->GetPosition();
     int x = static_cast<int>(posicion.x);
     int y = static_cast<int>(posicion.y);
-
-    return PosicionLanzable(11, x, y, 0, 0, is_dead);
+    return PosicionLanzable(PROVISION, x, y, 0, body->angle * (180.0 / M_PI) + 45, is_dead);
 }

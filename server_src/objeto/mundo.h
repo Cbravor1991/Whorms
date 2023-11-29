@@ -3,6 +3,7 @@
 
 #include "../../libs/box2d-2.4.0/include/box2d/box2d.h"
 #include "objeto.h"
+#include "viento.h"
 #include "RayCastWeaponExploded.h"
 
 const int ALTURA_AGUA = 0;
@@ -14,7 +15,7 @@ class Mundo
 private:
     b2World world;
     std::vector<Objeto *> objetos;
-    // Viento viento;
+    Viento viento;
 
 public:
     explicit Mundo(b2Vec2 gravity);
@@ -40,6 +41,10 @@ public:
     bool en_movimiento();
 
     b2Contact *recibir_contactos();
+
+    void actualizar();
+
+    float recibir_velocidad_viento();
 
     void paso(float dt, int32 velocityIterations, int32 positionIterations);
 };

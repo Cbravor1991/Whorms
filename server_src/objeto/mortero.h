@@ -8,7 +8,7 @@ class Mortero : public Arma
 {
 private:
 public:
-    Mortero(bool direccion, int angulo);
+    Mortero(bool direccion, int angulo, int potencia);
     Mortero(Mundo *mundo, b2Body *cuerpo);
     ~Mortero();
 

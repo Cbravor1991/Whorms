@@ -1,15 +1,15 @@
 #include "granada_roja.h"
 #include <string>
 
-GranadaRoja::GranadaRoja(bool direccion, int angulo, int segundos)
+GranadaRoja::GranadaRoja(bool direccion, int angulo, int segundos, int potencia)
 {
     this->angulo = angulo * (M_PI / 180);
     tiempo_hasta_explotar = segundos;
     this->angulo = angulo * (M_PI / 180);
-    fuerza = 10000;
+    fuerza = std::pow(potencia, FUERZA_LANZAMIENTO);
     if (!direccion)
     {
-        fuerza = -10000;
+        fuerza = -std::pow(potencia, FUERZA_LANZAMIENTO);
     }
 }
 
@@ -42,7 +42,7 @@ int GranadaRoja::disparar(Mundo *mundo, b2Body *disparador)
     fixtureDef.friction = 5.0f;
     body->CreateFixture(&fixtureDef);
     b2Vec2 linear_velocity(fuerza * cos(angulo + disparador->angle),
-                           abs(fuerza) * sin(angulo + disparador->angle));
+                           abs(fuerza) * abs(sin(angulo + disparador->angle)));
     body->ApplyLinearImpulse(linear_velocity, body->GetWorldCenter(), true);
     Objeto *granada_santa = new GranadaRoja(mundo, body, tiempo_hasta_explotar);
     mundo->agregar_objeto(granada_santa);

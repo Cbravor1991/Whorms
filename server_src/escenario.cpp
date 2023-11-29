@@ -42,6 +42,7 @@ int Escenario::cambiar_turno(int id)
         Gusano *gusano = gusanos[turno].recibir_turno();
         monitor->enviar_turno(gusano->conseguir_id());
     }
+    mundo->actualizar();
     return turno;
 }
 
@@ -138,15 +139,12 @@ void Escenario::agregar_jugador(int jugador_id)
         gusanos[jugador_id].agregar_gusano(agregar_gusano(jugador_id, i));
     }
     monitor->mandar_escenario(x_size, y_size, vigas, jugador_id);
-    mandar_paquete();
     int movimiento = true;
     while (movimiento)
     {
         mundo->paso(FRAME_RATE, VELOCITY_ITERATION, POSITION_ITERATION);
-        mandar_paquete();
         movimiento = en_movimiento();
     }
-    mandar_paquete();
     mandar_paquete();
     if (vacio)
     {
@@ -326,7 +324,10 @@ void Escenario::explotar_bombas_regresivas(int jugador)
         mundo->paso(FRAME_RATE, VELOCITY_ITERATION, POSITION_ITERATION);
         mandar_paquete();
     }
-    cambiar_turno(jugador);
+    if (monitor->recibir_turno() == jugador)
+    {
+        cambiar_turno(jugador);
+    }
     mandar_paquete();
     mandar_paquete();
 }

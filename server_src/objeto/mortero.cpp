@@ -1,14 +1,14 @@
 #include "mortero.h"
 #include <string>
 
-Mortero::Mortero(bool direccion, int angulo)
+Mortero::Mortero(bool direccion, int angulo, int potencia)
 {
 
     this->angulo = angulo * (M_PI / 180);
-    fuerza = 10000;
+    fuerza = std::pow(potencia, FUERZA_LANZAMIENTO);
     if (!direccion)
     {
-        fuerza = -10000;
+        fuerza = -std::pow(potencia, FUERZA_LANZAMIENTO);
     }
 }
 
@@ -19,6 +19,8 @@ Mortero::Mortero(Mundo *mundo, b2Body *cuerpo)
     radio = configuracion.getRadioMortero();
     danio = configuracion.getDanioMortero();
     velocidad_minima = 1.2f;
+    float viento = mundo->recibir_velocidad_viento();
+    body->ApplyLinearImpulse(b2Vec2(viento, 0.0), body->GetWorldCenter(), true);
 }
 
 int Mortero::disparar(Mundo *mundo, b2Body *disparador)

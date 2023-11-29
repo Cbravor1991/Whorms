@@ -36,6 +36,7 @@ void Partida::run()
     int segundos_regresivos = -1;
     int segundo_actual = 30;
     bool cuenta_regresiva = false;
+    int id_regresivo = -1;
     while (en_ejecucion)
     {
         auto ahora = std::chrono::steady_clock::now();
@@ -51,6 +52,7 @@ void Partida::run()
                 {
                     segundos_regresivos = segundo_actual - regresivo;
                     cuenta_regresiva = true;
+                    id_regresivo = id_turno;
                     if (segundos_regresivos < 0)
                     {
                         segundos_regresivos = 1;
@@ -62,7 +64,7 @@ void Partida::run()
 
         if (segundos_regresivos == segundo_actual and cuenta_regresiva)
         {
-            escenario.explotar_bombas_regresivas(id_turno);
+            escenario.explotar_bombas_regresivas(id_regresivo);
             cuenta_regresiva = false;
         }
 

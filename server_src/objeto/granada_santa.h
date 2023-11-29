@@ -8,7 +8,7 @@ class GranadaSanta : public Arma
 {
 private:
 public:
-    GranadaSanta(bool direccion, int angulo, int segundos);
+    GranadaSanta(bool direccion, int angulo, int segundos, int potencia);
     GranadaSanta(Mundo *mundo, b2Body *cuerpo, int segundos);
     ~GranadaSanta();
 
