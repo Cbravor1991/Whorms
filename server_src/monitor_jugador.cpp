@@ -1,4 +1,5 @@
 #include "monitor_jugador.h"
+#include "data/viento_velocidad.h"
 
 int MonitorJugadores::cambiar_turno()
 {
@@ -17,6 +18,17 @@ void MonitorJugadores::comenzar_juego(Queue<Accion *> *cola)
     {
         Jugador *jugador = entry.second;
         jugador->jugar(cola);
+    }
+}
+
+void MonitorJugadores::mandar_viento(VientoVelocidad viento)
+{
+    Data *data;
+    for (const auto &entry : jugadores)
+    {
+        Jugador *jugador = entry.second;
+        data = new VientoVelocidad(viento);
+        jugador->recibir_comando(data);
     }
 }
 

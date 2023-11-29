@@ -5,7 +5,6 @@ GranadaVerde::GranadaVerde(bool direccion, int angulo, int segundos, int potenci
 {
     this->angulo = angulo * (M_PI / 180);
     tiempo_hasta_explotar = segundos;
-    this->angulo = angulo * (M_PI / 180);
     fuerza = std::pow(potencia, FUERZA_LANZAMIENTO);
     if (!direccion)
     {

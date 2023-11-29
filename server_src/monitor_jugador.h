@@ -15,6 +15,8 @@
 #include "data/segundo_DTO.h"
 #include "data/arma_DTO.h"
 
+class VientoVelocidad;
+
 class Jugador;
 
 class MonitorJugadores
@@ -33,6 +35,8 @@ public:
     void eliminar_turno(int id);
 
     int recibir_turno();
+
+    void mandar_viento(VientoVelocidad viento);
 
     void mandar_paquete_gusanos(std::vector<PosicionJugador> jugadores);
 

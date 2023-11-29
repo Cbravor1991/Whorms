@@ -1,6 +1,8 @@
 #ifndef VIENTO_H
 #define VIENTO_H
 
+#include "../data/viento_velocidad.h"
+
 class Viento
 {
 private:
@@ -16,7 +18,7 @@ public:
     float getVelocity() const;
 
     // Actualiza la velocidad del viento
-    void cambiar();
+    VientoVelocidad cambiar();
 };
 
 #endif

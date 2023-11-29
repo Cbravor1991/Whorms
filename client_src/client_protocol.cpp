@@ -14,6 +14,7 @@
 #include "DTO/common_segundosDTO.h"
 #include "DTO/common_armaDTO.h"
 #include "DTO/common_objetoDTO.h"
+#include "DTO/common_vientoDTO.cpp"
 #include <tuple>
 
 ProtocoloCliente::ProtocoloCliente(const std::string &hostname,
@@ -287,6 +288,10 @@ int ProtocoloCliente::traducir_tipo_mensaje(const uint8_t &buffer)
     {
         tipo = TIPO_ARMA;
     }
+    else if (buffer == RECIBIR_VIENTO)
+    {
+        tipo = TIPO_VIENTO;
+    }
     return tipo;
 }
 
@@ -341,13 +346,26 @@ StateGame *ProtocoloCliente::procesar_mensaje(const int &id_jugador)
     case TIPO_ARMA:
         if (conectado)
         {
-
             estado = recibir_arma();
         }
         break;
         // case TIPO_PAQUETE_OBJETOS:if (conectado) {estado = recibir_paquete();estado->type = TIPO_PAQUETE_OBJ;}break;
+    case TIPO_VIENTO:
+        if (conectado)
+        {
+            estado = recibir_viento();
+        }
+        break;
     }
 
+    return estado;
+}
+
+StateGame *ProtocoloCliente::recibir_viento()
+{
+    float velocidad = recibir_int() / 10;
+    bool direccion = static_cast<bool>(recibir_int());
+    StateGame *estado = new VientoDTO(velocidad, direccion);
     return estado;
 }
 

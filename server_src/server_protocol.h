@@ -52,6 +52,7 @@ const uint8_t ESCENARIO = 0x04;
 const uint8_t ARMA = 0x05;
 const uint8_t CANTIDAD_JUGADORES = 0x10;
 const uint8_t COMIENZO_JUEGO = 0x11;
+const uint8_t VIENTO = 0x06;
 
 const int BYTES_CANT_JUGADORES = 2;
 const int RECIBIR_BYTE = 1;
@@ -109,6 +110,8 @@ public:
     void enviar_lanzable(int tipo, int x, int y, int direccion, int angulo, bool explosion);
 
     void enviar_viga(bool tipo, int x, int y, int angulo);
+
+    void enviar_viento(int velocidad, bool direccion);
 
     bool check_en_conexion();
 

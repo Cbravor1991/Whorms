@@ -183,7 +183,7 @@ Accion *ProtocoloServer::leer_uso_arma(int jugador)
         direccion = static_cast<bool>(recibir_int());
         potencia = recibir_int();
         timer = recibir_int();
-        arma = new Banana(direccion, angulo);
+        arma = new Banana(direccion, angulo, timer, potencia);
         break;
     default:
         x = recibir_int_grande();
@@ -311,6 +311,13 @@ void ProtocoloServer::enviar_lanzable(int tipo, int x, int y, int direccion, int
     enviar_int(direccion);
     enviar_int(angulo);
     enviar_int(explosion ? 1 : 0);
+}
+
+void ProtocoloServer::enviar_viento(int velocidad, bool direccion)
+{
+    enviar_byte(VIENTO);
+    enviar_int(velocidad);
+    enviar_int(direccion ? 1 : 0);
 }
 
 void ProtocoloServer::enviar_viga(bool tipo, int x, int y, int angulo)

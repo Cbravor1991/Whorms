@@ -33,6 +33,7 @@ const std::int8_t RECIBIR_TURNO = 0x00;
 const std::int8_t RECIBIR_PAQUETE = 0x03;
 const std::int8_t RECIBIR_ESCENARIO = 0x04;
 const std::int8_t RECIBIR_ARMA = 0x05;
+const std::int8_t RECIBIR_VIENTO = 0x06;
 const std::int8_t RECIBIR_CANTIDAD_JUGADORES = 0x10;
 const std::int8_t RECIBIR_JUGAR = 0x11;
 const int RECIBO_BYTE = 1;
@@ -68,6 +69,8 @@ private:
     ObjetoDTO recibir_objeto();
 
     VigaDTO recibir_viga();
+
+    StateGame *recibir_viento();
 
     StateGame *recibir_arma();
 

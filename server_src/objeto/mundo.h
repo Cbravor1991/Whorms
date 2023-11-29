@@ -42,7 +42,7 @@ public:
 
     b2Contact *recibir_contactos();
 
-    void actualizar();
+    VientoVelocidad actualizar();
 
     float recibir_velocidad_viento();
 

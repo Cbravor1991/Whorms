@@ -42,7 +42,8 @@ int Escenario::cambiar_turno(int id)
         Gusano *gusano = gusanos[turno].recibir_turno();
         monitor->enviar_turno(gusano->conseguir_id());
     }
-    mundo->actualizar();
+    VientoVelocidad viento = mundo->actualizar();
+    monitor->mandar_viento(viento);
     return turno;
 }
 

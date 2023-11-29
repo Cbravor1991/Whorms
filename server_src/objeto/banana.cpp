@@ -1,22 +1,25 @@
 #include "banana.h"
 #include <string>
 
-Banana::Banana(bool direccion, int angulo)
+Banana::Banana(bool direccion, int angulo, int segundos, int potencia)
 {
-
     this->angulo = angulo * (M_PI / 180);
-    fuerza = 10000;
+    tiempo_hasta_explotar = segundos;
+    fuerza = std::pow(potencia, FUERZA_LANZAMIENTO);
     if (!direccion)
     {
-        fuerza = -10000;
+        fuerza = -std::pow(potencia, FUERZA_LANZAMIENTO);
     }
 }
 
-Banana::Banana(Mundo *mundo, b2Body *cuerpo)
+Banana::Banana(Mundo *mundo, b2Body *cuerpo, int segundos)
 {
+    tiempo_hasta_explotar = segundos;
+    esperando_a_explotar = true;
     this->mundo = mundo;
     body = cuerpo;
     danio = configuracion.getDanioBanana();
+    radio = 40;
     velocidad_minima = 1.2f;
 }
 
@@ -35,12 +38,12 @@ int Banana::disparar(Mundo *mundo, b2Body *disparador)
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &circleShape;
     fixtureDef.density = 0.5f;
-    fixtureDef.restitution = 9;
+    fixtureDef.restitution = 2;
     body->CreateFixture(&fixtureDef);
     b2Vec2 linear_velocity(fuerza * cos(angulo + disparador->angle),
                            abs(fuerza) * sin(angulo + disparador->angle));
     body->ApplyLinearImpulse(linear_velocity, body->GetWorldCenter(), true);
-    Objeto *banana = new Banana(mundo, body);
+    Objeto *banana = new Banana(mundo, body, tiempo_hasta_explotar);
     mundo->agregar_objeto(banana);
     return 0;
 }
@@ -51,11 +54,18 @@ PosicionLanzable Banana::conseguir_posicion()
     b2Vec2 posicion = body->GetPosition();
     int x = static_cast<int>(posicion.x);
     int y = static_cast<int>(posicion.y);
-    if (y < ALTURA_AGUA or !consultar_movimiento() or contactos > 200)
+    if (y < ALTURA_AGUA or contactos > 2000)
     {
         is_dead = true;
     }
     return PosicionLanzable(BANANA, x, y, 0, 0, is_dead);
+}
+
+void Banana::explotar_regresiva()
+{
+    b2Vec2 center = this->body->GetPosition();
+    explotar(center);
+    is_dead = true;
 }
 
 void Banana::contacto()
@@ -71,10 +81,10 @@ void Banana::contacto()
         if (fixtureA->GetBody() == body || fixtureB->GetBody() == body)
         {
             b2Body *otherBody = (fixtureA->GetBody() == body) ? fixtureB->GetBody() : fixtureA->GetBody();
-            contactos += 1;
             if (otherBody->gusano)
             {
-                otherBody->vida -= danio;
+                b2Vec2 center = this->body->GetPosition();
+                explotar(center);
                 is_dead = true;
             }
         }

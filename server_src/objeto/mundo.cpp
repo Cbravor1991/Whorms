@@ -26,9 +26,9 @@ float Mundo::recibir_velocidad_viento()
     return viento.getVelocity();
 }
 
-void Mundo::actualizar()
+VientoVelocidad Mundo::actualizar()
 {
-    viento.cambiar();
+    return viento.cambiar();
 }
 
 void Mundo::explotar_bombas_regresivas()
