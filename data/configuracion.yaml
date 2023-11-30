@@ -48,5 +48,7 @@ armas:
     radio: 20
 
 provisiones:
-  cantidad_provisiones: 3
+  cantidad_provisiones: 5
   vida: 20
+  daño: 20
+  radio: 20

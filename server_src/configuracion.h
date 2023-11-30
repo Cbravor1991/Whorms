@@ -55,6 +55,8 @@ private:
 
     int cantidad_provisiones;
     int vida_extra_provisiones;
+    int danio_provisiones;
+    int radio_provisiones;
 
     Configuracion(const YAML::Node& node);
 
@@ -109,6 +111,8 @@ public:
 
     int getCantidadProvisiones() const;
     int getVidaExtraProvisiones() const;
+    int getDanioProvisiones() const;
+    int getRadioProvisiones() const;
 
     Configuracion(const Configuracion&) = delete;
     Configuracion& operator=(const Configuracion&) = delete;
