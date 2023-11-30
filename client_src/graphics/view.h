@@ -10,6 +10,7 @@
 #include "../DTO/common_vigaDTO.h"
 #include "texture_manager.h"
 #include "../DTO/common_objetoDTO.h"
+#include "../DTO/common_vientoDTO.h"
 #include "explotion.h"
 
 
@@ -32,9 +33,10 @@ private:
     std::shared_ptr<SDL2pp::Chunk> sonido_actual;
 	int canal_anterior;
 
-
     TextureManager tex_manager;
 
+    void renderizar_viento_derecha(int x, int y, int ancho);
+    void renderizar_viento_izquierda(int x, int y, int ancho);
 public:
     explicit GameView();
 
@@ -55,6 +57,7 @@ public:
     void renderizar_municion(JugadorDTO& jugador);
     void renderizar_explocion(Explotion& explotion);
     void reproducir_sonido_explosion();
+    void renderizar_viento(VientoDTO &viento);
 };
 
 #endif // VIEW_H

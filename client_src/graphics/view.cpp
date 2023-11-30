@@ -162,3 +162,73 @@ void GameView::renderizar_explocion(Explotion& explotion) {
     explotion.renderizar(renderer, tex_manager);
     //se actualiza sola (?
 }
+
+void GameView::renderizar_viento(VientoDTO &viento) {
+
+    //renderizo un rectangulo negro
+    int x = 400 , y = 400;
+    std::string path = "/misc/windback.png";
+    std::shared_ptr<SDL2pp::Texture> texture = tex_manager.getTexture(path);
+
+    this->renderer.Copy(
+        *texture,
+        SDL2pp::Rect(0,0, 195, 15), // que parte del sprite queres que te cargue
+        SDL2pp::Rect(x + 3, y - 1, 195, 17),   // la posicion en pantalla y el tamaño
+        0,                            // don't rotate
+        SDL2pp::NullOpt,                    // rotation center - not needed
+        SDL_FLIP_NONE                               // vertical flip
+    );
+
+
+    int velocidad = viento.obtenerVelocidad();
+    bool direccion = viento.obtenerDireccion();
+    int ancho = (velocidad * 100) / VELOCIDAD_MAXIMA_VIENTO; //como mucho es 100 pixeles
+
+    if(ancho > 100) {ancho = 100;}
+
+    if(direccion) 
+    {
+        this->renderizar_viento_izquierda(x + 100, y, ancho);
+    }
+    else 
+    {
+        this->renderizar_viento_derecha(x + 100, y, ancho);
+    }
+    
+}
+
+
+
+void GameView::renderizar_viento_derecha(int x, int y, int ancho) 
+{
+    int src_x = (ancho) > 96 ? 96 : ancho;
+
+    std::string path = "/misc/windr.png";
+    std::shared_ptr<SDL2pp::Texture> texture = tex_manager.getTexture(path);
+
+    this->renderer.Copy(
+        *texture,
+        SDL2pp::Rect(0,0, src_x, 13), // que parte del sprite queres que te cargue
+        SDL2pp::Rect(x + 1, y, src_x, 15),   // la posicion en pantalla y el tamaño
+        0,                            // don't rotate
+        SDL2pp::NullOpt,                    // rotation center - not needed
+        SDL_FLIP_NONE                               // vertical flip
+    );
+
+}
+
+void GameView::renderizar_viento_izquierda(int x, int y, int ancho) 
+{   
+    int src_x = (ancho) > 96 ? 96 : ancho;
+    std::string path = "/misc/windl.png";
+    std::shared_ptr<SDL2pp::Texture> texture = tex_manager.getTexture(path);
+
+    this->renderer.Copy(
+        *texture,
+        SDL2pp::Rect(0,0, src_x, 13), // que parte del sprite queres que te cargue
+        SDL2pp::Rect(x - src_x, y, src_x, 15),   // la posicion en pantalla y el tamaño
+        0,                            // don't rotate
+        SDL2pp::NullOpt,                    // rotation center - not needed
+        SDL_FLIP_NONE                               // vertical flip
+    );
+}

@@ -117,6 +117,7 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/libs/box2d-2.4.0 ${CMAKE_SOURCE_DIR}/build/
                 ./client_src/DTO/common_turnoDTO.cpp
                 ./client_src/DTO/common_segundosDTO.cpp
                 ./client_src/DTO/common_armaDTO.cpp
+                ./client_src/DTO/common_vientoDTO.cpp
                 ./client_src/worm/worm_walk.cpp
                 ./client_src/worm/worm_idle.cpp
                 ./client_src/worm/weapon/worm_airstrike.cpp
@@ -180,6 +181,7 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/libs/box2d-2.4.0 ${CMAKE_SOURCE_DIR}/build/
                 ./client_src/DTO/common_turnoDTO.cpp
                 ./client_src/DTO/common_segundosDTO.cpp
                 ./client_src/DTO/common_armaDTO.cpp
+                ./client_src/DTO/common_vientoDTO.cpp
                 ./client_src/worm/worm_walk.cpp
                 ./client_src/worm/worm_idle.cpp
                 ./client_src/worm/weapon/worm_airstrike.cpp

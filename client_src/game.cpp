@@ -4,7 +4,7 @@
 
 #define SLEEP_RATE (4.0f / 35.0f) * 50
 
-Game::Game(ProtocoloCliente &protocolo) : cliente(protocolo) {}
+Game::Game(ProtocoloCliente &protocolo) : cliente(protocolo), viento(0, true) {}
 
 void Game::run()
 {
@@ -313,6 +313,11 @@ void Game::procesar_estado(StateGame *estado)
         ArmaDTO *arma = dynamic_cast<ArmaDTO *>(estado);
         arma->cargar(jugadores);
     }
+    else if(estado->type == TIPO_VIENTO)
+    {
+        VientoDTO *viento = dynamic_cast<VientoDTO *>(estado);
+        viento->cargar(this->viento);
+    }
 }
 
 void Game::procesar_paquete(PaqueteDTO *paquete)
@@ -472,6 +477,8 @@ void Game::renderizar()
             ++iter;
         }
     }
+
+    view.renderizar_viento(viento);
 
     view.mostrar();
 }

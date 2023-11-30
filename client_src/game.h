@@ -23,6 +23,7 @@
 #include "DTO/common_segundosDTO.h"
 #include "DTO/common_armaDTO.h"
 #include "DTO/common_objetoDTO.h"
+#include "DTO/common_vientoDTO.h"
 
 class Game
 {
@@ -41,6 +42,7 @@ private:
     int armaX;
     int armaY;
     int tipo;
+    VientoDTO viento;
 
     // prueba de concepto
     Weapon *armaRecibida = nullptr;

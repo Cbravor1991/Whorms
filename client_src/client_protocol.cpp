@@ -14,7 +14,7 @@
 #include "DTO/common_segundosDTO.h"
 #include "DTO/common_armaDTO.h"
 #include "DTO/common_objetoDTO.h"
-#include "DTO/common_vientoDTO.cpp"
+#include "DTO/common_vientoDTO.h"
 #include "DTO/common_ganadorDTO.cpp"
 #include <tuple>
 

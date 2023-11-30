@@ -9,6 +9,18 @@ void VientoDTO::cambiar_render(bool &permiso)
 {
 }
 
-void VientoDTO::cargar()
+void VientoDTO::cargar(VientoDTO &viento)
 {
+    viento.direccion = this->direccion;
+    viento.velocidad = this->velocidad;
+}
+
+float VientoDTO::obtenerVelocidad() 
+{
+    return velocidad;
+}
+
+bool VientoDTO::obtenerDireccion()
+{
+    return direccion;
 }

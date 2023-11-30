@@ -8,6 +8,7 @@
 #include <ostream>
 #include <iostream>
 
+#define VELOCIDAD_MAXIMA_VIENTO 10
 class VientoDTO : public StateGame
 {
 private:
@@ -17,6 +18,8 @@ private:
 public:
     VientoDTO(float velocidad, bool direccion);
     void cambiar_render(bool &permiso);
-    void cargar();
+    void cargar(VientoDTO &viento);
+    float obtenerVelocidad();
+    bool obtenerDireccion();
 };
 #endif
