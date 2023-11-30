@@ -32,13 +32,12 @@ int Dinamita::disparar(Mundo *mundo, b2Body *disparador)
     b2Vec2 spawn(posicion.x + fuerza, posicion.y + 5);
     bd.position = spawn;
     b2Body *body = mundo->crear_objeto(bd);
-    b2CircleShape circleShape;
-    circleShape.m_p.Set(0, 0);
-    circleShape.m_radius = 3 / 2;
+    b2PolygonShape boxShape;
+    boxShape.SetAsBox(TAMANIO_X_BOMBA, TAMANIO_Y_BOMBA);
     b2FixtureDef fixtureDef;
-    fixtureDef.shape = &circleShape;
-    fixtureDef.density = 0.0f;
-    fixtureDef.restitution = 0;
+    fixtureDef.shape = &boxShape;
+    fixtureDef.density = 0.1f;
+    fixtureDef.friction = 5.0f;
     body->CreateFixture(&fixtureDef);
     Objeto *dinamita = new Dinamita(mundo, body, tiempo_hasta_explotar);
     mundo->agregar_objeto(dinamita);

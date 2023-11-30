@@ -33,12 +33,11 @@ int GranadaSanta::disparar(Mundo *mundo, b2Body *disparador)
     b2Vec2 spawn(posicion.x, posicion.y + 20);
     bd.position = spawn;
     b2Body *body = mundo->crear_objeto(bd);
-    b2CircleShape circleShape;
-    circleShape.m_p.Set(0, 0);
-    circleShape.m_radius = 3 / 2;
+    b2PolygonShape boxShape;
+    boxShape.SetAsBox(TAMANIO_X_BOMBA, TAMANIO_Y_BOMBA);
     b2FixtureDef fixtureDef;
-    fixtureDef.shape = &circleShape;
-    fixtureDef.density = 0.0f;
+    fixtureDef.shape = &boxShape;
+    fixtureDef.density = DENSIDAD_BOMBA;
     fixtureDef.friction = 5.0f;
     body->CreateFixture(&fixtureDef);
     b2Vec2 linear_velocity(fuerza * cos(angulo + disparador->angle),

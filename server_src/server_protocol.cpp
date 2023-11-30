@@ -67,6 +67,12 @@ void ProtocoloServer::enviar_turno(int turno_id, int id_gusano)
     enviar_int(id_gusano);
 }
 
+void ProtocoloServer::enviar_ganador(int id_ganador)
+{
+    enviar_byte(GANADOR);
+    enviar_int(id_ganador);
+}
+
 void ProtocoloServer::enviar_arma(int id, int id_gusano, int arma, int ammo)
 {
     enviar_byte(ARMA);

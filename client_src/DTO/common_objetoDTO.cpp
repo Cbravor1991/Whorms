@@ -34,36 +34,38 @@ void ObjetoDTO::renderizar(SDL2pp::Renderer &renderer, TextureManager &tex_manag
     std::string path = this->obtener_path();
     std::shared_ptr<SDL2pp::Texture> sprites = tex_manager.getTexture(path);
 
-    
-    if (this->tipo == PROVISION) {
-        int src_x = 0, src_y = 0; // by default, standing sprite
-    if (is_running)
+    if (this->tipo == PROVISION)
     {
-        src_y = 60 * 1;
-    }
-    renderer.Copy(
-        *sprites,
-        SDL2pp::Rect(src_x, src_y, 60, 60),              // que parte del spike queres que te cargue
-        SDL2pp::Rect(this->x, 200 - this->y, 40, 40), angulo, // la posicion en pantalla y el tamaño
-        SDL2pp::NullOpt,                                 // rotation center - not needed
-        SDL_FLIP_VERTICAL                                // vertical flip
-
-    );
-    std::cout << "hola:" << std::to_string(angulo) << std::endl;
-    } else {
         int src_x = 0, src_y = 0; // by default, standing sprite
-    if (is_running)
-    {
-        src_y = 60 * 1;
-    }
-    renderer.Copy(
-        *sprites,
-        SDL2pp::Rect(src_x, src_y, 60, 60),              // que parte del spike queres que te cargue
-        SDL2pp::Rect(this->x, 200 - this->y, 50, 50), 0, // la posicion en pantalla y el tamaño
-        SDL2pp::NullOpt,                                 // rotation center - not needed
-        SDL_FLIP_VERTICAL                                // vertical flip
+        if (is_running)
+        {
+            src_y = 60 * 1;
+        }
+        renderer.Copy(
+            *sprites,
+            SDL2pp::Rect(src_x, src_y, 60, 60),                   // que parte del spike queres que te cargue
+            SDL2pp::Rect(this->x, 200 - this->y, 40, 40), angulo, // la posicion en pantalla y el tamaño
+            SDL2pp::NullOpt,                                      // rotation center - not needed
+            SDL_FLIP_VERTICAL                                     // vertical flip
 
-    );
+        );
+        // std::cout << "hola:" << std::to_string(angulo) << std::endl;
+    }
+    else
+    {
+        int src_x = 0, src_y = 0; // by default, standing sprite
+        if (is_running)
+        {
+            src_y = 60 * 1;
+        }
+        renderer.Copy(
+            *sprites,
+            SDL2pp::Rect(src_x, src_y, 60, 60),              // que parte del spike queres que te cargue
+            SDL2pp::Rect(this->x, 200 - this->y, 50, 50), 0, // la posicion en pantalla y el tamaño
+            SDL2pp::NullOpt,                                 // rotation center - not needed
+            SDL_FLIP_VERTICAL                                // vertical flip
+
+        );
     }
 }
 

@@ -7,7 +7,10 @@
 
 class Fragmento;
 
-const int FUERZA_LANZAMIENTO = 10;
+const int FUERZA_LANZAMIENTO = 3;
+const float TAMANIO_X_BOMBA = 1.0f * 0.7f;
+const float TAMANIO_Y_BOMBA = 1.0f * 0.2f;
+const float DENSIDAD_BOMBA = 0.5f;
 
 class Arma : public Objeto
 {

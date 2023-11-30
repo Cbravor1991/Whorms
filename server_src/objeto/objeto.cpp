@@ -22,9 +22,32 @@ bool Objeto::consultar_movimiento()
     {
         return true; // Al menos un body está en movimiento.
     }
+    else if (!esta_en_contacto())
+    {
+        return true;
+    }
     en_movimiento = false;
 
     return false; // Ningún body está en movimiento.
+}
+
+bool Objeto::esta_en_contacto()
+{
+    b2Contact *contact = mundo->recibir_contactos();
+    while (contact != nullptr)
+    {
+
+        b2Fixture *fixtureA = contact->GetFixtureA();
+        b2Fixture *fixtureB = contact->GetFixtureB();
+
+        // Comprueba si uno de los cuerpos es el cuadrado
+        if (fixtureA->GetBody() == body || fixtureB->GetBody() == body)
+        {
+            return true;
+        }
+        contact = contact->GetNext();
+    }
+    return false;
 }
 
 bool Objeto::esta_vivo()

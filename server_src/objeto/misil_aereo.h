@@ -14,6 +14,8 @@ public:
     ~MisilAereo();
 
     PosicionLanzable conseguir_posicion();
+
+    void contacto();
 };
 
 #endif

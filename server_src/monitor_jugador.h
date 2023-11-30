@@ -14,6 +14,7 @@
 #include "data/escenario_DTO.h"
 #include "data/segundo_DTO.h"
 #include "data/arma_DTO.h"
+#include "data/ganador_DTO.h"
 
 class VientoVelocidad;
 
@@ -33,6 +34,8 @@ public:
     void enviar_turno(int id_gusano);
 
     void eliminar_turno(int id);
+
+    void enviar_ganador();
 
     int recibir_turno();
 

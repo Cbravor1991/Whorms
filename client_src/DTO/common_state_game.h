@@ -13,6 +13,7 @@ const int TIPO_PAQUETE = 2;
 const int TIPO_ESCENARIO = 3;
 const int TIPO_ARMA = 4;
 const int TIPO_VIENTO = 6;
+const int TIPO_GANADOR = 7;
 
 class StateGame
 {

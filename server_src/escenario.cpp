@@ -32,7 +32,7 @@ Gusano *Escenario::recibir_gusano(int id)
 
 int Escenario::cambiar_turno(int id)
 {
-    if (id != 0)
+    if (id != 0 and gusanos.find(id) != gusanos.end())
     {
         gusanos[id].cambiar_turno();
     }
@@ -84,6 +84,10 @@ void Escenario::mandar_paquete()
                 cambiar_turno(0);
             };
             it = gusanos.erase(it);
+            if (gusanos.size() == 1)
+            {
+                monitor->enviar_ganador();
+            }
         }
         else
         {

@@ -46,6 +46,7 @@ const int MOVIMIENTO_ARRIBA_ATRAS = 4;
 
 const uint8_t CAMBIO_TURNO = 0x00;
 const uint8_t SEGUNDOS = 0x01;
+const uint8_t GANADOR = 0x02;
 const uint8_t PAQUETE_JUGADORES = 0x03;
 const uint8_t PAQUETE_OBJETOS = 0x07;
 const uint8_t ESCENARIO = 0x04;
@@ -100,6 +101,8 @@ public:
     void enviar_cantidad_objetos(int cantidad);
 
     void enviar_turno(int jugador_id, int id_gusano);
+
+    void enviar_ganador(int id_ganador);
 
     void enviar_segundos(int segundo);
 

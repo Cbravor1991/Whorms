@@ -12,6 +12,16 @@ std::vector<int> MonitorJugadores::obtener_jugadores()
     return turno.obtener_jugadores();
 }
 
+void MonitorJugadores::enviar_ganador()
+{
+    int id_ganador = recibir_turno();
+    for (const auto &entry : jugadores)
+    {
+        Jugador *jugador = entry.second;
+        jugador->recibir_comando(new Ganador(id_ganador));
+    }
+}
+
 void MonitorJugadores::comenzar_juego(Queue<Accion *> *cola)
 {
     for (const auto &entry : jugadores)

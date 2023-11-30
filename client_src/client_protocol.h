@@ -30,6 +30,7 @@ const uint8_t ENVIAR_MOVIMIENTO = 0x00;
 const uint8_t ENVIAR_USO_ARMA = 0x05;
 const std::int8_t RECIBIR_SEGUNDO = 0x01;
 const std::int8_t RECIBIR_TURNO = 0x00;
+const std::int8_t RECIBIR_GANADOR = 0x02;
 const std::int8_t RECIBIR_PAQUETE = 0x03;
 const std::int8_t RECIBIR_ESCENARIO = 0x04;
 const std::int8_t RECIBIR_ARMA = 0x05;
@@ -71,6 +72,8 @@ private:
     VigaDTO recibir_viga();
 
     StateGame *recibir_viento();
+
+    StateGame *recibir_ganador(int id);
 
     StateGame *recibir_arma();
 

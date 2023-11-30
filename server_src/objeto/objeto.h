@@ -28,6 +28,8 @@ public:
     Objeto(Mundo *mundo);
     virtual ~Objeto();
 
+    bool esta_en_contacto();
+
     bool consultar_movimiento();
 
     // Devuelve la posicion del objeto

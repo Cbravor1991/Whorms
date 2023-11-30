@@ -15,6 +15,7 @@
 #include "DTO/common_armaDTO.h"
 #include "DTO/common_objetoDTO.h"
 #include "DTO/common_vientoDTO.cpp"
+#include "DTO/common_ganadorDTO.cpp"
 #include <tuple>
 
 ProtocoloCliente::ProtocoloCliente(const std::string &hostname,
@@ -292,6 +293,10 @@ int ProtocoloCliente::traducir_tipo_mensaje(const uint8_t &buffer)
     {
         tipo = TIPO_VIENTO;
     }
+    else if (buffer == RECIBIR_GANADOR)
+    {
+        tipo = TIPO_GANADOR;
+    }
     return tipo;
 }
 
@@ -356,6 +361,12 @@ StateGame *ProtocoloCliente::procesar_mensaje(const int &id_jugador)
             estado = recibir_viento();
         }
         break;
+    case TIPO_GANADOR:
+        if (conectado)
+        {
+            estado = recibir_ganador(id_jugador);
+        }
+        break;
     }
 
     return estado;
@@ -366,6 +377,14 @@ StateGame *ProtocoloCliente::recibir_viento()
     float velocidad = recibir_int() / 10;
     bool direccion = static_cast<bool>(recibir_int());
     StateGame *estado = new VientoDTO(velocidad, direccion);
+    return estado;
+}
+
+StateGame *ProtocoloCliente::recibir_ganador(int id_jugador)
+{
+    int id_ganador = recibir_int();
+    bool ganaste = (id_ganador == id_jugador);
+    StateGame *estado = new GanadorDTO(id_ganador, ganaste);
     return estado;
 }
 
