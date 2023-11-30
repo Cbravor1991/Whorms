@@ -15,7 +15,6 @@
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QVBoxLayout>
 
@@ -25,16 +24,15 @@ class Ui_createPopUp
 {
 public:
     QVBoxLayout *verticalLayout;
+    QHBoxLayout *horizontalLayout_3;
     QHBoxLayout *horizontalLayout_2;
     QLabel *labelPlayers;
     QComboBox *playersNumber;
-    QHBoxLayout *horizontalLayout_3;
     QHBoxLayout *horizontalLayout;
-    QLineEdit *labelName;
     QPushButton *createButton;
     QLabel *labelConfirm;
     QHBoxLayout *horizontalLayout_4;
-    QPushButton *accept;
+    QPushButton *ACEPTAR;
 
     void setupUi(QDialog *createPopUp)
     {
@@ -44,6 +42,8 @@ public:
         createPopUp->setStyleSheet(QString::fromUtf8("background-image: url(:lobby_background.jpg);"));
         verticalLayout = new QVBoxLayout(createPopUp);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
+        horizontalLayout_3 = new QHBoxLayout();
+        horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
         labelPlayers = new QLabel(createPopUp);
@@ -60,30 +60,22 @@ public:
         playersNumber->addItem(QString());
         playersNumber->setObjectName(QString::fromUtf8("playersNumber"));
         playersNumber->setEnabled(true);
-        playersNumber->setMaximumSize(QSize(80, 16777215));
+        playersNumber->setMaximumSize(QSize(100, 16777215));
         playersNumber->setStyleSheet(QString::fromUtf8("background-image: url(:lobby_background.jpg);"));
 
         horizontalLayout_2->addWidget(playersNumber);
 
 
-        verticalLayout->addLayout(horizontalLayout_2);
+        horizontalLayout_3->addLayout(horizontalLayout_2);
 
-        horizontalLayout_3 = new QHBoxLayout();
-        horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
 
         verticalLayout->addLayout(horizontalLayout_3);
 
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
-        labelName = new QLineEdit(createPopUp);
-        labelName->setObjectName(QString::fromUtf8("labelName"));
-        labelName->setEnabled(true);
-        labelName->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
-
-        horizontalLayout->addWidget(labelName);
-
         createButton = new QPushButton(createPopUp);
         createButton->setObjectName(QString::fromUtf8("createButton"));
+        createButton->setMaximumSize(QSize(100, 30));
         createButton->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
 
         horizontalLayout->addWidget(createButton);
@@ -100,20 +92,20 @@ public:
 
         horizontalLayout_4 = new QHBoxLayout();
         horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
-        accept = new QPushButton(createPopUp);
-        accept->setObjectName(QString::fromUtf8("accept"));
-        accept->setEnabled(false);
+        ACEPTAR = new QPushButton(createPopUp);
+        ACEPTAR->setObjectName(QString::fromUtf8("ACEPTAR"));
+        ACEPTAR->setEnabled(false);
         QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(accept->sizePolicy().hasHeightForWidth());
-        accept->setSizePolicy(sizePolicy);
-        accept->setMinimumSize(QSize(0, 0));
-        accept->setMaximumSize(QSize(200, 30));
-        accept->setLayoutDirection(Qt::LeftToRight);
-        accept->setStyleSheet(QString::fromUtf8("color: rgb(157, 157, 157);"));
+        sizePolicy.setHeightForWidth(ACEPTAR->sizePolicy().hasHeightForWidth());
+        ACEPTAR->setSizePolicy(sizePolicy);
+        ACEPTAR->setMinimumSize(QSize(0, 0));
+        ACEPTAR->setMaximumSize(QSize(200, 30));
+        ACEPTAR->setLayoutDirection(Qt::LeftToRight);
+        ACEPTAR->setStyleSheet(QString::fromUtf8("color: rgb(157, 157, 157);"));
 
-        horizontalLayout_4->addWidget(accept);
+        horizontalLayout_4->addWidget(ACEPTAR);
 
 
         verticalLayout->addLayout(horizontalLayout_4);
@@ -127,16 +119,15 @@ public:
     void retranslateUi(QDialog *createPopUp)
     {
         createPopUp->setWindowTitle(QCoreApplication::translate("createPopUp", "Dialog", nullptr));
-        labelPlayers->setText(QCoreApplication::translate("createPopUp", "Seleccione la cantidad de jugadores:", nullptr));
-        playersNumber->setItemText(0, QCoreApplication::translate("createPopUp", "1", nullptr));
-        playersNumber->setItemText(1, QCoreApplication::translate("createPopUp", "2", nullptr));
-        playersNumber->setItemText(2, QCoreApplication::translate("createPopUp", "3", nullptr));
-        playersNumber->setItemText(3, QCoreApplication::translate("createPopUp", "4", nullptr));
+        labelPlayers->setText(QCoreApplication::translate("createPopUp", "Seleccione el escenario:", nullptr));
+        playersNumber->setItemText(0, QCoreApplication::translate("createPopUp", "Alta mar", nullptr));
+        playersNumber->setItemText(1, QCoreApplication::translate("createPopUp", "Monta\303\261as", nullptr));
+        playersNumber->setItemText(2, QString());
+        playersNumber->setItemText(3, QString());
 
-        labelName->setText(QCoreApplication::translate("createPopUp", "Ingresar nombre de partida", nullptr));
-        createButton->setText(QCoreApplication::translate("createPopUp", "Crear", nullptr));
+        createButton->setText(QCoreApplication::translate("createPopUp", "CREAR", nullptr));
         labelConfirm->setText(QString());
-        accept->setText(QCoreApplication::translate("createPopUp", "ACEPTAR", nullptr));
+        ACEPTAR->setText(QCoreApplication::translate("createPopUp", "ACEPTAR", nullptr));
     } // retranslateUi
 
 };

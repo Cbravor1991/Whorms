@@ -30,7 +30,7 @@ MainWindow::MainWindow(Lobby *lobby, QWidget *parent)
             ui->labelMatch->setFont(font);
         }
     }
-    ui->labelMatch->hide();
+    //ui->labelMatch->hide();
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(hideTemporaryLabel()));
 }

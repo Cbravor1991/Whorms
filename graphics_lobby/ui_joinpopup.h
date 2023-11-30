@@ -93,7 +93,7 @@ public:
     void retranslateUi(QDialog *JoinPopUp)
     {
         JoinPopUp->setWindowTitle(QCoreApplication::translate("JoinPopUp", "Dialog", nullptr));
-        labelName->setText(QCoreApplication::translate("JoinPopUp", "NOMBRE DE PARTIDA", nullptr));
+        labelName->setText(QCoreApplication::translate("JoinPopUp", "INGRESE NUMERO DE PARTIDA", nullptr));
         createButton->setText(QCoreApplication::translate("JoinPopUp", "UNIRSE", nullptr));
         labelConfirm->setText(QString());
           accept->setText(QCoreApplication::translate("JoinPopUp", "SALIR", nullptr));

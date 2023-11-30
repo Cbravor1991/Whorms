@@ -2,7 +2,7 @@
 #define CREATEPOPUP_H
 
 #include <QMainWindow>
-
+#include "waitRoom.h"
 #include "../client_src/client_lobby.h"
 #include <QDialog>
 
@@ -22,13 +22,14 @@ public:
 
 private slots:
     void on_createButton_clicked();
-    void on_accept_clicked();
+    void on_ACEPTAR_clicked();
     
 
 private:
     Ui::createPopUp *ui;
     Lobby* lobby;
     QPushButton* startButton;
+    waitRoom* wait_room;
 };
 
 #endif // CREATEPOPUP_H

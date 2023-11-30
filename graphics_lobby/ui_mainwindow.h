@@ -114,7 +114,7 @@ public:
         labelMatch = new QLabel(centralwidget);
         labelMatch->setObjectName(QString::fromUtf8("labelMatch"));
         labelMatch->setEnabled(true);
-        labelMatch->setGeometry(QRect(450, 540, 600, 50));
+        labelMatch->setGeometry(QRect(510, 530, 600, 50));
         labelMatch->setStyleSheet(QString::fromUtf8("border: none;\n"
 "background: none;\n"
 "color : rgb(255,255,255);"));
@@ -133,7 +133,7 @@ public:
         joinButton->setText(QCoreApplication::translate("MainWindow", "JOIN GAME", nullptr));
         exitButton->setText(QCoreApplication::translate("MainWindow", "EXIT", nullptr));
         startButton->setText(QCoreApplication::translate("MainWindow", "START", nullptr));
-        labelMatch->setText(QCoreApplication::translate("MainWindow", "YA SE ENCUENTRA EN UNA PARTIDA", nullptr));
+        labelMatch->setText(QCoreApplication::translate("MainWindow", "2 JUGADORES EPERANDO", nullptr));
     } // retranslateUi
 
 };
