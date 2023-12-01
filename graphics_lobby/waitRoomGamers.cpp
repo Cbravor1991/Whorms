@@ -1,10 +1,10 @@
-#include "waitRoom.h"
-#include "ui_waitRoom.h"
+#include "waitRoomGamers.h"
+#include "ui_waitRoomGamers.h"
 #include <QFontDatabase>
 #include <iostream>
 
-waitRoom::waitRoom(Lobby *lobby, QWidget *parent) : QDialog(parent),
-                                                                                    ui(new Ui::waitRoom),
+waitRoomGamers::waitRoomGamers(Lobby *lobby, QWidget *parent) : QDialog(parent),
+                                                                                    ui(new Ui::waitRoomGamers),
                                                                                     lobby(lobby)
 {
     ui->setupUi(this);
@@ -22,29 +22,27 @@ waitRoom::waitRoom(Lobby *lobby, QWidget *parent) : QDialog(parent),
             QFont font(fontFamily, 12); // Crea una instancia de QFont con el nombre de la familia y el tamaño deseado
             //ui->labelName->setFont(font);
          
-            ui->labelConfirm->setFont(font);
-            ui->start->setFont(font);
-       
+            ui->labelNumberPlayer->setFont(font);
+            ui->labelMessage->setFont(font);
+            
         }
     }
 
-          QString text = QString("ESPERANDO INICIO DE PARTIDA....");
-          ui->labelConfirm->setText(text);
+          QString text = QString("2/4");
+          ui->labelNumberPlayer->setText(text);
+
+          QString text_message = QString("Esperando a que el anfitrion empieze la partida");
+          ui->labelMessage->setText(text);  
 
 
 }
 
-waitRoom::~waitRoom()
+waitRoomGamers::~waitRoomGamers()
 {
     delete ui;
 }
 
-void waitRoom::on_start_clicked()
-{
-    this->close();
-     lobby->enviar_comienzo_juego();
-    lobby->jugar();
-}
 
+  void waitRoomGamers::on_createButton_clicked(){}
 
 

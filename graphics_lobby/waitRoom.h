@@ -21,8 +21,8 @@ public:
     ~waitRoom();
 
 private slots:
-    void on_createButton_clicked();
-    void on_accept_clicked();
+    void on_start_clicked();
+ 
     
 
 private:

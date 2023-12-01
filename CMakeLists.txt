@@ -19,6 +19,7 @@ qt5_wrap_ui(UIS_HEADERS
             ./graphics_lobby/createpopup.ui
             ./graphics_lobby/joinpopup.ui
             ./graphics_lobby/waitRoom.ui
+            ./graphics_lobby/waitRoomGamers.ui
          
          )
 # Instruct CMake to run moc automatically when neededcd
@@ -141,6 +142,7 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/libs/box2d-2.4.0 ${CMAKE_SOURCE_DIR}/build/
                 ./graphics_lobby/createpopup.cpp
                 ./graphics_lobby/joinpopup.cpp
                 ./graphics_lobby/waitRoom.cpp
+                ./graphics_lobby/waitRoomGamers.cpp
                 ./client_src/client_lobby.cpp
                 ${UIS_HEADERS}
 
@@ -203,6 +205,7 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/libs/box2d-2.4.0 ${CMAKE_SOURCE_DIR}/build/
                 ./graphics_lobby/createpopup.cpp
                 ./graphics_lobby/joinpopup.cpp
                 ./graphics_lobby/waitRoom.cpp
+                ./graphics_lobby/waitRoomGamers.cpp
                 ./client_src/client_lobby.cpp
  
     ${UIS_HEADERS}

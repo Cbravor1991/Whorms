@@ -85,7 +85,7 @@ void createPopUp::on_createButton_clicked()
 void createPopUp::on_ACEPTAR_clicked()
 {
     this->close();
-   // wait_room = new waitRoom(lobby, nullptr);
-    //wait_room->show();
+    wait_room = new waitRoom(lobby, nullptr);
+    wait_room->show();
 
 }

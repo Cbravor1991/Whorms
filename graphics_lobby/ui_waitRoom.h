@@ -46,7 +46,7 @@ public:
         horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
         start = new QPushButton(waitRoom);
         start->setObjectName(QString::fromUtf8("start"));
-        start->setEnabled(false);
+        start->setEnabled(true);
         QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -55,7 +55,7 @@ public:
         start->setMinimumSize(QSize(0, 0));
         start->setMaximumSize(QSize(200, 30));
         start->setLayoutDirection(Qt::LeftToRight);
-        start->setStyleSheet(QString::fromUtf8("color: rgb(157, 157, 157);"));
+        start->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
 
         horizontalLayout_4->addWidget(start);
 

@@ -26,8 +26,8 @@ MainWindow::MainWindow(Lobby *lobby, QWidget *parent)
             ui->createButton->setFont(font);
             ui->joinButton->setFont(font);
             ui->exitButton->setFont(font);
-            ui->startButton->setFont(font);
-            ui->labelMatch->setFont(font);
+            ui->startButton->hide();
+            ui->labelMatch->hide();
         }
     }
     //ui->labelMatch->hide();
@@ -48,7 +48,7 @@ void MainWindow::closeEvent(QCloseEvent *e)
 
 void MainWindow::on_createButton_clicked()
 {
-
+    hide();
     create_pop_up = new createPopUp(loby, ui->startButton, nullptr);
     create_pop_up->show();
 }
@@ -63,8 +63,8 @@ void MainWindow::on_joinButton_clicked()
 void MainWindow::on_startButton_clicked()
 {
     hide();
-    loby->enviar_comienzo_juego();
-    loby->jugar();
+    //loby->enviar_comienzo_juego();
+    //loby->jugar();
 }
 
 void MainWindow::on_exitButton_clicked()
