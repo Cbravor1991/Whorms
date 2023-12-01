@@ -61,6 +61,7 @@ void PathLoader::loadSpritePath() {
     sprite_path.push_back("/misc/windr.png");
     sprite_path.push_back("/misc/windl.png");
     sprite_path.push_back("/misc/windback.png");
+    sprite_path.push_back("/misc/box.png");
 }
 
 void PathLoader::loadBackgroundPath() {

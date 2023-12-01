@@ -23,8 +23,19 @@ void Game::run()
             estado = optional.value();
             nuevo_estado = true;
         }
+        else
+        {
+            //si la cola esta vacía, puedo enviar cosas
+            cola_vacia = true;
 
-        if (not this->gameLoop(estado, nuevo_estado))
+        }
+
+        if(termino_juego) {
+            if (this->endGameLoop()) {
+                break;
+            }
+        }
+        else if (not this->gameLoop(estado, nuevo_estado))
         {
             break;
         }
@@ -56,7 +67,8 @@ bool Game::gameLoop(StateGame *estado, bool &nuevo_estado)
     {
 
         for (auto &[id, jugador] : jugadores)
-        {
+        {   
+            //debo llegar a 3 y ahi freno
             jugador.stop_running();
         }
     }
@@ -79,7 +91,7 @@ bool Game::manejarEventos()
         }
         else if (event.type == SDL_KEYDOWN)
         {
-            if (!permiso)
+            if (!permiso or !cola_vacia)
             {
                 // Si no tienes permiso, solo permitir mutear el sonido
                 if (event.key.keysym.sym != SDLK_m)
@@ -100,6 +112,7 @@ bool Game::manejarEventos()
 
                 accion = new Weapon(tipo);
                 cliente.mandar_accion(accion);
+                cola_vacia = false;
                 break;
             }
             case (SDLK_m):
@@ -111,6 +124,7 @@ bool Game::manejarEventos()
             {
                 accion = new Left();
                 cliente.mandar_accion(accion);
+                cola_vacia = false;
                 break;
             }
 
@@ -118,6 +132,7 @@ bool Game::manejarEventos()
             {
                 accion = new Right();
                 cliente.mandar_accion(accion);
+                cola_vacia = false;
                 break;
             }
 
@@ -126,6 +141,7 @@ bool Game::manejarEventos()
                 view.reproducir_efecto("/sonidos/salto.WAV");
                 accion = new JumpFoward();
                 cliente.mandar_accion(accion);
+                cola_vacia = false;
                 break;
             }
             case (SDLK_BACKSPACE):
@@ -133,6 +149,7 @@ bool Game::manejarEventos()
                 view.reproducir_efecto("/sonidos/salto.WAV");
                 accion = new JumpBack();
                 cliente.mandar_accion(accion);
+                cola_vacia = false;
                 break;
             }
             case (SDLK_UP):
@@ -318,6 +335,12 @@ void Game::procesar_estado(StateGame *estado)
         VientoDTO *viento = dynamic_cast<VientoDTO *>(estado);
         viento->cargar(this->viento);
     }
+    else if (estado->type == TIPO_GANADOR)
+    {   
+        GanadorDTO *ganador = dynamic_cast<GanadorDTO *>(estado);
+        this->termino_juego = true;
+        this->gane = ganador->obtenerEstado();
+    }
 }
 
 void Game::procesar_paquete(PaqueteDTO *paquete)
@@ -440,7 +463,7 @@ void Game::renderizar()
 
     view.renderizar_fondo_pantalla();
     SDL_Color color = {255, 255, 255, 255};
-    view.renderizar_texto(time, 0, 0, color);
+    view.renderizar_texto(time, 0, 0, color, 12);
     // view.renderizar_gusano(0,0);
 
     if (jugadores.find(turno) != jugadores.end())
@@ -490,4 +513,29 @@ void Game::renderizar_misiles()
     { // para mostrar las vigas
         view.renderizar_misil(misil);
     }
+}
+
+bool Game::endGameLoop() 
+{   
+   
+    view.clear();
+    view.renderizar_fondo_pantalla();
+    for (VigaDTO viga : vigas) //ver si lo hago o no, es para que no quede el fondo solo
+    { // para mostrar las vigas
+        view.renderizar_viga(viga);
+    }
+    
+    //sonidos de aplausos?
+    view.renderizar_end_game(this->gane);
+
+    view.mostrar();
+    SDL_Event event;
+    while (SDL_PollEvent(&event))
+    {
+        if (event.type == SDL_QUIT)
+        {
+            return true; // Salir del juego sin necesidad de permiso
+        }
+    }
+    return false;
 }

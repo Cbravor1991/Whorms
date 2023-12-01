@@ -22,15 +22,15 @@ VientoVelocidad Viento::cambiar()
     std::uniform_int_distribution<int> direction(-1, 1); // Acepto velocidad 0
 
     this->velocity = dist(rng) * 10;
-    this->velocity *= direction(rng);
-
-    int velocidad = velocity;
     int direccion = direction(rng);
+    int velocidad = velocity;
+    this->velocity *= direccion;
+
     if (direccion == -1)
     {
         direccion = 0; // Si la dirección es -1, cambia el signo de la velocidad
     }
-    bool direccion_bool = static_cast<bool>(direction(rng));
+    bool direccion_bool = static_cast<bool>(direccion);
 
     VientoVelocidad viento(velocidad, direccion_bool);
     return viento;

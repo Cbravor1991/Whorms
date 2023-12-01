@@ -24,7 +24,7 @@
 #include "DTO/common_armaDTO.h"
 #include "DTO/common_objetoDTO.h"
 #include "DTO/common_vientoDTO.h"
-
+#include "DTO/common_ganadorDTO.h"
 class Game
 {
 private:
@@ -42,6 +42,9 @@ private:
     int armaX;
     int armaY;
     int tipo;
+    bool termino_juego = false;
+    bool gane = true;
+    bool cola_vacia = true;
     VientoDTO viento;
 
     // prueba de concepto
@@ -70,5 +73,7 @@ public:
     void renderizar_misiles();
 
     void renderizar();
+
+    bool endGameLoop();
 };
 #endif // GAME_H

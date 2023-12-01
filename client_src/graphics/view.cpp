@@ -42,9 +42,9 @@ void GameView::renderizar_fondo_pantalla(){
 
 }
 
-void GameView::renderizar_texto(std::string texto, int pos_x, int pos_y, SDL_Color color)
+void GameView::renderizar_texto(std::string texto, int pos_x, int pos_y, SDL_Color color, int font_size)
 {
-    SDL2pp::Font font(DATA_PATH "/GROBOLD.ttf", 12);
+    SDL2pp::Font font(DATA_PATH "/GROBOLD.ttf", font_size);
 
     SDL2pp::Texture texto_sprite(renderer, font.RenderText_Blended(texto, color));
 
@@ -96,7 +96,7 @@ void GameView::renderizar_gusano(JugadorDTO jugador)
     std::string vida_string = std::to_string(jugador.obtener_vida());
     std::string texto = "Vida:" + vida_string;
     SDL_Color color = jugador.obtener_color();
-    renderizar_texto(texto, jugador.posicion_x(), 200-jugador.posicion_y(), color);
+    renderizar_texto(texto, jugador.posicion_x(), 200-jugador.posicion_y(), color, 12);
     jugador.renderizar(renderer, tex_manager);//paso renderer y text_manager
 }
 
@@ -155,7 +155,7 @@ void GameView::renderizar_municion(JugadorDTO& jugador) {
     int municion = jugador.obtenerMunicion();
     std::string texto = "Municion: " + ((municion < 0) ? "Infinita" : std::to_string(municion));
     SDL_Color color = {255, 255, 255, 255};
-    this->renderizar_texto(texto, 0, 10, color);
+    this->renderizar_texto(texto, 0, 10, color, 12);
 }
 
 void GameView::renderizar_explocion(Explotion& explotion) {
@@ -181,6 +181,8 @@ void GameView::renderizar_viento(VientoDTO &viento) {
 
 
     int velocidad = viento.obtenerVelocidad();
+    if(velocidad == 0) {return;}
+    
     bool direccion = viento.obtenerDireccion();
     int ancho = (velocidad * 100) / VELOCIDAD_MAXIMA_VIENTO; //como mucho es 100 pixeles
 
@@ -188,11 +190,11 @@ void GameView::renderizar_viento(VientoDTO &viento) {
 
     if(direccion) 
     {
-        this->renderizar_viento_izquierda(x + 100, y, ancho);
+        this->renderizar_viento_derecha(x + 100, y, ancho);
     }
     else 
     {
-        this->renderizar_viento_derecha(x + 100, y, ancho);
+        this->renderizar_viento_izquierda(x + 100, y, ancho);
     }
     
 }
@@ -231,4 +233,41 @@ void GameView::renderizar_viento_izquierda(int x, int y, int ancho)
         SDL2pp::NullOpt,                    // rotation center - not needed
         SDL_FLIP_NONE                               // vertical flip
     );
+}
+
+void GameView::renderizar_end_game(bool ganaste) 
+{   
+
+    //renderizo rectangulo negro
+    std::string path = "/misc/box.png";
+    
+    int x = renderer.GetOutputWidth()/2 - 150;
+    int y = renderer.GetOutputHeight()/2- 100;
+    std::shared_ptr<SDL2pp::Texture> texture = tex_manager.getTexture(path);
+    this->renderer.Copy(
+        *texture,
+        SDL2pp::Rect(0,0, 195, 15), // que parte del sprite queres que te cargue
+        SDL2pp::Rect(x, y, 300, 100),   // la posicion en pantalla y el tamaño
+        0,                            // don't rotate
+        SDL2pp::NullOpt,                    // rotation center - not needed
+        SDL_FLIP_NONE                               // vertical flip
+    );
+
+    //renderizo el texto
+    std::string resultado;
+    SDL_Color color = {255, 255, 255, 255};
+
+    int pos_x, pos_y; 
+    if(ganaste) {
+        resultado = "Ganaste!";
+        pos_x = x + 80;
+        pos_y = y + 35; 
+    }
+    else {
+        resultado = "Perdiste";
+        pos_x = x + 90; 
+        pos_y = y + 40;
+    }
+
+    this->renderizar_texto(resultado, pos_x, pos_y, color, 30);
 }

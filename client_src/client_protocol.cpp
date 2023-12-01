@@ -15,7 +15,7 @@
 #include "DTO/common_armaDTO.h"
 #include "DTO/common_objetoDTO.h"
 #include "DTO/common_vientoDTO.h"
-#include "DTO/common_ganadorDTO.cpp"
+#include "DTO/common_ganadorDTO.h"
 #include <tuple>
 
 ProtocoloCliente::ProtocoloCliente(const std::string &hostname,

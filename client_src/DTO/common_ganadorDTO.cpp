@@ -12,3 +12,8 @@ void GanadorDTO::cambiar_render(bool &permiso)
 void GanadorDTO::cargar()
 {
 }
+
+bool GanadorDTO::obtenerEstado()
+{
+    return this->ganaste;
+}

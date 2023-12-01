@@ -2,11 +2,12 @@
 
 #include <iostream>
 #include <algorithm>
+#define CHANGE_ANIMATION 2
 WormWalk::WormWalk(): animation_frame(0), total_frames(13) 
 {
 
-    for(int i=0; i < (total_frames*6)+1; i++){
-        int x = (int) (i/6);
+    for(int i=0; i < (total_frames*CHANGE_ANIMATION)+1; i++){
+        int x = (int) (i/CHANGE_ANIMATION);
         animation.push_back(x);
     }
 
@@ -45,7 +46,7 @@ void WormWalk::reset_animation() {
 void WormWalk::update_animation() {
 
     this->animation_frame++;
-    if(animation_frame > (total_frames * 6)) {//esto es porque renderiza cada 6 veces
+    if(animation_frame > (total_frames * CHANGE_ANIMATION)) {//esto es porque renderiza cada 6 veces
         this->reset_animation();
     }
 }

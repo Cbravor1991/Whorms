@@ -18,5 +18,6 @@ public:
     GanadorDTO(int id_ganador, bool ganaste);
     void cambiar_render(bool &permiso);
     void cargar();
+    bool obtenerEstado();
 };
 #endif

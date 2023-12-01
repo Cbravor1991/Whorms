@@ -43,7 +43,7 @@ public:
     void mostrar();
     void clear();
     SDL2pp::Renderer &getRenderer();//
-    void renderizar_texto(const std::string texto, int pos_x, int pos_y, SDL_Color color);
+    void renderizar_texto(const std::string texto, int pos_x, int pos_y, SDL_Color color, int font_size);
     void renderizar_viga(VigaDTO viga); // 140 20 70 20
     void centrarEnGusano(int x, int y);
     void renderizar_gusano(JugadorDTO jugador);
@@ -58,6 +58,7 @@ public:
     void renderizar_explocion(Explotion& explotion);
     void reproducir_sonido_explosion();
     void renderizar_viento(VientoDTO &viento);
+    void renderizar_end_game(bool ganaste);
 };
 
 #endif // VIEW_H

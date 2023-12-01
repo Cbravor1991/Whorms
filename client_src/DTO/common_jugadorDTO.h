@@ -29,6 +29,7 @@
 #include "../worm/weapon/worm_grenade.h"
 #include "../worm/weapon/worm_mortar.h"
 
+#define CANTIDAD_FRAMES_FRENAR 20
 class Action;
 
 class JugadorDTO
@@ -47,7 +48,7 @@ private:
     SDL_Color color;
     std::shared_ptr<WormStatus> status;
     int id_cliente;
-
+    int frames_hasta_frenarse;
     void setear_color();
 
 public:

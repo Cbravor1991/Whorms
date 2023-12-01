@@ -158,8 +158,14 @@ void JugadorDTO::stop_running()
     if (!this->is_running)
         return;
 
-    this->is_running = false;
-    this->status.reset(new WormIdle());
+    frames_hasta_frenarse++;
+
+    if(frames_hasta_frenarse >= CANTIDAD_FRAMES_FRENAR) {
+        this->is_running = false;
+        this->status.reset(new WormIdle());
+        frames_hasta_frenarse = 0;
+    }
+    
 }
 
 void JugadorDTO::aumentar_angulo_arma()
