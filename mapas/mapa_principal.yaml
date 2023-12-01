@@ -1,9 +1,7 @@
 fondo:
   pantalla: 0
-
 spawns_mapa:
   spawns_automaticos: 1
-
 vigas:
   - tipo: 1
     x: 70
