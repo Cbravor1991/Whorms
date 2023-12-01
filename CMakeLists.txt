@@ -30,6 +30,7 @@ set(CMAKE_AUTORCC ON)
 
 
 add_definitions(-DDATA_PATH="${PROJECT_SOURCE_DIR}/data")
+add_definitions(-DMAPA_PATH="${PROJECT_SOURCE_DIR}/mapas")
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror -pedantic -pedantic-errors -O0 -ggdb -DDEBUG -fno-inline -D _POSIX_C_SOURCE=200809L -pthread")
 
@@ -74,6 +75,7 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/libs/box2d-2.4.0 ${CMAKE_SOURCE_DIR}/build/
                 ./common_src/common_socket.cpp 
                 ./server_src/configuracion.cpp
                 ./server_src/objeto/provision.cpp
+                ./server_src/configuracion_mapa.cpp
     )
 
     target_include_directories(server PUBLIC ${PROJECT_SOURCE_DIR}/libs/box2d)

@@ -45,9 +45,14 @@ public:
         gusanos = original.gusanos; // Esto es una copia superficial, ajusta según sea necesario
         spawns = original.spawns;   // Esto es una copia superficial, ajusta según sea necesario
         cantidad_jugadores = original.cantidad_jugadores;
+        
     }
 
     Escenario();
+
+    int mapa_fondo;
+    
+    bool spawns_automaticos;
 
     void iniciar(MonitorJugadores *monitor);
 

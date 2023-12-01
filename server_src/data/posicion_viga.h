@@ -30,6 +30,10 @@ public:
     bool obtener_tipo() const {
         return tipo;
     }
+
+    int obtener_angulo() const {
+        return angulo;
+    }
 };
 
 #endif

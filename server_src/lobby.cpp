@@ -2,21 +2,12 @@
 
 Lobby::Lobby()
 {
-    escenarios[0].colocar_viga(70, 100, 1, 11);
-    escenarios[0].colocar_viga(180, 80, 1, 9);
-    escenarios[0].colocar_viga(150, 110, 0, -11);
-    escenarios[0].colocar_viga(370, 40, 0, -9);
-    escenarios[0].colocar_viga(200, 160, 1, 45);
-    escenarios[0].colocar_viga(300, 50, 1, 20);
-    escenarios[0].colocar_viga(250, 80, 1, -45);
-    escenarios[0].colocar_viga(300, 110, 0, 20);
-    escenarios[0].colocar_viga(400, 60, 0, -20);
-    escenarios[0].colocar_viga(0, 80, 1, 0);
-    escenarios[0].colocar_viga(100, 170, 0, -30);
-    escenarios[0].colocar_viga(340, 170, 1, 0);
-    escenarios[0].colocar_viga(500, 60, 0, 23);
-    escenarios[0].colocar_viga(450, 80, 0, 12);
-    escenarios[0].colocar_viga(480, 180, 1, -32);
+    std::vector<PosicionViga> vigas = configuracion_mapa.getVigas();
+    for (const PosicionViga& viga : vigas) {
+        escenarios[0].colocar_viga(viga.obtener_x(), viga.obtener_y(), viga.obtener_tipo(), viga.obtener_angulo());
+    }
+    escenarios[0].spawns_automaticos = configuracion_mapa.getSpawnsAutomaticos();
+    escenarios[0].mapa_fondo = configuracion_mapa.getFondo();
 }
 
 std::vector<int> Lobby::obtener_partidas()

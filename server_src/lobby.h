@@ -8,8 +8,11 @@
 #include "partida.h"
 
 #include "../../server_src/configuracion.h"
+#include "../../server_src/configuracion_mapa.h"
+#include "data/posicion_viga.h"
 
 #define configuracion Configuracion::obtener_configuracion()
+#define configuracion_mapa ConfiguracionMapa::obtener_configuracion_mapa()
 
 // Definición de la clase Lobby
 class Lobby
