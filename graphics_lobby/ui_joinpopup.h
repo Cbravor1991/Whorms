@@ -11,6 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QComboBox>
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
@@ -26,10 +27,9 @@ public:
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout;
     QLineEdit *labelName;
+    QComboBox *games;
     QPushButton *createButton;
     QLabel *labelConfirm;
-    QHBoxLayout *horizontalLayout_4;
-    QPushButton *accept;
 
     void setupUi(QDialog *JoinPopUp)
     {
@@ -48,6 +48,11 @@ public:
 
         horizontalLayout->addWidget(labelName);
 
+        games = new QComboBox(JoinPopUp);
+        games->setObjectName(QString::fromUtf8("games"));
+
+        horizontalLayout->addWidget(games);
+
         createButton = new QPushButton(JoinPopUp);
         createButton->setObjectName(QString::fromUtf8("createButton"));
         createButton->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
@@ -64,26 +69,6 @@ public:
 
         verticalLayout->addWidget(labelConfirm);
 
-        horizontalLayout_4 = new QHBoxLayout();
-        horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
-        accept = new QPushButton(JoinPopUp);
-        accept->setObjectName(QString::fromUtf8("accept"));
-        QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(accept->sizePolicy().hasHeightForWidth());
-        accept->setSizePolicy(sizePolicy);
-        accept->setMinimumSize(QSize(0, 0));
-        accept->setMaximumSize(QSize(200, 30));
-        accept->setLayoutDirection(Qt::LeftToRight);
-        accept->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
-
-        horizontalLayout_4->addWidget(accept);
-
-
-        verticalLayout->addLayout(horizontalLayout_4);
-
-
 
         retranslateUi(JoinPopUp);
 
@@ -93,16 +78,15 @@ public:
     void retranslateUi(QDialog *JoinPopUp)
     {
         JoinPopUp->setWindowTitle(QCoreApplication::translate("JoinPopUp", "Dialog", nullptr));
-        labelName->setText(QCoreApplication::translate("JoinPopUp", "INGRESE NUMERO DE PARTIDA", nullptr));
+        labelName->setText(QCoreApplication::translate("JoinPopUp", "NOMBRE DE PARTIDA", nullptr));
         createButton->setText(QCoreApplication::translate("JoinPopUp", "UNIRSE", nullptr));
         labelConfirm->setText(QString());
-          accept->setText(QCoreApplication::translate("JoinPopUp", "SALIR", nullptr));
     } // retranslateUi
 
 };
 
 namespace Ui {
-    class JoinPopUp: public Ui_JoinPopUp{};
+    class JoinPopUp: public Ui_JoinPopUp {};
 } // namespace Ui
 
 QT_END_NAMESPACE

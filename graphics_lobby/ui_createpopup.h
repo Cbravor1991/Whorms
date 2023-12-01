@@ -26,13 +26,13 @@ public:
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout_3;
     QHBoxLayout *horizontalLayout_2;
-    QLabel *labelPlayers;
-    QComboBox *playersNumber;
+    QLabel *labelScenarios;
+    QComboBox *scenarios;
     QHBoxLayout *horizontalLayout;
     QPushButton *createButton;
     QLabel *labelConfirm;
     QHBoxLayout *horizontalLayout_4;
-    QPushButton *ACEPTAR;
+    QPushButton *accept;
 
     void setupUi(QDialog *createPopUp)
     {
@@ -46,24 +46,22 @@ public:
         horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
-        labelPlayers = new QLabel(createPopUp);
-        labelPlayers->setObjectName(QString::fromUtf8("labelPlayers"));
-        labelPlayers->setEnabled(true);
-        labelPlayers->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
+        labelScenarios = new QLabel(createPopUp);
+        labelScenarios->setObjectName(QString::fromUtf8("labelScenarios"));
+        labelScenarios->setEnabled(true);
+        labelScenarios->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
 
-        horizontalLayout_2->addWidget(labelPlayers);
+        horizontalLayout_2->addWidget(labelScenarios);
 
-        playersNumber = new QComboBox(createPopUp);
-        playersNumber->addItem(QString());
-        playersNumber->addItem(QString());
-        playersNumber->addItem(QString());
-        playersNumber->addItem(QString());
-        playersNumber->setObjectName(QString::fromUtf8("playersNumber"));
-        playersNumber->setEnabled(true);
-        playersNumber->setMaximumSize(QSize(100, 16777215));
-        playersNumber->setStyleSheet(QString::fromUtf8("background-image: url(:lobby_background.jpg);"));
+        scenarios = new QComboBox(createPopUp);
+        scenarios->addItem(QString());
+        scenarios->addItem(QString());
+        scenarios->setObjectName(QString::fromUtf8("scenarios"));
+        scenarios->setEnabled(true);
+        scenarios->setMaximumSize(QSize(100, 16777215));
+        scenarios->setStyleSheet(QString::fromUtf8("background-image: url(:lobby_background.jpg);"));
 
-        horizontalLayout_2->addWidget(playersNumber);
+        horizontalLayout_2->addWidget(scenarios);
 
 
         horizontalLayout_3->addLayout(horizontalLayout_2);
@@ -92,20 +90,20 @@ public:
 
         horizontalLayout_4 = new QHBoxLayout();
         horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
-        ACEPTAR = new QPushButton(createPopUp);
-        ACEPTAR->setObjectName(QString::fromUtf8("ACEPTAR"));
-        ACEPTAR->setEnabled(false);
+        accept = new QPushButton(createPopUp);
+        accept->setObjectName(QString::fromUtf8("accept"));
+        accept->setEnabled(false);
         QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(ACEPTAR->sizePolicy().hasHeightForWidth());
-        ACEPTAR->setSizePolicy(sizePolicy);
-        ACEPTAR->setMinimumSize(QSize(0, 0));
-        ACEPTAR->setMaximumSize(QSize(200, 30));
-        ACEPTAR->setLayoutDirection(Qt::LeftToRight);
-        ACEPTAR->setStyleSheet(QString::fromUtf8("color: rgb(157, 157, 157);"));
+        sizePolicy.setHeightForWidth(accept->sizePolicy().hasHeightForWidth());
+        accept->setSizePolicy(sizePolicy);
+        accept->setMinimumSize(QSize(0, 0));
+        accept->setMaximumSize(QSize(200, 30));
+        accept->setLayoutDirection(Qt::LeftToRight);
+        accept->setStyleSheet(QString::fromUtf8("color: rgb(157, 157, 157);"));
 
-        horizontalLayout_4->addWidget(ACEPTAR);
+        horizontalLayout_4->addWidget(accept);
 
 
         verticalLayout->addLayout(horizontalLayout_4);
@@ -119,15 +117,13 @@ public:
     void retranslateUi(QDialog *createPopUp)
     {
         createPopUp->setWindowTitle(QCoreApplication::translate("createPopUp", "Dialog", nullptr));
-        labelPlayers->setText(QCoreApplication::translate("createPopUp", "Seleccione el escenario:", nullptr));
-        playersNumber->setItemText(0, QCoreApplication::translate("createPopUp", "Alta mar", nullptr));
-        playersNumber->setItemText(1, QCoreApplication::translate("createPopUp", "Monta\303\261as", nullptr));
-        playersNumber->setItemText(2, QString());
-        playersNumber->setItemText(3, QString());
+        labelScenarios->setText(QCoreApplication::translate("createPopUp", "Seleccione el escenario:", nullptr));
+        scenarios->setItemText(0, QCoreApplication::translate("createPopUp", "Alta mar", nullptr));
+        scenarios->setItemText(1, QCoreApplication::translate("createPopUp", "Monta\303\261as", nullptr));
 
         createButton->setText(QCoreApplication::translate("createPopUp", "CREAR", nullptr));
         labelConfirm->setText(QString());
-        ACEPTAR->setText(QCoreApplication::translate("createPopUp", "ACEPTAR", nullptr));
+        accept->setText(QCoreApplication::translate("createPopUp", "ACEPTAR", nullptr));
     } // retranslateUi
 
 };

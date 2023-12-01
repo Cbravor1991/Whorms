@@ -21,17 +21,17 @@ int main(int argc, char *argv[])
         const std::string servname = std::string(argv[2]);
 
         /*PARA PROBAR LA APP DE QT DESCOMENTAR ESTAS LINEAS*/
-        // QApplication app(argc, argv);
-        // Lobby lobby(hostname, servname);
-        // MainWindow w(&lobby);
-        // w.show();
-        // app.exec();
+         QApplication app(argc, argv);
+         Lobby lobby(hostname, servname);
+         MainWindow w(&lobby);
+         w.show();
+         app.exec();
 
         /*PARA PROBAR LA APP DE QT COMENTAR ESTAS DOS LINEAS*/
-        Lobby lobby(hostname, servname);
-        lobby.enviar_escenario(0);
-        lobby.enviar_comienzo_juego();
-        lobby.jugar();
+        // Lobby lobby(hostname, servname);
+        // lobby.enviar_escenario(0);
+        // lobby.enviar_comienzo_juego();
+        // lobby.jugar();
 
         return 0;
     }

@@ -14,7 +14,7 @@
    <string>Dialog</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-image: url(:BackgroundPopUp.jpg);</string>
+   <string notr="true">background-image: url(:lobby_background.jpg);</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -22,7 +22,7 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
-        <widget class="QLabel" name="labelPlayers">
+        <widget class="QLabel" name="labelScenarios">
          <property name="enabled">
           <bool>true</bool>
          </property>
@@ -35,7 +35,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QComboBox" name="playersNumber">
+        <widget class="QComboBox" name="scenarios">
          <property name="enabled">
           <bool>true</bool>
          </property>
@@ -100,7 +100,7 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_4">
      <item>
-      <widget class="QPushButton" name="ACEPTAR">
+      <widget class="QPushButton" name="accept">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -129,7 +129,7 @@
         <string notr="true">color: rgb(157, 157, 157);</string>
        </property>
        <property name="text">
-        <string>SELECCIONAR GUSANO</string>
+        <string>ACEPTAR</string>
        </property>
       </widget>
      </item>
