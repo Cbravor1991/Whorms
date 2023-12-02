@@ -12,7 +12,6 @@ void Partida::agregar_jugador(Jugador *jugador)
 {
 
     monitor_jugadores->agregar_jugador(jugador);
-
     monitor_jugadores->enviar_cantidad_jugadores();
 }
 
@@ -97,8 +96,14 @@ void Partida::run()
             ultimo_numero_notificado = segundo_actual;
         }
 
-        // Sleep de 3 milisegundos para evitar un busy wait
-        std::this_thread::sleep_for(std::chrono::milliseconds(3));
+        auto frame_rate_ms = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::duration<float>(FRAME_RATE));
+        auto tiempo_restante = frame_rate_ms - (std::chrono::steady_clock::now() - ahora);
+
+        // Dormir solo si el tiempo restante es positivo
+        if (tiempo_restante.count() > 0)
+        {
+            std::this_thread::sleep_for(tiempo_restante);
+        }
     }
     delete monitor_jugadores;
     delete cola;

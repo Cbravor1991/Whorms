@@ -20,8 +20,8 @@ createPopUp::createPopUp(Lobby *lobby, QPushButton *startButton, QWidget *parent
         if (!fontFamilies.isEmpty())
         {
             QString fontFamily = fontFamilies.at(0); // Obtén el nombre de la familia de fuentes
-            QFont font(fontFamily, 12); // Crea una instancia de QFont con el nombre de la familia y el tamaño deseado
-            //ui->labelName->setFont(font);
+            QFont font(fontFamily, 12);              // Crea una instancia de QFont con el nombre de la familia y el tamaño deseado
+            // ui->labelName->setFont(font);
             ui->labelScenarios->setFont(font);
             ui->scenarios->setFont(font);
             ui->createButton->setFont(font);
@@ -38,8 +38,8 @@ createPopUp::~createPopUp()
 
 void createPopUp::on_createButton_clicked()
 {
-    //int8_t game_players = ui->playersNumber->currentText().toInt();
-    //std::string nombre_partida = ui->labelName->text().toStdString();
+    // int8_t game_players = ui->playersNumber->currentText().toInt();
+    // std::string nombre_partida = ui->labelName->text().toStdString();
     /*creamos la partida a traves del lobby
    bool partida_creada = lony->crear_partida(nombrePartida, cantidad_jugadores)
      */
@@ -50,12 +50,13 @@ void createPopUp::on_createButton_clicked()
         /*obtener el codigo de la partida creada asi el otro jugador se puede unir
         int8_t = loby->obtener_codigo_partida_cread;
         */
-        QString text = QString("El codigo es: %2").arg(0);
 
-        lobby->enviar_escenario(0);
+        int codigo_creado = lobby->enviar_escenario(0);
 
-       // std::cout << "La cantidad de jugadores es: " << static_cast<int>(game_players) << '\n';
-        //std::cout << "La cantidad de jugadores es: " << nombre_partida << '\n';
+        QString text = QString("El codigo es: %2").arg(codigo_creado);
+
+        // std::cout << "La cantidad de jugadores es: " << static_cast<int>(game_players) << '\n';
+        // std::cout << "La cantidad de jugadores es: " << nombre_partida << '\n';
 
         // lobby->start_game();
 
@@ -86,5 +87,4 @@ void createPopUp::on_accept_clicked()
     this->close();
     wait_room = new waitRoom(lobby, nullptr);
     wait_room->show();
-
 }

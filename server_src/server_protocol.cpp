@@ -384,6 +384,11 @@ void ProtocoloServer::enviar_escenarios(std::vector<int> escenarios_ids)
     }
 }
 
+void ProtocoloServer::enviar_partida_creada(int partida)
+{
+    enviar_int(partida);
+}
+
 bool ProtocoloServer::recibir_modo()
 {
     bool modo = static_cast<bool>(recibir_int());

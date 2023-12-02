@@ -111,7 +111,6 @@ void MonitorJugadores::mandar_escenario(int x, int y, std::vector<PosicionViga> 
 
 void MonitorJugadores::actualizar_jugadores_cantidad(int cantidad)
 {
-    std::unique_lock<std::mutex> lck(mutex_);
     std::cout << "Jugadores " << cantidad
               << ", esperando al resto de tus amigos…" << std::endl;
 }
@@ -119,7 +118,7 @@ void MonitorJugadores::actualizar_jugadores_cantidad(int cantidad)
 void MonitorJugadores::agregar_jugador(Jugador *jugador)
 {
     actualizar_cantidad_jugadores(1);
-    std::unique_lock<std::mutex> lck(mutex_);
+
     int id = cantidad_jugadores;
     while (jugadores[id] != nullptr)
     {
@@ -128,7 +127,6 @@ void MonitorJugadores::agregar_jugador(Jugador *jugador)
     jugadores[id] = jugador;
     turno.agregar_id(id);
     jugador->asignar_id(id);
-    lck.unlock();
 }
 
 void MonitorJugadores::avisar_desconexion()
@@ -156,8 +154,6 @@ void MonitorJugadores::eliminar_turno(int id)
 
 void MonitorJugadores::eliminar_jugadores_desconectados()
 {
-    std::unique_lock<std::mutex> lck(mutex_);
-
     // Utiliza un iterador para recorrer el mapa de jugadores
     auto it = jugadores.begin();
     while (it != jugadores.end())

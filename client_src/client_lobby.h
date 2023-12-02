@@ -25,7 +25,7 @@ public:
 
     void enviar_partida(int partida);
 
-    void enviar_escenario(int escenario);
+    int enviar_escenario(int escenario);
 
     void jugar();
 

@@ -66,8 +66,7 @@ public:
     ~MonitorJugadores();
 
 private:
-    std::mutex mutex_;
-    std::atomic<int> cantidad_jugadores = 0;
+    int cantidad_jugadores = 0;
     std::map<int, Jugador *> jugadores;
     std::vector<Jugador *> jugadores_desconectados;
     Turno turno;

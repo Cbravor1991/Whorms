@@ -18,7 +18,7 @@ void ServerLobby::run()
     partidas = lobby->obtener_partidas();
     std::vector<int> escenario = lobby->obtener_escenarios();
     protocolo->enviar_partidas(partidas);
-    protocolo->enviar_partidas(escenario);
+    protocolo->enviar_escenarios(escenario);
     // se utiliza para saber si el jugador se va a unir o crear una partida
 
     bool modo_lobby = protocolo->recibir_modo();
@@ -27,6 +27,7 @@ void ServerLobby::run()
         int escenario = protocolo->recibir_escenario();
         Jugador *jugador = new Jugador(protocolo);
         int partida = lobby->crear_partida(jugador, escenario);
+        protocolo->enviar_partida_creada(partida);
         if (protocolo->recibir_jugar())
         {
             lobby->iniciar_partida(partida);

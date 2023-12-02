@@ -17,10 +17,13 @@ void Lobby::enviar_partida(int partida)
     protocolo.enviar_partida(partida);
 }
 
-void Lobby::enviar_escenario(int escenario)
+int Lobby::enviar_escenario(int escenario)
 {
     protocolo.enviar_modo(1);
     protocolo.enviar_escenario(escenario);
+    protocolo.recibir_modo_partida();
+    protocolo.recibir_cantidad_jugadores_en_espera();
+    return protocolo.recibir_cantidad_jugadores_en_espera(); // cambiar nombre funcion
 }
 
 bool Lobby::modo_partida()

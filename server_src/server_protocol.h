@@ -128,6 +128,8 @@ public:
 
     void enviar_comienzo_juego();
 
+    void enviar_partida_creada(int partida);
+
     bool recibir_jugar();
 
     bool recibir_modo();
