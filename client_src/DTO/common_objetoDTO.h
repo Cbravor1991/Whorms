@@ -44,6 +44,8 @@ public:
     int posicion_y();
 
     bool exploto();
+    
+    int obtenerTipo();
 };
 
 #endif

@@ -225,9 +225,9 @@ ObjetoDTO ProtocoloCliente::recibir_objeto()
     int x = recibir_int_grande();
     int y = recibir_int_grande();
     bool direccion = static_cast<bool>(recibir_int());
-    int angulo = recibir_int();
+    int angulo = recibir_int_grande();
     bool explosion = (recibir_byte() != 0);
-    ObjetoDTO objeto(tipo, x, y, direccion, angulo - 45, explosion);
+    ObjetoDTO objeto(tipo, x, y, direccion, angulo, explosion);//-45
     return objeto;
 }
 

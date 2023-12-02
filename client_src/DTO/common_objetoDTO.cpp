@@ -34,7 +34,7 @@ void ObjetoDTO::renderizar(SDL2pp::Renderer &renderer, TextureManager &tex_manag
     std::string path = this->obtener_path();
     std::shared_ptr<SDL2pp::Texture> sprites = tex_manager.getTexture(path);
 
-    if (this->tipo == PROVISION)
+    if (this->tipo == PROVISION_EXPLOSIVA or this->tipo == PROVISION_CURA or this->tipo == PROVISION_MUNICION)
     {
         int src_x = 0, src_y = 0; // by default, standing sprite
         if (is_running)
@@ -44,7 +44,7 @@ void ObjetoDTO::renderizar(SDL2pp::Renderer &renderer, TextureManager &tex_manag
         renderer.Copy(
             *sprites,
             SDL2pp::Rect(src_x, src_y, 60, 60),                   // que parte del spike queres que te cargue
-            SDL2pp::Rect(this->x, 200 - this->y, 40, 40), angulo, // la posicion en pantalla y el tamaño
+            SDL2pp::Rect(this->x, 200 - this->y, 40, 40), -angulo, // la posicion en pantalla y el tamaño
             SDL2pp::NullOpt,                                      // rotation center - not needed
             SDL_FLIP_VERTICAL                                     // vertical flip
 
@@ -54,16 +54,14 @@ void ObjetoDTO::renderizar(SDL2pp::Renderer &renderer, TextureManager &tex_manag
     else
     {
         int src_x = 0, src_y = 0; // by default, standing sprite
-        if (is_running)
-        {
-            src_y = 60 * 1;
-        }
+        src_y = 60 * 8;
+
         renderer.Copy(
             *sprites,
             SDL2pp::Rect(src_x, src_y, 60, 60),              // que parte del spike queres que te cargue
-            SDL2pp::Rect(this->x, 200 - this->y, 50, 50), 0, // la posicion en pantalla y el tamaño
+            SDL2pp::Rect(this->x, 200 - this->y, 50, 50), -angulo, // la posicion en pantalla y el tamaño
             SDL2pp::NullOpt,                                 // rotation center - not needed
-            SDL_FLIP_VERTICAL                                // vertical flip
+            SDL_FLIP_NONE                               // vertical flip
 
         );
     }
@@ -83,6 +81,11 @@ bool ObjetoDTO::exploto()
 {
 
     return explosion;
+}
+
+int ObjetoDTO::obtenerTipo()
+{
+    return tipo;
 }
 
 std::string ObjetoDTO::obtener_path()
@@ -131,7 +134,9 @@ std::string ObjetoDTO::obtener_path()
         path = "/sprites/Weapon/In-game/banana.png";
         break;
     }
-    case (PROVISION):
+    case (PROVISION_EXPLOSIVA):
+    case(PROVISION_CURA):
+    case(PROVISION_MUNICION):
     {
         path = "/sprites/misc/crates/wcrate0.png";
         break;

@@ -19,5 +19,5 @@ int AtaqueAereo::disparar(Mundo *mundo, b2Body *disparador)
 
 PosicionLanzable AtaqueAereo::conseguir_posicion()
 {
-    return PosicionLanzable(1, x, y, 0, 0, false);
+    return PosicionLanzable(1, x, y, 0, 270, false);
 }

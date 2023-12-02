@@ -81,4 +81,8 @@ void PathLoader::loadSoundsPath() {
     sounds_path.push_back("/sonidos/ataque misiles.wav");
     sounds_path.push_back("/sonidos/teletransportar.WAV");
     sounds_path.push_back("/sonidos/Explosion1.wav");
+    sounds_path.push_back("/sonidos/bate.wav");
+    sounds_path.push_back("/sonidos/lanzarmisil.WAV");
+    sounds_path.push_back("/sonidos/ammocrate.wav");
+    sounds_path.push_back("/sonidos/healcrate.wav");
 }

@@ -45,6 +45,7 @@ private:
     bool termino_juego = false;
     bool gane = true;
     bool cola_vacia = true;
+    bool dispare = false;
     VientoDTO viento;
 
     // prueba de concepto

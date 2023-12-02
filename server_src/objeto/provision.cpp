@@ -115,5 +115,5 @@ PosicionLanzable Provision::conseguir_posicion()
     b2Vec2 posicion = body->GetPosition();
     int x = static_cast<int>(posicion.x);
     int y = static_cast<int>(posicion.y);
-    return PosicionLanzable(PROVISION, x, y, 0, body->angle * (180.0 / M_PI) + 45, is_dead);
+    return PosicionLanzable(PROVISION + tipo, x, y, 0, body->angle * (180.0 / M_PI), is_dead);
 }

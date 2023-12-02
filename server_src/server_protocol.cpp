@@ -315,7 +315,7 @@ void ProtocoloServer::enviar_lanzable(int tipo, int x, int y, int direccion, int
     enviar_int_grande(x);
     enviar_int_grande(y);
     enviar_int(direccion);
-    enviar_int(angulo);
+    enviar_int_grande(angulo);
     enviar_int(explosion ? 1 : 0);
 }
 

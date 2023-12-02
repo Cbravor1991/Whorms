@@ -61,5 +61,5 @@ PosicionLanzable MisilAereo::conseguir_posicion()
         is_dead = true;
     }
     // contacto();
-    return PosicionLanzable(1, x, y, 0, 0, is_dead);
+    return PosicionLanzable(1, x, y, 0, 270, is_dead);
 }

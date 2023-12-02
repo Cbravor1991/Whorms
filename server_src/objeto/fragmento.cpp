@@ -63,5 +63,11 @@ PosicionLanzable Fragmento::conseguir_posicion()
     {
         is_dead = true;
     }
-    return PosicionLanzable(tipo, x, y, 0, 0, is_dead);
+    float angle_radians = (float) atan2((double) body->GetLinearVelocity().y, (double) body->GetLinearVelocity().x);
+    int angulo = (int) (angle_radians * (180.0f/M_PI));
+    if (angulo < 0) 
+    {
+        angulo = 360 + angulo;
+    }
+    return PosicionLanzable(tipo, x, y, 0, angulo, is_dead);
 }

@@ -136,11 +136,15 @@ void GameView::reproducir_efecto(std::string path_efecto)
 }
 
 void GameView::reproducir_efecto_arma(int tipo) {
-    if (tipo == 1) {
+    if (tipo == AIR_STRIKE) {
         reproducir_efecto("/sonidos/ataque misiles.wav");
-    } else if (tipo == 2) {
+    } else if (tipo == TELEPORT) {
         reproducir_efecto("/sonidos/teletransportar.WAV");
-    } 
+    } else if (tipo == BAT) {
+        reproducir_efecto("/sonidos/bate.wav");
+    }else if (tipo == BAZOOKA or tipo == MORTAR) {
+        reproducir_efecto("/sonidos/lanzarmisil.WAV");
+    }
 }
 
 void GameView::reproducir_sonido_explosion() {

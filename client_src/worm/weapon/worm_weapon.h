@@ -20,7 +20,9 @@ const int GREEN_GRENADE = 7;
 const int CLUSTER_GRENADE = 8;
 const int HOLY_GRENADE = 9;
 const int BANANA = 10;
-const int PROVISION = 11;
+const int PROVISION_EXPLOSIVA = 11;
+const int PROVISION_CURA = 12;
+const int PROVISION_MUNICION = 13;
 
 const int INFINITE_AMMO = -1;
 

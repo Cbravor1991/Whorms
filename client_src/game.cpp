@@ -181,10 +181,11 @@ bool Game::manejarEventos()
                     // si suelto o llego al maximo, disparo?
                     //it->second.aumentar_potencia();
                     it->second.aumentar_potencia();
-                    if(it->second.potencia_arma_es_maxima()) {
+                    if(it->second.potencia_arma_es_maxima() and !dispare) {
                         accion = it->second.usar_arma(it->second.posicion_x(), it->second.posicion_y());
                         cliente.mandar_accion(accion);
                         view.reproducir_efecto_arma(tipo);
+                        dispare = true;
                     }
                 }
                 break;
@@ -264,16 +265,20 @@ bool Game::manejarEventos()
                 {   
                     // El elemento en la posición indicada por "turno" existe en el mapa
                     int arma = it->second.obtener_arma();
-                    if(arma == AIR_STRIKE or arma == TELEPORT)  {
+                    if((arma == AIR_STRIKE or arma == TELEPORT) and !dispare)  {
                         accion = it->second.usar_arma(mouseX, mouseY);
                         cliente.mandar_accion(accion);
                         view.reproducir_efecto_arma(tipo);
+                        dispare = true;
                     }
                 }
             }
         }
         else if (event.type == SDL_KEYUP) //
         {   //ver si es necesario setear el arma en 0 despues de disparar(por tema de sonido)
+            if(!permiso) {
+                continue;
+            }
             if(event.key.keysym.sym == SDLK_SPACE) 
             { 
                 //deje de apretar espacio disparo si no es arma teledirigida
@@ -281,11 +286,12 @@ bool Game::manejarEventos()
                 if (it != jugadores.end())
                 {
                     int arma = it->second.obtener_arma();
-                    if(arma != AIR_STRIKE and arma != TELEPORT)//si es arma con potencia o cuerpo a cuerpo  
+                    if((arma != AIR_STRIKE and arma != TELEPORT) and !dispare)//si es arma con potencia o cuerpo a cuerpo  
                     {
                         accion = it->second.usar_arma(it->second.posicion_x(), it->second.posicion_y());
                         cliente.mandar_accion(accion);
                         view.reproducir_efecto_arma(tipo);
+                        dispare = true;
                     }
                 }
             }
@@ -309,6 +315,7 @@ void Game::procesar_estado(StateGame *estado)
         {
             jugador.cargar_armas(NO_WEAPON, 0);
         }
+        dispare = false;
     }
     else if (estado->type == TIPO_SEGUNDO)
     {
@@ -395,10 +402,21 @@ void Game::procesar_paquete(PaqueteDTO *paquete)
     for (auto &proyectil : objetos_paquete)
     {
         if (proyectil.exploto())
-        {
-            Explotion explotion(proyectil.posicion_x(), proyectil.posicion_y());
-            explosiones.push_back(explotion);
-            view.reproducir_sonido_explosion();
+        {   
+            int tipo_proyectil = proyectil.obtenerTipo();
+            if (tipo_proyectil == PROVISION_CURA) {
+                view.reproducir_efecto("/sonidos/healcrate.wav");
+            }
+            else if(tipo_proyectil == PROVISION_MUNICION) 
+            {
+                view.reproducir_efecto("/sonidos/ammocrate.wav");
+            }
+            else {
+                Explotion explotion(proyectil.posicion_x(), proyectil.posicion_y());
+                explosiones.push_back(explotion);
+                view.reproducir_sonido_explosion();
+            }
+            //ver de hacer que haga un ruido especifico para cura y municion
         }
     }
 
@@ -459,7 +477,7 @@ void Game::renderizar()
     // view.centrarEnGusano(gusanoX, gusanoY);
 
     std::string time = "Tiempo restante: " + std::to_string((tiempo_restante_turno)) +
-                       " Es mi turno: " + (permiso ? "true" : "false");
+                       " Es mi turno: " + (permiso ? "Si" : "No");
 
     view.renderizar_fondo_pantalla();
     SDL_Color color = {255, 255, 255, 255};
