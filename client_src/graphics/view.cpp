@@ -275,3 +275,68 @@ void GameView::renderizar_end_game(bool ganaste)
 
     this->renderizar_texto(resultado, pos_x, pos_y, color, 30);
 }
+
+// void GameView::renderizar_vida_por_equipos(std::map<int, JugadorDTO> &jugadores)
+// {
+
+//     //esto podria ser todo una clase, que vuelve a hacer este calculo cuando
+//     //llega algun paquete(el paquete de jugadores, no cualquier cosa desde el socket)
+//     //la cantidad de equipos la mantengo? -> cuando se crea, tengo todos los equipos?
+
+//     std::map<int, int> vida_por_equipo;
+//     std::map<int, SDL_Color> color_por_equipo;
+//     //hago mapa de colores?
+//     for (auto const &[id_gusano, jugador] : jugadores)
+//     {      
+        
+//         int id = jugador.obtenerIdCliente();
+//         int vida_jugador = jugador.obtener_vida();
+//         if(vida_por_equipo.find(id) == vida_por_equipo.end())
+//         {//no esta en el map
+//             vida_por_equipo.insert({id, 0});
+//             SDL_Color color = jugador.obtener_color();
+//             color_por_equipo.insert({id, color});
+//         }
+//         vida_por_equipo.at(id) += vida_jugador;
+//     }
+
+//     int pos_x = 10;
+//     int pos_y = renderer.GetOutputHeight() / 2 + 100;
+//     //para renderizar, tambien obtengo el color del jugador
+//     // asi le pongo del color que corresponde la vida
+//     std::string texto = "Jugadores";
+//     SDL_Color color_texto = {255, 255, 255, 255};
+//     this->renderizar_texto(texto, pos_x, pos_y, color_texto, 14);
+//     //Jugador <id> : >vida>
+//     for (auto const &[id, vida] : vida_por_equipo)
+//     {   
+//         std::string vida_jugador = "Jugador " + std::to_string(id) + ": " + std::to_string(vida);
+//         SDL_Color color = color_por_equipo.at(id);
+//         this->renderizar_texto(vida_jugador, pos_x, pos_y + id*14, color, 12);
+        
+//     }
+// }
+
+
+void GameView::renderizar_vida_por_equipos(TeamHealth &team_health)
+{
+
+    const std::map<int, int> &vida_por_equipo = team_health.obtenerVida();
+    const std::map<int, SDL_Color> &color_por_equipo = team_health.obtenerColores();
+
+    int pos_x = 10;
+    int pos_y = renderer.GetOutputHeight() / 2 + 100;
+    
+    std::string texto = "Jugadores";
+    SDL_Color color_texto = {255, 255, 255, 255};
+    this->renderizar_texto(texto, pos_x, pos_y, color_texto, 14);
+    //Jugador <id> : >vida>
+    for (auto const &[id, vida] : vida_por_equipo)
+    {   
+        std::string vida_jugador = "Jugador " + std::to_string(id) + ": " + std::to_string(vida);
+        SDL_Color color = color_por_equipo.at(id);
+        this->renderizar_texto(vida_jugador, pos_x, pos_y + id*14, color, 12);
+        
+    }
+}
+

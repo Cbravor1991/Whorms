@@ -12,7 +12,7 @@
 #include "../DTO/common_objetoDTO.h"
 #include "../DTO/common_vientoDTO.h"
 #include "explotion.h"
-
+#include "team_health.h"
 
 #include <SDL.h>
 #include <SDL_mixer.h>
@@ -59,6 +59,7 @@ public:
     void reproducir_sonido_explosion();
     void renderizar_viento(VientoDTO &viento);
     void renderizar_end_game(bool ganaste);
+    void renderizar_vida_por_equipos(TeamHealth &team_health);
 };
 
 #endif // VIEW_H

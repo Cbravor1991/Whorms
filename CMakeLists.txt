@@ -108,6 +108,7 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/libs/box2d-2.4.0 ${CMAKE_SOURCE_DIR}/build/
                 ./client_src/graphics/path_loader.cpp
                 ./client_src/graphics/texture_manager.cpp
                 ./client_src/graphics/explotion.cpp
+                ./client_src/graphics/team_health.cpp
                 ./common_src/common_liberror.cpp
                 ./common_src/common_resolver.cpp 
                 ./common_src/common_resolvererror.cpp 
@@ -203,6 +204,7 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/libs/box2d-2.4.0 ${CMAKE_SOURCE_DIR}/build/
                 ./client_src/worm/weapon/crosshair.cpp
                 ./client_src/worm/weapon/powerbar.cpp
                 ./client_src/graphics/explotion.cpp
+                ./client_src/graphics/team_health.cpp
                 ./graphics_lobby/assets/resources.qrc
                 ./graphics_lobby/createpopup.cpp
                 ./graphics_lobby/joinpopup.cpp

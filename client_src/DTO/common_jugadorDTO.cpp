@@ -107,12 +107,12 @@ int JugadorDTO::posicion_y()
     return y;
 }
 
-int JugadorDTO::obtener_vida()
+int JugadorDTO::obtener_vida() const
 {
     return vida;
 }
 
-SDL_Color JugadorDTO::obtener_color()
+SDL_Color JugadorDTO::obtener_color() const
 {
     return color;
 }
@@ -200,4 +200,9 @@ int JugadorDTO::potencia_arma_es_maxima()
 int JugadorDTO::obtener_arma() 
 {
     return this->weapon->getWeapon();
+}
+
+int JugadorDTO::obtenerIdCliente() const
+{
+    return this->id;
 }

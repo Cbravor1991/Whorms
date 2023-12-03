@@ -326,6 +326,8 @@ void Game::procesar_estado(StateGame *estado)
     {
         PaqueteDTO *paquete = dynamic_cast<PaqueteDTO *>(estado);
         this->procesar_paquete(paquete);
+
+        this->vida_equipos.actualizar(jugadores);
     }
     else if (estado->type == TIPO_ESCENARIO)
     {
@@ -378,14 +380,20 @@ void Game::procesar_paquete(PaqueteDTO *paquete)
         }
     }
     for (auto it = jugadores.begin(); it != jugadores.end();)
-    {
+    {   
+        bool murio_gusano = false;
         if (jugadores_en_paquete.find(it->first) == jugadores_en_paquete.end())
-        {
+        {   
+            murio_gusano = true;
             it = jugadores.erase(it);
         }
         else
         {
             ++it;
+        }
+
+        if(murio_gusano){
+            view.reproducir_efecto("/sonidos/muerte.WAV");
         }
     }
 
@@ -520,7 +528,7 @@ void Game::renderizar()
     }
 
     view.renderizar_viento(viento);
-
+    view.renderizar_vida_por_equipos(vida_equipos);
     view.mostrar();
 }
 

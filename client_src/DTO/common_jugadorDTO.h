@@ -72,9 +72,9 @@ public:
 
     int posicion_y();
 
-    int obtener_vida();
+    int obtener_vida() const;
 
-    SDL_Color obtener_color();
+    SDL_Color obtener_color() const;
 
     void stop_running();
 
@@ -91,6 +91,8 @@ public:
     int potencia_arma_es_maxima();
     
     int obtener_arma();
+
+    int obtenerIdCliente() const;
 };
 
 #endif

@@ -25,6 +25,7 @@
 #include "DTO/common_objetoDTO.h"
 #include "DTO/common_vientoDTO.h"
 #include "DTO/common_ganadorDTO.h"
+#include "graphics/team_health.h"
 class Game
 {
 private:
@@ -47,6 +48,7 @@ private:
     bool cola_vacia = true;
     bool dispare = false;
     VientoDTO viento;
+    TeamHealth vida_equipos;
 
     // prueba de concepto
     Weapon *armaRecibida = nullptr;

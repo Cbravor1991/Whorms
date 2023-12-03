@@ -85,4 +85,5 @@ void PathLoader::loadSoundsPath() {
     sounds_path.push_back("/sonidos/lanzarmisil.WAV");
     sounds_path.push_back("/sonidos/ammocrate.wav");
     sounds_path.push_back("/sonidos/healcrate.wav");
+    sounds_path.push_back("/sonidos/muerte.WAV");
 }
