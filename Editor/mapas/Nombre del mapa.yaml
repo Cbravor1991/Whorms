@@ -1,0 +1,81 @@
+fondo:
+  pantalla: 0
+spawns_automaticos: 0
+spawns_mapa:
+  - x: 201
+    y: 74
+  - x: 270
+    y: 83
+  - x: 102
+    y: 97
+  - x: 477
+    y: 144
+vigas:
+  - tipo: 1
+    x: 362
+    y: 100
+    angulo: 45
+  - tipo: 1
+    x: 514
+    y: 89
+    angulo: -45
+  - tipo: 1
+    x: 326
+    y: 125
+    angulo: 0
+  - tipo: 0
+    x: 320
+    y: 123
+    angulo: 45
+  - tipo: 0
+    x: 276
+    y: 122
+    angulo: -45
+  - tipo: 0
+    x: 255
+    y: 122
+    angulo: 0
+  - tipo: 0
+    x: 161
+    y: 121
+    angulo: 0
+  - tipo: 0
+    x: 110
+    y: 97
+    angulo: 0
+  - tipo: 1
+    x: 81
+    y: 105
+    angulo: 45
+  - tipo: 1
+    x: 81
+    y: 105
+    angulo: -45
+  - tipo: 1
+    x: 58
+    y: 101
+    angulo: 0
+  - tipo: 0
+    x: 181
+    y: 151
+    angulo: 45
+  - tipo: 0
+    x: 268
+    y: 145
+    angulo: -45
+  - tipo: 0
+    x: 326
+    y: 149
+    angulo: 0
+  - tipo: 0
+    x: 396
+    y: 153
+    angulo: 0
+  - tipo: 1
+    x: 382
+    y: 159
+    angulo: 45
+  - tipo: 1
+    x: 317
+    y: 165
+    angulo: -45

@@ -13,7 +13,7 @@ GameView::GameView() : sdl(SDL_INIT_VIDEO | SDL_INIT_AUDIO), window("Worms", SDL
     tex_manager.loadBackgroundSnow(this->renderer);
     tex_manager.loadWater(this->renderer);
     tex_manager.loadMusic();//carga una cancion
-    tex_manager.loadSounds();
+
 }
 
 void GameView::mostrar()

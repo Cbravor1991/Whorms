@@ -47,29 +47,11 @@ void TextureManager::loadMusic() {
 
 }
 
-void TextureManager::loadSounds() {
 
-    std::vector<std::string>& sounds_path_vector = assests.getSoundsPath();
-    
-    for (std::string sound : sounds_path_vector)
-    { 
-        std::string datapath(DATA_PATH);
-        SDL2pp::Chunk sonido(datapath.append(sound));
-        if(sound == "/sonidos/Explosion1.wav") {
-            sonido.SetVolume(10);
-        } else {
-            sonido.SetVolume(25);
-        }
-        
 
-        this->sonidos[sound] = std::make_shared<SDL2pp::Chunk>(std::move(sonido));
-    }
-
-    // SDL2pp::Chunk sonido(DATA_PATH "/sonidos/worms_music.mp3");
-    // this->sonido = std::make_shared<SDL2pp::Chunk>(std::move(sonido));
  
 
-}
+
 
 std::shared_ptr<SDL2pp::Chunk> TextureManager::getSound(std::string sound_path) {
     return this->sonidos.at(sound_path);

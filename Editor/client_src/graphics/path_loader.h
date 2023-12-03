@@ -11,7 +11,7 @@ class PathLoader {
         std::vector<std::string> sprite_path;
         std::string background_path;
         std::string music_path;
-        std::vector<std::string> sounds_path;
+   
 
     public:
 
@@ -20,7 +20,7 @@ class PathLoader {
     std::vector<std::string>& getSpritePath();
     std::string& getBackgroundPath();
     std::string& getMusicPath();
-    std::vector<std::string>& getSoundsPath();
+
 
     void loadSpritePath();
 
@@ -28,7 +28,7 @@ class PathLoader {
 
     void loadMusicPath();
 
-    void loadSoundsPath();
+   
 };
 
 #endif
