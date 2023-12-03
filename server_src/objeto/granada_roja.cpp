@@ -45,7 +45,7 @@ int GranadaRoja::disparar(Mundo *mundo, b2Body *disparador)
     body->ApplyLinearImpulse(linear_velocity, body->GetWorldCenter(), true);
     Objeto *granada_santa = new GranadaRoja(mundo, body, tiempo_hasta_explotar);
     mundo->agregar_objeto(granada_santa);
-    return 0;
+    return 1;
 }
 
 PosicionLanzable GranadaRoja::conseguir_posicion()

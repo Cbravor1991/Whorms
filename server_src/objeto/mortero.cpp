@@ -44,7 +44,7 @@ int Mortero::disparar(Mundo *mundo, b2Body *disparador)
     body->ApplyLinearImpulse(linear_velocity, body->GetWorldCenter(), true);
     Objeto *mortero = new Mortero(mundo, body);
     mundo->agregar_objeto(mortero);
-    return 0;
+    return 1;
 }
 
 void Mortero::contacto_explosivo()

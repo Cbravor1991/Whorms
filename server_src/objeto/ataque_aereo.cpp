@@ -14,7 +14,7 @@ int AtaqueAereo::disparar(Mundo *mundo, b2Body *disparador)
         Objeto *misil = new MisilAereo(mundo, pos_x, pos_y, i);
         mundo->agregar_objeto(misil);
     };
-    return 6;
+    return 1;
 }
 
 PosicionLanzable AtaqueAereo::conseguir_posicion()

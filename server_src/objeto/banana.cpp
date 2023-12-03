@@ -45,7 +45,7 @@ int Banana::disparar(Mundo *mundo, b2Body *disparador)
     body->ApplyLinearImpulse(linear_velocity, body->GetWorldCenter(), true);
     Objeto *banana = new Banana(mundo, body, tiempo_hasta_explotar);
     mundo->agregar_objeto(banana);
-    return 0;
+    return 1;
 }
 
 PosicionLanzable Banana::conseguir_posicion()

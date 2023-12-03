@@ -41,7 +41,7 @@ int Dinamita::disparar(Mundo *mundo, b2Body *disparador)
     body->CreateFixture(&fixtureDef);
     Objeto *dinamita = new Dinamita(mundo, body, tiempo_hasta_explotar);
     mundo->agregar_objeto(dinamita);
-    return 0;
+    return 1;
 }
 
 PosicionLanzable Dinamita::conseguir_posicion()

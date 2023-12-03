@@ -22,7 +22,7 @@ Configuracion::Configuracion(const YAML::Node& node) :
     radio_mortero(node["armas"]["mortero"]["radio"].as<int>()),
     radio_fragmento_mortero(node["armas"]["mortero"]["radio_fragmento"].as<int>()),
     cant_fragmentos_mortero(node["armas"]["mortero"]["cant_fragmentos"].as<int>()),
-    municiones_granada_verde(node["armas"]["granada_verde"]["municiones"].as<int>()),
+    //municiones_granada_verde(node["armas"]["granada_verde"]["municiones"].as<int>()),
     danio_granada_verde(node["armas"]["granada_verde"]["daño"].as<int>()),
     radio_granada_verde(node["armas"]["granada_verde"]["radio"].as<int>()),
     municiones_granada_santa(node["armas"]["granada_santa"]["municiones"].as<int>()),
@@ -39,7 +39,9 @@ Configuracion::Configuracion(const YAML::Node& node) :
     danio_fragmento_granada_roja(node["armas"]["granada_roja"]["daño_fragmento"].as<int>()),
     radio_fragmento_granada_roja(node["armas"]["granada_roja"]["radio_fragmento"].as<int>()),
     cant_fragmentos_granada_roja(node["armas"]["granada_roja"]["cant_fragmentos"].as<int>()),
+    municiones_banana(node["armas"]["banana"]["municiones"].as<int>()),
     danio_banana(node["armas"]["banana"]["daño"].as<int>()),
+    radio_banana(node["armas"]["banana"]["radio"].as<int>()),
     municiones_ataque_aereo(node["armas"]["ataque_aereo"]["municiones"].as<int>()),
     danio_ataque_aereo(node["armas"]["ataque_aereo"]["daño"].as<int>()),
     radio_ataque_aereo(node["armas"]["ataque_aereo"]["radio"].as<int>()),
@@ -104,9 +106,9 @@ int Configuracion::getCantFragmentosMortero() const {
     return cant_fragmentos_mortero;
 }
 
-int Configuracion::getMunicionesGranadaVerde() const {
-    return municiones_granada_verde;
-}
+// int Configuracion::getMunicionesGranadaVerde() const {
+//     return municiones_granada_verde;
+// }
 
 int Configuracion::getDanioGranadaVerde() const {
     return danio_granada_verde;
@@ -172,8 +174,16 @@ int Configuracion::getCantFragmentosGranadaRoja() const {
     return cant_fragmentos_granada_roja;
 }
 
+int Configuracion::getMunicionesBanana() const {
+    return municiones_banana;
+}
+
 int Configuracion::getDanioBanana() const {
     return danio_banana;
+}
+
+int Configuracion::getRadioBanana() const {
+    return radio_banana;
 }
 
 int Configuracion::getMunicionesAtaqueAereo() const {

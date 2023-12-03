@@ -25,7 +25,7 @@ private:
     int radio_fragmento_mortero;
     int cant_fragmentos_mortero;
 
-    int municiones_granada_verde;
+    //int municiones_granada_verde;
     int danio_granada_verde;
     int radio_granada_verde;
 
@@ -47,7 +47,9 @@ private:
     int radio_fragmento_granada_roja;
     int cant_fragmentos_granada_roja;
 
+    int municiones_banana;
     int danio_banana;
+    int radio_banana;
 
     int municiones_ataque_aereo;
     int danio_ataque_aereo;
@@ -81,7 +83,7 @@ public:
     int getRadioFragmentoMortero() const;
     int getCantFragmentosMortero() const;
 
-    int getMunicionesGranadaVerde() const;
+    //int getMunicionesGranadaVerde() const;
     int getDanioGranadaVerde() const;
     int getRadioGranadaVerde() const;
 
@@ -102,8 +104,10 @@ public:
     int getDanioFragmentoGranadaRoja() const;
     int getRadioFragmentoGranadaRoja() const;
     int getCantFragmentosGranadaRoja() const;
-
+    
+    int getMunicionesBanana() const;
     int getDanioBanana() const;
+    int getRadioBanana() const;
 
     int getMunicionesAtaqueAereo() const;
     int getDanioAtaqueAereo() const;

@@ -4,6 +4,12 @@
 
 Inventario::Inventario() : ammo({0, 12, 100, 100, 100, 100, 100, 100, 100, 100, 100})
 {
+    ammo.at(AIR_STRIKE) = configuracion.getMunicionesAtaqueAereo();
+    ammo.at(DYNAMITE) = configuracion.getMunicionesDinamita();
+    ammo.at(MORTAR) = configuracion.getMunicionesMortero();
+    ammo.at(CLUSTER_GRENADE) = configuracion.getMunicionesGranadaRoja();
+    ammo.at(HOLY_GRENADE) = configuracion.getMunicionesGranadaSanta();
+    ammo.at(BANANA) = configuracion.getMunicionesBanana();
 }
 
 Inventario::~Inventario() {}

@@ -19,9 +19,8 @@ armas:
     radio_fragmento: 20
     cant_fragmentos: 6
   granada_verde:
-    municiones: 5
-    daño: 70
-    radio: 40
+    daño: 30
+    radio: 20
   granada_santa:
     municiones: 2
     daño: 110
@@ -31,8 +30,8 @@ armas:
     daño: 50
     radio: 40
   bate_baseball:
-    daño: 30
-    radio: 20
+    daño: 10
+    radio: 20 #esto no va
   granada_roja:
     municiones: 10
     daño: 30
@@ -41,7 +40,9 @@ armas:
     radio_fragmento: 20
     cant_fragmentos: 6
   banana:
-    daño: 10
+    municiones: 5
+    daño: 70
+    radio: 40
   ataque_aereo:
     municiones: 2
     daño: 40

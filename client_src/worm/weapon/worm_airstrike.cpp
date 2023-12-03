@@ -2,7 +2,7 @@
 #include "../../actions/position.h"
 #include <iostream> //borrar
 
-WormAirstike::WormAirstike(int ammo) : municion(ammo/6) {}
+WormAirstike::WormAirstike(int ammo) : municion(ammo) {}
 
 void WormAirstike::render(SDL2pp::Renderer &renderer, TextureManager &tex_manager, int x, int y, int flip, int angulo)
 {
