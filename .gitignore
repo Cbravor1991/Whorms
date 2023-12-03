@@ -1,4 +1,5 @@
 build/
+/Editor/build
 *.o
 .vscode/
 .gitignore

@@ -1,0 +1,27 @@
+fondo:
+  pantalla: 0
+spawns_automaticos: 0
+spawns_mapa:
+  - x: 300
+    y: 109
+vigas:
+  - tipo: 1
+    x: 183
+    y: 103
+    angulo: 45
+  - tipo: 1
+    x: 476
+    y: 135
+    angulo: 45
+  - tipo: 1
+    x: 422
+    y: 51
+    angulo: -45
+  - tipo: 1
+    x: 315
+    y: 123
+    angulo: -45
+  - tipo: 1
+    x: 153
+    y: 131
+    angulo: 0

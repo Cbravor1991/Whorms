@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file>GROBOLD.ttf</file>
+        <file>noche.jpg</file>
+        <file>dia.jpg</file>
+        <file>negro_fondo.jpg</file>
+        <file>snow.jpg</file>
+        <file>lobby_background.jpg</file>
+        <file>BackgroundPopUp.jpg</file>
+    </qresource>
+</RCC>
