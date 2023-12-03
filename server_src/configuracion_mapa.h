@@ -7,12 +7,14 @@
 #include <vector>
 
 #include "data/posicion_viga.h"
+#include "data/posicion_spawn.h"
 
 class ConfiguracionMapa {
 
 private:
    
     std::vector<PosicionViga> vigas;
+    std::vector<PosicionSpawn> spawns;
     int fondo;
     bool spawns_automaticos;
 
@@ -23,6 +25,7 @@ public:
     static ConfiguracionMapa& obtener_configuracion_mapa();
 
     std::vector<PosicionViga> getVigas() const;
+    std::vector<PosicionSpawn> getSpawns() const;
     int getFondo() const;
     bool getSpawnsAutomaticos() const;
 

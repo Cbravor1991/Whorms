@@ -8,6 +8,9 @@ Lobby::Lobby()
         escenarios[0].colocar_viga(viga.obtener_x(), viga.obtener_y(), viga.obtener_tipo(), viga.obtener_angulo());
     }
     escenarios[0].spawns_automaticos = configuracion_mapa.getSpawnsAutomaticos();
+    if (escenarios[0].spawns_automaticos == 0) {
+        escenarios[0].agregar_spawns(configuracion_mapa.getSpawns());
+    }
     escenarios[0].mapa_fondo = configuracion_mapa.getFondo();
 }
 

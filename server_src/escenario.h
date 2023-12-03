@@ -16,6 +16,9 @@
 #include <random>
 #include <cstdlib>
 
+#include "data/posicion_spawn.h"
+
+
 const float_t FRAME_RATE = 4.0f / 35.0f;
 const int VELOCITY_ITERATION = 6;
 const int POSITION_ITERATION = 2;
@@ -60,6 +63,8 @@ public:
 
     void agregar_jugador(int jugador_id);
 
+    void agregar_spawns(std::vector<PosicionSpawn> spawns_editor);
+
     void colocar_viga(int x, int y, bool tipo, int inclinacion);
 
     void colocar_provision();
@@ -90,6 +95,9 @@ private:
     std::vector<PosicionViga> vigas;
     std::map<int, TurnoGusano> gusanos;
     std::vector<std::pair<int, int>> spawns;
+    std::vector<std::pair<int, int>> spawns_personalizados;
+    std::vector<PosicionSpawn> spawns_mapa;
+
     int cantidad_jugadores = 0;
 
     void movimiento(Gusano *gusano, int jugador);
