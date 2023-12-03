@@ -20,7 +20,7 @@ const int DURACION_TURNO = configuracion.getTiempoTurnoGusano();
 class Partida : public Thread
 {
 public:
-    Partida(Escenario &escenario); // Constructor
+    Partida(ConfiguracionMapa mapa); // Constructor
 
     // Función para detener la partida
     void detener_partida();
@@ -32,6 +32,7 @@ public:
 private:
     // Variables de control de la partida
 
+    int tipo_fondo;
     int id_turno = 1;
     bool en_ejecucion;
     MonitorJugadores *monitor_jugadores;

@@ -3,8 +3,9 @@
 #include <chrono>
 #include <cmath>
 
-Partida::Partida(Escenario &escenario) : en_ejecucion(false), monitor_jugadores(new MonitorJugadores()), cola(new Queue<Accion *>(100)), escenario(escenario)
+Partida::Partida(ConfiguracionMapa mapa) : en_ejecucion(false), monitor_jugadores(new MonitorJugadores()), cola(new Queue<Accion *>(100)), escenario(mapa)
 {
+    tipo_fondo = mapa.getFondo();
     this->escenario.iniciar(monitor_jugadores);
 }
 
@@ -12,7 +13,6 @@ void Partida::agregar_jugador(Jugador *jugador)
 {
 
     monitor_jugadores->agregar_jugador(jugador);
-    monitor_jugadores->enviar_cantidad_jugadores();
 }
 
 void Partida::detener_partida()
@@ -23,7 +23,7 @@ void Partida::detener_partida()
 void Partida::run()
 {
 
-    monitor_jugadores->comenzar_juego(cola);
+    monitor_jugadores->comenzar_juego(cola, tipo_fondo); // meter tipo_fondo
     std::vector<int> jugadores = monitor_jugadores->obtener_jugadores();
     for (int jugador : jugadores)
     {

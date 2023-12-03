@@ -34,7 +34,6 @@ public:
 private:
     std::map<int, Partida *> partidas_disponibles;
     std::vector<Partida *> partidas_en_juego;
-    std::map<int, Escenario> escenarios;
     int partida_id = 1;
     std::mutex mutex_;
 };

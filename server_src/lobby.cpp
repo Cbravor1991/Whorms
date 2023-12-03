@@ -2,16 +2,6 @@
 
 Lobby::Lobby()
 {
-    std::vector<PosicionViga> vigas = configuracion_mapa.getVigas();
-    for (const PosicionViga &viga : vigas)
-    {
-        escenarios[0].colocar_viga(viga.obtener_x(), viga.obtener_y(), viga.obtener_tipo(), viga.obtener_angulo());
-    }
-    escenarios[0].spawns_automaticos = configuracion_mapa.getSpawnsAutomaticos();
-    if (escenarios[0].spawns_automaticos == 0) {
-        escenarios[0].agregar_spawns(configuracion_mapa.getSpawns());
-    }
-    escenarios[0].mapa_fondo = configuracion_mapa.getFondo();
 }
 
 std::vector<int> Lobby::obtener_partidas()
@@ -29,10 +19,6 @@ std::vector<int> Lobby::obtener_escenarios()
 {
 
     std::vector<int> escenarios_ids;
-    for (const auto &par : escenarios)
-    {
-        escenarios_ids.push_back(par.first);
-    }
 
     return escenarios_ids;
 }
@@ -40,7 +26,7 @@ std::vector<int> Lobby::obtener_escenarios()
 int Lobby::crear_partida(Jugador *jugador, int escenario)
 {
     std::unique_lock<std::mutex> lck(mutex_);
-    Partida *partida = new Partida(escenarios[escenario]);
+    Partida *partida = new Partida(configuracion_mapa);
     partidas_disponibles[partida_id] = partida;
     partida->agregar_jugador(jugador);
     int id = partida_id;

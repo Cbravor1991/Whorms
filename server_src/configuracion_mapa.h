@@ -9,31 +9,26 @@
 #include "data/posicion_viga.h"
 #include "data/posicion_spawn.h"
 
-class ConfiguracionMapa {
+class ConfiguracionMapa
+{
 
 private:
-   
     std::vector<PosicionViga> vigas;
     std::vector<PosicionSpawn> spawns;
     int fondo;
     bool spawns_automaticos;
 
-    ConfiguracionMapa(const YAML::Node& node);
+    ConfiguracionMapa(const YAML::Node &node);
 
 public:
-
-    static ConfiguracionMapa& obtener_configuracion_mapa();
+    static ConfiguracionMapa &obtener_configuracion_mapa();
 
     std::vector<PosicionViga> getVigas() const;
     std::vector<PosicionSpawn> getSpawns() const;
     int getFondo() const;
     bool getSpawnsAutomaticos() const;
 
-    ConfiguracionMapa(const ConfiguracionMapa&) = delete;
-    ConfiguracionMapa& operator=(const ConfiguracionMapa&) = delete;
-
     ~ConfiguracionMapa();
 };
 
-
-#endif  // CONFIGURACION_MAPA_H_
+#endif // CONFIGURACION_MAPA_H_

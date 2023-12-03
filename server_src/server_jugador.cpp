@@ -17,9 +17,10 @@ void Jugador::asignar_id(int jugador_id)
     id = jugador_id;
 }
 
-void Jugador::jugar(Queue<Accion *> *cola)
+void Jugador::jugar(Queue<Accion *> *cola, int tipo_fondo)
 {
     socket->enviar_comienzo_juego();
+    socket->enviar_id(tipo_fondo);
     socket->enviar_id(id);
     recibidor = new ServerRecibidor(socket, cola, id);
     recibidor->start();
