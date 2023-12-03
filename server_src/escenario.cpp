@@ -235,7 +235,7 @@ void Escenario::colocar_provision()
 
     int spawnIndex = rand() % spawns.size();
     b2Vec2 spawn(spawns[spawnIndex].first + 10, spawns[spawnIndex].second);
-    int tipo_provision_random = rand() % 3;
+    int tipo_provision_random = rand() % 2;
 
     Objeto *provision = new Provision(mundo, tipo_provision_random, spawn.x, spawn.y);
     mundo->agregar_objeto(provision);

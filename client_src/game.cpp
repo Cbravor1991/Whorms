@@ -415,10 +415,6 @@ void Game::procesar_paquete(PaqueteDTO *paquete)
             if (tipo_proyectil == PROVISION_CURA) {
                 view.reproducir_efecto("/sonidos/healcrate.wav");
             }
-            else if(tipo_proyectil == PROVISION_MUNICION) 
-            {
-                view.reproducir_efecto("/sonidos/ammocrate.wav");
-            }
             else {
                 Explotion explotion(proyectil.posicion_x(), proyectil.posicion_y());
                 explosiones.push_back(explotion);
