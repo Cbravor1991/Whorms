@@ -47,7 +47,7 @@ public:
     void renderizar_viga(VigaDTO viga); // 140 20 70 20
     void centrarEnGusano(int x, int y);
     void renderizar_gusano(JugadorDTO jugador);
-    void renderizar_fondo_pantalla();
+    void renderizar_fondo_pantalla(int tipo_fondo);
     void reproducir_musica();
     void renderizar_misil(ObjetoDTO objeto);
     void reproducir_efecto_salto();

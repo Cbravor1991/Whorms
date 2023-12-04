@@ -1,6 +1,6 @@
 fondo:
   pantalla: 1
-spawns_automaticos: 0
+spawns_automaticos: 1
 spawns_mapa:
   - x: 57
     y: 138

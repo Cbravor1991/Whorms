@@ -9,6 +9,8 @@ GameView::GameView() : sdl(SDL_INIT_VIDEO | SDL_INIT_AUDIO), window("Worms", SDL
 {
     tex_manager.loadTexture(this->renderer);//carga las texturas de los sprites
     tex_manager.loadBackground(this->renderer);//carga la texturas del fondo
+    tex_manager.loadBackgroundNight(this->renderer);
+    tex_manager.loadBackgroundSnow(this->renderer);
     tex_manager.loadWater(this->renderer);
     tex_manager.loadMusic();//carga una cancion
     tex_manager.loadSounds();
@@ -29,13 +31,21 @@ SDL2pp::Renderer &GameView::getRenderer()
 }
 
 
-void GameView::renderizar_fondo_pantalla(){
+void GameView::renderizar_fondo_pantalla(int tipo_fondo){
 
-  std::shared_ptr<SDL2pp::Texture> sky = tex_manager.getBackground();
-      renderer.Copy(*sky, NullOpt, Rect(0, 0, window.GetWidth(),  window.GetHeight()));
+  std::shared_ptr<SDL2pp::Texture> background = tex_manager.getBackground();
+    if(tipo_fondo== 1){
+        background = tex_manager.getBackgroundNight();
+    }
+     if(tipo_fondo== 2){
+        background = tex_manager.getBackgroundSnow();
+    }
+      renderer.Copy(*background, NullOpt, Rect(0, 0, window.GetWidth(),  window.GetHeight()));
      std::shared_ptr<SDL2pp::Texture> water = tex_manager.getWater();
      renderer.Copy(*water, NullOpt, Rect(0, 200, window.GetWidth(),  window.GetHeight()-100));
 
+
+  
 
 
 

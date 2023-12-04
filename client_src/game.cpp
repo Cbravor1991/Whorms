@@ -483,7 +483,7 @@ void Game::renderizar()
     std::string time = "Tiempo restante: " + std::to_string((tiempo_restante_turno)) +
                        " Es mi turno: " + (permiso ? "Si" : "No");
 
-    view.renderizar_fondo_pantalla();
+    view.renderizar_fondo_pantalla(fondo_pantalla);
     SDL_Color color = {255, 255, 255, 255};
     view.renderizar_texto(time, 0, 0, color, 12);
     // view.renderizar_gusano(0,0);
@@ -541,7 +541,7 @@ bool Game::endGameLoop()
 {   
    
     view.clear();
-    view.renderizar_fondo_pantalla();
+    view.renderizar_fondo_pantalla(fondo_pantalla);
     for (VigaDTO viga : vigas) //ver si lo hago o no, es para que no quede el fondo solo
     { // para mostrar las vigas
         view.renderizar_viga(viga);
@@ -560,4 +560,8 @@ bool Game::endGameLoop()
         }
     }
     return false;
+}
+
+void Game::cargar_fondo_pantalla(int fondo_recibido){
+    fondo_pantalla = fondo_recibido;
 }

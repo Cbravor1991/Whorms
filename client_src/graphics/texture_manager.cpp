@@ -23,6 +23,17 @@ void TextureManager::loadBackground(SDL2pp::Renderer& renderer) {
     this->background = std::make_shared<SDL2pp::Texture>(std::move(fondo));
 }
 
+void TextureManager::loadBackgroundSnow(SDL2pp::Renderer& renderer) {
+    SDL2pp::Texture fondo(renderer, DATA_PATH "/sprites/snow_2.jpg");
+    this->background_snow = std::make_shared<SDL2pp::Texture>(std::move(fondo));
+}
+
+
+void TextureManager::loadBackgroundNight(SDL2pp::Renderer& renderer) {
+    SDL2pp::Texture fondo(renderer, DATA_PATH "/sprites/night.jpg");
+    this->background_night = std::make_shared<SDL2pp::Texture>(std::move(fondo));
+}
+
 void TextureManager::loadWater(SDL2pp::Renderer& renderer) {
     SDL2pp::Texture fondo(renderer, DATA_PATH "/sprites/water_pattern_2.png");
     this->water = std::make_shared<SDL2pp::Texture>(std::move(fondo));
@@ -70,6 +81,15 @@ std::shared_ptr<SDL2pp::Texture> TextureManager::getTexture(std::string sprite_p
 std::shared_ptr<SDL2pp::Texture> TextureManager::getBackground() {
     return this->background;
 }
+
+std::shared_ptr<SDL2pp::Texture> TextureManager::getBackgroundNight() {
+    return this->background_night;
+}
+
+std::shared_ptr<SDL2pp::Texture> TextureManager::getBackgroundSnow() {
+    return this->background_snow;
+}
+
 
 std::shared_ptr<SDL2pp::Music> TextureManager::getMusic() {
     return this->music;
