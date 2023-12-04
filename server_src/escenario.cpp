@@ -3,7 +3,7 @@
 #include "monitor_jugador.h"
 #include "data/posicion_objeto.h"
 
-Escenario::Escenario(ConfiguracionMapa mapa)
+Escenario::Escenario(ConfiguracionMapa mapa, MonitorJugadores *monitor)
 {
     b2Vec2 gravity(0.0f, -10.0f);
     mundo = new Mundo(gravity);
@@ -13,14 +13,10 @@ Escenario::Escenario(ConfiguracionMapa mapa)
         colocar_viga(viga.obtener_x(), viga.obtener_y(), viga.obtener_tipo(), viga.obtener_angulo());
     }
     bool spawns_automaticos = mapa.getSpawnsAutomaticos();
-    if (spawns_automaticos == 0)
+    if (spawns_automaticos == true)
     {
         agregar_spawns(mapa.getSpawns());
     }
-}
-
-void Escenario::iniciar(MonitorJugadores *monitor)
-{
     this->monitor = monitor;
     for (int i = 0; i < configuracion.getCantidadProvisiones(); i++)
     {
@@ -134,8 +130,8 @@ void Escenario::respawnear_gusano(int jugador_id)
 
 void Escenario::agregar_spawns(std::vector<PosicionSpawn> spawns_editor)
 {
-    spawns_mapa = spawns_editor;
-    for (auto &par : spawns_mapa)
+    spawns.clear();
+    for (auto &par : spawns_editor)
     {
         std::cout << par.obtener_x() << std::endl;
         std::cout << par.obtener_y() << std::endl;
@@ -147,20 +143,21 @@ void Escenario::agregar_spawns(std::vector<PosicionSpawn> spawns_editor)
 Gusano *Escenario::agregar_gusano(int jugador_id, int gusano_id)
 {
     int spawnIndex;
-
-    // if (spawns_automaticos) {
     spawnIndex = rand() % spawns.size();
     b2Vec2 spawn(spawns[spawnIndex].first, spawns[spawnIndex].second);
     spawns.erase(spawns.begin() + spawnIndex);
     Gusano *nuevo_gusano = new Gusano(mundo, spawn, jugador_id, gusano_id);
     return nuevo_gusano;
-    // } else {
-    //     spawnIndex = rand() % spawns_personalizados.size();
-    //     b2Vec2 spawn2(spawns_personalizados[spawnIndex].first, spawns_personalizados[spawnIndex].second);
-    //     spawns_personalizados.erase(spawns_personalizados.begin() + spawnIndex);
-    //     Gusano *nuevo_gusano = new Gusano(mundo, spawn2, jugador_id, gusano_id);
-    //     return nuevo_gusano;
-    // }
+}
+
+void Escenario::agregar_jugadores()
+{
+    std::vector<int> jugadores = monitor->obtener_jugadores();
+    cantidad_gusanos_por_jugador = spawns.size() / jugadores.size();
+    for (int jugador : jugadores)
+    {
+        agregar_jugador(jugador);
+    }
 }
 
 void Escenario::agregar_jugador(int jugador_id)
@@ -170,7 +167,7 @@ void Escenario::agregar_jugador(int jugador_id)
     {
         vacio = true;
     }
-    for (int i = 1; i <= GUSANOS_POR_JUGADOR; ++i)
+    for (int i = 1; i <= cantidad_gusanos_por_jugador; ++i)
     {
         gusanos[jugador_id].agregar_gusano(agregar_gusano(jugador_id, i));
     }
@@ -217,8 +214,16 @@ void Escenario::colocar_viga(int x, int y, bool tipo, int angulo_grados)
         puntoX += incrementoX;
         puntoY += incrementoY;
         spawns.push_back(std::make_pair(static_cast<int>(puntoX), static_cast<int>(puntoY + 1.0)));
-        puntoX += incrementoX * 10;
-        puntoY += incrementoY * 10;
+        if (angulo_grados < 0)
+        {
+            puntoX += incrementoX * 10;
+            puntoY += incrementoY * angulo;
+        }
+        else
+        {
+            puntoX += incrementoX * 10;
+            puntoY += incrementoY * 10;
+        }
         spawns.push_back(std::make_pair(static_cast<int>(puntoX), static_cast<int>(puntoY + 1.0)));
     }
     else // Si es una viga chica
@@ -268,6 +273,7 @@ void Escenario::movimiento(Gusano *gusano, int jugador)
     }
     mandar_paquete();
     mandar_paquete();
+    gusano = nullptr;
 }
 
 void Escenario::mover_gusano_derecha(int jugador)
@@ -345,10 +351,6 @@ void Escenario::usar_arma(int jugador, Arma *arma)
             mandar_paquete();
         }
         mandar_paquete();
-        if (arma != nullptr)
-        {
-            delete arma;
-        }
     }
 }
 

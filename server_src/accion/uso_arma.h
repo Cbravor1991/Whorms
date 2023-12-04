@@ -12,7 +12,12 @@ public:
         if (!cuenta_regresiva)
         {
             escenario.usar_arma(jugador_id, arma);
-            return arma->cuenta_regresiva();
+            int segundos = arma->cuenta_regresiva();
+            if (arma != nullptr)
+            {
+                delete arma;
+            }
+            return segundos;
         }
         return -1;
     }

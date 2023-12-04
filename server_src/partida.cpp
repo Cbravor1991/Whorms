@@ -3,15 +3,13 @@
 #include <chrono>
 #include <cmath>
 
-Partida::Partida(ConfiguracionMapa mapa) : en_ejecucion(false), monitor_jugadores(new MonitorJugadores()), cola(new Queue<Accion *>(100)), escenario(mapa)
+Partida::Partida(ConfiguracionMapa mapa) : en_ejecucion(false), monitor_jugadores(new MonitorJugadores()), cola(new Queue<Accion *>(100)), escenario(mapa, monitor_jugadores)
 {
     tipo_fondo = mapa.getFondo();
-    this->escenario.iniciar(monitor_jugadores);
 }
 
 void Partida::agregar_jugador(Jugador *jugador)
 {
-
     monitor_jugadores->agregar_jugador(jugador);
 }
 
@@ -24,11 +22,7 @@ void Partida::run()
 {
 
     monitor_jugadores->comenzar_juego(cola, tipo_fondo); // meter tipo_fondo
-    std::vector<int> jugadores = monitor_jugadores->obtener_jugadores();
-    for (int jugador : jugadores)
-    {
-        escenario.agregar_jugador(jugador);
-    }
+    escenario.agregar_jugadores();
     std::chrono::time_point<std::chrono::steady_clock> ultimo_cambio_de_turno = std::chrono::steady_clock::now();
     int ultimo_numero_notificado = 0; // Comenzar en 31 para iniciar con 30 segundos
     en_ejecucion = true;
@@ -36,12 +30,12 @@ void Partida::run()
     int segundo_actual = 30;
     bool cuenta_regresiva = false;
     int id_regresivo = -1;
+    Accion *accion = nullptr;
     while (en_ejecucion)
     {
         auto ahora = std::chrono::steady_clock::now();
         int segundos_transcurridos = std::chrono::duration_cast<std::chrono::seconds>(ahora - ultimo_cambio_de_turno).count();
 
-        Accion *accion = nullptr;
         if (cola->try_pop(accion))
         {
             if (accion != nullptr)
@@ -106,5 +100,9 @@ void Partida::run()
         }
     }
     delete monitor_jugadores;
+    while (cola->try_pop(accion))
+    {
+        delete accion;
+    }
     delete cola;
 }
