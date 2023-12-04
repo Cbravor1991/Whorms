@@ -3,10 +3,9 @@
 #include <QFontDatabase>
 #include <iostream>
 
-createPopUp::createPopUp(Lobby *lobby, QPushButton *startButton, QWidget *parent) : QDialog(parent),
+createPopUp::createPopUp(Lobby *lobby, QWidget *parent) : QDialog(parent),
                                                                                     ui(new Ui::createPopUp),
                                                                                     lobby(lobby),
-                                                                                    startButton(startButton),
                                                                                     wait_room(nullptr)
 {
     ui->setupUi(this);
@@ -21,7 +20,6 @@ createPopUp::createPopUp(Lobby *lobby, QPushButton *startButton, QWidget *parent
         {
             QString fontFamily = fontFamilies.at(0); // Obtén el nombre de la familia de fuentes
             QFont font(fontFamily, 12);              // Crea una instancia de QFont con el nombre de la familia y el tamaño deseado
-            // ui->labelName->setFont(font);
             ui->labelScenarios->setFont(font);
             ui->scenarios->setFont(font);
             ui->createButton->setFont(font);
@@ -63,17 +61,6 @@ void createPopUp::on_createButton_clicked()
         ui->labelConfirm->setText(text);
         ui->accept->setEnabled(true);
         ui->accept->setStyleSheet("color: rgb(255, 255, 255);");
-
-        startButton->setEnabled(true);
-        startButton->setStyleSheet("QPushButton {"
-                                   "border: none;"
-                                   "background: none;"
-                                   "color: rgb(255, 255, 255);"
-                                   "}"
-                                   "QPushButton:hover {"
-                                   "color: rgb(176, 10, 10);"
-                                   "}");
-        // hide();
     }
     else
     {

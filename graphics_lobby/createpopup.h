@@ -16,7 +16,7 @@ class createPopUp : public QDialog
 
 public:
     //explicit createPopUp(QWidget *parent = nullptr);
-    createPopUp( Lobby* lobby, QPushButton* startButton, QWidget *parent = nullptr);
+    createPopUp( Lobby* lobby, QWidget *parent = nullptr);
   
     ~createPopUp();
 
@@ -28,7 +28,6 @@ private slots:
 private:
     Ui::createPopUp *ui;
     Lobby* lobby;
-    QPushButton* startButton;
     waitRoom* wait_room;
 };
 

@@ -3,46 +3,41 @@
 #include <QFontDatabase>
 #include <iostream>
 
-JoinPopUp::JoinPopUp(Lobby *lobby, QPushButton *startButton, QWidget *parent) : QDialog(parent),
+JoinPopUp::JoinPopUp(Lobby *lobby, QWidget *parent) : QDialog(parent),
                                                                                 ui(new Ui::JoinPopUp),
-                                                                                lobby(lobby),
+                                                                                lobby(lobby)
 
-                                                                                startButton(startButton)
+                                                                                
 {
     ui->setupUi(this);
 
     int id = QFontDatabase::addApplicationFont(":GROBOLD.ttf");
 
-    if (id != -1)
+     if (id != -1)
     {
         QStringList fontFamilies = QFontDatabase::applicationFontFamilies(id);
 
         if (!fontFamilies.isEmpty())
         {
             QString fontFamily = fontFamilies.at(0); // Obtén el nombre de la familia de fuentes
-            QFont font(fontFamily, 12);              // Crea una instancia de QFont con el nombre de la familia y el tamaño deseado
-            ui->labelName->hide();
+            QFont font(fontFamily, 12); // Crea una instancia de QFont con el nombre de la familia y el tamaño deseado
             ui->labelConfirm->setFont(font);
-            ui->createButton->setFont(font);
+            ui->joinButton->setFont(font);
             ui->games->setFont(font);
-            std::vector<std::string> cargas;
-            cargas.push_back("1");
-            cargas.push_back("2");
-            cargas.push_back("3");
-            for (const auto &dato : cargas)
-            {
-                ui->games->addItem(QString::fromStdString(dato));
-            }
-        }
-    }
-}
+            std::vector<int> partidas = lobby->obtener_partidas();
+            if (!partidas.empty()) {
+                 for (const auto& partida : partidas) {
+                  ui->games->addItem(QString::number(partida));  }
+        } else {
+        std::cout << "El vector de partidas está vacío.\n";
+}}}}
 
 JoinPopUp::~JoinPopUp()
 {
     delete ui;
 }
 
-void JoinPopUp::on_createButton_clicked()
+void JoinPopUp::on_joinButton_clicked()
 {
 
     // std::string nombre_partida = ui->labelName->text().toStdString();

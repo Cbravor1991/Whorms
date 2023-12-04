@@ -14,29 +14,16 @@
    <string>Dialog</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-image: url(:BackgroundPopUp.jpg);</string>
+   <string notr="true">background-image: url(:lobby_background.jpg);</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QLineEdit" name="labelName">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">color: rgb(255, 255, 255);</string>
-       </property>
-       <property name="text">
-        <string>NOMBRE DE PARTIDA</string>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="QComboBox" name="games"/>
      </item>
      <item>
-      <widget class="QPushButton" name="createButton">
+      <widget class="QPushButton" name="joinButton">
        <property name="styleSheet">
         <string notr="true">color: rgb(255, 255, 255);</string>
        </property>

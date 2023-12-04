@@ -11,7 +11,6 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QWidget>
@@ -25,8 +24,6 @@ public:
     QPushButton *createButton;
     QPushButton *joinButton;
     QPushButton *exitButton;
-    QPushButton *startButton;
-    QLabel *labelMatch;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -42,8 +39,8 @@ public:
         createButton = new QPushButton(centralwidget);
         createButton->setObjectName(QString::fromUtf8("createButton"));
         createButton->setEnabled(true);
-        createButton->setGeometry(QRect(80, 590, 200, 41));
-        createButton->setMaximumSize(QSize(200, 50));
+        createButton->setGeometry(QRect(80, 520, 300, 41));
+        createButton->setMaximumSize(QSize(400, 50));
         QFont font;
         font.setPointSize(14);
         createButton->setFont(font);
@@ -62,7 +59,7 @@ public:
         joinButton = new QPushButton(centralwidget);
         joinButton->setObjectName(QString::fromUtf8("joinButton"));
         joinButton->setEnabled(true);
-        joinButton->setGeometry(QRect(500, 590, 200, 41));
+        joinButton->setGeometry(QRect(500, 520, 200, 41));
         joinButton->setMaximumSize(QSize(200, 50));
         joinButton->setFont(font);
         joinButton->setMouseTracking(true);
@@ -79,7 +76,7 @@ public:
         exitButton = new QPushButton(centralwidget);
         exitButton->setObjectName(QString::fromUtf8("exitButton"));
         exitButton->setEnabled(true);
-        exitButton->setGeometry(QRect(960, 590, 200, 41));
+        exitButton->setGeometry(QRect(960, 520, 200, 41));
         exitButton->setMaximumSize(QSize(200, 50));
         exitButton->setFont(font);
         exitButton->setMouseTracking(true);
@@ -93,32 +90,6 @@ public:
 "	color: rgb(176, 10, 10)\n"
 "}"));
         exitButton->setIconSize(QSize(32, 32));
-        startButton = new QPushButton(centralwidget);
-        startButton->setObjectName(QString::fromUtf8("startButton"));
-        startButton->setEnabled(false);
-        startButton->setGeometry(QRect(450, 650, 361, 61));
-        startButton->setMaximumSize(QSize(500, 100));
-        QFont font1;
-        font1.setPointSize(28);
-        startButton->setFont(font1);
-        startButton->setMouseTracking(true);
-        startButton->setStyleSheet(QString::fromUtf8("QPushButton {\n"
-"    border: none;\n"
-"    background: none;\n"
-"	color: rgb(157, 157, 157);\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"	color: rgb(176, 10, 10)\n"
-"}"));
-        labelMatch = new QLabel(centralwidget);
-        labelMatch->setObjectName(QString::fromUtf8("labelMatch"));
-        labelMatch->setEnabled(true);
-        labelMatch->setGeometry(QRect(510, 530, 600, 50));
-        labelMatch->setStyleSheet(QString::fromUtf8("border: none;\n"
-"background: none;\n"
-"color : rgb(255,255,255);"));
-        labelMatch->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
         MainWindow->setCentralWidget(centralwidget);
 
         retranslateUi(MainWindow);
@@ -132,8 +103,6 @@ public:
         createButton->setText(QCoreApplication::translate("MainWindow", "CREATE GAME", nullptr));
         joinButton->setText(QCoreApplication::translate("MainWindow", "JOIN GAME", nullptr));
         exitButton->setText(QCoreApplication::translate("MainWindow", "EXIT", nullptr));
-        startButton->setText(QCoreApplication::translate("MainWindow", "START", nullptr));
-        labelMatch->setText(QCoreApplication::translate("MainWindow", "2 JUGADORES EPERANDO", nullptr));
     } // retranslateUi
 
 };

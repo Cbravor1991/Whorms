@@ -59,7 +59,7 @@ public:
         scenarios->setObjectName(QString::fromUtf8("scenarios"));
         scenarios->setEnabled(true);
         scenarios->setMaximumSize(QSize(100, 16777215));
-        scenarios->setStyleSheet(QString::fromUtf8("background-image: url(:lobby_background.jpg);"));
+        scenarios->setStyleSheet(QString::fromUtf8("background-image: url(:BackgroundPopUp.jpg);"));
 
         horizontalLayout_2->addWidget(scenarios);
 

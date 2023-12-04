@@ -9,6 +9,13 @@ Lobby::Lobby(const std::string &hostname, const std::string &servname) : hostnam
 
     partida = protocolo.recibir_partidas();
     escenarios = protocolo.recibir_escenarios();
+
+    std::vector<int> prueba = obtener_partidas();
+      if (!prueba.empty()) {
+        std::cout << "La partida es: " << prueba[0] << '\n';
+    } else {
+        std::cout << "El vector de partidas está vacío.\n";
+    }
 }
 
 void Lobby::enviar_partida(int partida)
@@ -49,4 +56,9 @@ void Lobby::jugar()
     en_juego = true;
     Game juego(protocolo);
     juego.run();
+}
+
+    std::vector<int>Lobby::obtener_partidas()
+{
+    return partida;
 }

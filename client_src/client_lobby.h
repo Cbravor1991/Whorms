@@ -32,7 +32,7 @@ public:
 
     void jugar();
 
-    int cantidad_jugadores();
+    std::vector<int> obtener_partidas();
 
     void enviar_comienzo_juego();
 };
