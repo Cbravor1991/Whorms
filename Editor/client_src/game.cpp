@@ -25,6 +25,7 @@ void Game::subir_mapa(std::string path_mapa_editar, int &id_fondo) {
         }
     }
     id_fondo = configuracion_mapa.getFondo();
+
 }
 
 Game::Game() {
@@ -40,36 +41,35 @@ Game::Game() {
 }
 
 void Game::crear_mapa(std::string fondo_seleccionado, std::string nombre_mapa_recibido)
-{   nombre_mapa = nombre_mapa_recibido;
+{   
+    
+       if (fondo_seleccionado == "noche") {
+        std::cout<<"voy a setear noche"<<'\n';
+        this->id_mapa = 3;
+        std::cout<< "el valor de id_mapa"<< this->id_mapa<<'\n';
+    } else if (fondo_seleccionado == "snow") {
+             std::cout<<"estoy eliguiendo nieve"<<'\n';
+        this->id_mapa = 2;
+    } else {
+           std::cout<<"estoy eliguiendo dia"<<'\n';
+        this->id_mapa = 1;
+    }
+    nombre_mapa = nombre_mapa_recibido;
     fondo_elegido = fondo_seleccionado;
     view.reproducir_musica();
-    uint32_t timeLost = 0;
+
     while (true)
     {
-        uint32_t ticks = SDL_GetTicks();
+       
         if (not this->gameLoop())
         {
             break;
         }
-        uint32_t frame_ticks = SDL_GetTicks();
-        uint32_t tick_diff = (frame_ticks - ticks) - timeLost;
-        if (tick_diff <= SLEEP_RATE)
-        {
-            SDL_Delay(SLEEP_RATE - tick_diff);
-            timeLost = SLEEP_RATE - tick_diff;
-        }
-        else
-        {
-            timeLost = 0;
-        }
+       
     }
-    if (fondo_seleccionado == "noche") {
-        id_mapa = 3;
-    } else if (fondo_seleccionado == "snow") {
-        id_mapa = 2;
-    } else {
-        id_mapa = 1;
-    }
+
+  
+   
 }
 
 bool Game::gameLoop()
@@ -209,8 +209,7 @@ bool Game::manejarEventos()
 
 void Game::guardar_datos() {
     YAML::Node nodoPrincipal;
-
-    nodoPrincipal["fondo"]["pantalla"] = 1;
+    nodoPrincipal["fondo"]["pantalla"] = this->id_mapa;
 
     if (spawns_automaticos) {
         nodoPrincipal["spawns_automaticos"] = 1;

@@ -30,8 +30,6 @@ MainWindow::MainWindow(Editor* editor, QWidget *parent)
         }
     }
 
-    timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(hideTemporaryLabel()));
 }
 
 MainWindow::~MainWindow()

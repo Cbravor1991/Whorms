@@ -16,6 +16,7 @@ void Editor::crear_mapa(std::string fondo_pantalla,  std::string nombre_mapa)
 }
 
 void Editor::editar_mapa(std::string nombre_mapa){
+ 
      en_juego = true;
      Game juego;
      int id_fondo;
