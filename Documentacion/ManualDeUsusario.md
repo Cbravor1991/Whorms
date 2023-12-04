@@ -20,7 +20,8 @@ sudo apt-get install cmake
 
 SDL2:
 ```bash
-sudo apt-get isntall libjpeg-dev libpng-dev libfreetype-dev libopusfile-dev libflac-dev libxmp-dev libfluidsynth-dev libwavpack-dev cmake libmodplug-dev libsdl2-dev
+sudo apt-get install libjpeg-dev libpng-dev libfreetype-dev libopusfile-dev libflac-dev libxmp-dev libfluidsynth-dev libwavpack-dev cmake libmodplug-dev libsdl2-dev
+
 sudo apt-get install  libsdl2-mixer-dev libsdl2-image-dev libsdl2-ttf-dev libsdl2-audio-dev libsdl2-gfx-dev
 ```
 
@@ -35,7 +36,6 @@ sudo apt-get install libbox2d-dev
 
 Yaml-cpp
 ```bash
-
 sudo apt-get install libyaml-cpp-dev
 ```
 
@@ -58,9 +58,6 @@ Con eso ya debería de estar instalado.
 
 ## Configuracion
 En la carpeta data, se encuetra un archivo configuracion.yaml, el cual permite modificar la vida del gusano, su movimiento, el tiempo por turno, asi como tambien el daño, la municion, el radio de explosión de las armas, entre otras cosas con el fin de que puedas adaptar el juego a tu gusto.
-
-## Editor de mapas
-//explicar las funcionalidades, como ejecutarlo, compilarlo y como usarlo
 
 ## Ejecucion
 Para ejecutar el programa, hay que estar parado dentro de la carpeta build
@@ -109,6 +106,7 @@ Una vez creada la partida, se le da a acpetar y te manda a la pantalla de espera
 ![anfitrion](imagenes/lobbyanfitrion.png)
 
 **Join Game**
+
 Si en vez de crear una partida, decidís unirte a una que ya fue creada, clickear en join game.
 
 ![unirse a partida](imagenes/joingame.png)
@@ -140,7 +138,7 @@ Además, se puede ver la vida de cada gusano arriba de cada uno, el color del ju
 
 **`→ `**: Mueve el gusano hacia la derecha
 
-**`←`**: Mueve el gusano hacia la izquierda
+**`← `**: Mueve el gusano hacia la izquierda
 
 **`Enter`**: Salta hacia delante con el gusano
 
@@ -209,3 +207,95 @@ mouse en alguna parte del escenario para determinar el punto exacto donde el arm
 **`Granada santa`**: como la granda verde pero con un daño y radio mayor 
 
 **`Banana`**: como la granda verde, pero puede rebotar de forma elástica en las superficies y hace más daño
+
+
+
+
+## Editor de mapas
+
+Para compilar el editor de mapas, hay que estar parado en la carpeta Editor dentro del repositorio.
+Una vez ahí, ejecutar los siguientes comandos:
+Luego, realizar los siguientes comandos desde dentro del repositorio:
+
+```bash
+mkdir build
+cd build
+cmake ..
+make
+```
+Con eso ya debería de estar instalado.
+
+El editor de mapas se ejecuta con el siguiente comando:
+
+`./client`  //cambiar por ./editor
+
+Ese comando va a abrir la siguiente ventana:
+
+![main editor](imagenes/mainscreen_editor.png)
+
+En etsa ventana hay 3 opciones:
+
+**`Crear mapa`**: Para crear mapa desde 0
+
+**`Editar mapa`**: Para editar un mapa ya creado
+
+**`Salir`**: Salir del editor
+
+**Crear mapa**
+
+Si haces click en crear mapa, va a aparecer la siguiente ventana:
+
+![crear mapa](imagenes/mapcreation.png)
+
+En esta se le puede colocar el nombre al mapa, asi como tambien elegir entre alguno de los 3 fondos. Para elegir el fondo se debe hacer click en el nombre del fondo.
+
+Una vez se elige el fondo, se abre la ventana para crear el mapa:
+
+![editor mapa](imagenes/mapcretionopen.png)
+
+En la esquina superior izquierda, se puede ver el objeto seleccionado o si esta en modo borrar. En un principio no aparece nada porque no hay ningun objeto seleccionado.
+
+En la esquina inferior derecha, se pueden ver los distintos comandos:
+
+**`R`**: para elegir y cambiar el objeto que se quiere colocar o entrar en modo borrar
+
+**`Click izquierda`**: para colocar el objeto
+
+**`Enter`**: para guardar el mapa y salir del editor. 
+
+Los mapas son guardados en la carpeta mapas que puede ser accedido desde el inicio del repositorio y una ves creados ya pueden ser utilizados.
+
+**`T`**: Para que funciones esta tecla, en la seleccion de objeto se debe estar posicionado en Borrar. Esta tecla lo que permite es ir seleccionando que viga o gusano queres borrar, la cual será resaltada con color rojo.
+
+**`Retroceso`**: para borrar el objeto seleccionado
+
+Los objetos que se pueden colocar son los siguientes:
+
+- Gusano
+- Viga larga con ángulo de -45 grados
+- Viga larga con ángulo de 45 grados
+- Viga larga con ángulo de 0 grados
+- Viga corta con ángulo de -45 grados
+- Viga corta con ángulo de 45 grados
+- Viga corta con ángulo de 0 grados
+
+Dejo algunas imágenes a modo ilustativo:
+
+Creando el mapa
+![img](imagenes/editorcolocandocosas.png)
+
+Selecciono objeto para borrar
+![img](imagenes/editorborrandocosas.png)
+
+Borro el objeto seleccionado usando Retroceso/DELETE
+![img](imagenes/editorborre.png)
+
+**Editar mapa**
+
+Al hacer click en editar mapa, nos aparecará la siguiente ventana:
+
+![img](imagenes/editarmapa.png)
+
+Donde se pueden elegir los mapas ya creados que se quiera editar. Una vez le das click a editar mapa, se abre la ventana donde se muestra el mapa.
+
+Tanto para editar como crear un mapa, los controles son los mismos.

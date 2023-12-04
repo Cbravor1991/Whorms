@@ -1,12 +1,14 @@
 # Documentacion tecnica
 
-El proyecto se divide en 3 partes fundamentales: 
+El proyecto se divide en 4 partes fundamentales: 
 
 El servidor que se encarga de aceptar conecciones entrantes, recibir y enviar informacion a los distintos clientes, mantener la logica del juego y simular las físicas.
 
 El cliente, se encarga de recibir los comandos del usuario, enviarlos al servidor, recibir las respuestas del servidor y mostarlas en pantalla.
 
 El protocolo que se encarga de comunicar al servidor con los clientes mediante el envío de informacion.
+
+El editor de mapas que permite crear tus propios mapas y editarlos.
 
 ## Cliente
 
