@@ -29,9 +29,6 @@ public:
     int getFondo() const;
     bool getSpawnsAutomaticos() const;
 
-    ConfiguracionMapa(const ConfiguracionMapa&) = delete;
-    ConfiguracionMapa& operator=(const ConfiguracionMapa&) = delete;
-
     ~ConfiguracionMapa();
 };
 

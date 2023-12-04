@@ -27,7 +27,7 @@ private:
     std::string nombre_mapa = "nuevo_mapa";
     std::string extension = ".yaml";
     std::string fondo_elegido = " ";
-    int id_mapa;
+    int id_mapa = 0;
 
 
 
@@ -37,6 +37,7 @@ private:
     int cantidad_objetos = 7;
     int contador_id_objetos = 0;
     int id_objeto_seleccionado = -1;
+    int contador_obj_seleccionados = -1;
 
 public:
 
@@ -52,7 +53,7 @@ public:
 
     void guardar_datos();
 
-    void subir_mapa(std::string path_mapa_editar);
+    void subir_mapa(std::string path_mapa_editar, int &id_fondo);
     void renderizar();
 };
 #endif // GAME_H

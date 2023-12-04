@@ -4,27 +4,28 @@
 
 #define SLEEP_RATE (4.0f / 35.0f) * 50
 
-//  void Game::subir_mapa(std::string path_mapa_editar) {
-//       ConfiguracionMapa configuracion_mapa = ConfiguracionMapa::obtener_configuracion_mapa(path_mapa_editar);
-//      std::vector<PosicionSpawn> spawns = configuracion_mapa.getSpawns();
-//     if (!spawns.empty()) {
-//          spawns_automaticos = false;
-//         for (PosicionSpawn spawn : spawns)
-//        { 
-//          Objeto spawn(2, spawn.obtener_x(), spawn.obtener_y(), 0, contador_id_objetos);
-//           objetos_creados.push_back(spawn);         contador_id_objetos++;          }
-//        }
-//        std::vector<PosicionViga> vigas = configuracion_mapa.getVigas();
+void Game::subir_mapa(std::string path_mapa_editar, int &id_fondo) {
+    ConfiguracionMapa configuracion_mapa = ConfiguracionMapa::obtener_configuracion_mapa("../mapas/" + path_mapa_editar + ".yaml");
+    std::vector<PosicionSpawn> spawns = configuracion_mapa.getSpawns();
+    if (!spawns.empty()) {
+        spawns_automaticos = false;
+        for (PosicionSpawn spawn : spawns) { 
+            Objeto nuevo_spawn(2, spawn.obtener_x(), spawn.obtener_y(), 0, contador_id_objetos);
+            objetos_creados.push_back(nuevo_spawn);         
+            contador_id_objetos++;          
+        }
+    }
+    std::vector<PosicionViga> vigas = configuracion_mapa.getVigas();
     
-//      if (!vigas.empty()) {
-//            for (PosicionSpawn viga : vigas)
-//           { 
-//          Objeto viga(viga.obtener_tipo(), viga.obtener_x(), viga.obtener_y(), viga.obtener_angulo(), contador_id_objetos);
-//            objetos_creados.push_back(spawn);
-//          contador_id_objetos++;
-//           }
-//       }
-//    }
+    if (!vigas.empty()) {
+        for (PosicionViga viga : vigas) { 
+            Objeto viga_creada(viga.obtener_tipo(), viga.obtener_x(), viga.obtener_y(), viga.obtener_angulo(), contador_id_objetos);
+            objetos_creados.push_back(viga_creada);
+            contador_id_objetos++;
+        }
+    }
+    id_fondo = configuracion_mapa.getFondo();
+}
 
 Game::Game() {
     tipos_objetos.push_back("Gusano");
@@ -62,14 +63,13 @@ void Game::crear_mapa(std::string fondo_seleccionado, std::string nombre_mapa_re
             timeLost = 0;
         }
     }
-    // if (fondo_elegido == "noche") {
-    //     id_mapa = 3;
-    // } else if (fondo_elegido == "snow") {
-    //     id_mapa = 2;
-    // } else {
-    //     id_mapa = 1;
-    // }
-    id_mapa = 1;
+    if (fondo_seleccionado == "noche") {
+        id_mapa = 3;
+    } else if (fondo_seleccionado == "snow") {
+        id_mapa = 2;
+    } else {
+        id_mapa = 1;
+    }
 }
 
 bool Game::gameLoop()
@@ -106,18 +106,19 @@ bool Game::manejarEventos()
             }
             case (SDLK_t):
             {
-                if (this->objeto_renderizar == "Borrar") {
-                    id_objeto_seleccionado++;
-                    if (id_objeto_seleccionado == contador_id_objetos) {
-                        id_objeto_seleccionado = 0;
+                if (this->objeto_renderizar == "Borrar" && objetos_creados.size() != 0) {
+                    contador_obj_seleccionados++;
+
+                    if (contador_obj_seleccionados >= (int)objetos_creados.size()) {
+                        contador_obj_seleccionados = 0;  
                     }
 
+                id_objeto_seleccionado = objetos_creados.at(contador_obj_seleccionados).getId();
                 }
                 break;
             }
             case (SDLK_BACKSPACE):
             {
-                std::cout << id_objeto_seleccionado << std::endl;
                 if (this->objeto_renderizar == "Borrar" && this->id_objeto_seleccionado != -1) {
                     auto it = std::remove_if(objetos_creados.begin(), objetos_creados.end(),
                                              [this](const Objeto &obj)
@@ -254,7 +255,7 @@ void Game::renderizar()
     SDL_Color color = {255, 255, 255, 255};
     view.renderizar_texto(this->objeto_renderizar, 20, 20, color);
     view.renderizar_texto("Apriete R para seleccionar objeto", 800, 550, color);
-    view.renderizar_texto("Para borrar, seleccione el objeto y apriete DELETE", 800, 430, color);
+    view.renderizar_texto("Para borrar, seleccione el objeto con T y apriete DELETE", 800, 430, color);
     view.renderizar_texto("Para guardar y salir, apriete ENTER", 800, 450, color);
     if (this->objeto_renderizar != "Borrar") {
         id_objeto_seleccionado = -1;
