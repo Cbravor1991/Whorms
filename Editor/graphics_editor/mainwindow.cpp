@@ -55,7 +55,7 @@ void MainWindow::on_createButton_clicked()
 void MainWindow::on_editButton_clicked()
 {
     hide();
-    join_pop_up = new JoinPopUp(nullptr);
+    join_pop_up = new JoinPopUp(editor, nullptr);
     join_pop_up->show();
 }
 
@@ -65,7 +65,3 @@ void MainWindow::on_exitButton_clicked()
     QApplication::exit(1);
 }
 
-void MainWindow::hideTemporaryLabel()
-{
-   
-}

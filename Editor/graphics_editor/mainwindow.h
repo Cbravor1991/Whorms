@@ -30,11 +30,9 @@ private slots:
 
     void on_editButton_clicked();
 
-
-
     void on_exitButton_clicked();
 
-     void hideTemporaryLabel();
+  
 
 protected:
      void closeEvent(QCloseEvent *event);

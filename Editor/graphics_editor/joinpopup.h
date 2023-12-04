@@ -2,8 +2,7 @@
 #define JOINPOPUP_H
 
 #include <QMainWindow>
-
-
+#include "../client_src/client_editor.h"
 #include <QDialog>
 
 namespace Ui {
@@ -16,7 +15,7 @@ class JoinPopUp : public QDialog
 
 public:
     //explicit createPopUp(QWidget *parent = nullptr);
-    JoinPopUp(QWidget *parent = nullptr);
+    JoinPopUp(Editor* editor, QWidget *parent = nullptr);
      std::vector<std::string> mapas;
   
     ~JoinPopUp();
@@ -29,7 +28,7 @@ private slots:
 
 private:
     Ui::JoinPopUp *ui;
-
+    Editor* editor;
 };
 
 #endif // CREATEPOPUP_H

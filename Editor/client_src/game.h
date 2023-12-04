@@ -40,7 +40,7 @@ private:
 
 public:
 
-    //void subir_mapa(std::string path_mapa_editar);
+    
   
     Game();
 
@@ -52,7 +52,7 @@ public:
 
     void guardar_datos();
 
-
+    void subir_mapa(std::string path_mapa_editar);
     void renderizar();
 };
 #endif // GAME_H

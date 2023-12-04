@@ -4,30 +4,27 @@
 
 #define SLEEP_RATE (4.0f / 35.0f) * 50
 
-// void Game::subir_mapa(std::string path_mapa_editar) {
-//     ConfiguracionMapa configuracion_mapa = ConfiguracionMapa::obtener_configuracion_mapa(path_mapa_editar);
-//     std::vector<PosicionSpawn> spawns = configuracion_mapa.getSpawns();
+//  void Game::subir_mapa(std::string path_mapa_editar) {
+//       ConfiguracionMapa configuracion_mapa = ConfiguracionMapa::obtener_configuracion_mapa(path_mapa_editar);
+//      std::vector<PosicionSpawn> spawns = configuracion_mapa.getSpawns();
 //     if (!spawns.empty()) {
-//         spawns_automaticos = false;
+//          spawns_automaticos = false;
 //         for (PosicionSpawn spawn : spawns)
-//         { 
-//         Objeto spawn(2, spawn.obtener_x(), spawn.obtener_y(), 0, contador_id_objetos);
-//         objetos_creados.push_back(spawn);
-//         contador_id_objetos++;
-//         }
-//     }
-//     std::vector<PosicionViga> vigas = configuracion_mapa.getVigas();
+//        { 
+//          Objeto spawn(2, spawn.obtener_x(), spawn.obtener_y(), 0, contador_id_objetos);
+//           objetos_creados.push_back(spawn);         contador_id_objetos++;          }
+//        }
+//        std::vector<PosicionViga> vigas = configuracion_mapa.getVigas();
     
-//     if (!vigas.empty()) {
-//         for (PosicionSpawn viga : vigas)
-//         { 
-//         Objeto viga(viga.obtener_tipo(), viga.obtener_x(), viga.obtener_y(), viga.obtener_angulo(), contador_id_objetos);
-//         objetos_creados.push_back(spawn);
-//         contador_id_objetos++;
-//         }
-//     }
-
-// }
+//      if (!vigas.empty()) {
+//            for (PosicionSpawn viga : vigas)
+//           { 
+//          Objeto viga(viga.obtener_tipo(), viga.obtener_x(), viga.obtener_y(), viga.obtener_angulo(), contador_id_objetos);
+//            objetos_creados.push_back(spawn);
+//          contador_id_objetos++;
+//           }
+//       }
+//    }
 
 Game::Game() {
     tipos_objetos.push_back("Gusano");

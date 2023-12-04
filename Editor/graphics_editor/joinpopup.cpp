@@ -5,8 +5,9 @@
 #include <iostream>
 #include <filesystem>
 
-JoinPopUp::JoinPopUp(QWidget *parent) : QDialog(parent),
-                                                                                ui(new Ui::JoinPopUp)
+JoinPopUp::JoinPopUp(Editor* editor, QWidget *parent) : QDialog(parent),
+                                                                                ui(new Ui::JoinPopUp),
+                                                                                 editor(editor)
                                                                              
 {   namespace fs = std::filesystem;
     ui->setupUi(this);
@@ -24,11 +25,15 @@ JoinPopUp::JoinPopUp(QWidget *parent) : QDialog(parent),
             std::string directorio = "../mapas"; 
 
    for (const auto& entrada : fs::directory_iterator(directorio)) {
-        // Verificar si la extensión es .yaml
-        if (entrada.path().extension() == ".yaml") {
-            mapas.push_back(entrada.path().filename().string());
-        }
+    // Verificar si la extensión es .yaml
+    if (entrada.path().extension() == ".yaml") {
+        // Obtener el nombre del archivo sin la extensión
+        std::string nombreSinExtension = entrada.path().stem().string();
+
+        // Agregar el nombre del archivo sin la extensión al vector mapas
+        mapas.push_back(nombreSinExtension);
     }
+}
     for (const auto& dato: mapas) {
         ui->games->addItem(QString::fromStdString(dato));
     }
@@ -48,7 +53,11 @@ JoinPopUp::~JoinPopUp()
 void JoinPopUp::on_createButton_clicked()
 {
 
-  this->close();
+    //hide();
+    //editor->editar_mapa(ui->labelName->text().toStdString());
+    this->close();
+
+    
 
 }
 
