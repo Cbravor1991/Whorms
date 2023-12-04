@@ -35,5 +35,7 @@ public:
     std::vector<int> obtener_partidas();
 
     void enviar_comienzo_juego();
+
+    int obtener_fondo();
 };
 #endif

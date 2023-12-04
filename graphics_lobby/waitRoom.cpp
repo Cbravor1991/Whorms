@@ -18,10 +18,7 @@ waitRoom::waitRoom(Lobby *lobby, QWidget *parent) : QDialog(parent),
         if (!fontFamilies.isEmpty())
         {
             QString fontFamily = fontFamilies.at(0); // Obtén el nombre de la familia de fuentes
-
             QFont font(fontFamily, 12); // Crea una instancia de QFont con el nombre de la familia y el tamaño deseado
-            //ui->labelName->setFont(font);
-         
             ui->labelConfirm->setFont(font);
             ui->start->setFont(font);
        
@@ -42,7 +39,7 @@ waitRoom::~waitRoom()
 void waitRoom::on_start_clicked()
 {
     this->close();
-     lobby->enviar_comienzo_juego();
+    lobby->enviar_comienzo_juego();
     lobby->jugar();
 }
 

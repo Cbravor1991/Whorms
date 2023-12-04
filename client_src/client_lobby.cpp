@@ -55,10 +55,15 @@ void Lobby::jugar()
 {
     en_juego = true;
     Game juego(protocolo);
+    juego.cargar_fondo_pantalla(2);
     juego.run();
 }
 
     std::vector<int>Lobby::obtener_partidas()
 {
     return partida;
+}
+
+int Lobby:: obtener_fondo(){
+    return tipo_fondo;
 }

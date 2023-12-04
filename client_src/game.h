@@ -49,6 +49,7 @@ private:
     bool dispare = false;
     VientoDTO viento;
     TeamHealth vida_equipos;
+     int fondo_pantalla = 0;
 
     // prueba de concepto
     Weapon *armaRecibida = nullptr;
@@ -78,5 +79,7 @@ public:
     void renderizar();
 
     bool endGameLoop();
+
+      void cargar_fondo_pantalla(int fondo_recibido);
 };
 #endif // GAME_H

@@ -8,7 +8,7 @@
 - SDL2_Audio(version 2.0.20)
 - SDL2_ttf(version 2.20.2)
 - QT5(version 5.15.3)
-- Box2d(version 2.4.0)
+- Box2d(version 2.4.1)
 - Yaml-cpp (version 0.7.0)
 
 En caso de no tener las dependencia, se pueden instalar de la siguiente manera:
@@ -27,6 +27,10 @@ sudo apt-get install  libsdl2-mixer-dev libsdl2-image-dev libsdl2-ttf-dev libsdl
 QT5:
 ```bash
 sudo apt-get install qt5-default qtbase5-dev qtcreator 
+```
+Box2D:
+```bash
+sudo apt-get install libbox2d-dev
 ```
 
 Yaml-cpp
