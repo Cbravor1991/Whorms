@@ -2,12 +2,13 @@
 #include "ui_createpopup.h"
 #include <QFontDatabase>
 #include <iostream>
+#include <filesystem>
 
 createPopUp::createPopUp(Lobby *lobby, QWidget *parent) : QDialog(parent),
                                                                                     ui(new Ui::createPopUp),
                                                                                     lobby(lobby),
                                                                                     wait_room(nullptr)
-{
+{   namespace fs = std::filesystem;
     ui->setupUi(this);
 
     int id = QFontDatabase::addApplicationFont(":GROBOLD.ttf");
@@ -19,8 +20,27 @@ createPopUp::createPopUp(Lobby *lobby, QWidget *parent) : QDialog(parent),
         if (!fontFamilies.isEmpty())
         {
             QString fontFamily = fontFamilies.at(0); // Obtén el nombre de la familia de fuentes
-            QFont font(fontFamily, 12);              // Crea una instancia de QFont con el nombre de la familia y el tamaño deseado
-            ui->labelScenarios->setFont(font);
+            QFont font(fontFamily, 12);
+            
+              std::string directorio = "../mapas"; 
+
+   for (const auto& entrada : fs::directory_iterator(directorio)) {
+    // Verificar si la extensión es .yaml
+    if (entrada.path().extension() == ".yaml") {
+        // Obtener el nombre del archivo sin la extensión
+        std::string nombreSinExtension = entrada.path().stem().string();
+
+        // Agregar el nombre del archivo sin la extensión al vector mapas
+        mapas.push_back(nombreSinExtension);
+    }
+}
+    for (const auto& dato: mapas) {
+        ui->scenarios->addItem(QString::fromStdString(dato));
+    }
+
+
+
+            ui->labelMap->setFont(font);
             ui->scenarios->setFont(font);
             ui->createButton->setFont(font);
             ui->labelConfirm->setFont(font);
@@ -36,27 +56,23 @@ createPopUp::~createPopUp()
 
 void createPopUp::on_createButton_clicked()
 {
-    // int8_t game_players = ui->playersNumber->currentText().toInt();
-    // std::string nombre_partida = ui->labelName->text().toStdString();
-    /*creamos la partida a traves del lobby
-   bool partida_creada = lony->crear_partida(nombrePartida, cantidad_jugadores)
-     */
+  
+     
     bool partida_creada = true;
 
     if (partida_creada)
-    {
-        /*obtener el codigo de la partida creada asi el otro jugador se puede unir
-        int8_t = loby->obtener_codigo_partida_cread;
-        */
+    {   
+        /*ACA OBTENGO EL NOMBRE DEL MAPA QUE LUEGO VOY A ENVIAR POR PROTOCOLO*/
+        //si necesitas el path cpn yaml
+        std::cout<<"EL NOMBRE DEL MAPA ES: "<< ui->scenarios->currentText().toStdString() +".yaml"<<'\n';
+        //si no necesitas el path con yaml
+         //std::cout<<"EL NOMBRE DEL MAPA ES: "<< ui->scenarios->currentText().toStdString()
 
         int codigo_creado = lobby->enviar_escenario(0);
 
         QString text = QString("El codigo es: %2").arg(codigo_creado);
 
-        // std::cout << "La cantidad de jugadores es: " << static_cast<int>(game_players) << '\n';
-        // std::cout << "La cantidad de jugadores es: " << nombre_partida << '\n';
-
-        // lobby->start_game();
+      
 
         ui->labelConfirm->setText(text);
         ui->accept->setEnabled(true);

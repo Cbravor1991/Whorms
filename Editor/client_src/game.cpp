@@ -239,7 +239,7 @@ void Game::guardar_datos() {
     nodoPrincipal["spawns_mapa"] = nodoSpawns;
     nodoPrincipal["vigas"] = nodoVigas;
 
-    std::string rutaCompleta = "../mapas/"+ nombre_mapa + extension;  
+    std::string rutaCompleta = "../../mapas/"+ nombre_mapa + extension;  
     std::ofstream archivoSalida(rutaCompleta);
     archivoSalida << nodoPrincipal;
 

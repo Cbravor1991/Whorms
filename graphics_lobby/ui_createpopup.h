@@ -26,7 +26,7 @@ public:
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout_3;
     QHBoxLayout *horizontalLayout_2;
-    QLabel *labelScenarios;
+    QLabel *labelMap;
     QComboBox *scenarios;
     QHBoxLayout *horizontalLayout;
     QPushButton *createButton;
@@ -46,19 +46,19 @@ public:
         horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
-        labelScenarios = new QLabel(createPopUp);
-        labelScenarios->setObjectName(QString::fromUtf8("labelScenarios"));
-        labelScenarios->setEnabled(true);
-        labelScenarios->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
+        labelMap = new QLabel(createPopUp);
+        labelMap->setObjectName(QString::fromUtf8("labelMap"));
+        labelMap->setEnabled(true);
+        labelMap->setMinimumSize(QSize(50, 0));
+        labelMap->setMaximumSize(QSize(250, 16777215));
+        labelMap->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
 
-        horizontalLayout_2->addWidget(labelScenarios);
+        horizontalLayout_2->addWidget(labelMap);
 
         scenarios = new QComboBox(createPopUp);
-        scenarios->addItem(QString());
-        scenarios->addItem(QString());
         scenarios->setObjectName(QString::fromUtf8("scenarios"));
         scenarios->setEnabled(true);
-        scenarios->setMaximumSize(QSize(100, 16777215));
+        scenarios->setMaximumSize(QSize(200, 16777215));
         scenarios->setStyleSheet(QString::fromUtf8("background-image: url(:BackgroundPopUp.jpg);"));
 
         horizontalLayout_2->addWidget(scenarios);
@@ -117,10 +117,7 @@ public:
     void retranslateUi(QDialog *createPopUp)
     {
         createPopUp->setWindowTitle(QCoreApplication::translate("createPopUp", "Dialog", nullptr));
-        labelScenarios->setText(QCoreApplication::translate("createPopUp", "Seleccione el escenario:", nullptr));
-        scenarios->setItemText(0, QCoreApplication::translate("createPopUp", "Alta mar", nullptr));
-        scenarios->setItemText(1, QCoreApplication::translate("createPopUp", "Monta\303\261as", nullptr));
-
+        labelMap->setText(QCoreApplication::translate("createPopUp", "Seleccione el mapa:", nullptr));
         createButton->setText(QCoreApplication::translate("createPopUp", "CREAR", nullptr));
         labelConfirm->setText(QString());
         accept->setText(QCoreApplication::translate("createPopUp", "ACEPTAR", nullptr));
