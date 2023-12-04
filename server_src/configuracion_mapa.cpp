@@ -3,7 +3,7 @@
 #include <iostream>
 
 ConfiguracionMapa& ConfiguracionMapa::obtener_configuracion_mapa() {
-    static ConfiguracionMapa configuracion_mapa(YAML::LoadFile(MAPA_PATH "/mapa_principal.yaml"));
+    static ConfiguracionMapa configuracion_mapa(YAML::LoadFile(MAPA_PATH "/Nombre del mapa.yaml"));
     return configuracion_mapa;
 }
 

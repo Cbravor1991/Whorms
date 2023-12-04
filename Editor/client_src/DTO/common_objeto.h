@@ -29,6 +29,8 @@ public:
 
     int getTipo() const;
 
+    int getId() const;
+
 };
 
 #endif // OBJETO_H_

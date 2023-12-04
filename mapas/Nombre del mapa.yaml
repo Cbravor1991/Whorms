@@ -1,47 +1,25 @@
 fondo:
   pantalla: 1
 spawns_automaticos: 0
-spawns_mapa:
-  - x: 169
-    y: 86
-  - x: 92
-    y: 129
-  - x: 342
-    y: 132
-  - x: 256
-    y: 125
-  - x: 562
-    y: 131
+spawns_mapa: ~
 vigas:
   - tipo: 1
-    x: 278
-    y: 73
+    x: 332
+    y: 142
     angulo: 45
   - tipo: 1
-    x: 438
-    y: 74
+    x: 127
+    y: 133
     angulo: 45
   - tipo: 1
-    x: 398
-    y: 148
-    angulo: 45
+    x: 65
+    y: 67
+    angulo: -45
   - tipo: 1
-    x: 189
-    y: 139
-    angulo: 45
-  - tipo: 0
-    x: 138
-    y: 180
+    x: 204
+    y: 67
     angulo: -45
-  - tipo: 0
-    x: 313
-    y: 162
+  - tipo: 1
+    x: 465
+    y: 88
     angulo: -45
-  - tipo: 0
-    x: 498
-    y: 145
-    angulo: -45
-  - tipo: 0
-    x: 560
-    y: 75
-    angulo: 0

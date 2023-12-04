@@ -80,3 +80,8 @@ int Objeto::getTipo() const
 {
     return tipo;
 }
+
+int Objeto::getId() const
+{
+    return id;
+}

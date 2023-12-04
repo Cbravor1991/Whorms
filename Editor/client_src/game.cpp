@@ -120,11 +120,12 @@ bool Game::manejarEventos()
             }
             case (SDLK_BACKSPACE):
             {
+                std::cout << id_objeto_seleccionado << std::endl;
                 if (this->objeto_renderizar == "Borrar" && this->id_objeto_seleccionado != -1) {
                     auto it = std::remove_if(objetos_creados.begin(), objetos_creados.end(),
                                              [this](const Objeto &obj)
                                              {
-                                                 return obj.getTipo() == this->id_objeto_seleccionado;
+                                                 return obj.getId() == this->id_objeto_seleccionado;
                                              });
 
                     objetos_creados.erase(it, objetos_creados.end());
