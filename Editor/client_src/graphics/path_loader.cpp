@@ -27,8 +27,8 @@ void PathLoader::loadSpritePath() {
     sprite_path.push_back("/sprites/worm/walk/wwalk.png");
     sprite_path.push_back("/sprites/vigas/grdl4.png");
     sprite_path.push_back("/sprites/vigas/grds4.png");
-
-    
+    sprite_path.push_back("/sprites/vigal_borrar.png");
+    sprite_path.push_back("/sprites/gusano_borrar_1.png");
 }
 
 void PathLoader::loadBackgroundPath() {

@@ -44,7 +44,7 @@ public:
     void clear();
     SDL2pp::Renderer &getRenderer();//
     void renderizar_texto(const std::string texto, int pos_x, int pos_y, SDL_Color color);
-    void renderizar_objeto(Objeto objeto);
+    void renderizar_objeto(Objeto objeto, int id_objeto_seleccionado);
     void mutear_sonidos();
     void reproducir_musica();
     void renderizar_fondo_pantalla(std::string fondo_seleccionado);

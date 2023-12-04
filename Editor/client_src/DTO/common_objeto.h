@@ -12,13 +12,14 @@ private:
     int x;
     int y;
     int angulo;
+    int id;
 
 public:
-    Objeto(int tipo, int x, int y, int angulo);
+    Objeto(int tipo, int x, int y, int angulo, int id);
 
     void mostrar() const;
 
-    void renderizar(SDL2pp::Renderer &renderer, TextureManager& tex_manager);
+    void renderizar(SDL2pp::Renderer &renderer, TextureManager& tex_manager, int id_objeto_seleccionado);
 
     int getX() const;
 

@@ -79,8 +79,8 @@ void GameView::renderizar_texto(std::string texto, int pos_x, int pos_y, SDL_Col
 
 
 
-void GameView::renderizar_objeto(Objeto objeto) {
-    objeto.renderizar(renderer, tex_manager);
+void GameView::renderizar_objeto(Objeto objeto, int id_objeto_seleccionado) {
+    objeto.renderizar(renderer, tex_manager, id_objeto_seleccionado);
 }
 
 

@@ -10,6 +10,9 @@
 #include "DTO/common_objeto.h"
 #include <yaml-cpp/yaml.h>
 #include <fstream>
+#include "configuracion_mapa.h"
+#include "DTO/posicion_viga.h"
+#include "DTO/posicion_spawn.h"
 
 class Game
 {
@@ -23,7 +26,8 @@ private:
     bool spawns_automaticos = true;
     std::string nombre_mapa = "nuevo_mapa";
     std::string extension = ".yaml";
-    std::string fondo_eleguido = " ";
+    std::string fondo_elegido = " ";
+    int id_mapa;
 
 
 
@@ -31,10 +35,14 @@ private:
     std::vector<std::string> tipos_objetos;
     int contador_objetos = -1;
     int cantidad_objetos = 7;
+    int contador_id_objetos = 0;
+    int id_objeto_seleccionado = -1;
 
 public:
+
+    //void subir_mapa(std::string path_mapa_editar);
   
-    explicit Game( );
+    Game();
 
     void crear_mapa(std::string fondo_seleccionado, std::string nombre_mapa_recibido);
 
