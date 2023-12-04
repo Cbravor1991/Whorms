@@ -11,6 +11,8 @@ void Game::subir_mapa(std::string path_mapa_editar, int &id_fondo) {
         spawns_automaticos = false;
         for (PosicionSpawn spawn : spawns) { 
             Objeto nuevo_spawn(2, spawn.obtener_x(), spawn.obtener_y(), 0, contador_id_objetos);
+            std::cout << spawn.obtener_x() << std::endl;
+            std::cout << spawn.obtener_y() << std::endl;
             objetos_creados.push_back(nuevo_spawn);         
             contador_id_objetos++;          
         }
@@ -44,15 +46,11 @@ void Game::crear_mapa(std::string fondo_seleccionado, std::string nombre_mapa_re
 {   
     
        if (fondo_seleccionado == "noche") {
-        std::cout<<"voy a setear noche"<<'\n';
-        this->id_mapa = 3;
-        std::cout<< "el valor de id_mapa"<< this->id_mapa<<'\n';
+        this->id_mapa = FONDO_NOCHE;
     } else if (fondo_seleccionado == "snow") {
-             std::cout<<"estoy eliguiendo nieve"<<'\n';
-        this->id_mapa = 2;
+        this->id_mapa = FONDO_NIEVE;
     } else {
-           std::cout<<"estoy eliguiendo dia"<<'\n';
-        this->id_mapa = 1;
+        this->id_mapa = FONDO_DIA;
     }
     nombre_mapa = nombre_mapa_recibido;
     fondo_elegido = fondo_seleccionado;
@@ -153,38 +151,33 @@ bool Game::manejarEventos()
                 if (this->objeto_renderizar == "Viga corta 45°") {
                     Objeto viga(0, mouseX, mouseY, 45, contador_id_objetos);
                     objetos_creados.push_back(viga);
-                    std::cout << contador_id_objetos << std::endl;
                     contador_id_objetos++;
                 } else if (this->objeto_renderizar == "Gusano") {
                     Objeto gusano(2, mouseX, mouseY, 0, contador_id_objetos);
                     objetos_creados.push_back(gusano);
-                    std::cout << contador_id_objetos << std::endl;
+                    std::cout << mouseX << std::endl;
+                    std::cout << mouseY << std::endl;
                     contador_id_objetos++;
                     spawns_automaticos = false;
                 } else if (this->objeto_renderizar == "Viga corta -45°") {
                     Objeto viga(0, mouseX, mouseY, -45, contador_id_objetos);
                     objetos_creados.push_back(viga);
-                    std::cout << contador_id_objetos << std::endl;
                     contador_id_objetos++;
                 } else if (this->objeto_renderizar == "Viga corta 0°") {
                     Objeto viga(0, mouseX, mouseY, 0, contador_id_objetos);
                     objetos_creados.push_back(viga);
-                    std::cout << contador_id_objetos << std::endl;
                     contador_id_objetos++;
                 } else if (this->objeto_renderizar == "Viga larga 45°") {
                     Objeto viga(1, mouseX, mouseY, 45, contador_id_objetos);
                     objetos_creados.push_back(viga);
-                    std::cout << contador_id_objetos << std::endl;
                     contador_id_objetos++;
                 } else if (this->objeto_renderizar == "Viga larga 0°") {
                     Objeto viga(1, mouseX, mouseY, 0, contador_id_objetos);
                     objetos_creados.push_back(viga);
-                    std::cout << contador_id_objetos << std::endl;
                     contador_id_objetos++;
                 } else if (this->objeto_renderizar == "Viga larga -45°") {
                     Objeto viga(1, mouseX, mouseY, -45, contador_id_objetos);
                     objetos_creados.push_back(viga);
-                    std::cout << contador_id_objetos << std::endl;
                     contador_id_objetos++;
                 }
             }
@@ -252,6 +245,10 @@ void Game::renderizar()
 {
     view.renderizar_fondo_pantalla(fondo_elegido);
     SDL_Color color = {255, 255, 255, 255};
+    // usamos letras negras para nieve
+    if (id_mapa == FONDO_NIEVE) {
+        color = {0, 0, 0, 255};
+    }
     view.renderizar_texto(this->objeto_renderizar, 20, 20, color);
     view.renderizar_texto("Apriete R para seleccionar objeto", 800, 550, color);
     view.renderizar_texto("Para borrar, seleccione el objeto con T y apriete DELETE", 800, 430, color);

@@ -2,22 +2,22 @@ fondo:
   pantalla: 1
 spawns_automaticos: 0
 spawns_mapa:
-  - x: 147
-    y: 127
-  - x: 242
-    y: 127
-  - x: 347
+  - x: 106
+    y: 146
+  - x: 306
+    y: 147
+  - x: 446
     y: 126
-  - x: 465
-    y: 90
-  - x: 283
-    y: 55
 vigas:
   - tipo: 1
-    x: 101
-    y: 67
+    x: 84
+    y: 72
     angulo: 45
   - tipo: 1
-    x: 180
-    y: 63
+    x: 240
+    y: 72
+    angulo: 45
+  - tipo: 1
+    x: 405
+    y: 51
     angulo: 45

@@ -33,22 +33,18 @@ SDL2pp::Renderer &GameView::getRenderer()
 
 void GameView::renderizar_fondo_pantalla(int tipo_fondo){
 
-  std::shared_ptr<SDL2pp::Texture> background = tex_manager.getBackground();
-    if(tipo_fondo== 1){
+  std::shared_ptr<SDL2pp::Texture> background;
+    if(tipo_fondo == FONDO_NOCHE){
         background = tex_manager.getBackgroundNight();
     }
-     if(tipo_fondo== 2){
+    else if(tipo_fondo == FONDO_NIEVE) {
         background = tex_manager.getBackgroundSnow();
+    } else {
+        background  = tex_manager.getBackground();
     }
       renderer.Copy(*background, NullOpt, Rect(0, 0, window.GetWidth(),  window.GetHeight()));
      std::shared_ptr<SDL2pp::Texture> water = tex_manager.getWater();
      renderer.Copy(*water, NullOpt, Rect(0, 200, window.GetWidth(),  window.GetHeight()-100));
-
-
-  
-
-
-
 
 }
 

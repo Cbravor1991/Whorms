@@ -21,6 +21,10 @@
 #include <SDL2pp/Mixer.hh>
 #include <SDL2pp/Music.hh>
 
+#define FONDO_DIA 1
+#define FONDO_NIEVE 2
+#define FONDO_NOCHE 3
+
 class GameView
 {
 

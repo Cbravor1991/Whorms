@@ -23,11 +23,10 @@ ConfiguracionMapa::ConfiguracionMapa(const YAML::Node& node) : vigas(), fondo(no
         if (!spawns_automaticos) {
             const YAML::Node spawn = node["spawns_mapa"];
             if (spawn && spawn.IsSequence()) {
-                for (const auto& nodo_spawn : viga) {
+                for (const auto& nodo_spawn : spawn) {
                     PosicionSpawn posicion_spawn( 
                     nodo_spawn["x"].as<int>(),
                     nodo_spawn["y"].as<int>());
-
                     spawns.push_back(posicion_spawn);
                 }
             }
