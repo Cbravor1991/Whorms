@@ -23,7 +23,7 @@ public:
 
     void asignar_id(int jugador_id);
 
-    void jugar(Queue<Accion *> *cola);
+    void jugar(Queue<Accion *> *cola, int tipo_fondo);
 
     void enviar_cantidad_jugadores(int cantidad_jugadores);
 

@@ -16,12 +16,12 @@ class JoinPopUp : public QDialog
 
 public:
     //explicit createPopUp(QWidget *parent = nullptr);
-    JoinPopUp(Lobby* lobby, QPushButton* startButton, QWidget *parent = nullptr);
+    JoinPopUp(Lobby* lobby, QWidget *parent = nullptr);
   
     ~JoinPopUp();
 
 private slots:
-    void on_createButton_clicked();
+    void on_joinButton_clicked();
     void on_accept_clicked();
 
     

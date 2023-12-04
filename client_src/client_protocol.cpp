@@ -227,7 +227,7 @@ ObjetoDTO ProtocoloCliente::recibir_objeto()
     bool direccion = static_cast<bool>(recibir_int());
     int angulo = recibir_int_grande();
     bool explosion = (recibir_byte() != 0);
-    ObjetoDTO objeto(tipo, x, y, direccion, angulo, explosion);//-45
+    ObjetoDTO objeto(tipo, x, y, direccion, angulo, explosion); //-45
     return objeto;
 }
 
@@ -432,7 +432,7 @@ void ProtocoloCliente::enviar_modo(int modo)
     enviar_int(modo);
 }
 
-int ProtocoloCliente::recibir_cantidad_jugadores_en_espera()
+int ProtocoloCliente::recibir_tipo_fondo()
 {
     return recibir_int();
 }
@@ -440,13 +440,13 @@ int ProtocoloCliente::recibir_cantidad_jugadores_en_espera()
 bool ProtocoloCliente::recibir_modo_partida()
 {
     uint8_t byte = recibir_byte();
-    if (byte == RECIBIR_CANTIDAD_JUGADORES)
-    {
-        return false;
-    }
-    else if (byte == RECIBIR_JUGAR)
+    if (byte == RECIBIR_JUGAR)
     {
         return true;
+    }
+    else
+    {
+        return false;
     }
     return true;
 }

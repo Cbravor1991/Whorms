@@ -22,9 +22,6 @@ Provision::Provision(Mundo *mundo, int tipo, int x, int y) : tipo(tipo), x(x), y
 
 Provision::~Provision() {}
 
-void Provision::recargar(b2Body *disparador)
-{
-}
 
 void Provision::intentar_curar()
 {
@@ -108,10 +105,7 @@ PosicionLanzable Provision::conseguir_posicion()
     {
         intentar_curar();
     }
-    else if (tipo == RECARGAR)
-    {
-        intentar_curar();
-    }
+
     b2Vec2 posicion = body->GetPosition();
     int x = static_cast<int>(posicion.x);
     int y = static_cast<int>(posicion.y);

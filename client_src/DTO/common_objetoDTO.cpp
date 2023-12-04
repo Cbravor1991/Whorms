@@ -34,7 +34,7 @@ void ObjetoDTO::renderizar(SDL2pp::Renderer &renderer, TextureManager &tex_manag
     std::string path = this->obtener_path();
     std::shared_ptr<SDL2pp::Texture> sprites = tex_manager.getTexture(path);
 
-    if (this->tipo == PROVISION_EXPLOSIVA or this->tipo == PROVISION_CURA or this->tipo == PROVISION_MUNICION)
+    if (this->tipo == PROVISION_EXPLOSIVA or this->tipo == PROVISION_CURA)
     {
         int src_x = 0, src_y = 0; // by default, standing sprite
         if (is_running)
@@ -136,7 +136,6 @@ std::string ObjetoDTO::obtener_path()
     }
     case (PROVISION_EXPLOSIVA):
     case(PROVISION_CURA):
-    case(PROVISION_MUNICION):
     {
         path = "/sprites/misc/crates/wcrate0.png";
         break;

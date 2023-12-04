@@ -121,7 +121,7 @@ public:
 
     void enviar_modo(int modo);
 
-    int recibir_cantidad_jugadores_en_espera();
+    int recibir_tipo_fondo();
 
     bool recibir_modo_partida();
 

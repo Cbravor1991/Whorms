@@ -27,9 +27,7 @@ public:
 
     int cambiar_turno();
 
-    void comenzar_juego(Queue<Accion *> *cola);
-
-    void enviar_cantidad_jugadores();
+    void comenzar_juego(Queue<Accion *> *cola, int tipo_fondo);
 
     void enviar_turno(int id_gusano);
 

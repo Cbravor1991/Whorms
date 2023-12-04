@@ -9,6 +9,13 @@ Lobby::Lobby(const std::string &hostname, const std::string &servname) : hostnam
 
     partida = protocolo.recibir_partidas();
     escenarios = protocolo.recibir_escenarios();
+
+    std::vector<int> prueba = obtener_partidas();
+      if (!prueba.empty()) {
+        std::cout << "La partida es: " << prueba[0] << '\n';
+    } else {
+        std::cout << "El vector de partidas está vacío.\n";
+    }
 }
 
 void Lobby::enviar_partida(int partida)
@@ -21,28 +28,26 @@ int Lobby::enviar_escenario(int escenario)
 {
     protocolo.enviar_modo(1);
     protocolo.enviar_escenario(escenario);
-    protocolo.recibir_modo_partida();
-    protocolo.recibir_cantidad_jugadores_en_espera();
-    return protocolo.recibir_cantidad_jugadores_en_espera(); // cambiar nombre funcion
+    return protocolo.recibir_tipo_fondo(); // cambiar nombre funcion
 }
 
 bool Lobby::modo_partida()
 {
-    return protocolo.recibir_modo_partida();
-}
-
-int Lobby::cantidad_jugadores()
-{
-    return protocolo.recibir_cantidad_jugadores_en_espera();
+    bool modo = protocolo.recibir_modo_partida();
+    if (modo)
+    {
+        tipo_fondo = protocolo.recibir_tipo_fondo();
+    }
+    return modo;
 }
 
 void Lobby::enviar_comienzo_juego()
 {
     protocolo.enviar_comienzo_juego();
-    while (!modo_partida())
+    bool modo = protocolo.recibir_modo_partida();
+    if (modo)
     {
-
-        cantidad_jugadores();
+        tipo_fondo = protocolo.recibir_tipo_fondo();
     }
 }
 
@@ -51,4 +56,9 @@ void Lobby::jugar()
     en_juego = true;
     Game juego(protocolo);
     juego.run();
+}
+
+    std::vector<int>Lobby::obtener_partidas()
+{
+    return partida;
 }

@@ -17,6 +17,7 @@ private:
     ProtocoloCliente protocolo;
     std::vector<int> partida;
     std::vector<int> escenarios;
+    int tipo_fondo;
 
 public:
     bool en_juego = false;
@@ -27,11 +28,11 @@ public:
 
     int enviar_escenario(int escenario);
 
-    void jugar();
-
     bool modo_partida();
 
-    int cantidad_jugadores();
+    void jugar();
+
+    std::vector<int> obtener_partidas();
 
     void enviar_comienzo_juego();
 };

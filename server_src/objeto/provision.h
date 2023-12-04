@@ -9,7 +9,6 @@
 
 #define EXPLOTAR 0
 #define CURAR 1
-#define RECARGAR 2
 
 class Provision : public Arma
 {
@@ -25,8 +24,6 @@ private:
 public:
     Provision(Mundo *mundo, int tipo, int x, int y);
     virtual ~Provision();
-
-    void recargar(b2Body *disparador);
 
     void intentar_curar();
 

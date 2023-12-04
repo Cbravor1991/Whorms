@@ -15,7 +15,6 @@
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QVBoxLayout>
 
@@ -26,9 +25,8 @@ class Ui_JoinPopUp
 public:
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout;
-    QLineEdit *labelName;
     QComboBox *games;
-    QPushButton *createButton;
+    QPushButton *joinButton;
     QLabel *labelConfirm;
 
     void setupUi(QDialog *JoinPopUp)
@@ -41,23 +39,16 @@ public:
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
-        labelName = new QLineEdit(JoinPopUp);
-        labelName->setObjectName(QString::fromUtf8("labelName"));
-        labelName->setEnabled(true);
-        labelName->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
-
-        horizontalLayout->addWidget(labelName);
-
         games = new QComboBox(JoinPopUp);
         games->setObjectName(QString::fromUtf8("games"));
 
         horizontalLayout->addWidget(games);
 
-        createButton = new QPushButton(JoinPopUp);
-        createButton->setObjectName(QString::fromUtf8("createButton"));
-        createButton->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
+        joinButton = new QPushButton(JoinPopUp);
+        joinButton->setObjectName(QString::fromUtf8("joinButton"));
+        joinButton->setStyleSheet(QString::fromUtf8("color: rgb(255, 255, 255);"));
 
-        horizontalLayout->addWidget(createButton);
+        horizontalLayout->addWidget(joinButton);
 
 
         verticalLayout->addLayout(horizontalLayout);
@@ -78,8 +69,7 @@ public:
     void retranslateUi(QDialog *JoinPopUp)
     {
         JoinPopUp->setWindowTitle(QCoreApplication::translate("JoinPopUp", "Dialog", nullptr));
-        labelName->setText(QCoreApplication::translate("JoinPopUp", "NOMBRE DE PARTIDA", nullptr));
-        createButton->setText(QCoreApplication::translate("JoinPopUp", "UNIRSE", nullptr));
+        joinButton->setText(QCoreApplication::translate("JoinPopUp", "UNIRSE", nullptr));
         labelConfirm->setText(QString());
     } // retranslateUi
 

@@ -15,9 +15,8 @@
 #include <cmath>
 #include <random>
 #include <cstdlib>
-
+#include "../../server_src/configuracion_mapa.h"
 #include "data/posicion_spawn.h"
-
 
 const float_t FRAME_RATE = 4.0f / 35.0f;
 const int VELOCITY_ITERATION = 6;
@@ -37,25 +36,7 @@ class MonitorJugadores;
 class Escenario
 {
 public:
-    Escenario(const Escenario &original)
-    {
-        // Copia superficial de datos
-        x_size = original.x_size;
-        y_size = original.y_size;
-        monitor = original.monitor; // Esto es una copia superficial, ajusta según sea necesario
-        mundo = original.mundo;     // Esto es una copia superficial, ajusta según sea necesario
-        vigas = original.vigas;     // Esto es una copia superficial, ajusta según sea necesario
-        gusanos = original.gusanos; // Esto es una copia superficial, ajusta según sea necesario
-        spawns = original.spawns;   // Esto es una copia superficial, ajusta según sea necesario
-        cantidad_jugadores = original.cantidad_jugadores;
-        
-    }
-
-    Escenario();
-
-    int mapa_fondo;
-    
-    bool spawns_automaticos;
+    Escenario(ConfiguracionMapa mapa);
 
     void iniciar(MonitorJugadores *monitor);
 

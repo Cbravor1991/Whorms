@@ -3,11 +3,20 @@
 #include "monitor_jugador.h"
 #include "data/posicion_objeto.h"
 
-Escenario::Escenario()
+Escenario::Escenario(ConfiguracionMapa mapa)
 {
-    srand(static_cast<unsigned int>(time(nullptr)));
     b2Vec2 gravity(0.0f, -10.0f);
     mundo = new Mundo(gravity);
+    std::vector<PosicionViga> vigas = mapa.getVigas();
+    for (const PosicionViga &viga : vigas)
+    {
+        colocar_viga(viga.obtener_x(), viga.obtener_y(), viga.obtener_tipo(), viga.obtener_angulo());
+    }
+    bool spawns_automaticos = mapa.getSpawnsAutomaticos();
+    if (spawns_automaticos == 0)
+    {
+        agregar_spawns(mapa.getSpawns());
+    }
 }
 
 void Escenario::iniciar(MonitorJugadores *monitor)
@@ -123,13 +132,14 @@ void Escenario::respawnear_gusano(int jugador_id)
     mandar_paquete();
 }
 
-void Escenario::agregar_spawns(std::vector<PosicionSpawn> spawns_editor) {
+void Escenario::agregar_spawns(std::vector<PosicionSpawn> spawns_editor)
+{
     spawns_mapa = spawns_editor;
     for (auto &par : spawns_mapa)
     {
-            std::cout << par.obtener_x() << std::endl;
-            std::cout << par.obtener_y() << std::endl;
-        
+        std::cout << par.obtener_x() << std::endl;
+        std::cout << par.obtener_y() << std::endl;
+
         spawns.push_back(std::make_pair(static_cast<int>(par.obtener_x()), static_cast<int>(par.obtener_y() + 1.0)));
     }
 }
@@ -137,13 +147,13 @@ void Escenario::agregar_spawns(std::vector<PosicionSpawn> spawns_editor) {
 Gusano *Escenario::agregar_gusano(int jugador_id, int gusano_id)
 {
     int spawnIndex;
-    
-    //if (spawns_automaticos) {
-        spawnIndex = rand() % spawns.size();
-        b2Vec2 spawn(spawns[spawnIndex].first, spawns[spawnIndex].second);
-        spawns.erase(spawns.begin() + spawnIndex);
-        Gusano *nuevo_gusano = new Gusano(mundo, spawn, jugador_id, gusano_id);
-        return nuevo_gusano;
+
+    // if (spawns_automaticos) {
+    spawnIndex = rand() % spawns.size();
+    b2Vec2 spawn(spawns[spawnIndex].first, spawns[spawnIndex].second);
+    spawns.erase(spawns.begin() + spawnIndex);
+    Gusano *nuevo_gusano = new Gusano(mundo, spawn, jugador_id, gusano_id);
+    return nuevo_gusano;
     // } else {
     //     spawnIndex = rand() % spawns_personalizados.size();
     //     b2Vec2 spawn2(spawns_personalizados[spawnIndex].first, spawns_personalizados[spawnIndex].second);
@@ -235,7 +245,7 @@ void Escenario::colocar_provision()
 
     int spawnIndex = rand() % spawns.size();
     b2Vec2 spawn(spawns[spawnIndex].first + 10, spawns[spawnIndex].second);
-    int tipo_provision_random = rand() % 3;
+    int tipo_provision_random = rand() % 2;
 
     Objeto *provision = new Provision(mundo, tipo_provision_random, spawn.x, spawn.y);
     mundo->agregar_objeto(provision);

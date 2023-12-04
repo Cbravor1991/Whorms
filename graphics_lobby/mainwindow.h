@@ -30,19 +30,17 @@ private slots:
 
     void on_joinButton_clicked();
 
-    void on_startButton_clicked();
-
     void on_exitButton_clicked();
 
-     void hideTemporaryLabel();
+    
 
 protected:
      void closeEvent(QCloseEvent *event);
      
 private:
     Ui::MainWindow *ui;
-        createPopUp* create_pop_up;
-        JoinPopUp * join_pop_up;
+    createPopUp* create_pop_up;
+    JoinPopUp * join_pop_up;
     QTimer *timer;
     Lobby* loby;
 };

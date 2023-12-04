@@ -22,12 +22,12 @@ void MonitorJugadores::enviar_ganador()
     }
 }
 
-void MonitorJugadores::comenzar_juego(Queue<Accion *> *cola)
+void MonitorJugadores::comenzar_juego(Queue<Accion *> *cola, int tipo_fondo)
 {
     for (const auto &entry : jugadores)
     {
         Jugador *jugador = entry.second;
-        jugador->jugar(cola);
+        jugador->jugar(cola, tipo_fondo);
     }
 }
 
@@ -39,15 +39,6 @@ void MonitorJugadores::mandar_viento(VientoVelocidad viento)
         Jugador *jugador = entry.second;
         data = new VientoVelocidad(viento);
         jugador->recibir_comando(data);
-    }
-}
-
-void MonitorJugadores::enviar_cantidad_jugadores()
-{
-    for (const auto &entry : jugadores)
-    {
-        Jugador *jugador = entry.second;
-        jugador->enviar_cantidad_jugadores(cantidad_jugadores);
     }
 }
 
