@@ -36,7 +36,7 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/libs/box2d-2.4.0 ${CMAKE_SOURCE_DIR}/build/
     set(SDL2PP_WITH_MIXER ON)
     set(SDL2PP_WITH_TTF ON)
     add_subdirectory(${CMAKE_SOURCE_DIR}/libs/SDL2pp ${CMAKE_SOURCE_DIR}/build/libs/SDL2pp)
-    add_executable(client 
+    add_executable(editor 
                 ./client_src/client_main.cpp 
                 ./client_src/game.cpp
                 ./client_src/graphics/view.cpp
@@ -58,13 +58,13 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/libs/box2d-2.4.0 ${CMAKE_SOURCE_DIR}/build/
                 
     )
 
-    target_include_directories(client PUBLIC
+    target_include_directories(editor PUBLIC
     ${PROJECT_SOURCE_DIR}/libs/SDL2pp
     ${PROJECT_SOURCE_DIR}/libs/yaml-cpp
 )    
 
 
-target_link_libraries(client PUBLIC
+target_link_libraries(editor PUBLIC
     Qt5::Widgets
     Qt5::Core
     SDL2pp

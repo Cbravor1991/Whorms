@@ -11,8 +11,6 @@ void Game::subir_mapa(std::string path_mapa_editar, int &id_fondo) {
         spawns_automaticos = false;
         for (PosicionSpawn spawn : spawns) { 
             Objeto nuevo_spawn(2, spawn.obtener_x(), spawn.obtener_y(), 0, contador_id_objetos);
-            std::cout << spawn.obtener_x() << std::endl;
-            std::cout << spawn.obtener_y() << std::endl;
             objetos_creados.push_back(nuevo_spawn);         
             contador_id_objetos++;          
         }

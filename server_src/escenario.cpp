@@ -13,7 +13,7 @@ Escenario::Escenario(ConfiguracionMapa mapa, MonitorJugadores *monitor)
         colocar_viga(viga.obtener_x(), viga.obtener_y(), viga.obtener_tipo(), viga.obtener_angulo());
     }
     bool spawns_automaticos = mapa.getSpawnsAutomaticos();
-    if (spawns_automaticos == true)
+    if (spawns_automaticos == false)
     {
         agregar_spawns(mapa.getSpawns());
     }
