@@ -22,7 +22,7 @@ JoinPopUp::JoinPopUp(Editor* editor, QWidget *parent) : QDialog(parent),
         {
             QString fontFamily = fontFamilies.at(0);
             QFont font(fontFamily, 12); 
-            std::string directorio = "../mapas"; 
+            std::string directorio = "../../mapas"; 
 
    for (const auto& entrada : fs::directory_iterator(directorio)) {
     // Verificar si la extensión es .yaml

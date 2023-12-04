@@ -5,7 +5,7 @@
 #define SLEEP_RATE (4.0f / 35.0f) * 50
 
 void Game::subir_mapa(std::string path_mapa_editar, int &id_fondo) {
-    ConfiguracionMapa configuracion_mapa = ConfiguracionMapa::obtener_configuracion_mapa("../mapas/" + path_mapa_editar + ".yaml");
+    ConfiguracionMapa configuracion_mapa = ConfiguracionMapa::obtener_configuracion_mapa("../../mapas/" + path_mapa_editar + ".yaml");
     std::vector<PosicionSpawn> spawns = configuracion_mapa.getSpawns();
     if (!spawns.empty()) {
         spawns_automaticos = false;
