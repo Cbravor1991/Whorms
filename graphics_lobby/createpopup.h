@@ -29,6 +29,7 @@ private:
     Ui::createPopUp *ui;
     Lobby* lobby;
     waitRoom* wait_room;
+    std::vector<std::string> mapas;
 };
 
 #endif // CREATEPOPUP_H

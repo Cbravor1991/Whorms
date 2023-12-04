@@ -53,8 +53,9 @@ JoinPopUp::~JoinPopUp()
 void JoinPopUp::on_createButton_clicked()
 {
 
-    //hide();
-    //editor->editar_mapa(ui->labelName->text().toStdString());
+    /*depende si el editor va a usar la extension yaml o no*/
+    //editor->editar_mapa(ui->games->currentText().toStdString() +".yaml");  
+    //editor->editar_mapa(ui->games->currentText().toStdString());
     this->close();
 
     
