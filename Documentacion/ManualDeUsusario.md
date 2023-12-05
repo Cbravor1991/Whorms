@@ -279,7 +279,7 @@ Los objetos que se pueden colocar son los siguientes:
 - Viga corta con ángulo de 45 grados
 - Viga corta con ángulo de 0 grados
 
-En caso de no colocar ningun gusano en el mapa, se utilizarán spawns automáticos para los gusanos.
+En caso de no colocar ningun gusano en el mapa o colocar más spawns que vigas, se utilizarán spawns automáticos para los gusanos.
 
 Dejo algunas imágenes a modo ilustativo:
 
