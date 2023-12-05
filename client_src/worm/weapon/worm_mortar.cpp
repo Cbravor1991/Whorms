@@ -19,9 +19,11 @@ void WormMortar::render(SDL2pp::Renderer &renderer, TextureManager &tex_manager,
         SDL2pp::NullOpt,                    // rotation center - not needed
         flip                                // flip
     );
-    
-    potencia.render(renderer, tex_manager, x, y, angulo, mira.recibir_angulo(), flip);
-    mira.render(renderer, tex_manager, x, y, angulo, flip);
+    if (municion != 0)
+    {
+        potencia.render(renderer, tex_manager, x, y, angulo, mira.recibir_angulo(), flip);
+        mira.render(renderer, tex_manager, x, y, angulo, flip);
+    }
 }
 
 Action *WormMortar::usar(int x, int y, bool direccion)
@@ -29,7 +31,7 @@ Action *WormMortar::usar(int x, int y, bool direccion)
     int angulo = mira.recibir_angulo();
     int pot = potencia.obtenerPotencia();
     Action *accion = new PowerShoot(angulo, direccion, pot);
-    //Action *accion = new Shoot(angulo, direccion);
+    // Action *accion = new Shoot(angulo, direccion);
     potencia.resetearPotencia();
     return accion;
 }
@@ -57,19 +59,18 @@ int WormMortar::getAmmo()
 
 void WormMortar::setTimer(int segundos) {}
 
-int WormMortar::getTimer() 
+int WormMortar::getTimer()
 {
     return 0;
 }
 
-void WormMortar::increasePower() 
+void WormMortar::increasePower()
 {
-    //potencia++;
+    // potencia++;
     potencia.aumentarPotencia();
 }
 
-bool WormMortar::isMaxPower() 
-{//como no tiene potencia, nunca llega a MAXIMA_POTENCIA
+bool WormMortar::isMaxPower()
+{ // como no tiene potencia, nunca llega a MAXIMA_POTENCIA
     return (potencia.obtenerPotencia() >= MAXIMA_POTENCIA);
 }
-

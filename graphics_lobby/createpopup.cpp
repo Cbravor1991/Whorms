@@ -5,10 +5,11 @@
 #include <filesystem>
 
 createPopUp::createPopUp(Lobby *lobby, QWidget *parent) : QDialog(parent),
-                                                                                    ui(new Ui::createPopUp),
-                                                                                    lobby(lobby),
-                                                                                    wait_room(nullptr)
-{   namespace fs = std::filesystem;
+                                                          ui(new Ui::createPopUp),
+                                                          lobby(lobby),
+                                                          wait_room(nullptr)
+{
+    namespace fs = std::filesystem;
     ui->setupUi(this);
 
     int id = QFontDatabase::addApplicationFont(":GROBOLD.ttf");
@@ -21,24 +22,25 @@ createPopUp::createPopUp(Lobby *lobby, QWidget *parent) : QDialog(parent),
         {
             QString fontFamily = fontFamilies.at(0); // Obtén el nombre de la familia de fuentes
             QFont font(fontFamily, 12);
-            
-              std::string directorio = "../mapas"; 
 
-   for (const auto& entrada : fs::directory_iterator(directorio)) {
-    // Verificar si la extensión es .yaml
-    if (entrada.path().extension() == ".yaml") {
-        // Obtener el nombre del archivo sin la extensión
-        std::string nombreSinExtension = entrada.path().stem().string();
+            std::string directorio = "../mapas";
 
-        // Agregar el nombre del archivo sin la extensión al vector mapas
-        mapas.push_back(nombreSinExtension);
-    }
-}
-    for (const auto& dato: mapas) {
-        ui->scenarios->addItem(QString::fromStdString(dato));
-    }
+            for (const auto &entrada : fs::directory_iterator(directorio))
+            {
+                // Verificar si la extensión es .yaml
+                if (entrada.path().extension() == ".yaml")
+                {
+                    // Obtener el nombre del archivo sin la extensión
+                    std::string nombreSinExtension = entrada.path().stem().string();
 
-
+                    // Agregar el nombre del archivo sin la extensión al vector mapas
+                    mapas.push_back(nombreSinExtension);
+                }
+            }
+            for (const auto &dato : mapas)
+            {
+                ui->scenarios->addItem(QString::fromStdString(dato));
+            }
 
             ui->labelMap->setFont(font);
             ui->scenarios->setFont(font);
@@ -56,24 +58,21 @@ createPopUp::~createPopUp()
 
 void createPopUp::on_createButton_clicked()
 {
-  
-     
+
     bool partida_creada = true;
 
     if (partida_creada)
-    {   
+    {
         /*ACA OBTENGO EL NOMBRE DEL MAPA QUE LUEGO VOY A ENVIAR POR PROTOCOLO*/
-        //si necesitas el path cpn yaml
-        std::cout<<"EL NOMBRE DEL MAPA ES: "<< ui->scenarios->currentText().toStdString() +".yaml"<<'\n';
-        //si no necesitas el path con yaml
-         //std::cout<<"EL NOMBRE DEL MAPA ES: "<< ui->scenarios->currentText().toStdString()
-         std::string nombre_mapa = ui->scenarios->currentText().toStdString();
+        // si necesitas el path cpn yaml
 
-        int codigo_creado = lobby->enviar_escenario(0, nombre_mapa );
+        // si no necesitas el path con yaml
+        // std::cout<<"EL NOMBRE DEL MAPA ES: "<< ui->scenarios->currentText().toStdString()
+        std::string nombre_mapa = ui->scenarios->currentText().toStdString();
+
+        int codigo_creado = lobby->enviar_escenario(0, nombre_mapa);
 
         QString text = QString("El codigo es: %2").arg(codigo_creado);
-
-      
 
         ui->labelConfirm->setText(text);
         ui->accept->setEnabled(true);
@@ -94,7 +93,7 @@ void createPopUp::on_accept_clicked()
 }
 
 void createPopUp::closeEvent(QCloseEvent *e)
-{   lobby->enviar_desconexion();
+{
+    lobby->enviar_desconexion();
     QApplication::exit(1);
-
 }

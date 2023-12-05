@@ -9,13 +9,6 @@ Lobby::Lobby(const std::string &hostname, const std::string &servname) : hostnam
 
     partida = protocolo.recibir_partidas();
     escenarios = protocolo.recibir_escenarios();
-
-    std::vector<int> prueba = obtener_partidas();
-      if (!prueba.empty()) {
-        std::cout << "La partida es: " << prueba[0] << '\n';
-    } else {
-        std::cout << "El vector de partidas está vacío.\n";
-    }
 }
 
 void Lobby::enviar_partida(int partida)
@@ -25,8 +18,7 @@ void Lobby::enviar_partida(int partida)
 }
 
 int Lobby::enviar_escenario(int escenario, std::string &nombre_mapa)
-{   
-    std::cout<<"el nombre del mapa: "<< nombre_mapa<<'\n';
+{
     protocolo.enviar_modo(1);
     protocolo.enviar_escenario(escenario);
     protocolo.enviar_nombre_mapa(nombre_mapa);
@@ -48,9 +40,8 @@ void Lobby::enviar_comienzo_juego()
     protocolo.enviar_comienzo_juego();
     bool modo = protocolo.recibir_modo_partida();
     if (modo)
-    {   
+    {
         tipo_fondo = protocolo.recibir_tipo_fondo();
-     
     }
 }
 
@@ -62,15 +53,17 @@ void Lobby::jugar()
     juego.run();
 }
 
-    std::vector<int>Lobby::obtener_partidas()
+std::vector<int> Lobby::obtener_partidas()
 {
     return partida;
 }
 
-int Lobby:: obtener_fondo(){
+int Lobby::obtener_fondo()
+{
     return tipo_fondo;
 }
 
-void  Lobby::enviar_desconexion(){
+void Lobby::enviar_desconexion()
+{
     protocolo.enviar_partida(5);
 }

@@ -1,6 +1,6 @@
 #include "worm_banana.h"
 
-WormBanana::WormBanana(int ammo) :mira(LONG_SIGHT), municion(ammo), timer(5) {}
+WormBanana::WormBanana(int ammo) : mira(LONG_SIGHT), municion(ammo), timer(5) {}
 
 void WormBanana::render(SDL2pp::Renderer &renderer, TextureManager &tex_manager, int x, int y, int flip, int angulo)
 {
@@ -20,8 +20,11 @@ void WormBanana::render(SDL2pp::Renderer &renderer, TextureManager &tex_manager,
         flip                                // flip
     );
 
-    potencia.render(renderer, tex_manager, x, y, angulo, mira.recibir_angulo(), flip);
-    mira.render(renderer, tex_manager, x, y, angulo, flip);
+    if (municion != 0)
+    {
+        potencia.render(renderer, tex_manager, x, y, angulo, mira.recibir_angulo(), flip);
+        mira.render(renderer, tex_manager, x, y, angulo, flip);
+    }
 }
 
 Action *WormBanana::usar(int x, int y, bool direccion)
@@ -29,7 +32,7 @@ Action *WormBanana::usar(int x, int y, bool direccion)
     int angulo = mira.recibir_angulo();
     int pot = potencia.obtenerPotencia();
     Action *accion = new TimedPowerShoot(angulo, direccion, pot, timer);
-    //Action *accion = new Shoot(angulo, direccion);
+    // Action *accion = new Shoot(angulo, direccion);
     potencia.resetearPotencia();
     return accion;
 }
@@ -54,23 +57,23 @@ int WormBanana::getAmmo()
     return municion;
 }
 
-void WormBanana::setTimer(int segundos) 
+void WormBanana::setTimer(int segundos)
 {
     timer = segundos;
 }
 
-int WormBanana::getTimer() 
+int WormBanana::getTimer()
 {
     return timer;
 }
 
-void WormBanana::increasePower() 
+void WormBanana::increasePower()
 {
-    //potencia++;
+    // potencia++;
     potencia.aumentarPotencia();
 }
 
-bool WormBanana::isMaxPower() 
-{//como no tiene potencia, nunca llega a MAXIMA_POTENCIA
+bool WormBanana::isMaxPower()
+{ // como no tiene potencia, nunca llega a MAXIMA_POTENCIA
     return (potencia.obtenerPotencia() >= MAXIMA_POTENCIA);
 }

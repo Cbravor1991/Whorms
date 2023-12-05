@@ -20,8 +20,11 @@ void WormClusterGrenade::render(SDL2pp::Renderer &renderer, TextureManager &tex_
         flip                                // flip
     );
 
-    potencia.render(renderer, tex_manager, x, y, angulo, mira.recibir_angulo(), flip);
-    mira.render(renderer, tex_manager, x, y, angulo, flip);
+    if (municion != 0)
+    {
+        potencia.render(renderer, tex_manager, x, y, angulo, mira.recibir_angulo(), flip);
+        mira.render(renderer, tex_manager, x, y, angulo, flip);
+    }
 }
 
 Action *WormClusterGrenade::usar(int x, int y, bool direccion)
@@ -29,7 +32,7 @@ Action *WormClusterGrenade::usar(int x, int y, bool direccion)
     int angulo = mira.recibir_angulo();
     int pot = potencia.obtenerPotencia();
     Action *accion = new TimedPowerShoot(angulo, direccion, pot, timer);
-    //Action *accion = new Shoot(angulo, direccion);
+    // Action *accion = new Shoot(angulo, direccion);
     potencia.resetearPotencia();
     return accion;
 }
@@ -55,24 +58,23 @@ int WormClusterGrenade::getAmmo()
     return municion;
 }
 
-void WormClusterGrenade::setTimer(int segundos) 
+void WormClusterGrenade::setTimer(int segundos)
 {
     timer = segundos;
 }
 
-int WormClusterGrenade::getTimer() 
+int WormClusterGrenade::getTimer()
 {
     return timer;
 }
 
-void WormClusterGrenade::increasePower() 
+void WormClusterGrenade::increasePower()
 {
-    //potencia++;
+    // potencia++;
     potencia.aumentarPotencia();
 }
 
-bool WormClusterGrenade::isMaxPower() 
+bool WormClusterGrenade::isMaxPower()
 {
     return (potencia.obtenerPotencia() >= MAXIMA_POTENCIA);
 }
-

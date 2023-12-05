@@ -2,7 +2,7 @@
 #include <map>
 #include <string>
 
-Inventario::Inventario() : ammo({0, 12, 100, 100, 100, 100, 100, 100, 100, 100, 100})
+Inventario::Inventario() : ammo({0, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100})
 {
     ammo.at(AIR_STRIKE) = configuracion.getMunicionesAtaqueAereo();
     ammo.at(DYNAMITE) = configuracion.getMunicionesDinamita();
@@ -17,7 +17,7 @@ Inventario::~Inventario() {}
 bool Inventario::disparar(Mundo *world, b2Body *posicion, Arma *arma)
 {
 
-    if (this->ammo[this->arma_actual] <= 0)
+    if (abs(arma_actual) >= ammo.size() or this->ammo[this->arma_actual] <= 0)
     {
         return false;
     }
@@ -31,7 +31,7 @@ int Inventario::cambiar_arma(int tipo)
 {
     if (tipo >= 0 && tipo < 11)
     {
-        arma_actual = tipo;
+        this->arma_actual = tipo;
         return ammo[tipo];
     }
     else

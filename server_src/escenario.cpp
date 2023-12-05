@@ -5,6 +5,8 @@
 
 Escenario::Escenario(ConfiguracionMapa mapa, MonitorJugadores *monitor)
 {
+    unsigned int seed = static_cast<unsigned int>(time(nullptr));
+    srand(seed);
     b2Vec2 gravity(0.0f, -10.0f);
     mundo = new Mundo(gravity);
     std::vector<PosicionViga> vigas = mapa.getVigas();
@@ -13,18 +15,17 @@ Escenario::Escenario(ConfiguracionMapa mapa, MonitorJugadores *monitor)
         colocar_viga(viga.obtener_x(), viga.obtener_y(), viga.obtener_tipo(), viga.obtener_angulo());
     }
     bool spawns_automaticos = mapa.getSpawnsAutomaticos();
-   if (spawns_automaticos == false)
+    if (spawns_automaticos == false)
 
     {
 
         std::vector<PosicionSpawn> posicion_spawns = mapa.getSpawns();
 
-        if (posicion_spawns.size() <= vigas.size()) {
+        if (posicion_spawns.size() <= vigas.size())
+        {
 
             agregar_spawns(mapa.getSpawns());
-
         }
-
     }
     this->monitor = monitor;
     for (int i = 0; i < configuracion.getCantidadProvisiones(); i++)
@@ -142,9 +143,6 @@ void Escenario::agregar_spawns(std::vector<PosicionSpawn> spawns_editor)
     spawns.clear();
     for (auto &par : spawns_editor)
     {
-        std::cout << par.obtener_x() << std::endl;
-        std::cout << par.obtener_y() << std::endl;
-
         spawns.push_back(std::make_pair(static_cast<int>(par.obtener_x()), static_cast<int>(par.obtener_y() + 1.0)));
     }
 }
@@ -257,7 +255,7 @@ void Escenario::colocar_provision()
         return;
     }
 
-    int spawnIndex = rand() % spawns.size();
+        int spawnIndex = rand() % spawns.size();
     b2Vec2 spawn(spawns[spawnIndex].first + 10, spawns[spawnIndex].second);
     int tipo_provision_random = rand() % 2;
 

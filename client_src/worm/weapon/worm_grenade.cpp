@@ -19,9 +19,11 @@ void WormGreenGrenade::render(SDL2pp::Renderer &renderer, TextureManager &tex_ma
         SDL2pp::NullOpt,                    // rotation center - not needed
         flip                                // flip
     );
-
-    potencia.render(renderer, tex_manager, x, y, angulo, mira.recibir_angulo(), flip);
-    mira.render(renderer, tex_manager, x, y, angulo, flip);
+    if (municion != 0)
+    {
+        potencia.render(renderer, tex_manager, x, y, angulo, mira.recibir_angulo(), flip);
+        mira.render(renderer, tex_manager, x, y, angulo, flip);
+    }
 }
 
 Action *WormGreenGrenade::usar(int x, int y, bool direccion)
@@ -29,7 +31,7 @@ Action *WormGreenGrenade::usar(int x, int y, bool direccion)
     int angulo = mira.recibir_angulo();
     int pot = potencia.obtenerPotencia();
     Action *accion = new TimedPowerShoot(angulo, direccion, pot, timer);
-    //Action *accion = new Shoot(angulo, direccion);
+    // Action *accion = new Shoot(angulo, direccion);
     potencia.resetearPotencia();
     return accion;
 }
@@ -55,24 +57,23 @@ int WormGreenGrenade::getAmmo()
     return municion;
 }
 
-void WormGreenGrenade::setTimer(int segundos) 
+void WormGreenGrenade::setTimer(int segundos)
 {
     timer = segundos;
 }
 
-int WormGreenGrenade::getTimer() 
+int WormGreenGrenade::getTimer()
 {
     return timer;
 }
 
-void WormGreenGrenade::increasePower() 
+void WormGreenGrenade::increasePower()
 {
-    //potencia++;
+    // potencia++;
     potencia.aumentarPotencia();
 }
 
-bool WormGreenGrenade::isMaxPower() 
-{//como no tiene potencia, nunca llega a MAXIMA_POTENCIA
+bool WormGreenGrenade::isMaxPower()
+{ // como no tiene potencia, nunca llega a MAXIMA_POTENCIA
     return (potencia.obtenerPotencia() >= MAXIMA_POTENCIA);
 }
-

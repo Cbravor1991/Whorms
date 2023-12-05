@@ -2,17 +2,17 @@
 
 #include <iostream>
 GameView::GameView() : sdl(SDL_INIT_VIDEO | SDL_INIT_AUDIO), window("Worms", SDL_WINDOWPOS_UNDEFINED,
-                                                   SDL_WINDOWPOS_UNDEFINED, 640, 480, 0),
+                                                                    SDL_WINDOWPOS_UNDEFINED, 640, 480, 0),
                        renderer(window, -1, SDL_RENDERER_ACCELERATED),
                        mixer(MIX_DEFAULT_FREQUENCY, 0x8010, 2, 4096),
-	                   canal_anterior(-1)
+                       canal_anterior(-1)
 {
-    tex_manager.loadTexture(this->renderer);//carga las texturas de los sprites
-    tex_manager.loadBackground(this->renderer);//carga la texturas del fondo
+    tex_manager.loadTexture(this->renderer);    // carga las texturas de los sprites
+    tex_manager.loadBackground(this->renderer); // carga la texturas del fondo
     tex_manager.loadBackgroundNight(this->renderer);
     tex_manager.loadBackgroundSnow(this->renderer);
     tex_manager.loadWater(this->renderer);
-    tex_manager.loadMusic();//carga una cancion
+    tex_manager.loadMusic(); // carga una cancion
     tex_manager.loadSounds();
 }
 
@@ -30,22 +30,25 @@ SDL2pp::Renderer &GameView::getRenderer()
     return this->renderer;
 }
 
+void GameView::renderizar_fondo_pantalla(int tipo_fondo)
+{
 
-void GameView::renderizar_fondo_pantalla(int tipo_fondo){
-
-  std::shared_ptr<SDL2pp::Texture> background;
-    if(tipo_fondo == FONDO_NOCHE){
+    std::shared_ptr<SDL2pp::Texture> background;
+    if (tipo_fondo == FONDO_NOCHE)
+    {
         background = tex_manager.getBackgroundNight();
     }
-    else if(tipo_fondo == FONDO_NIEVE) {
+    else if (tipo_fondo == FONDO_NIEVE)
+    {
         background = tex_manager.getBackgroundSnow();
-    } else {
-        background  = tex_manager.getBackground();
     }
-      renderer.Copy(*background, NullOpt, Rect(0, 0, window.GetWidth(),  window.GetHeight()));
-     std::shared_ptr<SDL2pp::Texture> water = tex_manager.getWater();
-     renderer.Copy(*water, NullOpt, Rect(0, 200, window.GetWidth(),  window.GetHeight()-100));
-
+    else
+    {
+        background = tex_manager.getBackground();
+    }
+    renderer.Copy(*background, NullOpt, Rect(0, 0, window.GetWidth(), window.GetHeight()));
+    std::shared_ptr<SDL2pp::Texture> water = tex_manager.getWater();
+    renderer.Copy(*water, NullOpt, Rect(0, 200, window.GetWidth(), window.GetHeight() - 100));
 }
 
 void GameView::renderizar_texto(std::string texto, int pos_x, int pos_y, SDL_Color color, int font_size)
@@ -62,17 +65,18 @@ void GameView::renderizar_texto(std::string texto, int pos_x, int pos_y, SDL_Col
     int adjustedPosY = pos_y; // Puedes ajustar esto según tus necesidades
 
     // Asegurarse de que el texto no se salga de la pantalla
-    if (adjustedPosX + textWidth > window.GetWidth()) {
+    if (adjustedPosX + textWidth > window.GetWidth())
+    {
         adjustedPosX = window.GetWidth() - textWidth;
     }
 
-    if (adjustedPosY + textHeight > window.GetHeight()) {
+    if (adjustedPosY + textHeight > window.GetHeight())
+    {
         adjustedPosY = window.GetHeight() - textHeight;
     }
 
     renderer.Copy(texto_sprite, SDL2pp::NullOpt,
                   SDL2pp::Rect(adjustedPosX, adjustedPosY, textWidth, textHeight));
-
 }
 
 void GameView::centrarEnGusano(int x, int y)
@@ -88,12 +92,12 @@ void GameView::centrarEnGusano(int x, int y)
 
     // // Mueve la ventana a la posición centrada
     // window.SetPosition(viewX, viewY);
-    //SDL2pp::Rect camera(0, 0, window.GetWidth(), window.GetHeight());
-    //camera.x = x;
-    //camera.y = 200-y;
+    // SDL2pp::Rect camera(0, 0, window.GetWidth(), window.GetHeight());
+    // camera.x = x;
+    // camera.y = 200-y;
 
     // Luego, aplicas la cámara antes de renderizar
-    //renderer.SetViewport(camera);
+    // renderer.SetViewport(camera);
 }
 
 // con el for agarra el jugador y se lo manda a render y renderiza
@@ -102,116 +106,128 @@ void GameView::renderizar_gusano(JugadorDTO jugador)
     std::string vida_string = std::to_string(jugador.obtener_vida());
     std::string texto = "Vida:" + vida_string;
     SDL_Color color = jugador.obtener_color();
-    renderizar_texto(texto, jugador.posicion_x(), 200-jugador.posicion_y(), color, 12);
-    jugador.renderizar(renderer, tex_manager);//paso renderer y text_manager
+    renderizar_texto(texto, jugador.posicion_x(), 200 - jugador.posicion_y(), color, 12);
+    jugador.renderizar(renderer, tex_manager); // paso renderer y text_manager
 }
 
 void GameView::renderizar_viga(VigaDTO viga)
 {
-    viga.renderizar(renderer, tex_manager);//paso renderer y text_manager
-   
+    viga.renderizar(renderer, tex_manager); // paso renderer y text_manager
 }
 
 void GameView::reproducir_musica()
-{   
+{
     std::shared_ptr<SDL2pp::Music> music = tex_manager.getMusic();
-    mixer.SetMusicVolume(70);
+    mixer.SetMusicVolume(9);
     mixer.PlayMusic(*music, -1);
 }
 
-
-void GameView::renderizar_misil(ObjetoDTO objeto){
-
+void GameView::renderizar_misil(ObjetoDTO objeto)
+{
 
     // Debo tener el arma el game
     objeto.renderizar(renderer, tex_manager);
-
 }
 
 void GameView::reproducir_efecto(std::string path_efecto)
 {
     this->sonido_actual = tex_manager.getSound(path_efecto);
 
-	if (this->canal_anterior != -1)
-		mixer.HaltChannel(this->canal_anterior);
+    if (this->canal_anterior != -1)
+        mixer.HaltChannel(this->canal_anterior);
 
-	if (this->sonido_actual)
-		this->canal_anterior = mixer.PlayChannel(-1, *(this->sonido_actual), 0);
-	else
-		this->canal_anterior = -1;
+    if (this->sonido_actual)
+        this->canal_anterior = mixer.PlayChannel(-1, *(this->sonido_actual), 0);
+    else
+        this->canal_anterior = -1;
 }
 
-void GameView::reproducir_efecto_arma(int tipo) {
-    if (tipo == AIR_STRIKE) {
+void GameView::reproducir_efecto_arma(int tipo)
+{
+    if (tipo == AIR_STRIKE)
+    {
         reproducir_efecto("/sonidos/ataque misiles.wav");
-    } else if (tipo == TELEPORT) {
+    }
+    else if (tipo == TELEPORT)
+    {
         reproducir_efecto("/sonidos/teletransportar.WAV");
-    } else if (tipo == BAT) {
+    }
+    else if (tipo == BAT)
+    {
         reproducir_efecto("/sonidos/bate.wav");
-    }else if (tipo == BAZOOKA or tipo == MORTAR) {
+    }
+    else if (tipo == BAZOOKA or tipo == MORTAR)
+    {
         reproducir_efecto("/sonidos/lanzarmisil.WAV");
     }
 }
 
-void GameView::reproducir_sonido_explosion() {
+void GameView::reproducir_sonido_explosion()
+{
     reproducir_efecto("/sonidos/Explosion1.wav");
 }
 
-void GameView::mutear_sonidos() {
+void GameView::mutear_sonidos()
+{
     mixer.PauseMusic();
 }
 
-void GameView::renderizar_municion(JugadorDTO& jugador) {
+void GameView::renderizar_municion(JugadorDTO &jugador)
+{
     int municion = jugador.obtenerMunicion();
     std::string texto = "Municion: " + ((municion < 0) ? "Infinita" : std::to_string(municion));
     SDL_Color color = {255, 255, 255, 255};
     this->renderizar_texto(texto, 0, 10, color, 12);
 }
 
-void GameView::renderizar_explocion(Explotion& explotion) {
+void GameView::renderizar_explocion(Explotion &explotion)
+{
     explotion.renderizar(renderer, tex_manager);
-    //se actualiza sola (?
+    // se actualiza sola (?
 }
 
-void GameView::renderizar_viento(VientoDTO &viento) {
+void GameView::renderizar_viento(VientoDTO &viento)
+{
 
-    //renderizo un rectangulo negro
-    int x = 400 , y = 400;
+    // renderizo un rectangulo negro
+    int x = 400, y = 400;
     std::string path = "/misc/windback.png";
     std::shared_ptr<SDL2pp::Texture> texture = tex_manager.getTexture(path);
 
     this->renderer.Copy(
         *texture,
-        SDL2pp::Rect(0,0, 195, 15), // que parte del sprite queres que te cargue
-        SDL2pp::Rect(x + 3, y - 1, 195, 17),   // la posicion en pantalla y el tamaño
-        0,                            // don't rotate
-        SDL2pp::NullOpt,                    // rotation center - not needed
-        SDL_FLIP_NONE                               // vertical flip
+        SDL2pp::Rect(0, 0, 195, 15),         // que parte del sprite queres que te cargue
+        SDL2pp::Rect(x + 3, y - 1, 195, 17), // la posicion en pantalla y el tamaño
+        0,                                   // don't rotate
+        SDL2pp::NullOpt,                     // rotation center - not needed
+        SDL_FLIP_NONE                        // vertical flip
     );
 
-
     int velocidad = viento.obtenerVelocidad();
-    if(velocidad == 0) {return;}
-    
+    if (velocidad == 0)
+    {
+        return;
+    }
+
     bool direccion = viento.obtenerDireccion();
-    int ancho = (velocidad * 100) / VELOCIDAD_MAXIMA_VIENTO; //como mucho es 100 pixeles
+    int ancho = (velocidad * 100) / VELOCIDAD_MAXIMA_VIENTO; // como mucho es 100 pixeles
 
-    if(ancho > 100) {ancho = 100;}
+    if (ancho > 100)
+    {
+        ancho = 100;
+    }
 
-    if(direccion) 
+    if (direccion)
     {
         this->renderizar_viento_derecha(x + 100, y, ancho);
     }
-    else 
+    else
     {
         this->renderizar_viento_izquierda(x + 100, y, ancho);
     }
-    
 }
 
-
-
-void GameView::renderizar_viento_derecha(int x, int y, int ancho) 
+void GameView::renderizar_viento_derecha(int x, int y, int ancho)
 {
     int src_x = (ancho) > 96 ? 96 : ancho;
 
@@ -220,62 +236,63 @@ void GameView::renderizar_viento_derecha(int x, int y, int ancho)
 
     this->renderer.Copy(
         *texture,
-        SDL2pp::Rect(0,0, src_x, 13), // que parte del sprite queres que te cargue
-        SDL2pp::Rect(x + 1, y, src_x, 15),   // la posicion en pantalla y el tamaño
-        0,                            // don't rotate
-        SDL2pp::NullOpt,                    // rotation center - not needed
-        SDL_FLIP_NONE                               // vertical flip
+        SDL2pp::Rect(0, 0, src_x, 13),     // que parte del sprite queres que te cargue
+        SDL2pp::Rect(x + 1, y, src_x, 15), // la posicion en pantalla y el tamaño
+        0,                                 // don't rotate
+        SDL2pp::NullOpt,                   // rotation center - not needed
+        SDL_FLIP_NONE                      // vertical flip
     );
-
 }
 
-void GameView::renderizar_viento_izquierda(int x, int y, int ancho) 
-{   
+void GameView::renderizar_viento_izquierda(int x, int y, int ancho)
+{
     int src_x = (ancho) > 96 ? 96 : ancho;
     std::string path = "/misc/windl.png";
     std::shared_ptr<SDL2pp::Texture> texture = tex_manager.getTexture(path);
 
     this->renderer.Copy(
         *texture,
-        SDL2pp::Rect(0,0, src_x, 13), // que parte del sprite queres que te cargue
-        SDL2pp::Rect(x - src_x, y, src_x, 15),   // la posicion en pantalla y el tamaño
-        0,                            // don't rotate
-        SDL2pp::NullOpt,                    // rotation center - not needed
-        SDL_FLIP_NONE                               // vertical flip
+        SDL2pp::Rect(0, 0, src_x, 13),         // que parte del sprite queres que te cargue
+        SDL2pp::Rect(x - src_x, y, src_x, 15), // la posicion en pantalla y el tamaño
+        0,                                     // don't rotate
+        SDL2pp::NullOpt,                       // rotation center - not needed
+        SDL_FLIP_NONE                          // vertical flip
     );
 }
 
-void GameView::renderizar_end_game(bool ganaste) 
-{   
+void GameView::renderizar_end_game(bool ganaste)
+{
 
-    //renderizo rectangulo negro
+    // renderizo rectangulo negro
     std::string path = "/misc/box.png";
-    
-    int x = renderer.GetOutputWidth()/2 - 150;
-    int y = renderer.GetOutputHeight()/2- 100;
+
+    int x = renderer.GetOutputWidth() / 2 - 150;
+    int y = renderer.GetOutputHeight() / 2 - 100;
     std::shared_ptr<SDL2pp::Texture> texture = tex_manager.getTexture(path);
     this->renderer.Copy(
         *texture,
-        SDL2pp::Rect(0,0, 195, 15), // que parte del sprite queres que te cargue
-        SDL2pp::Rect(x, y, 300, 100),   // la posicion en pantalla y el tamaño
+        SDL2pp::Rect(0, 0, 195, 15),  // que parte del sprite queres que te cargue
+        SDL2pp::Rect(x, y, 300, 100), // la posicion en pantalla y el tamaño
         0,                            // don't rotate
-        SDL2pp::NullOpt,                    // rotation center - not needed
-        SDL_FLIP_NONE                               // vertical flip
+        SDL2pp::NullOpt,              // rotation center - not needed
+        SDL_FLIP_NONE                 // vertical flip
     );
 
-    //renderizo el texto
+    // renderizo el texto
     std::string resultado;
     SDL_Color color = {255, 255, 255, 255};
 
-    int pos_x, pos_y; 
-    if(ganaste) {
+    int pos_x, pos_y;
+    if (ganaste)
+    {
         resultado = "Ganaste!";
         pos_x = x + 80;
-        pos_y = y + 35; 
+        pos_y = y + 35;
     }
-    else {
+    else
+    {
         resultado = "Perdiste";
-        pos_x = x + 90; 
+        pos_x = x + 90;
         pos_y = y + 40;
     }
 
@@ -293,8 +310,8 @@ void GameView::renderizar_end_game(bool ganaste)
 //     std::map<int, SDL_Color> color_por_equipo;
 //     //hago mapa de colores?
 //     for (auto const &[id_gusano, jugador] : jugadores)
-//     {      
-        
+//     {
+
 //         int id = jugador.obtenerIdCliente();
 //         int vida_jugador = jugador.obtener_vida();
 //         if(vida_por_equipo.find(id) == vida_por_equipo.end())
@@ -315,14 +332,13 @@ void GameView::renderizar_end_game(bool ganaste)
 //     this->renderizar_texto(texto, pos_x, pos_y, color_texto, 14);
 //     //Jugador <id> : >vida>
 //     for (auto const &[id, vida] : vida_por_equipo)
-//     {   
+//     {
 //         std::string vida_jugador = "Jugador " + std::to_string(id) + ": " + std::to_string(vida);
 //         SDL_Color color = color_por_equipo.at(id);
 //         this->renderizar_texto(vida_jugador, pos_x, pos_y + id*14, color, 12);
-        
+
 //     }
 // }
-
 
 void GameView::renderizar_vida_por_equipos(TeamHealth &team_health)
 {
@@ -332,17 +348,15 @@ void GameView::renderizar_vida_por_equipos(TeamHealth &team_health)
 
     int pos_x = 10;
     int pos_y = renderer.GetOutputHeight() / 2 + 100;
-    
+
     std::string texto = "Jugadores";
     SDL_Color color_texto = {255, 255, 255, 255};
     this->renderizar_texto(texto, pos_x, pos_y, color_texto, 14);
-    //Jugador <id> : >vida>
+    // Jugador <id> : >vida>
     for (auto const &[id, vida] : vida_por_equipo)
-    {   
+    {
         std::string vida_jugador = "Jugador " + std::to_string(id) + ": " + std::to_string(vida);
         SDL_Color color = color_por_equipo.at(id);
-        this->renderizar_texto(vida_jugador, pos_x, pos_y + id*14, color, 12);
-        
+        this->renderizar_texto(vida_jugador, pos_x, pos_y + id * 14, color, 12);
     }
 }
-

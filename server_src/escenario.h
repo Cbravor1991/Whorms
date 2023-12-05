@@ -3,6 +3,7 @@
 #include <random>
 #include <vector>
 #include <sstream>
+#include <ctime>
 #include "objeto/gusano.h"
 #include "objeto/mundo.h"
 #include "objeto/arma.h"

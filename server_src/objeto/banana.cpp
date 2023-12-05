@@ -59,9 +59,9 @@ PosicionLanzable Banana::conseguir_posicion()
         is_dead = true;
     }
 
-    float angle_radians = (float) atan2((double) body->GetLinearVelocity().y, (double) body->GetLinearVelocity().x);
-    int angulo = (int) (angle_radians * (180.0f/M_PI));
-    if (angulo < 0) 
+    float angle_radians = (float)atan2((double)body->GetLinearVelocity().y, (double)body->GetLinearVelocity().x);
+    int angulo = (int)(angle_radians * (180.0f / M_PI));
+    if (angulo < 0)
     {
         angulo = 360 + angulo;
     }
@@ -86,9 +86,10 @@ void Banana::contacto()
 
         // Comprueba si uno de los cuerpos es el cuadrado
         if (fixtureA->GetBody() == body || fixtureB->GetBody() == body)
-        {   contactos+=1;
+        {
+            contactos += 1;
             b2Body *otherBody = (fixtureA->GetBody() == body) ? fixtureB->GetBody() : fixtureA->GetBody();
-            if (otherBody->gusano && contactos>100)
+            if (otherBody->gusano && contactos > 20)
             {
                 b2Vec2 center = this->body->GetPosition();
                 explotar(center);

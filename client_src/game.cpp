@@ -25,13 +25,14 @@ void Game::run()
         }
         else
         {
-            //si la cola esta vacía, puedo enviar cosas
+            // si la cola esta vacía, puedo enviar cosas
             cola_vacia = true;
-
         }
 
-        if(termino_juego) {
-            if (this->endGameLoop()) {
+        if (termino_juego)
+        {
+            if (this->endGameLoop())
+            {
                 break;
             }
         }
@@ -67,8 +68,8 @@ bool Game::gameLoop(StateGame *estado, bool &nuevo_estado)
     {
 
         for (auto &[id, jugador] : jugadores)
-        {   
-            //debo llegar a 3 y ahi freno
+        {
+            // debo llegar a 3 y ahi freno
             jugador.stop_running();
         }
     }
@@ -179,13 +180,13 @@ bool Game::manejarEventos()
                 if (it != jugadores.end())
                 {
                     // si suelto o llego al maximo, disparo?
-                    //it->second.aumentar_potencia();
+                    // it->second.aumentar_potencia();
                     it->second.aumentar_potencia();
-                    if(it->second.potencia_arma_es_maxima() and !dispare) {
+                    if (it->second.potencia_arma_es_maxima())
+                    {
                         accion = it->second.usar_arma(it->second.posicion_x(), it->second.posicion_y());
                         cliente.mandar_accion(accion);
                         view.reproducir_efecto_arma(tipo);
-                        dispare = true;
                     }
                 }
                 break;
@@ -243,7 +244,8 @@ bool Game::manejarEventos()
             default:
             {
                 // si llego aca, es una tecla que no uso
-                std::cout << "Key=" << event.key.keysym.sym << "\n";
+                std::cout << "Tecla erronea"
+                          << "\n";
                 break;
             }
             }
@@ -262,36 +264,36 @@ bool Game::manejarEventos()
                 std::cout << "Clic en la posición X: " << mouseX << ", Y: " << mouseY << std::endl;
                 auto it = jugadores.find(turno);
                 if (it != jugadores.end())
-                {   
+                {
                     // El elemento en la posición indicada por "turno" existe en el mapa
                     int arma = it->second.obtener_arma();
-                    if((arma == AIR_STRIKE or arma == TELEPORT) and !dispare)  {
+                    if ((arma == AIR_STRIKE or arma == TELEPORT))
+                    {
                         accion = it->second.usar_arma(mouseX, mouseY);
                         cliente.mandar_accion(accion);
                         view.reproducir_efecto_arma(tipo);
-                        dispare = true;
                     }
                 }
             }
         }
         else if (event.type == SDL_KEYUP) //
-        {   //ver si es necesario setear el arma en 0 despues de disparar(por tema de sonido)
-            if(!permiso) {
+        {                                 // ver si es necesario setear el arma en 0 despues de disparar(por tema de sonido)
+            if (!permiso)
+            {
                 continue;
             }
-            if(event.key.keysym.sym == SDLK_SPACE) 
-            { 
-                //deje de apretar espacio disparo si no es arma teledirigida
+            if (event.key.keysym.sym == SDLK_SPACE)
+            {
+                // deje de apretar espacio disparo si no es arma teledirigida
                 auto it = jugadores.find(turno);
                 if (it != jugadores.end())
                 {
                     int arma = it->second.obtener_arma();
-                    if((arma != AIR_STRIKE and arma != TELEPORT) and !dispare)//si es arma con potencia o cuerpo a cuerpo  
+                    if ((arma != AIR_STRIKE and arma != TELEPORT)) // si es arma con potencia o cuerpo a cuerpo
                     {
                         accion = it->second.usar_arma(it->second.posicion_x(), it->second.posicion_y());
                         cliente.mandar_accion(accion);
                         view.reproducir_efecto_arma(tipo);
-                        dispare = true;
                     }
                 }
             }
@@ -315,7 +317,6 @@ void Game::procesar_estado(StateGame *estado)
         {
             jugador.cargar_armas(NO_WEAPON, 0);
         }
-        dispare = false;
     }
     else if (estado->type == TIPO_SEGUNDO)
     {
@@ -339,13 +340,13 @@ void Game::procesar_estado(StateGame *estado)
         ArmaDTO *arma = dynamic_cast<ArmaDTO *>(estado);
         arma->cargar(jugadores);
     }
-    else if(estado->type == TIPO_VIENTO)
+    else if (estado->type == TIPO_VIENTO)
     {
         VientoDTO *viento = dynamic_cast<VientoDTO *>(estado);
         viento->cargar(this->viento);
     }
     else if (estado->type == TIPO_GANADOR)
-    {   
+    {
         GanadorDTO *ganador = dynamic_cast<GanadorDTO *>(estado);
         this->termino_juego = true;
         this->gane = ganador->obtenerEstado();
@@ -380,10 +381,10 @@ void Game::procesar_paquete(PaqueteDTO *paquete)
         }
     }
     for (auto it = jugadores.begin(); it != jugadores.end();)
-    {   
+    {
         bool murio_gusano = false;
         if (jugadores_en_paquete.find(it->first) == jugadores_en_paquete.end())
-        {   
+        {
             murio_gusano = true;
             it = jugadores.erase(it);
         }
@@ -392,7 +393,8 @@ void Game::procesar_paquete(PaqueteDTO *paquete)
             ++it;
         }
 
-        if(murio_gusano){
+        if (murio_gusano)
+        {
             view.reproducir_efecto("/sonidos/muerte.WAV");
         }
     }
@@ -410,17 +412,19 @@ void Game::procesar_paquete(PaqueteDTO *paquete)
     for (auto &proyectil : objetos_paquete)
     {
         if (proyectil.exploto())
-        {   
+        {
             int tipo_proyectil = proyectil.obtenerTipo();
-            if (tipo_proyectil == PROVISION_CURA) {
+            if (tipo_proyectil == PROVISION_CURA)
+            {
                 view.reproducir_efecto("/sonidos/healcrate.wav");
             }
-            else {
+            else
+            {
                 Explotion explotion(proyectil.posicion_x(), proyectil.posicion_y());
                 explosiones.push_back(explotion);
                 view.reproducir_sonido_explosion();
             }
-            //ver de hacer que haga un ruido especifico para cura y municion
+            // ver de hacer que haga un ruido especifico para cura y municion
         }
     }
 
@@ -485,6 +489,10 @@ void Game::renderizar()
 
     view.renderizar_fondo_pantalla(fondo_pantalla);
     SDL_Color color = {255, 255, 255, 255};
+    if (fondo_pantalla == FONDO_NIEVE)
+    {
+        color = {0, 0, 0, 255};
+    }
     view.renderizar_texto(time, 0, 0, color, 12);
     // view.renderizar_gusano(0,0);
 
@@ -537,17 +545,17 @@ void Game::renderizar_misiles()
     }
 }
 
-bool Game::endGameLoop() 
-{   
-   
+bool Game::endGameLoop()
+{
+
     view.clear();
     view.renderizar_fondo_pantalla(fondo_pantalla);
-    for (VigaDTO viga : vigas) //ver si lo hago o no, es para que no quede el fondo solo
-    { // para mostrar las vigas
+    for (VigaDTO viga : vigas) // ver si lo hago o no, es para que no quede el fondo solo
+    {                          // para mostrar las vigas
         view.renderizar_viga(viga);
     }
-    
-    //sonidos de aplausos?
+
+    // sonidos de aplausos?
     view.renderizar_end_game(this->gane);
 
     view.mostrar();
@@ -562,6 +570,7 @@ bool Game::endGameLoop()
     return false;
 }
 
-void Game::cargar_fondo_pantalla(int fondo_recibido){
+void Game::cargar_fondo_pantalla(int fondo_recibido)
+{
     fondo_pantalla = fondo_recibido;
 }

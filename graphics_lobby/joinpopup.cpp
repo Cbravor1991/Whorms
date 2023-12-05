@@ -4,33 +4,40 @@
 #include <iostream>
 
 JoinPopUp::JoinPopUp(Lobby *lobby, QWidget *parent) : QDialog(parent),
-                                                                                ui(new Ui::JoinPopUp),
-                                                                                lobby(lobby)
+                                                      ui(new Ui::JoinPopUp),
+                                                      lobby(lobby)
 
-                                                                                
 {
     ui->setupUi(this);
 
     int id = QFontDatabase::addApplicationFont(":GROBOLD.ttf");
 
-     if (id != -1)
+    if (id != -1)
     {
         QStringList fontFamilies = QFontDatabase::applicationFontFamilies(id);
 
         if (!fontFamilies.isEmpty())
         {
             QString fontFamily = fontFamilies.at(0); // Obtén el nombre de la familia de fuentes
-            QFont font(fontFamily, 12); // Crea una instancia de QFont con el nombre de la familia y el tamaño deseado
+            QFont font(fontFamily, 12);              // Crea una instancia de QFont con el nombre de la familia y el tamaño deseado
             ui->labelConfirm->setFont(font);
             ui->joinButton->setFont(font);
             ui->games->setFont(font);
             std::vector<int> partidas = lobby->obtener_partidas();
-            if (!partidas.empty()) {
-                 for (const auto& partida : partidas) {
-                  ui->games->addItem(QString::number(partida));  }
-        } else {
-        std::cout << "El vector de partidas está vacío.\n";
-}}}}
+            if (!partidas.empty())
+            {
+                for (const auto &partida : partidas)
+                {
+                    ui->games->addItem(QString::number(partida));
+                }
+            }
+            else
+            {
+                std::cout << "El vector de partidas está vacío.\n";
+            }
+        }
+    }
+}
 
 JoinPopUp::~JoinPopUp()
 {
@@ -42,7 +49,6 @@ void JoinPopUp::on_joinButton_clicked()
 
     // std::string nombre_partida = ui->labelName->text().toStdString();
     int game = ui->games->currentText().toInt();
-    std::cout << "el juego es:" << game << '\n';
     /*creamos la partida a traves del lobby
    bool partida_creada = lony->crear_partida(nombrePartida, cantidad_jugadores)
      */
@@ -62,7 +68,7 @@ void JoinPopUp::on_joinButton_clicked()
             {
                 hide();
                 lobby->jugar();
-               }
+            }
             else
             {
             }
@@ -81,9 +87,8 @@ void JoinPopUp::on_accept_clicked()
     this->close();
 }
 
-
 void JoinPopUp::closeEvent(QCloseEvent *e)
-{   lobby->enviar_desconexion();
+{
+    lobby->enviar_desconexion();
     QApplication::exit(1);
-
 }

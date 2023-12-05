@@ -23,12 +23,10 @@ std::vector<int> Lobby::obtener_escenarios()
     return escenarios_ids;
 }
 
-int Lobby::crear_partida(Jugador *jugador, int escenario, std::string&nombre_mapa)
-{  
+int Lobby::crear_partida(Jugador *jugador, int escenario, std::string &nombre_mapa)
+{
     std::unique_lock<std::mutex> lck(mutex_);
-    std::cout<<"LLEGA EL MAPA: "<<nombre_mapa<<'\n';
     ConfiguracionMapa configuracion_mapa = ConfiguracionMapa::obtener_configuracion_mapa(nombre_mapa);
-       std::cout<<"configuracion mapa lobby"<< configuracion_mapa.getFondo()<<'\n';
     Partida *partida = new Partida(configuracion_mapa);
     partidas_disponibles[partida_id] = partida;
     partida->agregar_jugador(jugador);
