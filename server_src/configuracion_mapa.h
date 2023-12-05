@@ -20,7 +20,7 @@ private:
     ConfiguracionMapa(const YAML::Node &node);
 
 public:
-    static ConfiguracionMapa &obtener_configuracion_mapa(std::string path);
+    static ConfiguracionMapa obtener_configuracion_mapa(std::string path);
 
     std::vector<PosicionViga> getVigas() const;
     std::vector<PosicionSpawn> getSpawns() const;

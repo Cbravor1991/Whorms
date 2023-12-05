@@ -2,10 +2,8 @@
 #include <fstream>
 #include <iostream>
 
-ConfiguracionMapa& ConfiguracionMapa::obtener_configuracion_mapa(std::string path) {
-     static ConfiguracionMapa configuracion_mapa(YAML::LoadFile("../mapas/" + path + ".yaml"));
-    //static ConfiguracionMapa configuracion_mapa(YAML::LoadFile(MAPA_PATH "/Nombre del mapa.yaml"));
-    return configuracion_mapa;
+ConfiguracionMapa ConfiguracionMapa::obtener_configuracion_mapa(std::string path) {
+    return ConfiguracionMapa(YAML::LoadFile("../mapas/" + path + ".yaml"));
 }
 
 ConfiguracionMapa::ConfiguracionMapa(const YAML::Node& node) : vigas(), fondo(node["fondo"]["pantalla"].as<int>()), spawns_automaticos(node["spawns_automaticos"].as<int>())
