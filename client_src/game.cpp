@@ -506,13 +506,13 @@ void Game::renderizar()
         view.renderizar_viga(viga);
     }
 
+    this->renderizar_misiles();
+
     for (auto const &[id, jugador] : jugadores)
     { // para mostrar los jugadores
 
         view.renderizar_gusano(jugador);
     }
-
-    this->renderizar_misiles();
 
     for (Explotion &explotion : explosiones)
     { // para mostrar las vigas
