@@ -8,7 +8,7 @@
 class Objeto
 {
 private:
-    int tipo; // true es la larga false corta de 30
+    int tipo;
     int x;
     int y;
     int angulo;
@@ -16,8 +16,6 @@ private:
 
 public:
     Objeto(int tipo, int x, int y, int angulo, int id);
-
-    void mostrar() const;
 
     void renderizar(SDL2pp::Renderer &renderer, TextureManager& tex_manager, int id_objeto_seleccionado);
 

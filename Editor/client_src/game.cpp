@@ -43,7 +43,7 @@ Game::Game() {
 void Game::crear_mapa(std::string fondo_seleccionado, std::string nombre_mapa_recibido)
 {   
     
-       if (fondo_seleccionado == "noche") {
+    if (fondo_seleccionado == "noche") {
         this->id_mapa = FONDO_NOCHE;
     } else if (fondo_seleccionado == "snow") {
         this->id_mapa = FONDO_NIEVE;
@@ -62,10 +62,7 @@ void Game::crear_mapa(std::string fondo_seleccionado, std::string nombre_mapa_re
             break;
         }
        
-    }
-
-  
-   
+    }  
 }
 
 bool Game::gameLoop()
@@ -145,7 +142,6 @@ bool Game::manejarEventos()
             {
                 int mouseX = event.button.x;
                 int mouseY = 200 - event.button.y;
-                std::cout << "Clic en la posición X: " << mouseX << ", Y: " << mouseY << std::endl;
                 if (this->objeto_renderizar == "Viga corta 45°") {
                     Objeto viga(0, mouseX, mouseY, 45, contador_id_objetos);
                     objetos_creados.push_back(viga);
@@ -153,8 +149,6 @@ bool Game::manejarEventos()
                 } else if (this->objeto_renderizar == "Gusano") {
                     Objeto gusano(2, mouseX, mouseY, 0, contador_id_objetos);
                     objetos_creados.push_back(gusano);
-                    std::cout << mouseX << std::endl;
-                    std::cout << mouseY << std::endl;
                     contador_id_objetos++;
                     spawns_automaticos = false;
                 } else if (this->objeto_renderizar == "Viga corta -45°") {
@@ -201,12 +195,7 @@ bool Game::manejarEventos()
 void Game::guardar_datos() {
     YAML::Node nodoPrincipal;
     nodoPrincipal["fondo"]["pantalla"] = this->id_mapa;
-
-    if (spawns_automaticos) {
-        nodoPrincipal["spawns_automaticos"] = 1;
-    } else {
-        nodoPrincipal["spawns_automaticos"] = 0;
-    }
+    nodoPrincipal["spawns_automaticos"] = spawns_automaticos;
 
     YAML::Node nodoVigas;
     YAML::Node nodoSpawns;
@@ -236,12 +225,7 @@ void Game::guardar_datos() {
     std::cout << "Se ha creado el nuevo mapa." << std::endl;
 }
 
-
-
-
-void Game::renderizar()
-{
-    view.renderizar_fondo_pantalla(fondo_elegido);
+void Game::renderizar_texto() {
     SDL_Color color = {255, 255, 255, 255};
     // usamos letras negras para nieve
     if (id_mapa == FONDO_NIEVE) {
@@ -251,6 +235,13 @@ void Game::renderizar()
     view.renderizar_texto("Apriete R para seleccionar objeto", 800, 550, color);
     view.renderizar_texto("Para borrar, seleccione el objeto con T y apriete DELETE", 800, 430, color);
     view.renderizar_texto("Para guardar y salir, apriete ENTER", 800, 450, color);
+}
+
+
+void Game::renderizar()
+{
+    view.renderizar_fondo_pantalla(fondo_elegido);
+    this->renderizar_texto();
     if (this->objeto_renderizar != "Borrar") {
         id_objeto_seleccionado = -1;
     }

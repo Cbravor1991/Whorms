@@ -6,8 +6,6 @@
 
 Editor::Editor(){}
 
-
-
 void Editor::crear_mapa(std::string fondo_pantalla,  std::string nombre_mapa)
 {
     en_juego = true;
