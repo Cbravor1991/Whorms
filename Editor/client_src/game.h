@@ -44,6 +44,9 @@ private:
     int contador_obj_seleccionados = -1;
 
 public:
+
+    
+  
     Game();
 
     void crear_mapa(std::string fondo_seleccionado, std::string nombre_mapa_recibido);
@@ -55,8 +58,6 @@ public:
     void guardar_datos();
 
     void subir_mapa(std::string path_mapa_editar, int &id_fondo);
-    void renderizar_texto();
-
     void renderizar();
 };
 #endif // GAME_H
