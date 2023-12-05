@@ -11,7 +11,7 @@ void ArmaDTO::cambiar_render(bool &permiso)
 
 void ArmaDTO::cargar(std::map<int, JugadorDTO> &jugadores)
 {
-    int id_gusano = id * 10 + id_cliente;
+    int id_gusano = id * 100 + id_cliente;
     auto it = jugadores.find(id_gusano);
 
     if (it != jugadores.end())

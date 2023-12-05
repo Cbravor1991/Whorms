@@ -13,7 +13,7 @@ void TurnoDTO::cambiar_render(bool &permiso)
 
 int TurnoDTO::obtenerIdTurno()
 {
-    return id * 10 + gusano_id;
+    return id * 100 + gusano_id;
 }
 
 bool TurnoDTO::obtenerPermiso()

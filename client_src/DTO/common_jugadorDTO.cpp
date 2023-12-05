@@ -45,7 +45,7 @@ void JugadorDTO::mostrar() const { std::cout << "Jugador id " << id << " en X: "
 int JugadorDTO::obtenerId()
 {
 
-    return id * 10 + id_cliente;
+    return id * 100 + id_cliente;
 }
 
 void JugadorDTO::activa_animacion(bool permiso)
