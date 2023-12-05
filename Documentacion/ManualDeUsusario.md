@@ -1,4 +1,4 @@
-# Manueal de Usuario
+# Manual de Usuario
 
 ## Dependencias
 - Sistema operativo linux
@@ -11,7 +11,7 @@
 - Box2d(version 2.4.1)
 - Yaml-cpp (version 0.7.0)
 
-En caso de no tener las dependencia, se pueden instalar de la siguiente manera:
+En caso de no tener las dependencia, se pueden instalar ejecutando los siguientes comandos:
 
 CMake:
 ```bash
@@ -227,7 +227,7 @@ Con eso ya debería de estar instalado.
 
 El editor de mapas se ejecuta con el siguiente comando:
 
-`./client`  //cambiar por ./editor
+`./editor`
 
 Ese comando va a abrir la siguiente ventana:
 
@@ -278,6 +278,8 @@ Los objetos que se pueden colocar son los siguientes:
 - Viga corta con ángulo de -45 grados
 - Viga corta con ángulo de 45 grados
 - Viga corta con ángulo de 0 grados
+
+En caso de no colocar ningun gusano en el mapa, se utilizarán spawns automáticos para los gusanos.
 
 Dejo algunas imágenes a modo ilustativo:
 
