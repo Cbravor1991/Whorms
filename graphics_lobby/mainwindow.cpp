@@ -13,6 +13,8 @@ MainWindow::MainWindow(Lobby *lobby, QWidget *parent)
 
 {
     ui->setupUi(this);
+       // Ocultar el botón de cierre (x)
+   
     int id = QFontDatabase::addApplicationFont(":GROBOLD.ttf");
     if (id != -1)
     {
@@ -40,8 +42,9 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::closeEvent(QCloseEvent *e)
-{
+{   loby->enviar_desconexion();
     QApplication::exit(1);
+
 }
 
 void MainWindow::on_createButton_clicked()
@@ -61,7 +64,8 @@ void MainWindow::on_joinButton_clicked()
 
 
 void MainWindow::on_exitButton_clicked()
-{
+{    loby->enviar_desconexion();
     QApplication::exit(1);
 }
+
 

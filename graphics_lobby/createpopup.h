@@ -24,6 +24,8 @@ private slots:
     void on_createButton_clicked();
     void on_accept_clicked();
     
+protected:
+    void closeEvent(QCloseEvent *event);
 
 private:
     Ui::createPopUp *ui;

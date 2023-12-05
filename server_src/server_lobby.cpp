@@ -21,8 +21,8 @@ void ServerLobby::run()
     protocolo->enviar_escenarios(escenario);
     // se utiliza para saber si el jugador se va a unir o crear una partida
 
-    bool modo_lobby = protocolo->recibir_modo();
-    if (modo_lobby)
+    int modo_lobby = protocolo->recibir_modo();
+    if (modo_lobby == 1)
     {
         int escenario = protocolo->recibir_escenario();
         std::string mapa_recibido = protocolo->recibir_nombre_mapa();
@@ -37,7 +37,7 @@ void ServerLobby::run()
             lobby->iniciar_partida(partida);
         }
     }
-    else
+    else if(modo_lobby==0)
     {
         int partida = protocolo->recibir_partida();
         Jugador *jugador = new Jugador(protocolo);

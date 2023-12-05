@@ -88,7 +88,13 @@ void createPopUp::on_createButton_clicked()
 
 void createPopUp::on_accept_clicked()
 {
-    this->close();
+    hide();
     wait_room = new waitRoom(lobby, nullptr);
     wait_room->show();
+}
+
+void createPopUp::closeEvent(QCloseEvent *e)
+{   lobby->enviar_desconexion();
+    QApplication::exit(1);
+
 }

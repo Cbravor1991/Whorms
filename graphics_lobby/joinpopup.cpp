@@ -80,3 +80,10 @@ void JoinPopUp::on_accept_clicked()
 {
     this->close();
 }
+
+
+void JoinPopUp::closeEvent(QCloseEvent *e)
+{   lobby->enviar_desconexion();
+    QApplication::exit(1);
+
+}

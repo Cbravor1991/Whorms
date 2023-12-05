@@ -24,6 +24,8 @@ private slots:
     void on_joinButton_clicked();
     void on_accept_clicked();
 
+protected:
+    void closeEvent(QCloseEvent *event);
     
 
 private:

@@ -70,3 +70,7 @@ void Lobby::jugar()
 int Lobby:: obtener_fondo(){
     return tipo_fondo;
 }
+
+void  Lobby::enviar_desconexion(){
+    protocolo.enviar_partida(5);
+}

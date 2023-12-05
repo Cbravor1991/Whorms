@@ -136,7 +136,7 @@ public:
 
     bool recibir_jugar();
 
-    bool recibir_modo();
+    int recibir_modo();
 
     int recibir_escenario();
 

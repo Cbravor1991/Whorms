@@ -37,5 +37,9 @@ public:
     void enviar_comienzo_juego();
 
     int obtener_fondo();
+
+    void enviar_desconexion();
+
+    
 };
 #endif
