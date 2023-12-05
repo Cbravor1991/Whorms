@@ -55,6 +55,7 @@ Para modelar al gusano se tiene la clase JugadorDTO con toda la información del
 
 ## Editor
 
+![img](imagenes/diagrama_editor.jpg)
 
 ## Protocolo
 
