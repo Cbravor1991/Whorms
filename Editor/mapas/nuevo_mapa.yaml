@@ -1,9 +1,0 @@
-fondo:
-  pantalla: 0
-spawns_automaticos: 0
-spawns_mapa:
-  - x: 178
-    y: 64
-  - x: 290
-    y: 88
-vigas: ~

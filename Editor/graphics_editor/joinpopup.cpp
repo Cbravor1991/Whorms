@@ -53,9 +53,9 @@ JoinPopUp::~JoinPopUp()
 void JoinPopUp::on_createButton_clicked()
 {
 
-    hide();
+     hide();
     editor->editar_mapa(ui->games->currentText().toStdString());
-    //this->close();
+    this->close();
 
     
 

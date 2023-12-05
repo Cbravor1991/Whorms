@@ -58,8 +58,8 @@ void Game::crear_mapa(std::string fondo_seleccionado, std::string nombre_mapa_re
     {
        
         if (not this->gameLoop())
-        {
-            break;
+        {   
+             break;
         }
        
     }

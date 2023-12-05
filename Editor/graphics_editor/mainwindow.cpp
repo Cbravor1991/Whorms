@@ -35,7 +35,7 @@ MainWindow::MainWindow(Editor* editor, QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
-    delete timer;
+
 }
 
 void MainWindow::closeEvent(QCloseEvent *e)

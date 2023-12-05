@@ -86,9 +86,9 @@ void Banana::contacto()
 
         // Comprueba si uno de los cuerpos es el cuadrado
         if (fixtureA->GetBody() == body || fixtureB->GetBody() == body)
-        {
+        {   contactos+=1;
             b2Body *otherBody = (fixtureA->GetBody() == body) ? fixtureB->GetBody() : fixtureA->GetBody();
-            if (otherBody->gusano)
+            if (otherBody->gusano && contactos>100)
             {
                 b2Vec2 center = this->body->GetPosition();
                 explotar(center);

@@ -41,7 +41,6 @@ private:
     Ui::MainWindow *ui;
     createPopUp* create_pop_up;
     JoinPopUp * join_pop_up;
-    QTimer *timer;
     Editor* editor;
   
 };

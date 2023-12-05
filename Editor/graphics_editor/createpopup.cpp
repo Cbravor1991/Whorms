@@ -43,10 +43,9 @@ createPopUp::~createPopUp()
 
 void createPopUp::on_nightButton_clicked()
 {
-    hide();
-    
+   hide();
     editor->crear_mapa("noche", ui->labelName->text().toStdString());
-
+    this->close();
 
     
 }
@@ -55,10 +54,12 @@ void createPopUp::on_snowButton_clicked()
 {
     hide();
     editor->crear_mapa("snow", ui->labelName->text().toStdString());
+    this->close();
 }
 
 void createPopUp::on_snowButton_2_clicked()
 {
-    hide();
+     hide();
     editor->crear_mapa("dia", ui->labelName->text().toStdString());
+    this->close();
 }
