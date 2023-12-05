@@ -2,8 +2,9 @@
 #include <fstream>
 #include <iostream>
 
-ConfiguracionMapa& ConfiguracionMapa::obtener_configuracion_mapa() {
-    static ConfiguracionMapa configuracion_mapa(YAML::LoadFile(MAPA_PATH "/Nombre del mapa.yaml"));
+ConfiguracionMapa& ConfiguracionMapa::obtener_configuracion_mapa(std::string path) {
+     static ConfiguracionMapa configuracion_mapa(YAML::LoadFile("../mapas/" + path + ".yaml"));
+    //static ConfiguracionMapa configuracion_mapa(YAML::LoadFile(MAPA_PATH "/Nombre del mapa.yaml"));
     return configuracion_mapa;
 }
 
@@ -49,5 +50,7 @@ int ConfiguracionMapa::getFondo() const {
 bool ConfiguracionMapa::getSpawnsAutomaticos() const {
     return spawns_automaticos;
 }
+
+ 
 
 ConfiguracionMapa::~ConfiguracionMapa() {}

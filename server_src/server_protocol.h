@@ -87,6 +87,10 @@ private:
 
     int recibir_tipo_accion();
 
+    uint16_t recibir_tamanio_mensaje();
+
+    std::string recibir_mensaje_chat(const int& tamanioString);
+
 public:
     explicit ProtocoloServer(Socket socket);
 
@@ -137,6 +141,10 @@ public:
     int recibir_escenario();
 
     int recibir_partida();
+
+    std::string recibir_nombre_mapa();
+
+    
 };
 
 #endif

@@ -17,16 +17,16 @@ private:
     std::vector<PosicionSpawn> spawns;
     int fondo;
     bool spawns_automaticos;
-
     ConfiguracionMapa(const YAML::Node &node);
 
 public:
-    static ConfiguracionMapa &obtener_configuracion_mapa();
+    static ConfiguracionMapa &obtener_configuracion_mapa(std::string path);
 
     std::vector<PosicionViga> getVigas() const;
     std::vector<PosicionSpawn> getSpawns() const;
     int getFondo() const;
     bool getSpawnsAutomaticos() const;
+ 
 
     ~ConfiguracionMapa();
 };

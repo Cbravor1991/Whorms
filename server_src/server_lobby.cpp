@@ -25,8 +25,12 @@ void ServerLobby::run()
     if (modo_lobby)
     {
         int escenario = protocolo->recibir_escenario();
+        std::string mapa_recibido = protocolo->recibir_nombre_mapa();
+   
+
+        
         Jugador *jugador = new Jugador(protocolo);
-        int partida = lobby->crear_partida(jugador, escenario);
+        int partida = lobby->crear_partida(jugador, escenario, mapa_recibido);
         protocolo->enviar_partida_creada(partida);
         if (protocolo->recibir_jugar())
         {

@@ -26,7 +26,7 @@ public:
 
     void enviar_partida(int partida);
 
-    int enviar_escenario(int escenario);
+    int enviar_escenario(int escenario, std::string &nombre_mapa);
 
     bool modo_partida();
 
