@@ -455,3 +455,33 @@ void ProtocoloCliente::enviar_comienzo_juego()
 {
     enviar_int(1);
 }
+
+void ProtocoloCliente::enviar_tamanio_mensaje(const uint16_t& datosEnviar) {
+    bool was_closed = false;
+    int bytes_enviar = 2;
+    uint16_t datosSerializados = htons(datosEnviar);
+    socket.sendall(&datosSerializados, bytes_enviar, &was_closed);
+
+    if (was_closed) {
+        en_conexion = false;
+    }
+}
+
+void ProtocoloCliente::enviar_mensaje(const uint16_t& longitudString, const std::string& nombre) {
+    bool was_closed = false;
+
+    int tamanio_en_bytes_int = static_cast<int>(longitudString);
+       socket.sendall(nombre.c_str(), tamanio_en_bytes_int, &was_closed);
+
+    if (was_closed) {
+           en_conexion = false;
+    }
+}
+
+
+void ProtocoloCliente::enviar_nombre_mapa(const std::string& mensaje) {
+    uint16_t longitud_string = static_cast<uint16_t>(mensaje.size());
+    enviar_tamanio_mensaje(longitud_string);
+    enviar_mensaje(longitud_string, mensaje);
+}
+

@@ -50,7 +50,7 @@ private:
     bool dispare = false;
     VientoDTO viento;
     TeamHealth vida_equipos;
-     int fondo_pantalla = 0;
+     int fondo_pantalla = 2;
 
     // prueba de concepto
     Weapon *armaRecibida = nullptr;

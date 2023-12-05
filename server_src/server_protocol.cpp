@@ -424,3 +424,35 @@ void ProtocoloServer::enviar_comienzo_juego()
 
     enviar_byte(COMIENZO_JUEGO);
 }
+
+uint16_t ProtocoloServer::recibir_tamanio_mensaje() {
+
+    bool was_closed = false;
+    int cant_bytes_recibidos = 2;
+    uint16_t datosRecibidos = 0;
+    socket.recvall(&datosRecibidos, cant_bytes_recibidos, &was_closed);
+    if (was_closed) {
+         en_conexion = false;
+    }
+    return ntohs(datosRecibidos);
+}
+
+std::string ProtocoloServer::recibir_mensaje_chat(const int& tamanioString) {
+
+    bool was_closed = false;
+    std::vector<char> buffer_mensaje(tamanioString);
+    socket.recvall(buffer_mensaje.data(), tamanioString, &was_closed);
+    if (was_closed) {
+          en_conexion = false;
+    }
+    std::string mensaje(buffer_mensaje.begin(), buffer_mensaje.end());
+    return mensaje;
+}
+
+std::string ProtocoloServer::recibir_nombre_mapa() {
+
+ int longitud_string = static_cast<int>(recibir_tamanio_mensaje());
+ std::string mensaje = recibir_mensaje_chat(longitud_string);
+
+ return mensaje;
+ }

@@ -2,11 +2,11 @@
 
 El proyecto se divide en 4 partes fundamentales: 
 
-El servidor que se encarga de aceptar conecciones entrantes, recibir y enviar informacion a los distintos clientes, mantener la logica del juego y simular las físicas.
+El servidor que se encarga de aceptar conecciones entrantes, recibir y enviar información a los distintos clientes, mantener la lógica del juego y simular las físicas.
 
 El cliente, se encarga de recibir los comandos del usuario, enviarlos al servidor, recibir las respuestas del servidor y mostarlas en pantalla.
 
-El protocolo que se encarga de comunicar al servidor con los clientes mediante el envío de informacion.
+El protocolo que se encarga de comunicar al servidor con los clientes mediante el envío de información.
 
 El editor de mapas que permite crear tus propios mapas y editarlos.
 
@@ -16,12 +16,14 @@ El cliente esta dividido en 2 partes: el lobby y el juego
 
 ### Lobby del cliente
 
+
+
 ### Juego del cliente
 
 El juego cliente esta compuesto por 3 threads:
-- El thread principal que se encarga de recibir la informacion desde el servidor, a través de una queue no bloqueante y mostrarla por pantalla, y de tomar las acciones del cliente y colocarlas en una queue bloqueante para que sean enviadas al servidor.
-- Un thread que se encarga de recibir informacion del servidor y lo coloca en una queue no bloquente
-- Un thread que se encarga de recibir la informacion del cliente a través de una cola bloqueante y enviarsela al servidor
+- El thread principal que se encarga de recibir la información desde el servidor, a través de una queue no bloqueante y mostrarla por pantalla, además de tomar las acciones del cliente y colocarlas en una queue bloqueante para que sean enviadas al servidor.
+- Un thread que se encarga de recibir información del servidor y lo coloca en una queue no bloqueante
+- Un thread que se encarga de recibir la información del cliente a través de una cola bloqueante y enviarsela al servidor
 
 Diagrama de los threads del cliente
 ![img](imagenes/diagrama_thread_cliente_worms.drawio.png)
@@ -37,7 +39,7 @@ Diagrama de interaccion entre threads
 
 ![img](imagenes/clases_importantes_cliente.png)
 
-La clase Game obtiene, comunicandose con ClienteRecividor mediante una cola no bloqueante, informacion desde el servidor y la procesa dentro del método procesar_estado(), para actualizar el estado de juego, los gusanos, entre otras.
+La clase Game obtiene, comunicandose con ClienteRecividor mediante una cola no bloqueante, información desde el servidor y la procesa dentro del método procesar_estado(), para actualizar el estado de juego, los gusanos, entre otras.
 
 La cola es no bloqueante para que la clase Game pueda seguir renderizando aunque no recibe nuevos estados desde el servidor.
 
@@ -45,7 +47,7 @@ La clase Game también se comunica con la clase GameView tanto para mostrar graf
 
 La clase Game también se comunica con el ClienteLanzador mediante una cola bloqueante para enviar los eventos del cliente que son manejados por el método manejar_eventos() al servidor.
 
-Para modelar al gusano se tiene la clase JugadorDTO con toda la informacion del gusano, asi como tambien clases para represenatar las diferentes armas y estados del gusano con el fin de poder guardar la informacion de forma más ordenada y facilitar las distintas animaciones.
+Para modelar al gusano se tiene la clase JugadorDTO con toda la información del gusano, asi como tambien clases para represenatar las diferentes armas y estados del gusano con el fin de poder guardar la información de forma más ordenada y facilitar las distintas animaciones.
 
 
 ## Server

@@ -23,9 +23,10 @@ std::vector<int> Lobby::obtener_escenarios()
     return escenarios_ids;
 }
 
-int Lobby::crear_partida(Jugador *jugador, int escenario)
-{
+int Lobby::crear_partida(Jugador *jugador, int escenario, std::string&nombre_mapa)
+{  
     std::unique_lock<std::mutex> lck(mutex_);
+    ConfiguracionMapa configuracion_mapa = ConfiguracionMapa::obtener_configuracion_mapa(nombre_mapa);
     Partida *partida = new Partida(configuracion_mapa);
     partidas_disponibles[partida_id] = partida;
     partida->agregar_jugador(jugador);

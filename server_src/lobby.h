@@ -12,7 +12,7 @@
 #include "data/posicion_viga.h"
 
 #define configuracion Configuracion::obtener_configuracion()
-#define configuracion_mapa ConfiguracionMapa::obtener_configuracion_mapa()
+
 
 // Definición de la clase Lobby
 class Lobby
@@ -27,7 +27,7 @@ public:
     void agregar_jugador(Jugador *jugador, int partida_id);
 
     // Crear una nueva partida con un escenario
-    int crear_partida(Jugador *jugador, int escenario);
+    int crear_partida(Jugador *jugador, int escenario, std::string&nombre_mapa);
 
     void iniciar_partida(int partida);
 

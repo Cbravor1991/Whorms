@@ -79,6 +79,12 @@ private:
 
     int traducir_tipo_mensaje(const uint8_t &buffer);
 
+    void enviar_tamanio_mensaje(const uint16_t& datosEnviar);
+
+    void enviar_mensaje(const uint16_t& longitudString, const std::string& nombre);
+
+
+
 public:
     ProtocoloCliente(const std::string &hostname,
                      const std::string &servname);
@@ -126,6 +132,10 @@ public:
     bool recibir_modo_partida();
 
     void enviar_comienzo_juego();
+
+    void enviar_nombre_mapa(const std::string& mensaje);
+
+ 
 
     ProtocoloCliente(const ProtocoloCliente &) = delete;
     ProtocoloCliente &operator=(const ProtocoloCliente &) = delete;
