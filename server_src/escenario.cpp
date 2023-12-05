@@ -13,9 +13,18 @@ Escenario::Escenario(ConfiguracionMapa mapa, MonitorJugadores *monitor)
         colocar_viga(viga.obtener_x(), viga.obtener_y(), viga.obtener_tipo(), viga.obtener_angulo());
     }
     bool spawns_automaticos = mapa.getSpawnsAutomaticos();
-    if (spawns_automaticos == false)
+   if (spawns_automaticos == false)
+
     {
-        agregar_spawns(mapa.getSpawns());
+
+        std::vector<PosicionSpawn> posicion_spawns = mapa.getSpawns();
+
+        if (posicion_spawns.size() <= vigas.size()) {
+
+            agregar_spawns(mapa.getSpawns());
+
+        }
+
     }
     this->monitor = monitor;
     for (int i = 0; i < configuracion.getCantidadProvisiones(); i++)
