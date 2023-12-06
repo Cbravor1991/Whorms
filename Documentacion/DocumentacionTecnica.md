@@ -73,6 +73,9 @@ Cuando el anfitrion de la partida decide comenzar el juego, levanta:
 
 ## Editor
 
+Al iniciar el editor se utiliza la clase Editor, la cual utiliza los dos distintos métodos crear_mapa o editar_mapa que luego llaman a los métodos de la clase Game. En caso de querer editar un mapa ya preexistente se utiliza el método subir_mapa para cargar los elementos del mapa en los vectores DTO que luego pueden ser modificados, que a su vez utiliza los métodos de configuracion_mapa que obtiene la información del archivo yaml correspondiente, y luego se usa el método crear_mapa. En caso de crear un mapa de cero, se utiliza este último método directamente.
+Luego se renderiza el fondo elegido previamente en el lobby (y los elementos ya existentes en caso de estar editando) y se procesan los eventos con el método de manejarEventos() para renderizar en la clase GameView y visualizar los elementos en la ventana que representa el escenario. Al finalizar la edición o creación, se utiliza el método de guardar_datos() para cargar toda la información final de los DTO en su archivo de configuración con extensión yaml correspondiente.
+
 ![img](imagenes/diagrama_editor.jpg)
 
 ## Protocolo
