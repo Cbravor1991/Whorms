@@ -1,9 +1,5 @@
 # Manual de Proyecto
 
-## Division de tareas
-
-
-
 ## Desarrollo del proyecto
 
 ### Semana 1(desde 17/10/2023)
