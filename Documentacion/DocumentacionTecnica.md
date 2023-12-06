@@ -53,12 +53,18 @@ El juego server esta compuesto por 2 threads:
 
 - El thread principal que se encarga de esperar el ingreso de una "q" para cerrar el server
 - Un thread aceptador que se encarga de recibir clientes que se conecten a nuestro socket
-  Cuando el thread aceptador recibe una conexión de un cliente entonces levanta:
+- 
+Cuando el thread aceptador recibe una conexión de un cliente entonces levanta:
+
 - Un thread lobby que se encarga de que el cliente interactúe con el lobby, este thread se levanta en el aceptador cuando recibo un cliente
-  Cuando el thread ya crea una partida o agrega un jugador a una partda se levanta:
+- 
+Cuando el thread ya crea una partida o agrega un jugador a una partda se levanta:
+
 - Un thread lanzador que se encarga de enviar informacion del juego al cliente para que la renderize
 - Un thread recibidor que se encarga de recibir las acciones del cliente para ejecutarlas en el juego
-  Cuando el anfitrion de la partida decide comenzar el juego, levanta:
+- 
+Cuando el anfitrion de la partida decide comenzar el juego, levanta:
+
 - Un thread partida que se encarga de procesar las acciones de los clientes y devolverles informacion
 
 ![Alt text](imagenes/diagrama_threads.png)
