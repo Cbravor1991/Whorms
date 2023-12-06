@@ -63,7 +63,7 @@ El juego server esta compuesto por 2 threads:
 
 ![Alt text](imagenes/diagrama_threads.png)
 
-![Alt text](imagenes/diagarama_flujo.png)
+![Alt text](imagenes/diagrama_flujo.png)
 
 ## Editor
 
