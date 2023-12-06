@@ -1,6 +1,15 @@
 # Whorms
+Trabajo Práctico de la materia Taller de Programación I - Cátedra Veiga
 
-Para compilarlo y ejecutarlo:
+Documentacion
+
+[Manual de Usuario](https://github.com/Cbravor1991/Whorms/blob/main/Documentacion/ManualDeUsusario.md)
+
+[Manual de Proyecto](https://github.com/Cbravor1991/Whorms/blob/main/Documentacion/ManualDeProyecto.md)
+
+[Documentacion técnica](https://github.com/Cbravor1991/Whorms/blob/main/Documentacion/DocumentacionTecnica.md)
+
+Instrucciones de compilación(más información en el manual de usuario)
 
 Para compilar(dentro del repo):
 
