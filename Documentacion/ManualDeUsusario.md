@@ -111,7 +111,7 @@ Si en vez de crear una partida, decidís unirte a una que ya fue creada, clickea
 
 ![unirse a partida](imagenes/joingame.png)
 
-Va a aparecer la siguiente ventana en la cual podés ver el id de las partidas creadas y unirte a alguna de ellas.
+Va a aparecer la siguiente ventana en la cual podés ver el id de las partidas creadas y unirte a alguna de ellas (recuerda que para poder unirte primero debes haber creado una partida)
 
 Una vez seleccionas unirse, la ventana se cierra esperando a que el anfitrion de la partida la inicia
 
@@ -130,7 +130,9 @@ Se puede observar la siguiente informacion:
 - Abajo a la derecha:
     - El sentido y la fuerza del viento actuales
 
-Además, se puede ver la vida de cada gusano arriba de cada uno, el color del jugador al que pertenece el gusano y la mira del gusano que tiene el turno actual
+Además, se puede ver la vida de cada gusano arriba de cada uno, el color del jugador al que pertenece el gusano y la mira del gusano que tiene el turno actual.
+
+Recuerda que si iniciaste una partida con multiples jugadores las ventanas del juego para cada jugador se inician todas a la vez, superpuestas no olvides moverlas para poder verlas correctamente. 
 
 ## Controles
 

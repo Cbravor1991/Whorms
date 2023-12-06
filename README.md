@@ -19,6 +19,14 @@ Para ejecutarlo, hay que estar parado dentro de la carpeta build y usar los coma
 `./client localhost 8080`
 
 
-# Diagrama de threads
+# Datos de creadores
 
-![Alt text](image-1.png)
+| Padrón | Nombre y Apellido         |Rol |
+|--------|---------------------------|----- |
+| 107862| THEO JORGE                 | Configuración servidor. Uso de Box 2d. Modelado de mundo fisica.  |
+| 107908| CLEMENTE AVILA             | Configuración cliente. Uso de SDL2. Renderización Sonidos. Animaciones. |
+| 109043| TOMÁS VAINSTEIN            |Configuración Editor/cliente. Uso de SDL2. Renderización .Sonidos |
+| 94194 | CHRISTIAN BRAVO            |Configuración cliente/Editor Uso de QT5. Interfaz grafica de usuario. Sonidos |
+
+
+

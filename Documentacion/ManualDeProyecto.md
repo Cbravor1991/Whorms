@@ -80,4 +80,5 @@
 
 ## Problemas encontrados
 
-Uno de los pricipales problemas que encontramos fue implementar la cámara con SDL2, estuvimos intentando mucho tiempo, pero al final no nos salió y decidimos seguir avanzando con el resto de cosas a implementar.
+- Uno de los pricipales problemas que encontramos fue implementar la cámara con SDL2, estuvimos intentando mucho tiempo, pero al final no nos salió y decidimos seguir avanzando con el resto de cosas a implementar.
+- A la hora de realizar la interfaz gráfica del usuario con Qt, tanto en el juego principal como en el editor, nos encontramos con diversos problemas. El que más tiempo nos llevó resolver fue la configuración del archivo CMake con las configuraciones pertinentes de las bibliotecas de Qt5. Luego, para el diseño, fue necesario un breve y rápido entrenamiento utilizando el programa Qt Creator. Pero, superados estos inconvenientes, el resultado fue satisfactorio.
