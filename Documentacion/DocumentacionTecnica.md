@@ -26,7 +26,7 @@ El juego cliente esta compuesto por 3 threads:
 - Un thread que se encarga de recibir la información del cliente a través de una cola bloqueante y enviarsela al servidor
 
 Diagrama de los threads del cliente
-![img](imagenes/diagrama_thread_cliente_worms.drawio.png)
+![img](imagenes/Diagramas%20threads%20cliente(2).png)
 
 Diagrama de flujo de los threads del cliente
 ![img](imagenes/diagrama_actividad_cliente.drawio.png)
@@ -37,7 +37,7 @@ Diagrama de interaccion entre threads
 
 **Diagrama de clases con las clases más importantes del cliente**
 
-![img](imagenes/clases_importantes_cliente.png)
+![img](imagenes/Diagrama%20clases%20worms(2).png)
 
 La clase Game obtiene, comunicandose con ClienteRecividor mediante una cola no bloqueante, información desde el servidor y la procesa dentro del método procesar_estado(), para actualizar el estado de juego, los gusanos, entre otras.
 
