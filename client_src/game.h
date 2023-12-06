@@ -47,18 +47,12 @@ private:
     bool termino_juego = false;
     bool gane = true;
     bool cola_vacia = true;
-    bool dispare = false;
     VientoDTO viento;
     TeamHealth vida_equipos;
-     int fondo_pantalla = 2;
+    int fondo_pantalla = 2;
 
-    // prueba de concepto
-    Weapon *armaRecibida = nullptr;
-
-    bool probar_arma = false;
 
 public:
-    // reemplazar por socket cuando este lobby
     explicit Game( ProtocoloCliente & protocolo);
 
     void run();

@@ -10,7 +10,6 @@ class WormBazooka : public WormWeapon
 private:
     Crosshair mira;
     int municion;
-    //int potencia;
     PowerBar potencia;
 public:
     explicit WormBazooka(int ammo);

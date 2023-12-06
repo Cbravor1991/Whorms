@@ -1,6 +1,5 @@
 #include "worm_airstrike.h"
 #include "../../actions/position.h"
-#include <iostream> //borrar
 
 WormAirstike::WormAirstike(int ammo) : municion(ammo) {}
 
@@ -14,11 +13,11 @@ void WormAirstike::render(SDL2pp::Renderer &renderer, TextureManager &tex_manage
 
     renderer.Copy(
         *texture,
-        SDL2pp::Rect(src_x, src_y, 60, 60), // que parte del sprite queres que te cargue
-        SDL2pp::Rect(x, 200 - y, 50, 50),   // la posicion en pantalla y el tamaño
-        -angulo,                            // rotation
-        SDL2pp::NullOpt,                    // rotation center - not needed
-        flip                                // flip
+        SDL2pp::Rect(src_x, src_y, 60, 60), 
+        SDL2pp::Rect(x, 200 - y, 50, 50),   
+        -angulo,                            
+        SDL2pp::NullOpt,                    
+        flip                                
     );
 }
 
@@ -53,6 +52,6 @@ int WormAirstike::getTimer()
 void WormAirstike::increasePower() {}
 
 bool WormAirstike::isMaxPower() 
-{//como no tiene potencia, nunca llega a MAXIMA_POTENCIA
+{
     return false;
 }

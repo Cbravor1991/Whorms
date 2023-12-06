@@ -157,7 +157,6 @@ bool Game::manejarEventos()
             {
                 int mouseX = event.button.x;
                 int mouseY = 200 - event.button.y;
-                std::cout << "Clic en la posición X: " << mouseX << ", Y: " << mouseY << std::endl;
                 if (this->objeto_renderizar == "Viga corta 45°")
                 {
                     Objeto viga(0, mouseX, mouseY, 45, contador_id_objetos);
@@ -262,8 +261,6 @@ void Game::guardar_datos()
     std::string rutaCompleta = "../../mapas/" + nombre_mapa + extension;
     std::ofstream archivoSalida(rutaCompleta);
     archivoSalida << nodoPrincipal;
-
-    std::cout << "Se ha creado el nuevo mapa." << std::endl;
 }
 
 void Game::renderizar()

@@ -1,6 +1,6 @@
 
 #include "common_vigaDTO.h"
-VigaDTO::VigaDTO(bool tipo, int x, int y, int angulo) : tipo(tipo), x(x), y(y), angulo(angulo) {} // Declaración del constructor
+VigaDTO::VigaDTO(bool tipo, int x, int y, int angulo) : tipo(tipo), x(x), y(y), angulo(angulo) {}
 
 void VigaDTO::mostrar() const { std::cout << "Viga tipo" << tipo << " en X: " << x << " Y: " << y << " Angulo:" << angulo << std::endl; }
 
@@ -15,7 +15,7 @@ void VigaDTO::renderizar(SDL2pp::Renderer &renderer, TextureManager& tex_manager
         std::string path = "/sprites/vigas/grdl4.png";
         sprites = tex_manager.getTexture(path);
         ancho_sprite = 140;
-        ancho_textura = 62;//60
+        ancho_textura = 62;
     }
 
     else
@@ -23,16 +23,16 @@ void VigaDTO::renderizar(SDL2pp::Renderer &renderer, TextureManager& tex_manager
         std::string path = "/sprites/vigas/grds4.png";
         sprites = tex_manager.getTexture(path);
         ancho_sprite = 70;
-        ancho_textura = 32;//30
+        ancho_textura = 32;
         
     }
 
     renderer.Copy(
             *sprites,
-            SDL2pp::Rect(0, 0, ancho_sprite, 20),             // que parte del spike queres que te cargue
-            SDL2pp::Rect(x + 20, 220 - y, ancho_textura, 12), // la posicion en pantalla y el tamaño
-            -angulo,                                          // grados que roto, en sentido horario
-            SDL2pp::NullOpt,                                  // rotation center - not needed
-            SDL_FLIP_HORIZONTAL                               // vertical flip
+            SDL2pp::Rect(0, 0, ancho_sprite, 20),             
+            SDL2pp::Rect(x + 20, 220 - y, ancho_textura, 12), 
+            -angulo,                                          
+            SDL2pp::NullOpt,                                  
+            SDL_FLIP_HORIZONTAL                           
         );
 }

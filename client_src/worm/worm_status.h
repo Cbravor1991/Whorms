@@ -7,8 +7,6 @@ const int IDLE = 0;
 const int WALK = 1;
 
 class WormStatus {
-    //std::shared_ptr<SDL2pp::Texture> texture;
-    
     public:
 
     WormStatus() {};

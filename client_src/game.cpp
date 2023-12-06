@@ -25,7 +25,7 @@ void Game::run()
         }
         else
         {
-            // si la cola esta vacía, puedo enviar cosas
+            // si la cola esta vacía, puedo enviar eventos
             cola_vacia = true;
         }
 
@@ -59,7 +59,6 @@ void Game::run()
 bool Game::gameLoop(StateGame *estado, bool &nuevo_estado)
 {
     view.clear();
-    // estado->cambiar_render(permiso); -->para debuggear si llega algo no definido en procesar
     if (nuevo_estado)
     {
         this->procesar_estado(estado);
@@ -69,7 +68,7 @@ bool Game::gameLoop(StateGame *estado, bool &nuevo_estado)
 
         for (auto &[id, jugador] : jugadores)
         {
-            // debo llegar a 3 y ahi freno
+
             jugador.stop_running();
         }
     }
@@ -88,7 +87,7 @@ bool Game::manejarEventos()
     {
         if (event.type == SDL_QUIT)
         {
-            return false; // Salir del juego sin necesidad de permiso
+            return false;
         }
         else if (event.type == SDL_KEYDOWN)
         {
@@ -97,7 +96,7 @@ bool Game::manejarEventos()
                 // Si no tienes permiso, solo permitir mutear el sonido
                 if (event.key.keysym.sym != SDLK_m)
                 {
-                    continue; // Ignorar otras teclas si no hay permiso
+                    continue;
                 }
             }
 
@@ -158,18 +157,15 @@ bool Game::manejarEventos()
                 auto it = jugadores.find(turno);
                 if (it != jugadores.end())
                 {
-                    // El elemento en la posición indicada por "turno" existe en el mapa
                     it->second.aumentar_angulo_arma();
                 }
                 break;
             }
             case (SDLK_DOWN):
             {
-                // turno tiene que ser el super_id o le envio al server
                 auto it = jugadores.find(turno);
                 if (it != jugadores.end())
                 {
-                    // El elemento en la posición indicada por "turno" existe en el mapa
                     it->second.disminuir_angulo_arma();
                 }
                 break;
@@ -179,8 +175,6 @@ bool Game::manejarEventos()
                 auto it = jugadores.find(turno);
                 if (it != jugadores.end())
                 {
-                    // si suelto o llego al maximo, disparo?
-                    // it->second.aumentar_potencia();
                     it->second.aumentar_potencia();
                     if (it->second.potencia_arma_es_maxima())
                     {
@@ -196,7 +190,6 @@ bool Game::manejarEventos()
                 auto it = jugadores.find(turno);
                 if (it != jugadores.end())
                 {
-                    // El elemento en la posición indicada por "turno" existe en el mapa
                     it->second.cambiar_timer_arma(1);
                 }
                 break;
@@ -206,7 +199,6 @@ bool Game::manejarEventos()
                 auto it = jugadores.find(turno);
                 if (it != jugadores.end())
                 {
-                    // El elemento en la posición indicada por "turno" existe en el mapa
                     it->second.cambiar_timer_arma(2);
                 }
                 break;
@@ -216,7 +208,6 @@ bool Game::manejarEventos()
                 auto it = jugadores.find(turno);
                 if (it != jugadores.end())
                 {
-                    // El elemento en la posición indicada por "turno" existe en el mapa
                     it->second.cambiar_timer_arma(3);
                 }
                 break;
@@ -226,7 +217,6 @@ bool Game::manejarEventos()
                 auto it = jugadores.find(turno);
                 if (it != jugadores.end())
                 {
-                    // El elemento en la posición indicada por "turno" existe en el mapa
                     it->second.cambiar_timer_arma(4);
                 }
                 break;
@@ -236,7 +226,6 @@ bool Game::manejarEventos()
                 auto it = jugadores.find(turno);
                 if (it != jugadores.end())
                 {
-                    // El elemento en la posición indicada por "turno" existe en el mapa
                     it->second.cambiar_timer_arma(5);
                 }
                 break;
@@ -244,8 +233,6 @@ bool Game::manejarEventos()
             default:
             {
                 // si llego aca, es una tecla que no uso
-                std::cout << "Tecla erronea"
-                          << "\n";
                 break;
             }
             }
@@ -254,18 +241,16 @@ bool Game::manejarEventos()
         {
             if (!permiso)
             {
-                continue; // Ignorar clics de ratón si no hay permiso
+                continue;
             }
 
             if (event.button.button == SDL_BUTTON_LEFT)
             {
                 int mouseX = event.button.x;
                 int mouseY = 200 - event.button.y;
-                std::cout << "Clic en la posición X: " << mouseX << ", Y: " << mouseY << std::endl;
                 auto it = jugadores.find(turno);
                 if (it != jugadores.end())
                 {
-                    // El elemento en la posición indicada por "turno" existe en el mapa
                     int arma = it->second.obtener_arma();
                     if ((arma == AIR_STRIKE or arma == TELEPORT))
                     {
@@ -276,20 +261,20 @@ bool Game::manejarEventos()
                 }
             }
         }
-        else if (event.type == SDL_KEYUP) //
-        {                                 // ver si es necesario setear el arma en 0 despues de disparar(por tema de sonido)
+        else if (event.type == SDL_KEYUP) 
+        {
             if (!permiso)
             {
                 continue;
             }
             if (event.key.keysym.sym == SDLK_SPACE)
             {
-                // deje de apretar espacio disparo si no es arma teledirigida
+        
                 auto it = jugadores.find(turno);
                 if (it != jugadores.end())
                 {
                     int arma = it->second.obtener_arma();
-                    if ((arma != AIR_STRIKE and arma != TELEPORT)) // si es arma con potencia o cuerpo a cuerpo
+                    if ((arma != AIR_STRIKE and arma != TELEPORT))
                     {
                         accion = it->second.usar_arma(it->second.posicion_x(), it->second.posicion_y());
                         cliente.mandar_accion(accion);
@@ -404,11 +389,6 @@ void Game::procesar_paquete(PaqueteDTO *paquete)
     int tamanio_paquete = static_cast<int>(objetos_paquete.size());
     int cantidad_misiles = static_cast<int>(objetos.size());
 
-    // std::set<int> jugadores_en_paquete;
-
-    // itero por los misiles(objetos_paquete) y me fijo si explosion es true.
-    // si lo es, creo un objeto explocion en la posicion del misil
-    // el objeto explocion, luego de renderizarse, se destruye
     for (auto &proyectil : objetos_paquete)
     {
         if (proyectil.exploto())
@@ -424,7 +404,6 @@ void Game::procesar_paquete(PaqueteDTO *paquete)
                 explosiones.push_back(explotion);
                 view.reproducir_sonido_explosion();
             }
-            // ver de hacer que haga un ruido especifico para cura y municion
         }
     }
 
@@ -481,9 +460,6 @@ void Game::cargar_arma(PaqueteDTO *paquete)
 
 void Game::renderizar()
 {
-    // Centra la vista en la posición actual del gusano
-    // view.centrarEnGusano(gusanoX, gusanoY);
-
     std::string time = "Tiempo restante: " + std::to_string((tiempo_restante_turno)) +
                        " Es mi turno: " + (permiso ? "Si" : "No");
 
@@ -494,7 +470,6 @@ void Game::renderizar()
         color = {0, 0, 0, 255};
     }
     view.renderizar_texto(time, 0, 0, color, 12);
-    // view.renderizar_gusano(0,0);
 
     if (jugadores.find(turno) != jugadores.end())
     {
@@ -502,23 +477,22 @@ void Game::renderizar()
     }
 
     for (VigaDTO viga : vigas)
-    { // para mostrar las vigas
+    {
         view.renderizar_viga(viga);
     }
 
     this->renderizar_misiles();
 
     for (auto const &[id, jugador] : jugadores)
-    { // para mostrar los jugadores
-
+    {
         view.renderizar_gusano(jugador);
     }
 
     for (Explotion &explotion : explosiones)
-    { // para mostrar las vigas
+    {
         view.renderizar_explocion(explotion);
     }
-    // chequeo si alguna termino y la borro
+    
     for (auto iter = explosiones.begin(); iter != explosiones.end();)
     {
         if (iter->finalizo())
@@ -540,7 +514,7 @@ void Game::renderizar_misiles()
 {
 
     for (ObjetoDTO misil : objetos)
-    { // para mostrar las vigas
+    {
         view.renderizar_misil(misil);
     }
 }
@@ -550,12 +524,11 @@ bool Game::endGameLoop()
 
     view.clear();
     view.renderizar_fondo_pantalla(fondo_pantalla);
-    for (VigaDTO viga : vigas) // ver si lo hago o no, es para que no quede el fondo solo
-    {                          // para mostrar las vigas
+    for (VigaDTO viga : vigas) 
+    {              
         view.renderizar_viga(viga);
     }
 
-    // sonidos de aplausos?
     view.renderizar_end_game(this->gane);
 
     view.mostrar();
@@ -564,7 +537,7 @@ bool Game::endGameLoop()
     {
         if (event.type == SDL_QUIT)
         {
-            return true; // Salir del juego sin necesidad de permiso
+            return true;
         }
     }
     return false;

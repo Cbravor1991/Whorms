@@ -12,7 +12,6 @@ private:
     Crosshair mira;
     int municion;
     int timer;
-    //int potencia;
     PowerBar potencia;
 public:
     explicit WormBanana(int ammo);

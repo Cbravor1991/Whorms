@@ -32,10 +32,10 @@ class TextureManager {
     void loadSounds();
 
     std::shared_ptr<SDL2pp::Texture> getTexture(std::string texture_path);
-    std::shared_ptr<SDL2pp::Texture> getBackground();//pasarlo a map si hay varios fondos distintos
+    std::shared_ptr<SDL2pp::Texture> getBackground();
     std::shared_ptr<SDL2pp::Texture> getBackgroundNight();
     std::shared_ptr<SDL2pp::Texture> getBackgroundSnow();
-    std::shared_ptr<SDL2pp::Music> getMusic();//pasarlo a map si hay varias canciones distintas
+    std::shared_ptr<SDL2pp::Music> getMusic();
     std::shared_ptr<SDL2pp::Chunk> getSound(std::string sound_path);
     std::shared_ptr<SDL2pp::Texture> getWater();  
 };

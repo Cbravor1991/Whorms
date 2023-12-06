@@ -5,7 +5,7 @@
 class WormAirstike : public WormWeapon
 {
 private:
-    int municion; // max=2
+    int municion;
 
 public:
     explicit WormAirstike(int ammo);

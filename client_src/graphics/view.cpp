@@ -7,12 +7,12 @@ GameView::GameView() : sdl(SDL_INIT_VIDEO | SDL_INIT_AUDIO), window("Worms", SDL
                        mixer(MIX_DEFAULT_FREQUENCY, 0x8010, 2, 4096),
                        canal_anterior(-1)
 {
-    tex_manager.loadTexture(this->renderer);    // carga las texturas de los sprites
-    tex_manager.loadBackground(this->renderer); // carga la texturas del fondo
+    tex_manager.loadTexture(this->renderer);   
+    tex_manager.loadBackground(this->renderer); 
     tex_manager.loadBackgroundNight(this->renderer);
     tex_manager.loadBackgroundSnow(this->renderer);
     tex_manager.loadWater(this->renderer);
-    tex_manager.loadMusic(); // carga una cancion
+    tex_manager.loadMusic();
     tex_manager.loadSounds();
 }
 
@@ -46,9 +46,9 @@ void GameView::renderizar_fondo_pantalla(int tipo_fondo)
     {
         background = tex_manager.getBackground();
     }
-    renderer.Copy(*background, NullOpt, Rect(0, 0, window.GetWidth(), window.GetHeight()));
+    renderer.Copy(*background, SDL2pp::NullOpt, SDL2pp::Rect(0, 0, window.GetWidth(), window.GetHeight()));
     std::shared_ptr<SDL2pp::Texture> water = tex_manager.getWater();
-    renderer.Copy(*water, NullOpt, Rect(0, 200, window.GetWidth(), window.GetHeight() - 100));
+    renderer.Copy(*water, SDL2pp::NullOpt, SDL2pp::Rect(0, 200, window.GetWidth(), window.GetHeight() - 100));
 }
 
 void GameView::renderizar_texto(std::string texto, int pos_x, int pos_y, SDL_Color color, int font_size)
@@ -60,11 +60,9 @@ void GameView::renderizar_texto(std::string texto, int pos_x, int pos_y, SDL_Col
     int textWidth = texto_sprite.GetWidth();
     int textHeight = texto_sprite.GetHeight();
 
-    // Ajustar la posición y tamaño del texto según el tamaño de la ventana
-    int adjustedPosX = pos_x; // Puedes ajustar esto según tus necesidades
-    int adjustedPosY = pos_y; // Puedes ajustar esto según tus necesidades
+    int adjustedPosX = pos_x; 
+    int adjustedPosY = pos_y; 
 
-    // Asegurarse de que el texto no se salga de la pantalla
     if (adjustedPosX + textWidth > window.GetWidth())
     {
         adjustedPosX = window.GetWidth() - textWidth;
@@ -79,40 +77,19 @@ void GameView::renderizar_texto(std::string texto, int pos_x, int pos_y, SDL_Col
                   SDL2pp::Rect(adjustedPosX, adjustedPosY, textWidth, textHeight));
 }
 
-void GameView::centrarEnGusano(int x, int y)
-{
-    // // Calcula la posición centrada de la vista basada en la posición del gusano
-    // int viewX = x - window.GetWidth() / 2;
-    // int viewY = y - window.GetHeight() / 2;
 
-    // // Asegúrate de que la vista no se salga del escenario (ajustar según tus necesidades)
-    // if (viewX < 0) viewX = 0;
-    // if (viewY < 0) viewY = 0;
-    // // Puedes ajustar estos límites según las dimensiones de tu escenario
-
-    // // Mueve la ventana a la posición centrada
-    // window.SetPosition(viewX, viewY);
-    // SDL2pp::Rect camera(0, 0, window.GetWidth(), window.GetHeight());
-    // camera.x = x;
-    // camera.y = 200-y;
-
-    // Luego, aplicas la cámara antes de renderizar
-    // renderer.SetViewport(camera);
-}
-
-// con el for agarra el jugador y se lo manda a render y renderiza
 void GameView::renderizar_gusano(JugadorDTO jugador)
 {
     std::string vida_string = std::to_string(jugador.obtener_vida());
     std::string texto = "Vida:" + vida_string;
     SDL_Color color = jugador.obtener_color();
     renderizar_texto(texto, jugador.posicion_x(), 200 - jugador.posicion_y(), color, 12);
-    jugador.renderizar(renderer, tex_manager); // paso renderer y text_manager
+    jugador.renderizar(renderer, tex_manager); 
 }
 
 void GameView::renderizar_viga(VigaDTO viga)
 {
-    viga.renderizar(renderer, tex_manager); // paso renderer y text_manager
+    viga.renderizar(renderer, tex_manager);
 }
 
 void GameView::reproducir_musica()
@@ -124,8 +101,6 @@ void GameView::reproducir_musica()
 
 void GameView::renderizar_misil(ObjetoDTO objeto)
 {
-
-    // Debo tener el arma el game
     objeto.renderizar(renderer, tex_manager);
 }
 
@@ -196,11 +171,11 @@ void GameView::renderizar_viento(VientoDTO &viento)
 
     this->renderer.Copy(
         *texture,
-        SDL2pp::Rect(0, 0, 195, 15),         // que parte del sprite queres que te cargue
-        SDL2pp::Rect(x + 3, y - 1, 195, 17), // la posicion en pantalla y el tamaño
-        0,                                   // don't rotate
-        SDL2pp::NullOpt,                     // rotation center - not needed
-        SDL_FLIP_NONE                        // vertical flip
+        SDL2pp::Rect(0, 0, 195, 15),        
+        SDL2pp::Rect(x + 3, y - 1, 195, 17), 
+        0,                                   
+        SDL2pp::NullOpt,                     
+        SDL_FLIP_NONE                        
     );
 
     int velocidad = viento.obtenerVelocidad();
@@ -210,7 +185,7 @@ void GameView::renderizar_viento(VientoDTO &viento)
     }
 
     bool direccion = viento.obtenerDireccion();
-    int ancho = (velocidad * 100) / VELOCIDAD_MAXIMA_VIENTO; // como mucho es 100 pixeles
+    int ancho = (velocidad * 100) / VELOCIDAD_MAXIMA_VIENTO; 
 
     if (ancho > 100)
     {
@@ -236,11 +211,11 @@ void GameView::renderizar_viento_derecha(int x, int y, int ancho)
 
     this->renderer.Copy(
         *texture,
-        SDL2pp::Rect(0, 0, src_x, 13),     // que parte del sprite queres que te cargue
-        SDL2pp::Rect(x + 1, y, src_x, 15), // la posicion en pantalla y el tamaño
-        0,                                 // don't rotate
-        SDL2pp::NullOpt,                   // rotation center - not needed
-        SDL_FLIP_NONE                      // vertical flip
+        SDL2pp::Rect(0, 0, src_x, 13),     
+        SDL2pp::Rect(x + 1, y, src_x, 15), 
+        0,                                 
+        SDL2pp::NullOpt,                   
+        SDL_FLIP_NONE                     
     );
 }
 
@@ -252,18 +227,17 @@ void GameView::renderizar_viento_izquierda(int x, int y, int ancho)
 
     this->renderer.Copy(
         *texture,
-        SDL2pp::Rect(0, 0, src_x, 13),         // que parte del sprite queres que te cargue
-        SDL2pp::Rect(x - src_x, y, src_x, 15), // la posicion en pantalla y el tamaño
-        0,                                     // don't rotate
-        SDL2pp::NullOpt,                       // rotation center - not needed
-        SDL_FLIP_NONE                          // vertical flip
+        SDL2pp::Rect(0, 0, src_x, 13),        
+        SDL2pp::Rect(x - src_x, y, src_x, 15), 
+        0,                                    
+        SDL2pp::NullOpt,                       
+        SDL_FLIP_NONE                         
     );
 }
 
 void GameView::renderizar_end_game(bool ganaste)
 {
 
-    // renderizo rectangulo negro
     std::string path = "/misc/box.png";
 
     int x = renderer.GetOutputWidth() / 2 - 150;
@@ -271,14 +245,13 @@ void GameView::renderizar_end_game(bool ganaste)
     std::shared_ptr<SDL2pp::Texture> texture = tex_manager.getTexture(path);
     this->renderer.Copy(
         *texture,
-        SDL2pp::Rect(0, 0, 195, 15),  // que parte del sprite queres que te cargue
-        SDL2pp::Rect(x, y, 300, 100), // la posicion en pantalla y el tamaño
-        0,                            // don't rotate
-        SDL2pp::NullOpt,              // rotation center - not needed
-        SDL_FLIP_NONE                 // vertical flip
+        SDL2pp::Rect(0, 0, 195, 15),  
+        SDL2pp::Rect(x, y, 300, 100), 
+        0,                            
+        SDL2pp::NullOpt,              
+        SDL_FLIP_NONE                 
     );
 
-    // renderizo el texto
     std::string resultado;
     SDL_Color color = {255, 255, 255, 255};
 
@@ -298,47 +271,6 @@ void GameView::renderizar_end_game(bool ganaste)
 
     this->renderizar_texto(resultado, pos_x, pos_y, color, 30);
 }
-
-// void GameView::renderizar_vida_por_equipos(std::map<int, JugadorDTO> &jugadores)
-// {
-
-//     //esto podria ser todo una clase, que vuelve a hacer este calculo cuando
-//     //llega algun paquete(el paquete de jugadores, no cualquier cosa desde el socket)
-//     //la cantidad de equipos la mantengo? -> cuando se crea, tengo todos los equipos?
-
-//     std::map<int, int> vida_por_equipo;
-//     std::map<int, SDL_Color> color_por_equipo;
-//     //hago mapa de colores?
-//     for (auto const &[id_gusano, jugador] : jugadores)
-//     {
-
-//         int id = jugador.obtenerIdCliente();
-//         int vida_jugador = jugador.obtener_vida();
-//         if(vida_por_equipo.find(id) == vida_por_equipo.end())
-//         {//no esta en el map
-//             vida_por_equipo.insert({id, 0});
-//             SDL_Color color = jugador.obtener_color();
-//             color_por_equipo.insert({id, color});
-//         }
-//         vida_por_equipo.at(id) += vida_jugador;
-//     }
-
-//     int pos_x = 10;
-//     int pos_y = renderer.GetOutputHeight() / 2 + 100;
-//     //para renderizar, tambien obtengo el color del jugador
-//     // asi le pongo del color que corresponde la vida
-//     std::string texto = "Jugadores";
-//     SDL_Color color_texto = {255, 255, 255, 255};
-//     this->renderizar_texto(texto, pos_x, pos_y, color_texto, 14);
-//     //Jugador <id> : >vida>
-//     for (auto const &[id, vida] : vida_por_equipo)
-//     {
-//         std::string vida_jugador = "Jugador " + std::to_string(id) + ": " + std::to_string(vida);
-//         SDL_Color color = color_por_equipo.at(id);
-//         this->renderizar_texto(vida_jugador, pos_x, pos_y + id*14, color, 12);
-
-//     }
-// }
 
 void GameView::renderizar_vida_por_equipos(TeamHealth &team_health)
 {

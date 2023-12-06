@@ -13,11 +13,11 @@ void WormTeleport::render(SDL2pp::Renderer &renderer, TextureManager &tex_manage
 
     renderer.Copy(
         *texture,
-        SDL2pp::Rect(src_x, src_y, 60, 60), // que parte del sprite queres que te cargue
-        SDL2pp::Rect(x, 200 - y, 50, 50),   // la posicion en pantalla y el tamaño
-        -angulo,                            // rotation
-        SDL2pp::NullOpt,                    // rotation center - not needed
-        flip                                // flip
+        SDL2pp::Rect(src_x, src_y, 60, 60), 
+        SDL2pp::Rect(x, 200 - y, 50, 50),  
+        -angulo,                           
+        SDL2pp::NullOpt,                   
+        flip                                
     );
 }
 
@@ -52,7 +52,7 @@ int WormTeleport::getTimer()
 void WormTeleport::increasePower() {}
 
 bool WormTeleport::isMaxPower() 
-{//como no tiene potencia, nunca llega a MAXIMA_POTENCIA
+{
     return false;
 }
 

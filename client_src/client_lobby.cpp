@@ -22,7 +22,7 @@ int Lobby::enviar_escenario(int escenario, std::string &nombre_mapa)
     protocolo.enviar_modo(1);
     protocolo.enviar_escenario(escenario);
     protocolo.enviar_nombre_mapa(nombre_mapa);
-    return protocolo.recibir_tipo_fondo(); // cambiar nombre funcion
+    return protocolo.recibir_tipo_fondo();
 }
 
 bool Lobby::modo_partida()

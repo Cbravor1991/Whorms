@@ -68,40 +68,18 @@ void GameView::renderizar_texto(std::string texto, int pos_x, int pos_y, SDL_Col
 
 }
 
-void GameView::centrarEnGusano(int x, int y)
-{
-    // // Calcula la posición centrada de la vista basada en la posición del gusano
-    // int viewX = x - window.GetWidth() / 2;
-    // int viewY = y - window.GetHeight() / 2;
-
-    // // Asegúrate de que la vista no se salga del escenario (ajustar según tus necesidades)
-    // if (viewX < 0) viewX = 0;
-    // if (viewY < 0) viewY = 0;
-    // // Puedes ajustar estos límites según las dimensiones de tu escenario
-
-    // // Mueve la ventana a la posición centrada
-    // window.SetPosition(viewX, viewY);
-    //SDL2pp::Rect camera(0, 0, window.GetWidth(), window.GetHeight());
-    //camera.x = x;
-    //camera.y = 200-y;
-
-    // Luego, aplicas la cámara antes de renderizar
-    //renderer.SetViewport(camera);
-}
-
-// con el for agarra el jugador y se lo manda a render y renderiza
 void GameView::renderizar_gusano(JugadorDTO jugador)
 {
     std::string vida_string = std::to_string(jugador.obtener_vida());
     std::string texto = "Vida:" + vida_string;
     SDL_Color color = jugador.obtener_color();
     renderizar_texto(texto, jugador.posicion_x(), 200-jugador.posicion_y(), color);
-    jugador.renderizar(renderer, tex_manager);//paso renderer y text_manager
+    jugador.renderizar(renderer, tex_manager);
 }
 
 void GameView::renderizar_viga(VigaDTO viga)
 {
-    viga.renderizar(renderer, tex_manager);//paso renderer y text_manager
+    viga.renderizar(renderer, tex_manager);
    
 }
 
@@ -114,8 +92,6 @@ void GameView::reproducir_musica()
 
 void GameView::renderizar_misil(ObjetoDTO objeto){
 
-
-    // Debo tener el arma el game
     objeto.renderizar(renderer, tex_manager);
 
 }

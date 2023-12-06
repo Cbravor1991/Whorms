@@ -16,8 +16,6 @@ int main(int argc, char *argv[])
          w.show();
         app.exec();
 
-        //Editor editor;
-        //editor.crear_mapa("dia", "nuevo_mapa");
         return 0;
     }
     catch (const std::exception &e)

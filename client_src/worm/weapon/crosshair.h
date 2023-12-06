@@ -12,8 +12,6 @@ class Crosshair
 private:
     int radius; // radio de la mira(circulo donde se mueve)
     int angle;  // angulo de la mira
-
-    // animacion como la de walk
     int total_frames;
     int animation_frame;
     std::vector<int> animation;

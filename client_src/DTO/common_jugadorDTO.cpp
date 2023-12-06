@@ -120,7 +120,6 @@ SDL_Color JugadorDTO::obtener_color() const
 void JugadorDTO::cargar_armas(int arma, int ammo)
 {
     this->arma = arma;
-    // actualmente, solo estan implementadas Airstrike y Teleport
     if (arma == AIR_STRIKE)
         this->weapon.reset(new WormAirstike(ammo));
     else if (arma == TELEPORT)
@@ -143,8 +142,6 @@ void JugadorDTO::cargar_armas(int arma, int ammo)
         this->weapon.reset(new WormBanana(ammo));
     else
         this->weapon.reset(new WormNoWeapon(ammo));
-
-    // std::cout << "Soy jugador " << id << " con arma: " << arma << std::endl;
 }
 
 Action *JugadorDTO::usar_arma(int x, int y)

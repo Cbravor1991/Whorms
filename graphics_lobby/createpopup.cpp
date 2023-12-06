@@ -63,11 +63,6 @@ void createPopUp::on_createButton_clicked()
 
     if (partida_creada)
     {
-        /*ACA OBTENGO EL NOMBRE DEL MAPA QUE LUEGO VOY A ENVIAR POR PROTOCOLO*/
-        // si necesitas el path cpn yaml
-
-        // si no necesitas el path con yaml
-        // std::cout<<"EL NOMBRE DEL MAPA ES: "<< ui->scenarios->currentText().toStdString()
         std::string nombre_mapa = ui->scenarios->currentText().toStdString();
 
         int codigo_creado = lobby->enviar_escenario(0, nombre_mapa);

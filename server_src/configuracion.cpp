@@ -22,7 +22,6 @@ Configuracion::Configuracion(const YAML::Node& node) :
     radio_mortero(node["armas"]["mortero"]["radio"].as<int>()),
     radio_fragmento_mortero(node["armas"]["mortero"]["radio_fragmento"].as<int>()),
     cant_fragmentos_mortero(node["armas"]["mortero"]["cant_fragmentos"].as<int>()),
-    //municiones_granada_verde(node["armas"]["granada_verde"]["municiones"].as<int>()),
     danio_granada_verde(node["armas"]["granada_verde"]["daño"].as<int>()),
     radio_granada_verde(node["armas"]["granada_verde"]["radio"].as<int>()),
     municiones_granada_santa(node["armas"]["granada_santa"]["municiones"].as<int>()),
@@ -106,9 +105,6 @@ int Configuracion::getCantFragmentosMortero() const {
     return cant_fragmentos_mortero;
 }
 
-// int Configuracion::getMunicionesGranadaVerde() const {
-//     return municiones_granada_verde;
-// }
 
 int Configuracion::getDanioGranadaVerde() const {
     return danio_granada_verde;

@@ -64,10 +64,6 @@ void TextureManager::loadSounds() {
         this->sonidos[sound] = std::make_shared<SDL2pp::Chunk>(std::move(sonido));
     }
 
-    // SDL2pp::Chunk sonido(DATA_PATH "/sonidos/worms_music.mp3");
-    // this->sonido = std::make_shared<SDL2pp::Chunk>(std::move(sonido));
- 
-
 }
 
 std::shared_ptr<SDL2pp::Chunk> TextureManager::getSound(std::string sound_path) {

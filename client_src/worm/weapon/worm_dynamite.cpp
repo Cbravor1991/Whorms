@@ -11,18 +11,17 @@ void WormDynamite::render(SDL2pp::Renderer &renderer, TextureManager &tex_manage
 
     renderer.Copy(
         *texture,
-        SDL2pp::Rect(src_x, src_y, 60, 60), // que parte del sprite queres que te cargue
-        SDL2pp::Rect(x, 200 - y, 50, 50),   // la posicion en pantalla y el tamaño
-        -angulo,                            // rotation
-        SDL2pp::NullOpt,                    // rotation center - not needed
-        flip                                // flip
+        SDL2pp::Rect(src_x, src_y, 60, 60), 
+        SDL2pp::Rect(x, 200 - y, 50, 50),  
+        -angulo,                           
+        SDL2pp::NullOpt,                    
+        flip                                
     );
 }
 
 Action *WormDynamite::usar(int x, int y, bool direccion)
-{//aca hace falta cambiarlo? -> hay que enviar timer, pero no el angulo
+{
     Action *accion = new TimedShoot(direccion, timer);
-    //Action *accion = new Position(x, y);//hace falta la posicion? deberia ser como el bate, pero con timer y sin angulo
     return accion;
 }
 
@@ -54,7 +53,7 @@ int WormDynamite::getTimer()
 void WormDynamite::increasePower() {}
 
 bool WormDynamite::isMaxPower() 
-{//como no tiene potencia, nunca llega a MAXIMA_POTENCIA
+{
     return false;
 }
 

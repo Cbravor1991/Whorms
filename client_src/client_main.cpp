@@ -2,8 +2,6 @@
 #include <string>
 #include <iostream>
 #include <exception>
-// #include "client.h"
-#//include "./game.h"
 #include <QApplication>
 #include "./client_lobby.h"
 #include "../graphics_lobby/mainwindow.h"

@@ -6,8 +6,6 @@
 #include <netinet/in.h>
 #include <fstream>
 #include "client_sender.h"
-// #include "common_liberror.h"
-
 ClienteLanzador::ClienteLanzador(
     ProtocoloCliente &protocolo, Queue<Action*> &queue_sender, Queue<StateGame *> &queue_receiver) : protocolo(protocolo), queue_sender(queue_sender), queue_receiver(queue_receiver), cliente_recibidor(protocolo, queue_receiver)
 {

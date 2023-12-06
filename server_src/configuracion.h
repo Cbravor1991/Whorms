@@ -25,7 +25,6 @@ private:
     int radio_fragmento_mortero;
     int cant_fragmentos_mortero;
 
-    //int municiones_granada_verde;
     int danio_granada_verde;
     int radio_granada_verde;
 
@@ -83,7 +82,6 @@ public:
     int getRadioFragmentoMortero() const;
     int getCantFragmentosMortero() const;
 
-    //int getMunicionesGranadaVerde() const;
     int getDanioGranadaVerde() const;
     int getRadioGranadaVerde() const;
 

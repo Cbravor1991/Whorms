@@ -21,7 +21,7 @@ void Partida::detener_partida()
 void Partida::run()
 {
 
-    monitor_jugadores->comenzar_juego(cola, tipo_fondo); // meter tipo_fondo
+    monitor_jugadores->comenzar_juego(cola, tipo_fondo);
     escenario.agregar_jugadores();
     std::chrono::time_point<std::chrono::steady_clock> ultimo_cambio_de_turno = std::chrono::steady_clock::now();
     int ultimo_numero_notificado = 0; // Comenzar en 31 para iniciar con 30 segundos

@@ -3,7 +3,7 @@
 
 #include "../../graphics/texture_manager.h"
 #include "../../actions/action.h"
-#include "../../actions/shoot.h"//para el bate
+#include "../../actions/shoot.h"
 #include "../../actions/position.h"
 #include "../../actions/shoot_power_timer.h"
 #include "../../actions/shoot_power.h"
@@ -27,8 +27,6 @@ const int INFINITE_AMMO = -1;
 
 class WormWeapon
 {
-    // std::shared_ptr<SDL2pp::Texture> texture;
-
 public:
     WormWeapon(){};
     WormWeapon(int ammo){};

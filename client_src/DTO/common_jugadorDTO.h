@@ -11,8 +11,6 @@
 
 #include <SDL2pp/SDL2pp.hh>
 #include "../graphics/texture_manager.h"
-// #include "../weapons/weapon.h"
-// #include "../weapons/common_ataque_aereo.h"
 #include "../worm/worm_status.h"
 #include "../worm/worm_walk.h"
 #include "../worm/worm_idle.h"
@@ -40,7 +38,7 @@ private:
     int y;
     bool direccion;
     int angulo;
-    int run_phase = 0; // run animation phase
+    int run_phase = 0; 
     int arma;
     std::shared_ptr<WormWeapon> weapon;
     int vida;

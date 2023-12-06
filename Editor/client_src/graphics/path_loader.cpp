@@ -33,14 +33,10 @@ void PathLoader::loadSpritePath() {
 }
 
 void PathLoader::loadBackgroundPath() {
-    //para varios fondos o elementos para hacer el fondo, transformar en vector
-    //a background_path y usar un map(como el de los sprites, en texture_manager)
     background_path = "/sprites/escenario.png";
 }
 
 void PathLoader::loadMusicPath() {
-    //para varias canciones, transformar en vector a music_path
-    // y usar un map(como el de los sprites, en texture_manager)
     music_path = "/sonidos/worms_music.mp3";
 }
 

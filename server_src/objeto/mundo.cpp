@@ -13,7 +13,6 @@ Mundo::Mundo(b2Vec2 gravity) : world(gravity)
 Mundo::~Mundo()
 {
     // Limpiar el vector de objetos
-    // std::cout << objetos.size() << std::endl;
     for (Objeto *objeto : objetos)
     {
         delete objeto;

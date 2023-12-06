@@ -8,7 +8,6 @@ TurnoDTO::TurnoDTO(int id, bool permiso, int gusano_id) : id(id), permiso(permis
 void TurnoDTO::cambiar_render(bool &permiso)
 {
     permiso = this->permiso;
-    std::cout << "Cambio turno a: " << id << std::endl;
 }
 
 int TurnoDTO::obtenerIdTurno()

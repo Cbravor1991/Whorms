@@ -25,11 +25,11 @@ void WormWalk::render(SDL2pp::Renderer& renderer, TextureManager& tex_manager, i
     
     renderer.Copy(
         *texture,
-        SDL2pp::Rect(src_x, src_y, 60, 60), // que parte del sprite queres que te cargue
-        SDL2pp::Rect(x, 200 - y, 50, 50),   // la posicion en pantalla y el tamaño
-        -angulo,                            // don't rotate
-        SDL2pp::NullOpt,                    // rotation center - not needed
-        flip                                // vertical flip
+        SDL2pp::Rect(src_x, src_y, 60, 60), 
+        SDL2pp::Rect(x, 200 - y, 50, 50),   
+        -angulo,                            
+        SDL2pp::NullOpt,                    
+        flip                                
     );
     
 }
@@ -46,7 +46,7 @@ void WormWalk::reset_animation() {
 void WormWalk::update_animation() {
 
     this->animation_frame++;
-    if(animation_frame > (total_frames * CHANGE_ANIMATION)) {//esto es porque renderiza cada 6 veces
+    if(animation_frame > (total_frames * CHANGE_ANIMATION)) {
         this->reset_animation();
     }
 }

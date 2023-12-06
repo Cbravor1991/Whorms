@@ -19,7 +19,7 @@ void TeamHealth::actualizar(std::map<int, JugadorDTO> &jugadores)
 
         if(color_por_equipo.find(id) == color_por_equipo.end())
         {
-            SDL_Color color = jugador.obtener_color();//ver de que solo lo haga 1 vez? por tema rendimiento
+            SDL_Color color = jugador.obtener_color();
             color_por_equipo.insert({id, color});
         }
         

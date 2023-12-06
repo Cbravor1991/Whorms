@@ -73,7 +73,6 @@ void JoinPopUp::on_joinButton_clicked()
             {
             }
         }
-        // std::cout << "EL nombre de la partida es: " << nombre_partida << '\n';
     }
     else
     {

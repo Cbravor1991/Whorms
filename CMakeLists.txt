@@ -104,7 +104,6 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/libs/box2d-2.4.0 ${CMAKE_SOURCE_DIR}/build/
                 ./client_src/client.cpp 
                 ./client_src/game.cpp
                 ./client_src/graphics/view.cpp
-                ./client_src/graphics/whorms.cpp
                 ./client_src/graphics/path_loader.cpp
                 ./client_src/graphics/texture_manager.cpp
                 ./client_src/graphics/explotion.cpp

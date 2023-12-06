@@ -10,7 +10,6 @@ class WormMortar : public WormWeapon
 private:
     Crosshair mira;
     int municion;
-    //int potencia;
     PowerBar potencia;
 public:
     explicit WormMortar(int ammo);

@@ -15,7 +15,6 @@ void TurnoGusano::cambiar_turno()
     }
 
     turno_actual = (turno_actual + 1) % gusanos.size();
-    std::cout << "TurnoGusano cambiado al jugador con ID " << turno_actual << std::endl;
 }
 
 void TurnoGusano::agregar_gusano(Gusano *gusano)

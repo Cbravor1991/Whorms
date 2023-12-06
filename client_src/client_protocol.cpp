@@ -227,7 +227,7 @@ ObjetoDTO ProtocoloCliente::recibir_objeto()
     bool direccion = static_cast<bool>(recibir_int());
     int angulo = recibir_int_grande();
     bool explosion = (recibir_byte() != 0);
-    ObjetoDTO objeto(tipo, x, y, direccion, angulo, explosion); //-45
+    ObjetoDTO objeto(tipo, x, y, direccion, angulo, explosion);
     return objeto;
 }
 
@@ -262,7 +262,7 @@ VigaDTO ProtocoloCliente::recibir_viga()
     int x = recibir_int_grande();
     int y = recibir_int_grande();
     int angulo = recibir_int();
-    VigaDTO viga(tipo, x, y, angulo - 45); //
+    VigaDTO viga(tipo, x, y, angulo - 45);
     return viga;
 }
 
@@ -354,7 +354,6 @@ StateGame *ProtocoloCliente::procesar_mensaje(const int &id_jugador)
             estado = recibir_arma();
         }
         break;
-        // case TIPO_PAQUETE_OBJETOS:if (conectado) {estado = recibir_paquete();estado->type = TIPO_PAQUETE_OBJ;}break;
     case TIPO_VIENTO:
         if (conectado)
         {

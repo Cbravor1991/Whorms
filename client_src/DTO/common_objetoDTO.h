@@ -9,8 +9,6 @@
 #include <SDL2pp/SDL2pp.hh>
 #include "../graphics/texture_manager.h"
 #include "../worm/weapon/worm_weapon.h"
-// #include "../weapons/weapon.h"
-// #include "../weapons/common_ataque_aereo.h"
 
 class ObjetoDTO
 {
@@ -20,8 +18,8 @@ private:
     int y;
     bool direccion;
     int angulo;
-    bool is_running = true;   // whether the character is currently running
-    int run_phase = 0; // run animation phase
+    bool is_running = true;  
+    int run_phase = 0;
     int tipo;
     bool explosion;
 

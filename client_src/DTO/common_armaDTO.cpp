@@ -16,7 +16,6 @@ void ArmaDTO::cargar(std::map<int, JugadorDTO> &jugadores)
 
     if (it != jugadores.end())
     {
-        // Si el jugador existe, carga el arma al jugador
         it->second.cargar_armas(arma, ammo);
     }
     else
